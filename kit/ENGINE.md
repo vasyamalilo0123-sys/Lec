@@ -227,7 +227,7 @@ module.exports = {synthesize, buildAudio, measure}
 - Кожна частина зі `scene.json` → `parts` — група `<g id="…">`; групи-сусіди на одному рівні.
 - Точки прив'язки підписів і початків росту — `<circle id="…" r="0">`.
 - Траєкторії руху — `<path id="…" fill="none" stroke="none">`.
-- До 30 КБ, координати з одним знаком після коми.
+- До 30 КБ (поле `artLimitKB` у `lecture.json` змінює межу), координати з одним знаком після коми.
 
 ## 8. `facts.json`
 

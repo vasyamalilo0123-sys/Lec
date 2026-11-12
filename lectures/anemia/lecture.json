@@ -207,5 +207,6 @@
     "AABB": "а-а-бе-бе"
   },
   "credits": true,
-  "layout": "center"
+  "layout": "center",
+  "artLimitKB": 64
 }

@@ -70,7 +70,7 @@ function load() {
     if (needArt && !svg) E('є частини чи підписи, але немає art.svg');
     if (svg) {
       if (!/<svg[^>]*\sviewBox=/.test(svg)) E('art.svg: немає viewBox'); if (/<svg[^>]*\s(width|height)=/.test(svg.match(/<svg[^>]*>/)[0])) E('art.svg: кореневий svg не повинен мати width/height');
-      if (Buffer.byteLength(svg) > 30 * 1024) E(`art.svg більший за 30 КБ (${Math.round(Buffer.byteLength(svg) / 1024)} КБ)`);
+      const artKB = lj.artLimitKB || 30; if (Buffer.byteLength(svg) > artKB * 1024) E(`art.svg більший за ${artKB} КБ (${Math.round(Buffer.byteLength(svg) / 1024)} КБ)`);
       if (/<(linearGradient|radialGradient)|feGaussianBlur|(xlink:)?href\s*=\s*["']https?:/i.test(svg)) E('art.svg: градієнти, розмиття й зовнішні посилання заборонені');
       for (const p of parts) if (!hasId(svg, p)) E(`art.svg: немає групи #${p}`);
     }
