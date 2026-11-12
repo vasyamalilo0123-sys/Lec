@@ -1,9 +1,9 @@
 {
   "art": {
-    "x": 960,
-    "y": 60,
-    "w": 865,
-    "h": 1000
+    "x": 990,
+    "y": 40,
+    "w": 831,
+    "h": 960
   },
   "parts": [
     "axis_h",
@@ -91,7 +91,10 @@
       "at": "n4",
       "dur": 0.7,
       "set": {
-        "alt": "grey"
+        "alt": "hidden",
+        "pill_daily": "hidden",
+        "axis_h": "hidden",
+        "hep_curve": "hidden"
       }
     },
     {
@@ -139,8 +142,8 @@
       "id": "pill",
       "text": "Сульфат заліза<br>200 мг",
       "anchor": "a-pill-daily",
-      "x": 1480,
-      "y": 400,
+      "x": 1489,
+      "y": 366,
       "align": "left",
       "in": "@one+0.3",
       "out": "@alt",
@@ -151,8 +154,8 @@
       "id": "hep",
       "text": "Гепцидин тримається ≈ добу",
       "anchor": "a-hep",
-      "x": 1239,
-      "y": 62,
+      "x": 1258,
+      "y": 42,
       "align": "center",
       "in": "@hep+1.2",
       "out": "@alt",
@@ -162,8 +165,8 @@
       "id": "alt",
       "text": "Через день",
       "anchor": "a-alt",
-      "x": 1130,
-      "y": 450,
+      "x": 1153,
+      "y": 414,
       "align": "left",
       "in": "@alt+0.3",
       "out": "n4",
@@ -173,8 +176,8 @@
       "id": "check",
       "text": "Контроль ≈ 4 тижні",
       "anchor": "a-check",
-      "x": 1260,
-      "y": 840,
+      "x": 1278,
+      "y": 788,
       "align": "left",
       "in": "@hb+1.5",
       "out": "@st",
@@ -184,8 +187,8 @@
       "id": "store",
       "text": "Ще ≈ 3 місяці",
       "anchor": "a-store",
-      "x": 1484,
-      "y": 540,
+      "x": 1493,
+      "y": 501,
       "align": "center",
       "in": "@st+0.5",
       "out": "n5.end",
