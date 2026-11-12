@@ -102,9 +102,13 @@ function load() {
     addScene(id, ci, sc, readIf(path.join(sd, 'art.svg')).replace(/<\?xml[^>]*\?>/, ''), readIf(path.join(sd, 'style.css')));
   }));
   if (lj.credits && lj.sources && lj.sources.length) {
-    const n = lj.sources.length;
-    addScene('99-credits', chapters.length, { kicker: false, lead: .5, tail: .8, duration: 1.3 + Math.max(3, 1 + 1.2 * n),
-      texts: [{ id: 'cr-title', kind: 'title', html: 'Джерела', y: 140, in: .3 }, ...lj.sources.map((s, i) => ({ id: 'cr-' + s.id, kind: 'note', html: esc(s.text), y: 330 + i * 50, in: .3 + .15 * i }))] }, '', '');
+    // Титри: рядок до 85 символів (2 рядки, далі «…»), сторінки по висоті 330…1000 px, кожна сторінка ≥3 с
+    const wrap = t => { const L = []; let r = t; while (r && L.length < 2) { if (r.length <= 85) { L.push(r); r = ''; break; } let k = r.lastIndexOf(' ', 85); if (k < 40) k = 85; L.push(r.slice(0, k).trim()); r = r.slice(k).trim(); } if (r) L[1] = L[1].slice(0, 84).replace(/[\s,;.]+$/, '') + '…'; return L; };
+    const pages = []; let cur = null;
+    lj.sources.forEach(s => { const ls = wrap(s.text), h = ls.length * 36 + 14; if (!cur || cur.h + h > 670) pages.push(cur = { h: 0, items: [] }); cur.items.push({ s, ls, y: 330 + cur.h }); cur.h += h; });
+    let t0 = 1.3; const texts = [{ id: 'cr-title', kind: 'title', html: 'Джерела', y: 140, in: .3 }];
+    pages.forEach((p, pi) => { const d = Math.max(3, 1.5 + 1.2 * p.items.length), last = pi === pages.length - 1; p.items.forEach((it, i) => texts.push({ id: 'cr-' + it.s.id, kind: 'note', html: it.ls.map(esc).join('<br>'), y: it.y, in: pi ? t0 - 1.3 + .3 + .15 * i : .3 + .15 * i, out: last ? null : t0 - 1.3 + d - .2 })); t0 += d; });
+    addScene('99-credits', chapters.length, { kicker: false, lead: .5, tail: .8, duration: t0, texts }, '', '');
     chapters.push({ title: 'Джерела', scenes: ['99-credits'] });
   }
   const total = start, slug = path.basename(dir);
