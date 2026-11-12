@@ -1,0 +1,117 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:U;src:url(fonts/unbounded-600.ttf)}
+@font-face{font-family:O;font-weight:500;src:url(fonts/onest-500.ttf)}
+@font-face{font-family:O;font-weight:400;src:url(fonts/onest-400.ttf)}
+html,body{margin:0;background:#000}canvas{display:block}
+</style>
+<canvas id="out" width="1920" height="1080"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const W=1920,H=1080;
+const out=document.getElementById('out'),g=out.getContext('2d');
+const R=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});R.setPixelRatio(1);R.setSize(W,H);
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.0;R.outputColorSpace=THREE.SRGBColorSpace;R.sortObjects=true;
+const sc=new THREE.Scene();sc.background=new THREE.Color(0);
+sc.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),.04).texture;sc.environmentIntensity=.3;
+const cam=new THREE.PerspectiveCamera(26,W/H,.01,20);
+const key=new THREE.DirectionalLight(0xfff1e6,3.0);sc.add(key);sc.add(key.target);
+const rim=new THREE.DirectionalLight(0x9fc4ff,2.2);sc.add(rim);sc.add(rim.target);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),seg=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,lerp=(a,b,e)=>a+(b-a)*e;
+const INK='#f1ebe8',DIM='#8f8683';
+const HUE={lad:0xe23b2e,lcx:0xe8a23a,rca:0x35b7b0},RED=0xb5261f;
+const KIND={1629:'lca',1630:'lad',1631:'lad',1632:'lcx',1633:'rca',1634:'rca',1635:'atr',1636:'myo',1638:'atr',1639:'myo',1652:'pa',1663:'pa',1664:'pa',1665:'pa',
+ 1717:'aorta',1752:'aorta',2073:'vein',2075:'vein',2076:'vein',2077:'vein',2078:'vein',2079:'pv',2083:'pv',2089:'pv',2093:'pv',2176:'vein',2282:'vein'};
+const BASE={myo:0x8c3a30,atr:0x8a4038,aorta:0xa8463a,pa:0x3f5fa8,pv:0xa8463a,vein:0x34508f,lca:RED,lad:RED,lcx:RED,rca:RED};
+const mats={};
+for(const k in BASE){const art=['lca','lad','lcx','rca'].includes(k);
+  mats[k]=new THREE.MeshPhysicalMaterial({color:BASE[k],roughness:art?.32:.44,clearcoat:.4,clearcoatRoughness:.3,sheen:.35,sheenColor:new THREE.Color(0xffb0a0),sheenRoughness:.5,
+    side:art?THREE.DoubleSide:THREE.FrontSide,transparent:!art});}
+const files=['arterial_system','systemic_arteries','right_subclavian_artery--pulmonary_veins','systemic_veins.2','superior_vena_cava'];
+const L=new GLTFLoader();L.setMeshoptDecoder(MeshoptDecoder);
+const grp=new THREE.Group();sc.add(grp);const byGid={};
+for(const f of files){const gl=await L.loadAsync('data/standard/cardiovascular/'+f+'.glb');gl.scene.updateMatrixWorld(true);
+  gl.scene.traverse(o=>{if(!o.isMesh)return;const geo=o.geometry,id=geo.getAttribute('_id'),idx=geo.index.array,src=geo.getAttribute('position'),by={};
+    for(let i=0;i<idx.length;i+=3){const k=id.getX(idx[i]);if(KIND[k])(by[k]||(by[k]=[])).push(idx[i],idx[i+1],idx[i+2])}
+    for(const k in by){const map=new Map(),pos=[],ni=[];
+      for(const i of by[k]){let j=map.get(i);if(j===undefined){j=pos.length/3;map.set(i,j);pos.push(src.getX(i),src.getY(i),src.getZ(i))}ni.push(j)}
+      const ng=new THREE.BufferGeometry();ng.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));ng.setIndex(ni);ng.applyMatrix4(o.matrixWorld);ng.computeVertexNormals();
+      const kind=KIND[k],m=new THREE.Mesh(ng,mats[kind]);m.userData.kind=kind;m.renderOrder=['lca','lad','lcx','rca'].includes(kind)?0:1;grp.add(m);byGid[k]=m}});}
+const box=new THREE.Box3();[1635,1636,1638,1639].forEach(k=>box.expandByObject(byGid[k]));
+const C=box.getCenter(new THREE.Vector3());C.y+=.02;
+function anchor(gid,bias){const p=byGid[gid].geometry.getAttribute('position'),c=new THREE.Vector3(),v=new THREE.Vector3();
+  for(let i=0;i<p.count;i++)c.add(v.fromBufferAttribute(p,i));c.divideScalar(p.count);if(bias)c.add(bias);
+  let best=null,bd=1e9;for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const d=v.distanceTo(c);if(d<bd){bd=d;best=v.clone()}}return best}
+const LAB=[
+ {k:'lca',a:anchor(1629),uk:'Ліва вінцева артерія',la:'a. coronaria sinistra',t:6.6},
+ {k:'rca',a:anchor(1633,new THREE.Vector3(0,.01,.03)),uk:'Права вінцева артерія',la:'a. coronaria dextra',t:7.9},
+ {k:'lad',a:anchor(1630),uk:'Передня міжшлуночкова гілка',la:'r. interventricularis anterior',t:9.2},
+ {k:'lcx',a:anchor(1632,new THREE.Vector3(.02,0,.02)),uk:'Огинальна гілка',la:'r. circumflexus',t:10.5}];
+await document.fonts.load('600 40px U');await document.fonts.load('500 40px O');await document.fonts.load('400 40px O');
+
+function txt(s,x,y,font,color,a,align){if(a<=0)return;g.save();g.globalAlpha=a;g.fillStyle=color;g.font=font;g.textAlign=align||'left';g.textBaseline='middle';g.fillText(s,x,y);g.restore()}
+function wrap(s,x,y,font,color,a,maxW,lh){if(a<=0)return;g.save();g.font=font;const ws=s.split(' ');let line='',yy=y;g.restore();
+  for(const w of ws){g.save();g.font=font;const tw=g.measureText(line+w).width;g.restore();if(tw>maxW&&line){txt(line.trim(),x,yy,font,color,a);line='';yy+=lh}line+=w+' '}
+  txt(line.trim(),x,yy,font,color,a)}
+function line(pts,color,w,a,prog){if(a<=0||prog<=0)return;let tot=0;const d=[];for(let i=1;i<pts.length;i++){const l=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);d.push(l);tot+=l}
+  let rem=tot*prog;g.save();g.globalAlpha=a;g.strokeStyle=color;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length&&rem>0;i++){const e=Math.min(1,rem/d[i-1]);g.lineTo(lerp(pts[i-1][0],pts[i][0],e),lerp(pts[i-1][1],pts[i][1],e));rem-=d[i-1]}g.stroke();g.restore()}
+const hex=n=>'#'+n.toString(16).padStart(6,'0');
+const col=(m,a,b,e)=>m.color.setHex(a).lerp(new THREE.Color(b),e);
+
+window.renderAt=function(t){
+  /* камера */
+  const shift=ease(seg(t,17,19.2));
+  const az=lerp(-.38,.42,ease(seg(t,0,17)))+.1*shift,d=lerp(lerp(.70,.60,ease(seg(t,0,6))),.68,shift);
+  cam.position.set(C.x+Math.sin(az)*d,C.y+.05,C.z+Math.cos(az)*d);cam.lookAt(C);
+  cam.setViewOffset(W,H,lerp(-360,470,shift),0,W,H);cam.updateMatrixWorld();
+  key.position.copy(cam.position).add(new THREE.Vector3(-.5,.7,.3));key.target.position.copy(C);
+  rim.position.set(C.x+1.6,C.y+.5,C.z-1.8);rim.target.position.copy(C);
+  /* матеріали */
+  const ghost=ease(seg(t,4.6,6.4));
+  for(const k of ['myo','atr','aorta','pa','pv']){const m=mats[k];m.opacity=lerp(1,.10,ghost);m.depthWrite=ghost<.5;m.color.setHex(BASE[k]).lerp(new THREE.Color(0x6b6461),ghost);m.clearcoat=lerp(.4,0,ghost)}
+  mats.vein.opacity=1-ghost;mats.vein.depthWrite=ghost<.5;grp.children.forEach(m=>{if(m.userData.kind==='vein')m.visible=ghost<.99});
+  const focus=ease(seg(t,12,13))*(1-ease(seg(t,16.6,17.4))),hue=ease(seg(t,17.4,19));
+  const DIMC=0x4a2623;
+  col(mats.lad,RED,HUE.lad,Math.max(focus,hue));
+  for(const k of ['lca','lcx','rca']){mats[k].color.setHex(RED).lerp(new THREE.Color(DIMC),focus);}
+  mats.lcx.color.lerp(new THREE.Color(HUE.lcx),hue);mats.rca.color.lerp(new THREE.Color(HUE.rca),hue);mats.lca.color.lerp(new THREE.Color(0xb9b0ac),hue);
+  R.render(sc,cam);
+  /* графіка */
+  g.globalAlpha=1;g.drawImage(R.domElement,0,0);
+  const X=120;
+  const ta=seg(t,.9,1.9)*(1-seg(t,4.2,5));
+  txt('Вінцеві артерії',X,470,'600 76px U',INK,ta);
+  txt('Як серце годує саме себе',X,560,'400 34px O',DIM,seg(t,1.6,2.6)*(1-seg(t,4.2,5)));
+  const off=1-seg(t,11.9,12.6);
+  LAB.forEach((l,i)=>{const a=seg(t,l.t,l.t+.5),y=330+i*130,v=l.a.clone().project(cam),px=(v.x+1)/2*W,py=(1-v.y)/2*H;
+    const keep=l.k==='lad'?(1-seg(t,16.6,17.4)):off,al=a*keep;
+    txt(l.uk,X,y-14,'500 32px O',INK,al);txt(l.la,X,y+24,'400 22px O',DIM,al);
+    line([[X+520,y],[X+600,y],[px,py]],INK,1.6,.6*keep,ease(seg(t,l.t+.2,l.t+1)));
+    if(al>0&&seg(t,l.t+.2,l.t+1)>=1){g.save();g.globalAlpha=keep;g.fillStyle=INK;g.beginPath();g.arc(px,py,5,0,7);g.fill();g.restore()}});
+  const fa=seg(t,12.8,13.6)*(1-seg(t,16.4,17.2));
+  txt('ЩО ВОНА ЖИВИТЬ',X,720,'500 20px O',hex(HUE.lad),fa);
+  wrap('Передню стінку лівого шлуночка, верхівку та передні дві третини міжшлуночкової перегородки',X,772,'500 32px O',INK,fa,640,46);
+  /* 2D-схема праворуч */
+  const PX=1060,rows=[
+   {c:HUE.lad,n:'Передня міжшлуночкова гілка',z:'передня стінка ЛШ, верхівка, передні ⅔ перегородки',t:19.4},
+   {c:HUE.lcx,n:'Огинальна гілка',z:'бічна стінка лівого шлуночка',t:21.0},
+   {c:HUE.rca,n:'Права вінцева артерія',z:'правий шлуночок; нижня стінка ЛШ при правому типі кровопостачання',t:22.6}];
+  txt('Артерія і її зона',PX,250,'600 44px U',INK,seg(t,18.8,19.6));
+  line([[PX,310],[PX+740,310]],DIM,1.5,.7,ease(seg(t,19,20)));
+  rows.forEach((r,i)=>{const y=400+i*170,a=seg(t,r.t,r.t+.5);
+    line([[PX,y-22],[PX,y+58]],hex(r.c),6,1,ease(seg(t,r.t-.1,r.t+.5)));
+    txt(r.n,PX+34,y-10,'500 34px O',INK,a);
+    wrap(r.z,PX+34,y+38,'400 26px O',DIM,seg(t,r.t+.4,r.t+1),700,36)});
+  txt('Модель: Z-Anatomy / BodyParts3D, CC BY-SA 4.0',W-110,H-56,'400 18px O','#6f6764',seg(t,1,2),'right');
+  const f=1-seg(t,0,1.4);if(f>0){g.save();g.globalAlpha=f;g.fillStyle='#000';g.fillRect(0,0,W,H);g.restore()}
+  return true;
+};
+window.frame=async function(t,q){window.renderAt(t);return out.toDataURL('image/jpeg',q||.93).slice(23)};
+window.READY=true;
+</script>
