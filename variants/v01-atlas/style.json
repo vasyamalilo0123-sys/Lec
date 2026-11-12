@@ -1,0 +1,16 @@
+{
+  "name": "Атлас",
+  "fontCss": ["fonts/fixel.css"],
+  "art": {"x": 880, "y": 66, "w": 733, "h": 950},
+  "labels": {
+    "aorta": {"x": 1380, "y": 126, "align": "left"},
+    "rv": {"x": 1175, "y": 690, "align": "center", "onArt": true},
+    "lv": {"x": 1445, "y": 773, "align": "center", "onArt": true},
+    "rca": {"x": 884, "y": 682, "align": "right"},
+    "lca": {"x": 1490, "y": 445, "align": "left"},
+    "lad": {"x": 1556, "y": 760, "align": "left"},
+    "lcx": {"x": 1556, "y": 584, "align": "left"}
+  },
+  "leader": {"type": "straight", "width": 1.5, "color": "#f2e6d3", "marker": "ring", "markerSize": 6, "markerFill": "#000", "gap": 14, "opacity": 0.95},
+  "motion": {"text": "wipe", "dimTissue": 0.38, "dimOther": 0.3}
+}

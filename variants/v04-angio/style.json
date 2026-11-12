@@ -1,0 +1,16 @@
+{
+  "name": "Ангіографія",
+  "fontCss": ["node_modules/@fontsource/geologica/200.css", "node_modules/@fontsource/geologica/300.css", "node_modules/@fontsource/geologica/400.css"],
+  "art": {"x": 820, "y": 120, "w": 687.8, "h": 865.45},
+  "labels": {
+    "aorta": {"x": 1344.5, "y": 80, "align": "left"},
+    "rv": {"x": 1133.5, "y": 668, "align": "center", "onArt": true},
+    "lv": {"x": 1340.6, "y": 694, "align": "center", "onArt": true},
+    "rca": {"x": 795.2, "y": 580, "align": "right"},
+    "lca": {"x": 1317.9, "y": 260, "align": "left"},
+    "lad": {"x": 1420.5, "y": 780, "align": "left"},
+    "lcx": {"x": 1536.4, "y": 510, "align": "left"}
+  },
+  "leader": {"type": "elbow", "elbow": 140, "width": 1.2, "color": "#e9e3d9", "marker": "ring", "markerSize": 5, "markerFill": "#000", "gap": 14, "opacity": 0.85},
+  "motion": {"text": "wipe", "dimTissue": 0.6, "dimOther": 0.28}
+}

@@ -14,9 +14,9 @@
     "lv": {"x": 1580, "y": 700, "align": "left"},
     "rca": {"x": 990, "y": 700, "align": "right"},
     "lca": {"x": 1470, "y": 330, "align": "left"},
-    "lad": {"x": 1580, "y": 800, "align": "left"},
+    "lad": {"x": 1580, "y": 770, "align": "left"},
     "lcx": {"x": 1580, "y": 560, "align": "left"}
   },
   "leader": {"type": "straight", "width": 2.4, "color": "#f4f1ee", "marker": "ring", "markerSize": 7, "gap": 12},
-  "motion": {"text": "wipe", "dimTissue": 0.4, "dimOther": 0.28}
+  "motion": {"text": "wipe", "dimTissue": 0.52, "dimOther": 0.28}
 }

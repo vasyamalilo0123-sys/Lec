@@ -1,0 +1,9 @@
+#stage{font-family:'Fixel Text',sans-serif;color:#f4efe6}
+#kicker{left:120px;top:80px;font:500 26px/1.2 'Fixel Text';color:#d9cfc2}
+#title{left:116px;top:318px;font:800 136px/.96 'Fixel Display';letter-spacing:-3px;color:#f4efe6}
+#thesis{left:120px;top:300px;font:700 56px/1.1 'Fixel Display';letter-spacing:-.5px;white-space:normal;width:640px;color:#f4efe6}
+#credit{left:120px;top:1012px;font:400 18px 'Fixel Text';color:#a89f95}
+.lab{font:600 34px/1.12 'Fixel Display';color:#f4efe6}
+.lab small{display:block;font:400 26px/1.25 'Fixel Text';color:#cfc5b8;margin-top:6px}
+.onart{font:600 30px/1.08 'Fixel Display';color:#fbf6ee}
+.l-lad,.l-lcx{white-space:normal;width:300px}
