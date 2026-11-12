@@ -1,0 +1,129 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:FD;font-weight:500;src:url(fonts/FixelDisplay-Medium.ttf)}
+@font-face{font-family:FD;font-weight:600;src:url(fonts/FixelDisplay-SemiBold.ttf)}
+@font-face{font-family:FD;font-weight:700;src:url(fonts/FixelDisplay-Bold.ttf)}
+@font-face{font-family:FD;font-weight:800;src:url(fonts/FixelDisplay-ExtraBold.ttf)}
+@font-face{font-family:FT;font-weight:400;src:url(fonts/FixelText-Regular.ttf)}
+@font-face{font-family:FT;font-weight:500;src:url(fonts/FixelText-Medium.ttf)}
+@font-face{font-family:FT;font-weight:600;src:url(fonts/FixelText-SemiBold.ttf)}
+:root{--ink:#f4f1ee;--soft:rgba(244,241,238,.62);--faint:rgba(244,241,238,.4);--onart:#35191d}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1920px;height:1080px;background:#000;overflow:hidden;color:var(--ink);font-family:FT,sans-serif}
+#art{position:absolute;left:964.75px;top:0;width:955.25px;height:1080.25px}
+#art svg{width:100%;height:100%;overflow:visible}
+#over{position:absolute;inset:0}
+.t{position:absolute;white-space:nowrap}
+.lab{font:600 38px/1.1 FD}.lab small{display:block;font:400 27px/1.25 FT;color:var(--soft);margin-top:6px}
+.onart{color:var(--onart);font:600 34px/1.12 FD;text-align:center}
+.r{transform:translateX(-100%);text-align:right}.c{transform:translateX(-50%)}
+#meta{left:120px;top:76px;font:500 24px FT;color:var(--soft)}
+#foot{left:120px;top:986px;font:400 20px/1.5 FT;color:var(--faint)}
+#notes{position:absolute;left:120px;top:176px;width:700px}
+.s{font:600 44px/1.14 FD;margin:0 0 30px;letter-spacing:-.4px}
+.row{margin:0 0 20px;font:400 28px/1.3 FT;color:var(--soft)}.row b{display:block;font:600 31px/1.25 FD;color:var(--ink)}
+#chap{left:120px;top:300px;font:800 138px/.98 FD;letter-spacing:-3px}
+#hook{position:absolute;left:120px;top:300px}
+#hook p{margin:0 0 34px;font:400 40px FT;color:var(--soft)}#hook h1{margin:0;font:800 138px/.98 FD;letter-spacing:-3px}
+#quiz{position:absolute;left:120px;top:330px;width:820px}
+#quiz p{margin:0 0 26px;font:500 26px FT;color:var(--soft)}#quiz h2{margin:0;font:700 66px/1.08 FD;letter-spacing:-1px}
+#bar{margin-top:44px;height:3px;width:340px;background:rgba(244,241,238,.2)}#bar i{display:block;height:100%;background:var(--ink)}
+</style>
+<div id="stage">
+  <div id="art"></div>
+  <svg id="over" viewBox="0 0 1920 1080"></svg>
+  <div class="t" id="meta">Кровопостачання серця</div>
+  <div class="t" id="foot">Розділ 1 із 3. Вінцеві артерії<br>Ілюстрація: Servier Medical Art, CC BY, зі змінами</div>
+  <div id="hook"><p id="h1">Серце щохвилини перекачує близько п’яти літрів крові.</p><h1><span id="h2" style="display:block">А хто годує</span><span id="h3" style="display:block">саме серце?</span></h1></div>
+  <div class="t" id="chap">Вінцеві<br>артерії</div>
+  <div id="notes">
+    <p class="s" id="s1">Дві вінцеві артерії починаються від кореня аорти.</p>
+    <p class="s" id="s2">Ліва ділиться на дві гілки.</p>
+    <p class="row" id="r1"><b>Передня міжшлуночкова</b>передня стінка лівого шлуночка, верхівка, передні дві третини перегородки</p>
+    <p class="row" id="r2"><b>Огинальна</b>бічна і задня стінка лівого шлуночка</p>
+    <p class="row" id="r3"><b>Права вінцева</b>правий шлуночок; у більшості людей і нижня стінка лівого</p>
+  </div>
+  <div id="quiz"><p>Згадайте, не підглядаючи</p><h2 id="q">Яка артерія живить передню стінку лівого шлуночка?</h2><div id="bar"><i></i></div></div>
+</div>
+<script type="module">
+const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg',K=2.25,OX=964.75;
+const P=p=>[OX+p[0]*K,p[1]*K];
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,e)=>a+(b-a)*e;
+const eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+function key(t,ks){if(t<=ks[0][0])return ks[0][1];for(let i=1;i<ks.length;i++)if(t<=ks[i][0])return lerp(ks[i-1][1],ks[i][1],eio((t-ks[i-1][0])/(ks[i][0]-ks[i-1][0])));return ks[ks.length-1][1]}
+/* ---------- малюнок: розкладаємо контури на тканини й артерії ---------- */
+$('art').innerHTML=await (await fetch('art/heart-vascularization.svg')).text();
+const svg=$('art').querySelector('svg'),paths=[...svg.querySelectorAll('path')].filter(e=>!e.closest('defs'));
+const G=(id,parent=svg)=>{const g=document.createElementNS(NS,'g');g.id=id;parent.appendChild(g);return g};
+const tissue=G('tissue'),defs=svg.querySelector('defs');
+const clip=(id,el)=>{const c=document.createElementNS(NS,'clipPath');c.id=id;c.setAttribute('clipPathUnits','userSpaceOnUse');c.appendChild(el);defs.appendChild(c);return c};
+const poly=pts=>{const p=document.createElementNS(NS,'polygon');p.setAttribute('points',pts.map(q=>q.join(',')).join(' '));return p};
+const circ=(cx,cy)=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.setAttribute('r',0);return c};
+const VEINS=[8,9,65,66],RCA=[67,68],LEFT=[56,58],TRUNK=[57,59],MINOR=[6,55];
+paths.forEach((e,i)=>{const f=(e.getAttribute('fill')||'').toLowerCase();
+  if(f==='#fff'||VEINS.includes(i)){e.remove();return}              /* без відблисків і без вен: вони тут не пояснюються */
+  if(![...RCA,...LEFT,...TRUNK,...MINOR].includes(i))tissue.appendChild(e)});
+const minor=G('minor');MINOR.forEach(i=>minor.appendChild(paths[i]));
+const gR=circ(168,162),gL=circ(190,132);clip('growR',gR);clip('growL',gL);
+const rca=G('rca');rca.setAttribute('clip-path','url(#growR)');RCA.forEach(i=>rca.appendChild(paths[i]));
+const left=G('left');left.setAttribute('clip-path','url(#growL)');
+clip('cT',poly([[170,110],[300,110],[300,187],[170,187]]));
+clip('cA',poly([[258,187],[316,187],[316,258],[324,262],[326,490],[258,490]]));
+clip('cX',poly([[300,110],[450,110],[450,490],[326,490],[324,262],[316,258],[316,187],[300,187]]));
+const part=(id,c,extra=[])=>{const g=G(id,left);g.setAttribute('clip-path',`url(#${c})`);LEFT.forEach(i=>g.appendChild(paths[i].cloneNode()));extra.forEach(i=>g.appendChild(paths[i]));return g};
+const trunk=part('trunk','cT',TRUNK),lad=part('lad','cA'),lcx=part('lcx','cX');LEFT.forEach(i=>paths[i].remove());
+/* ---------- підписи: поруч зі структурою; виноска росте від структури до тексту ---------- */
+const over=$('over'),stage=$('stage'),LB={};
+function label(id,html,x,y,cls,from,to){const d=document.createElement('div');d.className='t '+cls;d.style.left=x+'px';d.style.top=y+'px';d.innerHTML=html;stage.appendChild(d);
+  let ln=null,ring=null;if(from){ln=document.createElementNS(NS,'line');ln.setAttribute('stroke','#f4f1ee');ln.setAttribute('stroke-width',1.6);over.appendChild(ln);
+    ring=document.createElementNS(NS,'circle');ring.setAttribute('r',6);ring.setAttribute('fill','#000');ring.setAttribute('stroke','#f4f1ee');ring.setAttribute('stroke-width',1.6);over.appendChild(ring)}
+  LB[id]={d,ln,ring,from,to}}
+function show(id,a,dim=1){const L=LB[id],p=eo(a/.32),q=eo((a-.26)/.36);          /* a — секунди від появи */
+  if(L.ln){const [x0,y0]=L.from,[x1,y1]=L.to;L.ln.setAttribute('x1',x0);L.ln.setAttribute('y1',y0);L.ln.setAttribute('x2',lerp(x0,x1,p));L.ln.setAttribute('y2',lerp(y0,y1,p));
+    L.ln.style.opacity=(a>0?.9:0)*dim;L.ring.setAttribute('cx',x0);L.ring.setAttribute('cy',y0);L.ring.style.opacity=(a>0?1:0)*dim}
+  const right=L.d.classList.contains('r');L.d.style.clipPath=right?`inset(-10px 0 -10px ${(1-q)*100}%)`:`inset(-10px ${(1-q)*100}% -10px 0)`;L.d.style.opacity=(a>0?1:0)*dim}
+label('aorta','Аорта',1478,58,'lab',P([200,34]),[1466,80]);
+label('pulm','Легеневий стовбур<small>зрізано для огляду</small>',1500,146,'lab',P([226,163]),[1512,196]);
+label('rv','Правий<br>шлуночок',1395,730,'onart c');
+label('lv','Лівий<br>шлуночок',1772,600,'onart c');
+label('rcaL','Права вінцева артерія',1150,508,'lab r',P([118,250]),[1162,530]);
+label('lcaL','Ліва вінцева артерія',1890,104,'lab r',P([250,134]),[1560,152]);
+label('ladL','Передня<br>міжшлуночкова гілка',1622,800,'lab r',P([304,372]),[1634,836]);
+label('lcxL','Огинальна гілка<small>далі йде на задню поверхню</small>',1890,96,'lab r',P([352,203]),[1790,190]);
+await document.fonts.ready;for(const f of ['600 40px FD','700 40px FD','800 40px FD','400 30px FT','500 30px FT'])await document.fonts.load(f,'Серце');
+const wipe=(el,a,d=.5)=>{const q=eo(a/d);el.style.clipPath=`inset(-12px ${(1-q)*100}% -12px 0)`;el.style.opacity=a>0?1:0};
+const DUR=77;
+window.renderAt=function(t){
+  const quiz=t>=66.3&&t<72,after=t>=72;
+  /* гачок */
+  const hOut=eo((t-5.3)/.4);$('hook').style.opacity=1-hOut;wipe($('h1'),t-.6,.7);wipe($('h2'),t-2.3,.45);wipe($('h3'),t-2.75,.45);
+  /* малюнок: тканини приглушуються, щойно мова переходить до артерій */
+  const artIn=eo((t-6)/.9),dimT=key(t,[[23,1],[23.7,.36],[66.3,.36],[66.8,.14],[72,.14],[72.5,.3]]);
+  tissue.style.opacity=artIn*dimT;minor.style.opacity=artIn*key(t,[[23,0],[23.7,.0],[24.2,0],[26,.22],[66.3,.22],[66.8,.08]]);
+  gR.setAttribute('r',eio((t-24.2)/1.5)*330);gL.setAttribute('r',eio((t-26.2)/1.7)*420);
+  const q0=key(t,[[66.3,1],[66.8,.12],[72,.12],[72.5,1]]);
+  const aR=key(t,[[29.4,1],[30,.3],[52,.3],[52.6,1]])*(after?.3:q0);
+  const aA=key(t,[[44.4,1],[45,.3],[52,.3],[60,.3],[60.6,1]])*(after?1:q0);
+  const aX=key(t,[[33.6,1],[34.2,.3],[44.4,.3],[45,1],[52,1],[52.6,.3],[60,.3],[60.6,1]])*(after?.3:q0);
+  const aT=key(t,[[52,1],[52.6,.3],[60,.3],[60.6,1]])*(after?.3:q0);
+  rca.style.opacity=aR;lad.style.opacity=aA;lcx.style.opacity=aX;trunk.style.opacity=aT;
+  /* підписи */
+  const pre=t<22.6?1:1-eo((t-22.6)/.3),lq=quiz?0:1;
+  show('aorta',t-8.6,pre);show('pulm',t-12.4,pre);show('rv',t-17.6,pre);show('lv',t-18.8,pre);
+  show('rcaL',t-25,(aR>.6?1:.34)*lq*(after?0:1));
+  show('lcaL',t-27,(t<33.4?1:1-eo((t-33.4)/.3))*lq);
+  show('ladL',t-34.2,(aA>.6?1:.34)*(quiz?0:1));
+  show('lcxL',t-45.2,(aX>.6?1:.34)*lq*(after?0:1));
+  /* конспект накопичується ліворуч: поточне яскраве, попереднє тихіше */
+  const nOut=quiz||after?1-eo((t-66.3)/.3):1;$('notes').style.opacity=nOut;$('meta').style.opacity=eo((t-6)/.6);$('foot').style.opacity=eo((t-6.4)/.6);
+  {const c=$('chap'),q=eo((t-6.6)/.6);c.style.clipPath=`inset(-12px ${(1-q)*100}% -12px 0)`;c.style.opacity=(t>6.6?1:0)*(1-eo((t-26.6)/.4))}
+  const cur=t<30?1:t<34?2:t<45?3:t<52?4:t<60?5:0;
+  [['s1',27.6,1],['s2',30,2],['r1',39.2,3],['r2',46,4],['r3',54,5]].forEach(([id,t0,n])=>{const e=$(id);wipe(e,t-t0,.55);if(t>=t0)e.style.opacity=(cur===n||cur===0||(n>=3&&cur>=3&&n===cur))?1:.42});
+  /* пауза на пригадування */
+  const qa=quiz?eo((t-66.6)/.4):after?1:0;$('quiz').style.opacity=qa;$('quiz').querySelector('p').textContent=after?'Відповідь':'Згадайте, не підглядаючи';
+  $('q').textContent=after?'Передня міжшлуночкова гілка лівої вінцевої артерії.':'Яка артерія живить передню стінку лівого шлуночка?';
+  $('bar').style.opacity=after?0:1;$('bar').firstElementChild.style.width=(100*(1-clamp((t-66.9)/5)))+'%';
+  stage.style.opacity=1-eo((t-(DUR-.6))/.5);
+};
+window.DUR=DUR;window.renderAt(0);window.READY=true;
+</script>
