@@ -1,0 +1,53 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Inter;font-weight:300;src:url(fonts/inter-300.ttf)}@font-face{font-family:Inter;font-weight:400;src:url(fonts/inter-400.ttf)}@font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-600.ttf)}
+html,body{margin:0;background:#000}canvas{display:block}</style>
+<canvas id="out" width="1920" height="1080"></canvas>
+<script type="module">
+const W=1920,H=1080,out=document.getElementById('out'),g=out.getContext('2d');
+const q=new URLSearchParams(location.search),dir='out/'+q.get('scene')+'/';
+const D=await (await fetch(dir+'ink.json')).json();
+const regI=new Image();regI.src=dir+'regions2x.png';await regI.decode();
+const rc=document.createElement('canvas');rc.width=regI.width;rc.height=regI.height;const rx=rc.getContext('2d',{willReadFrequently:true});rx.drawImage(regI,0,0);
+const REG=rx.getImageData(0,0,rc.width,rc.height).data,KI=['',...D.kinds];
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const mix=(h,k)=>'#'+hex(h).map(v=>Math.round(v*k).toString(16).padStart(2,'0')).join('');
+const IV='#f2ece0',GR='#8d877c';
+const PAL=Object.assign({liver:'#e2664b',gall:'#7fc98c',duct:'#7fc98c',stomach:'#f4a78e',duo:'#e8c48e',pancreas:'#ecc75a',spleen:'#b988dc',
+  myo:'#ef6652',atr:'#e58a72',aorta:'#ff8f73',pa:'#6f9bff',pv:'#ff8f73',vein:'#5f86e6',art:'#ff6f5a',cvein:'#7fa2ff'},{});
+function fillLayer(fn){const c=document.createElement('canvas');c.width=rc.width;c.height=rc.height;const x=c.getContext('2d'),im=x.createImageData(c.width,c.height),d=im.data;
+  const P=KI.map(k=>k?fn(k):null).map(p=>p?[...hex(p[0]),p[1]*255]:[0,0,0,0]);
+  for(let i=0;i<REG.length;i+=4){const k=Math.round(REG[i]/30);if(k){const p=P[k];d[i]=p[0];d[i+1]=p[1];d[i+2]=p[2];d[i+3]=p[3]}}x.putImageData(im,0,0);g.drawImage(c,0,0,W,H)}
+const S=D.strokes.map(s=>{const n=s.p.length/2,x=new Float32Array(n),y=new Float32Array(n);for(let j=0;j<n;j++){x[j]=s.p[2*j];y[j]=s.p[2*j+1]}return {...s,x,y}});
+function strokes(layer,style){g.lineCap='round';g.lineJoin='round';for(const s of S){if(s.l!==layer)continue;const st=style(s);if(!st)continue;
+  g.globalAlpha=st.a??1;g.strokeStyle=st.c;g.lineWidth=st.w??s.w;g.beginPath();g.moveTo(s.x[0],s.y[0]);for(let j=1;j<s.x.length;j++)g.lineTo(s.x[j],s.y[j]);g.stroke()}g.globalAlpha=1}
+function txt(s,x,y,font,color,align,ls){g.save();g.fillStyle=color;g.font=font;g.textAlign=align||'left';g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls;g.fillText(s,x,y);g.restore()}
+/* підписи: дві колонки, рівний крок, центр колонки навпроти своїх точок */
+const KOF=JSON.parse(q.get('kof')||'{}');
+const cx=(D.bbox[0]+D.bbox[2])/2,cols={'-1':[],'1':[]};
+for(const k in D.anchors){const a=D.anchors[k];cols[a[0]<cx?-1:1].push({k,a,uk:D.labels[k][0],la:D.labels[k][1],kind:KOF[k]})}
+const LAB=[];for(const side of [-1,1]){const c=cols[side].sort((p,q)=>p.a[1]-q.a[1]),n=c.length,m=c.reduce((v,l)=>v+l.a[1],0)/Math.max(1,n),y0=Math.max(330,Math.min(H-170-(n-1)*108,m-(n-1)*54));
+  c.forEach((l,i)=>LAB.push({...l,side,x:side<0?D.bbox[0]-150:D.bbox[2]+150,y:y0+i*108}))}
+function labels(o){for(const l of LAB){const al=l.side<0?'right':'left',st=o.per?o.per(l):{};const c1=st.c1||o.c1,c2=st.c2||o.c2,lc=st.lc||o.lc;
+  txt(o.upper?l.uk.toUpperCase():l.uk,l.x,l.y,o.f1,c1,al,o.ls1);txt(l.la,l.x,l.y+(o.gap||29),o.f2,c2,al);
+  const x0=l.x+l.side*-22,y0=l.y-9,kx=x0+l.side*-46;g.save();g.strokeStyle=lc;g.lineWidth=1;g.globalAlpha=st.la??o.la??.8;g.beginPath();g.moveTo(x0,y0);g.lineTo(kx,y0);g.lineTo(l.a[0],l.a[1]);g.stroke();g.globalAlpha=1;
+  if(o.dot==='ring'){g.fillStyle='#000';g.beginPath();g.arc(l.a[0],l.a[1],5,0,7);g.fill();g.stroke()}else{g.fillStyle=lc;g.beginPath();g.arc(l.a[0],l.a[1],4,0,7);g.fill()}g.restore()}}
+function title(c2){const T=D.title[0].split('|');T.forEach((l,i)=>txt(l,108,150+i*66,'300 58px Inter',IV,'left','-1px'));txt(D.title[1].toUpperCase(),112,150+T.length*66-18,'400 15px Inter',c2||GR,'left','5px')}
+function tag(n,name){txt('ВАРІАНТ '+n,112,H-92,'600 15px Inter','#77726a','left','3px');txt(name,112,H-58,'400 26px Inter','#cfc9be')}
+const FOCUS=q.get('focus');
+const V={
+A(){fillLayer(k=>[PAL[k],.15]);strokes('hatch',s=>({c:PAL[s.g],a:.13,w:.8}));strokes('rcontour',s=>({c:PAL[s.g],w:1.7}));strokes('vessel',s=>({c:PAL[s.g],w:Math.min(s.w,3.2)}));
+  title();labels({f1:'400 28px Inter',c1:IV,f2:'300 19px Inter',c2:GR,lc:GR,la:1,dot:'ring'});tag('A','Кольорова лінія, прозора заливка')},
+B(){fillLayer(k=>[PAL[k],.30]);strokes('vessel',s=>({c:PAL[s.g],w:Math.min(s.w,3.2)}));strokes('outline',s=>({c:IV,w:s.w>1.5?1.7:1.1,a:.95}));
+  title();labels({f1:'400 28px Inter',c1:IV,f2:'300 19px Inter',c2:GR,lc:IV,la:.5,dot:'dot'});tag('B','Світла лінія, кольорова заливка')},
+C(){fillLayer(k=>[mix(PAL[k],.24),1]);strokes('hatch',s=>({c:PAL[s.g],a:.10,w:.8}));strokes('outline',s=>({c:'#000',w:3,a:1}));strokes('rcontour',s=>({c:PAL[s.g],w:1.5}));strokes('vessel',s=>({c:PAL[s.g],w:Math.min(s.w,3.2)}));
+  title();labels({f1:'400 28px Inter',c1:IV,f2:'300 19px Inter',c2:GR,lc:GR,la:1,dot:'ring',per:l=>({c2:PAL[l.kind]})});tag('C','Глибока щільна заливка')},
+D(){const on=k=>k===FOCUS;fillLayer(k=>on(k)?[PAL[k],.34]:['#ffffff',.06]);strokes('hatch',s=>on(s.g)?{c:PAL[s.g],a:.25,w:.9}:null);
+  strokes('rcontour',s=>on(s.g)?null:{c:IV,w:1.2,a:.55});strokes('vessel',s=>({c:IV,a:.55,w:Math.min(s.w,2.6)}));strokes('rcontour',s=>on(s.g)?{c:PAL[s.g],w:2.4}:null);
+  title(PAL[FOCUS]);labels({f1:'400 28px Inter',c1:'#a7a196',f2:'300 19px Inter',c2:'#6d675e',lc:'#6d675e',la:1,dot:'ring',per:l=>l.kind===FOCUS?{c1:IV,c2:PAL[FOCUS],lc:PAL[FOCUS]}:{}});tag('D','Один акцент, решта нейтральна')},
+E(){fillLayer(k=>[PAL[k],.07]);strokes('hatch',s=>({c:PAL[s.g],a:.42,w:1}));strokes('rcontour',s=>({c:PAL[s.g],w:1.4}));strokes('vessel',s=>({c:PAL[s.g],w:Math.min(s.w,3.2)}));
+  title();labels({f1:'600 17px Inter',c1:IV,ls1:'3px',upper:true,f2:'300 19px Inter',c2:GR,gap:27,lc:GR,la:1,dot:'dot'});tag('E','Заливка тонким штрихом')}};
+window.render=async v=>{for(const f of ['300 20px Inter','400 20px Inter','600 20px Inter'])await document.fonts.load(f,'Серце cor');
+  g.globalAlpha=1;g.fillStyle='#000';g.fillRect(0,0,W,H);V[v]();return out.toDataURL('image/png').slice(22)};
+window.READY=true;
+</script>
