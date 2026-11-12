@@ -1,4 +1,5 @@
 {
+  "parts": ["vessel", "vessel_cells", "zone_micro", "zone_normo", "zone_macro", "axis", "axis_flow", "axis_ticks", "axis_nums", "mark90", "micro", "micro_tint", "normo", "peer1", "peer2", "peer3", "peer4", "macro", "macro_cell", "mixed_b", "mixed_s", "rdw_arrow", "gap_line", "drop_m", "drop_w"],
   "narration": [
     {"id": "n1", "text": "[[axis]]Сере́дній об'є́м — це розвилка на три дороги."},
     {"id": "n2", "text": "[[micro]]Нижче вісімдесяти фемтолі́трів — мікроцита́рна анемі́я. Кліти́ни дрібні́ й часто бліді: їм бракує гемоглобі́ну, найчастіше через нестачу залі́за.", "gap": 0.5},
