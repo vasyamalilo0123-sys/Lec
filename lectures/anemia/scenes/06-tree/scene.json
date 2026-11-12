@@ -302,7 +302,7 @@
    "sub": "B12, фолат",
    "anchor": "a-l-meg",
    "x": 1624,
-   "y": 348,
+   "y": 340,
    "align": "left",
    "in": "@meg",
    "focus": "leaf_mac"
@@ -312,7 +312,7 @@
    "text": "Немегало-<br>бластна",
    "anchor": "a-l-nonmeg",
    "x": 1624,
-   "y": 473,
+   "y": 505,
    "align": "left",
    "in": "@nonmeg",
    "focus": "leaf_mac"
