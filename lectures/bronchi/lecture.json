@@ -1,0 +1,40 @@
+{
+ "title": "Бронхіальне дерево",
+ "kicker": "Дихальна система",
+ "voice": {
+  "provider": "estimate",
+  "rate": 14.5
+ },
+ "chapters": [
+  {
+   "title": "Головні бронхи",
+   "scenes": [
+    "01-tree"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "s1",
+   "text": "Lecturio. Trachea, pulmonary structures and esophagus",
+   "url": "https://lecturio.com/medical-courses/trachea-pulmonary-structures-and-esophagus.lecture"
+  },
+  {
+   "id": "s2",
+   "text": "Radiopaedia. Main bronchus",
+   "url": "https://radiopaedia.org/articles/main-bronchus"
+  },
+  {
+   "id": "s3",
+   "text": "Respiratory Therapy Zone. Carina",
+   "url": "https://www.respiratorytherapyzone.com/carina/"
+  },
+  {
+   "id": "s4",
+   "text": "StatPearls. Airway foreign bodies",
+   "url": "https://statpearls.com/sp/al/10/21909/"
+  }
+ ],
+ "pronounce": {},
+ "credits": true
+}

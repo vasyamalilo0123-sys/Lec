@@ -1,0 +1,21 @@
+{
+  "art": {"x": 900, "y": 40, "w": 900, "h": 1000},
+  "parts": ["body"],
+  "narration": [
+    {"id": "n1", "text": "Перше речення гачка. [[q]]Друге — запитання?"},
+    {"id": "n2", "text": "Тут з'являється [[x]]структура, про яку мова.", "gap": 0.7}
+  ],
+  "states": [
+    {"at": "start", "dur": 0.01, "set": {"body": "hidden"}},
+    {"at": "n2", "dur": 0.9, "set": {"body": "color"}}
+  ],
+  "labels": [
+    {"id": "body", "text": "Структура", "sub": "пояснення", "anchor": "a-body", "x": 1500, "y": 300, "align": "left", "focus": "body", "in": "@x", "out": "n2.end"}
+  ],
+  "texts": [
+    {"id": "hook", "kind": "hook", "html": "Гачок у два<br>рядки.", "in": "n1", "out": "n1.end"},
+    {"id": "q", "kind": "title", "html": "Запитання?", "in": "@q", "out": "n1.end"},
+    {"id": "th", "kind": "thesis", "html": "Одна коротка теза", "in": "n2+0.5"}
+  ],
+  "sources": [{"ref": "s1", "in": "n2", "out": "n2.end"}]
+}

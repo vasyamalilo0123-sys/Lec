@@ -1,0 +1,368 @@
+{
+ "art": {
+  "x": 900,
+  "y": 40,
+  "w": 900,
+  "h": 1000
+ },
+ "kicker": "n2",
+ "parts": [
+  "lungs",
+  "lob_r",
+  "lob_l",
+  "trachea",
+  "br_r",
+  "br_l",
+  "ang_r",
+  "ang_l",
+  "pea"
+ ],
+ "narration": [
+  {
+   "id": "n1",
+   "text": "Якщо доросла людина вдихне горошину, вона найчастіше опиниться в правій легені. [[q]]Чому саме в правій?"
+  },
+  {
+   "id": "n2",
+   "text": "Ось дихальні шляхи спереду. Згори — [[tr]]трахея, обабіч неї — [[lr]]права і [[ll]]ліва легені.",
+   "gap": 0.8
+  },
+  {
+   "id": "n3",
+   "text": "Унизу, на рівні четвертого–п'ятого грудних хребців, [[bif]]трахея ділиться на два головні бронхи.",
+   "gap": 0.7
+  },
+  {
+   "id": "n4",
+   "text": "Правий головний бронх коротший, ширший і йде крутіше: він [[a25]]відхиляється від осі трахеї лише градусів на двадцять п'ять."
+  },
+  {
+   "id": "n5",
+   "text": "Лівий — довший і вужчий, і відходить убік під більшим кутом, [[a45]]близько сорока п'яти градусів."
+  },
+  {
+   "id": "n6",
+   "text": "Тож правий бронх майже продовжує трахею."
+  },
+  {
+   "id": "n7",
+   "text": "Тому стороннє тіло йде шляхом найменшого опору — [[d]]прямо вниз, у правий головний бронх.",
+   "gap": 0.8
+  },
+  {
+   "id": "n8",
+   "text": "Зупиніться на мить. Де ви шукатимете стороннє тіло насамперед?",
+   "gap": 0.8
+  },
+  {
+   "id": "n9",
+   "text": "У правому головному бронху.",
+   "gap": 0.6
+  }
+ ],
+ "states": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "set": {
+    "lungs": "hidden",
+    "lob_r": "hidden",
+    "lob_l": "hidden",
+    "trachea": "hidden",
+    "br_r": "hidden",
+    "br_l": "hidden",
+    "ang_r": "hidden",
+    "ang_l": "hidden",
+    "pea": "hidden"
+   }
+  },
+  {
+   "at": "n2",
+   "dur": 0.9,
+   "set": {
+    "lungs": "color",
+    "lob_r": "color",
+    "lob_l": "color",
+    "trachea": "color",
+    "br_r": "color",
+    "br_l": "color"
+   }
+  },
+  {
+   "at": "n3",
+   "dur": 0.8,
+   "set": {
+    "lungs": "grey",
+    "lob_r": "grey",
+    "lob_l": "grey"
+   }
+  },
+  {
+   "at": "n4",
+   "dur": 0.7,
+   "set": {
+    "trachea": "grey",
+    "br_l": "grey"
+   }
+  },
+  {
+   "at": "@a25",
+   "dur": 0.6,
+   "set": {
+    "ang_r": "color"
+   }
+  },
+  {
+   "at": "n5",
+   "dur": 0.7,
+   "set": {
+    "br_r": "grey",
+    "ang_r": "grey",
+    "br_l": "color"
+   }
+  },
+  {
+   "at": "@a45",
+   "dur": 0.6,
+   "set": {
+    "ang_l": "color"
+   }
+  },
+  {
+   "at": "n6",
+   "dur": 0.7,
+   "set": {
+    "br_r": "color",
+    "ang_r": "color"
+   }
+  },
+  {
+   "at": "n6.end+0.2",
+   "dur": 0.6,
+   "set": {
+    "ang_r": "hidden",
+    "ang_l": "hidden",
+    "br_l": "grey",
+    "trachea": "color"
+   }
+  },
+  {
+   "at": "n7+0.3",
+   "dur": 0.3,
+   "set": {
+    "pea": "color"
+   }
+  },
+  {
+   "at": "n7.end+0.2",
+   "dur": 0.6,
+   "set": {
+    "pea": "hidden",
+    "trachea": "grey",
+    "br_r": "grey"
+   }
+  },
+  {
+   "at": "n9",
+   "dur": 0.6,
+   "set": {
+    "br_r": "color"
+   }
+  }
+ ],
+ "travel": [
+  {
+   "id": "pea",
+   "path": "p-pea",
+   "at": "n7+0.5",
+   "dur": 3.8,
+   "out": "n7.end"
+  }
+ ],
+ "labels": [
+  {
+   "id": "trachea",
+   "text": "Трахея",
+   "anchor": "a-trachea-hi",
+   "x": 1420,
+   "y": 80,
+   "align": "left",
+   "in": "@tr",
+   "out": "n2.end"
+  },
+  {
+   "id": "lung-r",
+   "text": "Права<br>легеня",
+   "anchor": "a-lung-r",
+   "x": 1185,
+   "y": 200,
+   "align": "center",
+   "onArt": true,
+   "in": "@lr",
+   "out": "n2.end"
+  },
+  {
+   "id": "lung-l",
+   "text": "Ліва<br>легеня",
+   "anchor": "a-lung-l",
+   "x": 1500,
+   "y": 200,
+   "align": "center",
+   "onArt": true,
+   "in": "@ll",
+   "out": "n2.end"
+  },
+  {
+   "id": "carina",
+   "text": "Біфуркація трахеї",
+   "sub": "на рівні Th4–Th5",
+   "anchor": "a-carina",
+   "x": 1520,
+   "y": 320,
+   "align": "left",
+   "in": "n3+0.8",
+   "out": "n3.end"
+  },
+  {
+   "id": "br-r",
+   "text": "Правий головний бронх",
+   "sub": "коротший, ширший, крутіший",
+   "anchor": "a-br-r",
+   "x": 1146,
+   "y": 430,
+   "align": "right",
+   "focus": "br_r",
+   "in": "n4+0.4",
+   "out": "n6.end"
+  },
+  {
+   "id": "ang-r",
+   "text": "≈ 25°",
+   "anchor": "a-ang-r",
+   "x": 1290,
+   "y": 560,
+   "align": "center",
+   "leader": false,
+   "focus": "ang_r",
+   "in": "@a25+0.4",
+   "out": "n6.end"
+  },
+  {
+   "id": "br-l",
+   "text": "Лівий головний бронх",
+   "sub": "довший і вужчий",
+   "anchor": "a-br-l",
+   "x": 1440,
+   "y": 330,
+   "align": "left",
+   "focus": "br_l",
+   "in": "n5+0.4",
+   "out": "n6.end"
+  },
+  {
+   "id": "ang-l",
+   "text": "≈ 45°",
+   "anchor": "a-ang-l",
+   "x": 1400,
+   "y": 560,
+   "align": "center",
+   "leader": false,
+   "focus": "ang_l",
+   "in": "@a45+0.4",
+   "out": "n6.end"
+  }
+ ],
+ "texts": [
+  {
+   "id": "hook1",
+   "kind": "hook",
+   "html": "Вдихнута горошина частіше<br>опиняється в правій легені.",
+   "in": "n1",
+   "out": "n1.end"
+  },
+  {
+   "id": "hook2",
+   "kind": "title",
+   "html": "Чому саме<br>в правій?",
+   "in": "@q",
+   "out": "n1.end",
+   "tag": "h1"
+  },
+  {
+   "id": "title",
+   "kind": "title",
+   "html": "Бронхіальне<br>дерево",
+   "in": "n2+0.2",
+   "out": "n2.end",
+   "tag": "h1"
+  },
+  {
+   "id": "th1",
+   "kind": "thesis",
+   "html": "Трахея ділиться на два<br>головні бронхи",
+   "in": "@bif",
+   "out": "n3.end"
+  },
+  {
+   "id": "th2",
+   "kind": "thesis",
+   "html": "Правий бронх майже<br>продовжує трахею",
+   "in": "n6+0.2",
+   "out": "@d"
+  },
+  {
+   "id": "th3",
+   "kind": "thesis",
+   "html": "У дорослих стороннє тіло<br>частіше потрапляє праворуч",
+   "in": "@d+0.6",
+   "out": "n7.end"
+  },
+  {
+   "id": "quizk",
+   "kind": "note",
+   "html": "Згадайте, не підглядаючи",
+   "in": "n8",
+   "out": "n8.end"
+  },
+  {
+   "id": "quizq",
+   "kind": "quiz",
+   "html": "Де шукатимете стороннє<br>тіло насамперед?",
+   "in": "n8+0.2",
+   "out": "n8.end",
+   "tag": "h2"
+  },
+  {
+   "id": "quiza",
+   "kind": "quiz",
+   "html": "У правому<br>головному бронху",
+   "in": "n9",
+   "tag": "h2",
+   "class": "k-answer"
+  }
+ ],
+ "sources": [
+  {
+   "ref": "s1",
+   "in": "n3",
+   "out": "n3.end"
+  },
+  {
+   "ref": "s2",
+   "in": "n4",
+   "out": "@a25"
+  },
+  {
+   "ref": "s3",
+   "in": "@a25",
+   "out": "n5.end"
+  },
+  {
+   "ref": "s4",
+   "in": "n7",
+   "out": "n7.end"
+  }
+ ],
+ "enter": "fade",
+ "exit": "fade"
+}

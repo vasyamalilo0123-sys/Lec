@@ -19,10 +19,11 @@ const eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Ma
 let S,svg,P={},LB=[],TX=[],GR={},TV=[];
 const VAL={hidden:[0,1],color:[1,1],grey:[1,0]};          /* [видимість, колірність] */
 window.init=function(data){S=data.scene;$('variant').textContent=data.css||'';
-  const A=S.art;Object.assign($('art').style,{left:A.x+'px',top:A.y+'px',width:A.w+'px',height:A.h+'px'});
+  S.parts=S.parts||[];S.states=S.states||[];let defs,diag=0;
+  if(data.svg&&S.art){const A=S.art;Object.assign($('art').style,{left:A.x+'px',top:A.y+'px',width:A.w+'px',height:A.h+'px'});
   $('art').innerHTML=data.svg;svg=$('art').querySelector('svg');svg.setAttribute('preserveAspectRatio',A.fit||'xMidYMid meet');
-  let defs=svg.querySelector('defs');if(!defs){defs=document.createElementNS(NS,'defs');svg.insertBefore(defs,svg.firstChild)}
-  const vb=svg.viewBox.baseVal,diag=Math.hypot(vb.width,vb.height);
+  defs=svg.querySelector('defs');if(!defs){defs=document.createElementNS(NS,'defs');svg.insertBefore(defs,svg.firstChild)}
+  const vb=svg.viewBox.baseVal;diag=Math.hypot(vb.width,vb.height)}
   for(const id of S.parts){const g=svg.querySelector('#'+id);if(!g)throw new Error('art.svg: немає групи #'+id);P[id]={g,ev:[]}}
   for(const e of [...S.states].sort((a,b)=>a.t-b.t))for(const id in e.set){if(!P[id])throw new Error('scene.json: невідома частина '+id);P[id].ev.push({t:e.t,d:e.dur??.7,v:VAL[e.set[id]]})}
   for(const g of S.grow||[]){const o=svg.querySelector('#'+g.origin);if(!o)throw new Error('art.svg: немає точки #'+g.origin);const c=document.createElementNS(NS,'clipPath');c.id='kit-grow-'+g.id;c.setAttribute('clipPathUnits','userSpaceOnUse');
@@ -34,7 +35,8 @@ window.init=function(data){S=data.scene;$('variant').textContent=data.css||'';
     let ln=null,mk=null;if(!cfg.onArt&&cfg.leader!==false){ln=document.createElementNS(NS,'polyline');ln.setAttribute('fill','none');ln.setAttribute('stroke',L.color||'#f4f1ee');ln.setAttribute('stroke-width',L.width||1.4);ln.setAttribute('stroke-linecap','round');$('over').appendChild(ln);
       if((L.marker||'ring')!=='none'){mk=document.createElementNS(NS,'circle');mk.setAttribute('r',L.markerSize||5.5);if((L.marker||'ring')==='ring'){mk.setAttribute('fill',L.markerFill||'#000');mk.setAttribute('stroke',L.color||'#f4f1ee');mk.setAttribute('stroke-width',L.width||1.4)}else mk.setAttribute('fill',L.color||'#f4f1ee');$('over').appendChild(mk)}}
     LB.push({d,ln,mk,cfg,al})}
-  for(const cfg of S.texts||[]){const d=document.createElement(cfg.tag||'p');d.id=cfg.id;d.className='t '+(cfg.class||'');d.innerHTML=cfg.html;$('stage').appendChild(d);TX.push({d,cfg})}
+  for(const cfg of S.texts||[]){const d=document.createElement(cfg.tag||'p');d.id=cfg.id;d.className='t'+(cfg.kind?' k-'+cfg.kind:'')+(cfg.class?' '+cfg.class:'');d.innerHTML=cfg.html;
+    if(cfg.x!=null)d.style.left=cfg.x+'px';if(cfg.y!=null)d.style.top=cfg.y+'px';$('stage').appendChild(d);TX.push({d,cfg})}
   for(const cfg of S.travel||[]){const el=svg.querySelector('#'+cfg.id),pa=svg.querySelector('#'+cfg.path);if(!el||!pa)throw new Error('art.svg: немає #'+cfg.id+' або #'+cfg.path);TV.push({el,pa,len:pa.getTotalLength(),cfg});el.style.opacity=0}
   return document.fonts.ready.then(()=>true)};
 function partState(id,t){const ev=P[id].ev;let v=[0,1];for(const e of ev){if(t<e.t)break;const k=eio((t-e.t)/e.d);v=[lerp(v[0],e.v[0],k),lerp(v[1],e.v[1],k)]}return v}
@@ -53,9 +55,10 @@ window.renderAt=function(t){const gb=(S.grey&&S.grey.brightness)??.42,go=(S.grey
     if(L.ln){const pts=leaderPts(L),p=eo(a/.32),cut=[pts[0]];let rem=p*(pts.length-1);for(let i=1;i<pts.length;i++){const e=clamp(rem);cut.push([lerp(pts[i-1][0],pts[i][0],e),lerp(pts[i-1][1],pts[i][1],e)]);rem-=1;if(rem<=0)break}
       L.ln.setAttribute('points',cut.map(x=>x.join(',')).join(' '));L.ln.style.opacity=on*out*dim*((S.leader&&S.leader.opacity)||.9);if(L.mk){L.mk.setAttribute('cx',pts[0][0]);L.mk.setAttribute('cy',pts[0][1]);L.mk.style.opacity=on*out*dim}}
     const w=wipe(L.d,a-(L.ln?.26:0),.36,L.al==='right');L.d.style.opacity=w*out*dim;L.vis=on&&q>.9&&out>.5&&dim>.5}
-  for(const T of TX){const c=T.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.35),w=wipe(T.d,a,c.dur||.6,false);T.d.style.opacity=w*out;T.vis=a>(c.dur||.6)*.9&&out>.5}
+  for(const T of TX){const c=T.cfg,a=t-c.in,out=c.out==null?1:c.exit==='cut'?(t<c.out?1:0):1-eo((t-c.out)/.35),
+      w=c.enter==='cut'?(a>0?1:0):c.enter==='fade'?(T.d.style.clipPath='',eo(a/(c.dur||.6))):wipe(T.d,a,c.dur||.6,false);T.d.style.opacity=w*out;T.vis=a>(c.dur||.6)*.9&&out>.5}
   for(const V of TV){const c=V.cfg,k=eio((t-c.t)/c.dur),pt=V.pa.getPointAtLength(k*V.len);V.el.setAttribute('cx',pt.x);V.el.setAttribute('cy',pt.y);V.el.style.opacity=(t>=c.t?1:0)*(c.out==null?1:1-eo((t-c.out)/.3))}
-  $('stage').style.opacity=1-eo((t-(S.duration-.5))/.45)};
+  $('stage').style.opacity=(S.enter==='fade'?eo(t/.45):1)*(S.exit==='cut'?1:1-eo((t-(S.duration-.5))/.45))};
 window.geometry=function(){const out={texts:[],lines:[]},sr=$('stage').getBoundingClientRect();
   const push=(el,id,kind)=>{const cs=getComputedStyle(el);if(+cs.opacity<.5)return;const b=el.getBoundingClientRect();out.texts.push({id,kind,x:b.left-sr.left,y:b.top-sr.top,w:b.width,h:b.height,size:parseFloat(cs.fontSize),color:cs.color,small:[...el.querySelectorAll('small')].map(s=>parseFloat(getComputedStyle(s).fontSize))})};
   for(const L of LB){if(!L.vis)continue;push(L.d,L.cfg.id,L.cfg.onArt?'onart':'label');if(L.ln&&+L.ln.style.opacity>.3){const p=leaderPts(L);for(let i=1;i<p.length;i++)out.lines.push({id:L.cfg.id,a:p[i-1],b:p[i]})}}

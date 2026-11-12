@@ -16,11 +16,14 @@
 
 ## Де що лежить
 
+- `kit/ENGINE.md` — специфікація рушія: тека лекції, формат сцен, прив'язка часу до реплік диктора, дії командного рядка. Читати першою.
+- `kit/lecture.js` — рушій: `node kit/lecture.js <тека лекції> plan | tts | qa [сцена] | render [сцена] | still <сцена> <час> | status`.
+- `kit/tts.js` — голос (постачальники `estimate`, `beep`, `elevenlabs`, `piper`); `kit/player2.html` — плеєр сцени; `kit/theme/` — затверджена типографіка й місця текстів; `kit/template/` — каркас нової лекції.
+- `lectures/<slug>/` — лекції: `lecture.json`, `facts.json`, `scenes/<nn-назва>/{scene.json, art.svg}`, `audio/` (кеш голосу). Зразок: `lectures/bronchi/`.
 - `docs/style-guide.md` — правила стилю з джерелами (дослідження навчання з відео, ознаки «ШІ-дизайну»).
-- `kit/` — спільний рушій, шрифти, референс і перевірка. Опис: `kit/README.md`. Після клонування: `cd kit && npm install`.
-- `variants/<назва>/` — стильові варіанти: `art.svg`, `style.json`, `style.css`.
-- `lectures/<назва>/` — фрагменти лекцій на рушії сцен `kit/player2.html`: `BRIEF.md`, `art.svg`, `scene.json` (хронометраж, стани «колір/сірий», підписи, тексти), `style.css`, субтитри диктора.
+- `variants/` і `kit/render.js`, `kit/README.md` — стильові варіанти, з яких обирали стиль; `prototypes/` — відхилені спроби й готові ролики для перегляду.
 - `.claude/agents/` — команда помічників; `.claude/skills/` — готові команди.
+- Після клонування: `cd kit && npm install`.
 
 ## Команда
 
@@ -33,8 +36,9 @@
 | `fact-checker` | Sonnet | перевірка медичних тверджень за джерелами |
 | `scene-builder` | Sonnet | збирання сцен на рушії |
 | `visual-qa` | Sonnet | незалежний перегляд кадрів |
-| `render-runner` | Haiku | запуски перевірки й рендеру |
+| `render-runner` | Haiku | запуски плану, голосу, перевірки й рендеру |
+| `engineer` | Sonnet | зміни в коді рушія за `kit/ENGINE.md` |
 
-Команди: `/lecture-new <тема>`, `/lecture-variant <тека> <опис стилю>`, `/lecture-qa <тека>`, `/lecture-render <тека>`.
+Команди: `/lecture-new <тема>` (повний порядок від теми до MP4), `/lecture-qa <тека> [сцена]`, `/lecture-render <тека>`, `/lecture-variant <тека> <опис стилю>` (лише для пошуку стилю).
 
 Економія токенів: короткий бриф зі шляхами до файлів замість переказу; помічник повертає підсумок, а не лог; незалежне — паралельно; Opus лише для сценарію й малюнка.
