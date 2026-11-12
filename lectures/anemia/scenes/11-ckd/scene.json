@@ -1,4 +1,5 @@
 {
+  "parts": ["kidney", "peri", "epo", "epo_thin", "marrow", "iron", "scale", "risk", "corridor", "h100", "h115"],
   "parts": [
     "kidney",
     "peri",
