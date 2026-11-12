@@ -55,7 +55,7 @@
       }
     },
     {
-      "at": "@scale",
+      "at": "n1",
       "dur": 0.9,
       "set": {
         "scale": "color"
@@ -97,7 +97,11 @@
       "at": "n5",
       "dur": 0.8,
       "set": {
-        "sev_bands": "grey"
+        "scale": "color",
+        "mark_men": "color",
+        "mark_women": "color",
+        "mark_preg": "color",
+        "sev_bands": "color"
       }
     }
   ],
@@ -105,7 +109,7 @@
     {
       "id": "scale",
       "origin": "g_scale",
-      "at": "@scale",
+      "at": "n1",
       "dur": 1.4
     }
   ],
@@ -147,8 +151,8 @@
       "id": "preg105",
       "text": "II триместр &lt; 105 г/л",
       "anchor": "a_preg105",
-      "x": 830,
-      "y": 545,
+      "x": 790,
+      "y": 500,
       "align": "right",
       "focus": "mark_preg",
       "in": "@preg+2.5",
@@ -159,7 +163,7 @@
       "text": "Невагітні дорослі",
       "anchor": "a_adults",
       "x": 314,
-      "y": 758,
+      "y": 800,
       "align": "left",
       "focus": "sev_bands",
       "in": "@sev",
@@ -171,24 +175,22 @@
       "text": "Помірна 80–109",
       "anchor": "a_moderate",
       "x": 790,
-      "y": 930,
+      "y": 985,
       "align": "center",
       "focus": "sev_bands",
       "in": "@sev+0.5",
-      "out": "n5",
-      "leader": false
+      "out": "n5"
     },
     {
       "id": "severe",
       "text": "Тяжка &lt; 80",
       "anchor": "a_severe",
       "x": 450,
-      "y": 930,
+      "y": 985,
       "align": "center",
       "focus": "sev_bands",
       "in": "@sev+3",
-      "out": "n5",
-      "leader": false
+      "out": "n5"
     }
   ],
   "texts": [
