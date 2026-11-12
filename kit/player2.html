@@ -1,0 +1,65 @@
+<!doctype html><meta charset="utf-8">
+<style id="base">
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1920px;height:1080px;background:#000;overflow:hidden;color:#f4f1ee}
+#art{position:absolute}#art svg{width:100%;height:100%;overflow:visible;display:block}
+#over{position:absolute;inset:0;pointer-events:none}
+.t{position:absolute;white-space:nowrap;margin:0}
+.lab small{display:block}
+.onart{text-align:center}
+</style>
+<style id="variant"></style>
+<div id="stage"><div id="art"></div><svg id="over" viewBox="0 0 1920 1080"></svg></div>
+<script>
+/* Рушій сцени за сценарієм scene.json.
+   Головне правило стилю: те, про що зараз мова, — у кольорі; решта стає сірою. */
+const NS='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,e)=>a+(b-a)*e;
+const eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+let S,svg,P={},LB=[],TX=[],GR={},TV=[];
+const VAL={hidden:[0,1],color:[1,1],grey:[1,0]};          /* [видимість, колірність] */
+window.init=function(data){S=data.scene;$('variant').textContent=data.css||'';
+  const A=S.art;Object.assign($('art').style,{left:A.x+'px',top:A.y+'px',width:A.w+'px',height:A.h+'px'});
+  $('art').innerHTML=data.svg;svg=$('art').querySelector('svg');svg.setAttribute('preserveAspectRatio',A.fit||'xMidYMid meet');
+  let defs=svg.querySelector('defs');if(!defs){defs=document.createElementNS(NS,'defs');svg.insertBefore(defs,svg.firstChild)}
+  const vb=svg.viewBox.baseVal,diag=Math.hypot(vb.width,vb.height);
+  for(const id of S.parts){const g=svg.querySelector('#'+id);if(!g)throw new Error('art.svg: немає групи #'+id);P[id]={g,ev:[]}}
+  for(const e of [...S.states].sort((a,b)=>a.t-b.t))for(const id in e.set){if(!P[id])throw new Error('scene.json: невідома частина '+id);P[id].ev.push({t:e.t,d:e.dur??.7,v:VAL[e.set[id]]})}
+  for(const g of S.grow||[]){const o=svg.querySelector('#'+g.origin);if(!o)throw new Error('art.svg: немає точки #'+g.origin);const c=document.createElementNS(NS,'clipPath');c.id='kit-grow-'+g.id;c.setAttribute('clipPathUnits','userSpaceOnUse');
+    const ci=document.createElementNS(NS,'circle');ci.setAttribute('cx',o.getAttribute('cx'));ci.setAttribute('cy',o.getAttribute('cy'));ci.setAttribute('r',0);c.appendChild(ci);defs.appendChild(c);
+    const el=P[g.id].g,w=document.createElementNS(NS,'g');w.setAttribute('clip-path',`url(#${c.id})`);el.parentNode.insertBefore(w,el);w.appendChild(el);GR[g.id]={ci,diag,t:g.t,d:g.dur||1.4}}
+  const L=S.leader||{};
+  for(const cfg of S.labels||[]){const d=document.createElement('div');d.className='t '+(cfg.onArt?'onart':'lab')+' l-'+cfg.id;d.innerHTML=cfg.text+(cfg.sub?`<small>${cfg.sub}</small>`:'');
+    const al=cfg.align||'left';d.style.top=cfg.y+'px';d.style.left=cfg.x+'px';d.style.textAlign=al;d.style.transform=al==='right'?'translateX(-100%)':al==='center'?'translateX(-50%)':'';$('stage').appendChild(d);
+    let ln=null,mk=null;if(!cfg.onArt&&cfg.leader!==false){ln=document.createElementNS(NS,'polyline');ln.setAttribute('fill','none');ln.setAttribute('stroke',L.color||'#f4f1ee');ln.setAttribute('stroke-width',L.width||1.4);ln.setAttribute('stroke-linecap','round');$('over').appendChild(ln);
+      if((L.marker||'ring')!=='none'){mk=document.createElementNS(NS,'circle');mk.setAttribute('r',L.markerSize||5.5);if((L.marker||'ring')==='ring'){mk.setAttribute('fill',L.markerFill||'#000');mk.setAttribute('stroke',L.color||'#f4f1ee');mk.setAttribute('stroke-width',L.width||1.4)}else mk.setAttribute('fill',L.color||'#f4f1ee');$('over').appendChild(mk)}}
+    LB.push({d,ln,mk,cfg,al})}
+  for(const cfg of S.texts||[]){const d=document.createElement(cfg.tag||'p');d.id=cfg.id;d.className='t '+(cfg.class||'');d.innerHTML=cfg.html;$('stage').appendChild(d);TX.push({d,cfg})}
+  for(const cfg of S.travel||[]){const el=svg.querySelector('#'+cfg.id),pa=svg.querySelector('#'+cfg.path);if(!el||!pa)throw new Error('art.svg: немає #'+cfg.id+' або #'+cfg.path);TV.push({el,pa,len:pa.getTotalLength(),cfg});el.style.opacity=0}
+  return document.fonts.ready.then(()=>true)};
+function partState(id,t){const ev=P[id].ev;let v=[0,1];for(const e of ev){if(t<e.t)break;const k=eio((t-e.t)/e.d);v=[lerp(v[0],e.v[0],k),lerp(v[1],e.v[1],k)]}return v}
+function anchorPt(id){const a=svg.querySelector('#'+id);if(!a)throw new Error('art.svg: немає точки #'+id);const p=svg.createSVGPoint();p.x=+a.getAttribute('cx');p.y=+a.getAttribute('cy');const q=p.matrixTransform(a.getScreenCTM()),r=$('stage').getBoundingClientRect();return [q.x-r.left,q.y-r.top]}
+function firstLineY(d){const r=document.createRange();r.selectNodeContents(d);const rs=r.getClientRects();return rs.length?rs[0].top+rs[0].height/2:d.getBoundingClientRect().top+20}
+/* виноска виходить із зовнішнього боку тексту й ніколи не йде крізь нього */
+function leaderPts(L){const b=L.d.getBoundingClientRect(),A=anchorPt(L.cfg.anchor),gap=(S.leader&&S.leader.gap)||14,side=L.cfg.attach||(L.al==='right'?'right':L.al==='left'?'left':(A[1]>b.bottom?'bottom':'top'));
+  let Q;if(side==='left')Q=[b.left-gap,firstLineY(L.d)];else if(side==='right')Q=[b.right+gap,firstLineY(L.d)];else if(side==='bottom')Q=[b.left+b.width/2,b.bottom+gap];else Q=[b.left+b.width/2,b.top-gap];
+  if(S.leader&&S.leader.type==='elbow'&&(side==='left'||side==='right')){const k=(S.leader.elbow||40)*(side==='left'?-1:1);return [A,[Q[0]+k,Q[1]],Q]}return [A,Q]}
+function wipe(el,a,d,right){const m=(S.motion&&S.motion.text)||'wipe',q=eo(a/d);if(m==='fade'){el.style.clipPath='';return q}el.style.clipPath=right?`inset(-14px 0 -14px ${(1-q)*100}%)`:`inset(-14px ${(1-q)*100}% -14px 0)`;return a>0?1:0}
+window.renderAt=function(t){const gb=(S.grey&&S.grey.brightness)??.42,go=(S.grey&&S.grey.opacity)??1;
+  for(const id in P){const [v,c]=partState(id,t),g=P[id].g;g.style.opacity=v*lerp(go,1,c);g.style.filter=c>.995?'':`grayscale(${(1-c).toFixed(3)}) brightness(${lerp(gb,1,c).toFixed(3)})`}
+  for(const id in GR){const g=GR[id];g.ci.setAttribute('r',eio((t-g.t)/g.d)*g.diag)}
+  for(const L of LB){const c=L.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.3);let dim=1;if(c.focus){const st=partState(c.focus,t);dim=lerp(.4,1,st[1])*Math.min(1,st[0]*3)}
+    const on=a>0?1:0,q=eo((a-(L.ln?.26:0))/.36);
+    if(L.ln){const pts=leaderPts(L),p=eo(a/.32),cut=[pts[0]];let rem=p*(pts.length-1);for(let i=1;i<pts.length;i++){const e=clamp(rem);cut.push([lerp(pts[i-1][0],pts[i][0],e),lerp(pts[i-1][1],pts[i][1],e)]);rem-=1;if(rem<=0)break}
+      L.ln.setAttribute('points',cut.map(x=>x.join(',')).join(' '));L.ln.style.opacity=on*out*dim*((S.leader&&S.leader.opacity)||.9);if(L.mk){L.mk.setAttribute('cx',pts[0][0]);L.mk.setAttribute('cy',pts[0][1]);L.mk.style.opacity=on*out*dim}}
+    const w=wipe(L.d,a-(L.ln?.26:0),.36,L.al==='right');L.d.style.opacity=w*out*dim;L.vis=on&&q>.9&&out>.5}
+  for(const T of TX){const c=T.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.35),w=wipe(T.d,a,c.dur||.6,false);T.d.style.opacity=w*out;T.vis=a>(c.dur||.6)*.9&&out>.5}
+  for(const V of TV){const c=V.cfg,k=eio((t-c.t)/c.dur),pt=V.pa.getPointAtLength(k*V.len);V.el.setAttribute('cx',pt.x);V.el.setAttribute('cy',pt.y);V.el.style.opacity=(t>=c.t?1:0)*(c.out==null?1:1-eo((t-c.out)/.3))}
+  $('stage').style.opacity=1-eo((t-(S.duration-.5))/.45)};
+window.geometry=function(){const out={texts:[],lines:[]},sr=$('stage').getBoundingClientRect();
+  const push=(el,id,kind)=>{const cs=getComputedStyle(el);if(+cs.opacity<.5)return;const b=el.getBoundingClientRect();out.texts.push({id,kind,x:b.left-sr.left,y:b.top-sr.top,w:b.width,h:b.height,size:parseFloat(cs.fontSize),color:cs.color,small:[...el.querySelectorAll('small')].map(s=>parseFloat(getComputedStyle(s).fontSize))})};
+  for(const L of LB){if(!L.vis)continue;push(L.d,L.cfg.id,L.cfg.onArt?'onart':'label');if(L.ln&&+L.ln.style.opacity>.3){const p=leaderPts(L);for(let i=1;i<p.length;i++)out.lines.push({id:L.cfg.id,a:p[i-1],b:p[i]})}}
+  for(const T of TX)if(T.vis)push(T.d,T.cfg.id,T.cfg.kind||T.cfg.class||'text');return out};
+window.hideText=function(h){document.querySelectorAll('.t').forEach(e=>e.style.visibility=h?'hidden':'');$('over').style.visibility=h?'hidden':''};
+Object.defineProperty(window,'DUR',{get:()=>S.duration});Object.defineProperty(window,'CHECK',{get:()=>S.checkpoints});
+</script>
