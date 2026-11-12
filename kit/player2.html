@@ -48,11 +48,11 @@ function wipe(el,a,d,right){const m=(S.motion&&S.motion.text)||'wipe',q=eo(a/d);
 window.renderAt=function(t){const gb=(S.grey&&S.grey.brightness)??.42,go=(S.grey&&S.grey.opacity)??1;
   for(const id in P){const [v,c]=partState(id,t),g=P[id].g;g.style.opacity=v*lerp(go,1,c);g.style.filter=c>.995?'':`grayscale(${(1-c).toFixed(3)}) brightness(${lerp(gb,1,c).toFixed(3)})`}
   for(const id in GR){const g=GR[id];g.ci.setAttribute('r',eio((t-g.t)/g.d)*g.diag)}
-  for(const L of LB){const c=L.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.3);let dim=1;if(c.focus){const st=partState(c.focus,t);dim=lerp(.4,1,st[1])*Math.min(1,st[0]*3)}
+  for(const L of LB){const c=L.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.3);let dim=1;if(c.focus){const st=partState(c.focus,t);dim=eio(st[1])*Math.min(1,st[0]*3)}
     const on=a>0?1:0,q=eo((a-(L.ln?.26:0))/.36);
     if(L.ln){const pts=leaderPts(L),p=eo(a/.32),cut=[pts[0]];let rem=p*(pts.length-1);for(let i=1;i<pts.length;i++){const e=clamp(rem);cut.push([lerp(pts[i-1][0],pts[i][0],e),lerp(pts[i-1][1],pts[i][1],e)]);rem-=1;if(rem<=0)break}
       L.ln.setAttribute('points',cut.map(x=>x.join(',')).join(' '));L.ln.style.opacity=on*out*dim*((S.leader&&S.leader.opacity)||.9);if(L.mk){L.mk.setAttribute('cx',pts[0][0]);L.mk.setAttribute('cy',pts[0][1]);L.mk.style.opacity=on*out*dim}}
-    const w=wipe(L.d,a-(L.ln?.26:0),.36,L.al==='right');L.d.style.opacity=w*out*dim;L.vis=on&&q>.9&&out>.5}
+    const w=wipe(L.d,a-(L.ln?.26:0),.36,L.al==='right');L.d.style.opacity=w*out*dim;L.vis=on&&q>.9&&out>.5&&dim>.5}
   for(const T of TX){const c=T.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.35),w=wipe(T.d,a,c.dur||.6,false);T.d.style.opacity=w*out;T.vis=a>(c.dur||.6)*.9&&out>.5}
   for(const V of TV){const c=V.cfg,k=eio((t-c.t)/c.dur),pt=V.pa.getPointAtLength(k*V.len);V.el.setAttribute('cx',pt.x);V.el.setAttribute('cy',pt.y);V.el.style.opacity=(t>=c.t?1:0)*(c.out==null?1:1-eo((t-c.out)/.3))}
   $('stage').style.opacity=1-eo((t-(S.duration-.5))/.45)};

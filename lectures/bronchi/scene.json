@@ -1,0 +1,340 @@
+{
+  "fontCss": [
+    "node_modules/@fontsource/geologica/200.css",
+    "node_modules/@fontsource/geologica/300.css",
+    "node_modules/@fontsource/geologica/400.css",
+    "node_modules/@fontsource/geologica/500.css"
+  ],
+  "duration": 60,
+  "art": {
+    "x": 900,
+    "y": 40,
+    "w": 900,
+    "h": 1000
+  },
+  "grey": {
+    "brightness": 0.42
+  },
+  "leader": {
+    "type": "elbow",
+    "width": 1.3,
+    "color": "#efe9df",
+    "marker": "ring",
+    "gap": 14,
+    "elbow": 36
+  },
+  "motion": {
+    "text": "wipe"
+  },
+  "parts": [
+    "lungs",
+    "lob_r",
+    "lob_l",
+    "trachea",
+    "br_r",
+    "br_l",
+    "ang_r",
+    "ang_l",
+    "pea"
+  ],
+  "states": [
+    {
+      "t": 0,
+      "dur": 0.01,
+      "set": {
+        "lungs": "hidden",
+        "lob_r": "hidden",
+        "lob_l": "hidden",
+        "trachea": "hidden",
+        "br_r": "hidden",
+        "br_l": "hidden",
+        "ang_r": "hidden",
+        "ang_l": "hidden",
+        "pea": "hidden"
+      }
+    },
+    {
+      "t": 6.0,
+      "dur": 0.9,
+      "set": {
+        "lungs": "color",
+        "lob_r": "color",
+        "lob_l": "color",
+        "trachea": "color",
+        "br_r": "color",
+        "br_l": "color"
+      }
+    },
+    {
+      "t": 14.0,
+      "dur": 0.8,
+      "set": {
+        "lungs": "grey",
+        "lob_r": "grey",
+        "lob_l": "grey"
+      }
+    },
+    {
+      "t": 21.4,
+      "dur": 0.7,
+      "set": {
+        "trachea": "grey",
+        "br_l": "grey"
+      }
+    },
+    {
+      "t": 26.0,
+      "dur": 0.6,
+      "set": {
+        "ang_r": "color"
+      }
+    },
+    {
+      "t": 29.0,
+      "dur": 0.7,
+      "set": {
+        "br_r": "grey",
+        "ang_r": "grey",
+        "br_l": "color"
+      }
+    },
+    {
+      "t": 32.5,
+      "dur": 0.6,
+      "set": {
+        "ang_l": "color"
+      }
+    },
+    {
+      "t": 36.0,
+      "dur": 0.7,
+      "set": {
+        "br_r": "color",
+        "ang_r": "color"
+      }
+    },
+    {
+      "t": 41.5,
+      "dur": 0.6,
+      "set": {
+        "ang_r": "hidden",
+        "ang_l": "hidden",
+        "br_l": "grey",
+        "trachea": "color"
+      }
+    },
+    {
+      "t": 42.3,
+      "dur": 0.3,
+      "set": {
+        "pea": "color"
+      }
+    },
+    {
+      "t": 50.4,
+      "dur": 0.6,
+      "set": {
+        "pea": "hidden",
+        "trachea": "grey",
+        "br_r": "grey"
+      }
+    },
+    {
+      "t": 55.6,
+      "dur": 0.6,
+      "set": {
+        "br_r": "color"
+      }
+    }
+  ],
+  "travel": [
+    {
+      "id": "pea",
+      "path": "p-pea",
+      "t": 42.6,
+      "dur": 3.6,
+      "out": 50.4
+    }
+  ],
+  "labels": [
+    {
+      "id": "trachea",
+      "text": "Трахея",
+      "anchor": "a-trachea-hi",
+      "x": 1420,
+      "y": 80,
+      "align": "left",
+      "in": 8.0,
+      "out": 13.4
+    },
+    {
+      "id": "lung-r",
+      "text": "Права<br>легеня",
+      "anchor": "a-lung-r",
+      "x": 1185,
+      "y": 200,
+      "align": "center",
+      "onArt": true,
+      "in": 9.6,
+      "out": 13.4
+    },
+    {
+      "id": "lung-l",
+      "text": "Ліва<br>легеня",
+      "anchor": "a-lung-l",
+      "x": 1500,
+      "y": 200,
+      "align": "center",
+      "onArt": true,
+      "in": 10.8,
+      "out": 13.4
+    },
+    {
+      "id": "carina",
+      "text": "Біфуркація трахеї",
+      "sub": "на рівні Th4–Th5",
+      "anchor": "a-carina",
+      "x": 1520,
+      "y": 320,
+      "align": "left",
+      "in": 15.2,
+      "out": 21.0
+    },
+    {
+      "id": "br-r",
+      "text": "Правий головний бронх",
+      "sub": "коротший, ширший, крутіший",
+      "anchor": "a-br-r",
+      "x": 1146,
+      "y": 430,
+      "align": "right",
+      "focus": "br_r",
+      "in": 22.0,
+      "out": 41.2
+    },
+    {
+      "id": "ang-r",
+      "text": "≈ 25°",
+      "anchor": "a-ang-r",
+      "x": 1290,
+      "y": 560,
+      "align": "center",
+      "leader": false,
+      "focus": "ang_r",
+      "in": 26.4,
+      "out": 41.2
+    },
+    {
+      "id": "br-l",
+      "text": "Лівий головний бронх",
+      "sub": "довший і вужчий",
+      "anchor": "a-br-l",
+      "x": 1440,
+      "y": 330,
+      "align": "left",
+      "focus": "br_l",
+      "in": 29.6,
+      "out": 41.2
+    },
+    {
+      "id": "ang-l",
+      "text": "≈ 45°",
+      "anchor": "a-ang-l",
+      "x": 1400,
+      "y": 560,
+      "align": "center",
+      "leader": false,
+      "focus": "ang_l",
+      "in": 32.9,
+      "out": 41.2
+    }
+  ],
+  "texts": [
+    {
+      "id": "kicker",
+      "kind": "meta",
+      "html": "Дихальна система",
+      "in": 5.4
+    },
+    {
+      "id": "hook1",
+      "kind": "hook",
+      "html": "Вдихнута горошина частіше<br>опиняється в правій легені.",
+      "in": 0.5,
+      "out": 5.0
+    },
+    {
+      "id": "hook2",
+      "kind": "title",
+      "tag": "h1",
+      "html": "Чому саме<br>в правій?",
+      "in": 2.4,
+      "out": 5.0
+    },
+    {
+      "id": "title",
+      "kind": "title",
+      "tag": "h1",
+      "html": "Бронхіальне<br>дерево",
+      "in": 5.6,
+      "out": 13.6
+    },
+    {
+      "id": "th1",
+      "kind": "thesis",
+      "html": "Трахея ділиться на два<br>головні бронхи",
+      "in": 16.0,
+      "out": 20.8
+    },
+    {
+      "id": "th2",
+      "kind": "thesis",
+      "html": "Правий бронх майже<br>продовжує трахею",
+      "in": 36.4,
+      "out": 45.6
+    },
+    {
+      "id": "th3",
+      "kind": "thesis",
+      "html": "У дорослих стороннє тіло<br>частіше потрапляє праворуч",
+      "in": 46.2,
+      "out": 50.2
+    },
+    {
+      "id": "quizk",
+      "kind": "note",
+      "html": "Згадайте, не підглядаючи",
+      "in": 51.0,
+      "out": 55.2
+    },
+    {
+      "id": "quizq",
+      "kind": "quiz",
+      "tag": "h2",
+      "html": "Де шукатимете стороннє<br>тіло насамперед?",
+      "in": 51.2,
+      "out": 55.2
+    },
+    {
+      "id": "quiza",
+      "kind": "quiz",
+      "tag": "h2",
+      "html": "У правому<br>головному бронху",
+      "in": 55.8,
+      "out": 59.3
+    }
+  ],
+  "checkpoints": [
+    3.5,
+    11.5,
+    18.5,
+    24.5,
+    28,
+    34.5,
+    39,
+    45,
+    48.5,
+    53.5,
+    58
+  ]
+}

@@ -1,0 +1,14 @@
+#stage{font-family:'Geologica',sans-serif;color:#f2ece3}
+#kicker{left:120px;top:76px;font:300 28px 'Geologica';color:rgba(242,236,227,.74)}
+#hook1{left:120px;top:250px;font:300 100px/1.1 'Geologica';letter-spacing:-2px;color:#f2ece3}
+#hook2{left:116px;top:560px;font:200 128px/1 'Geologica';letter-spacing:-3px;color:#f2ece3}
+#title{left:116px;top:330px;font:200 128px/1 'Geologica';letter-spacing:-3px;color:#f2ece3}
+#th1,#th2,#th3{left:120px;top:400px;font:300 52px/1.18 'Geologica';color:#f2ece3}
+#quizk{left:120px;top:300px;font:300 28px 'Geologica';color:rgba(242,236,227,.74)}
+#quizq{left:120px;top:360px;font:300 64px/1.15 'Geologica';color:#f2ece3}
+#quiza{left:120px;top:360px;font:300 72px/1.12 'Geologica';color:#f2ece3}
+.lab{font:300 36px/1.14 'Geologica';color:#f2ece3}
+.lab small{display:block;font:300 26px/1.28 'Geologica';color:rgba(242,236,227,.8);margin-top:6px}
+.onart{font:400 36px/1.1 'Geologica';color:#f2ece3}
+.l-ang-r,.l-ang-l{font:400 36px/1 'Geologica'}
+.l-lung-r,.l-lung-l{color:#35191d}
