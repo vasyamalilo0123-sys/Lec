@@ -97,17 +97,17 @@ async function synthEleven(plain, voice, file) {
   if (voice.languageCode) body.language_code = voice.languageCode;
   if (voice.settings) body.voice_settings = voice.settings;
   const hint = 'Дозвольте хост api.elevenlabs.io у налаштуваннях мережі середовища й додайте ключ ElevenLabs (змінна ELEVENLABS_API_KEY або секрет середовища для цього хоста).';
-  let res;
-  try {
-    res = await fetch(url, { method: 'POST', headers: { 'xi-api-key': key, 'content-type': 'application/json' }, body: JSON.stringify(body) });
-  } catch (e) {
-    throw new Error(`ElevenLabs: немає зв'язку з api.elevenlabs.io (${e.cause?.code || e.message}). ${hint}`);
-  }
-  if (res.status === 401 || res.status === 403) {
-    throw new Error(`ElevenLabs: відмова ${res.status} (ключ відсутній, хибний або хост заблоковано політикою мережі). ${hint}`);
-  }
-  if (!res.ok) throw new Error(`ElevenLabs: помилка ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const j = await res.json();
+  // Запит через curl: він, на відміну від вбудованого fetch, зважає на проксі та сертифікати середовища.
+  const tmp = file + '.req.json', out = file + '.resp.json';
+  fs.writeFileSync(tmp, JSON.stringify(body));
+  const r = spawnSync('curl', ['-sS', '-m', '180', '-X', 'POST', '-H', `xi-api-key: ${key}`, '-H', 'content-type: application/json', '--data-binary', '@' + tmp, '-o', out, '-w', '%{http_code}', url], { encoding: 'utf8' });
+  fs.rmSync(tmp, { force: true });
+  const status = parseInt(r.stdout, 10) || 0, text = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
+  fs.rmSync(out, { force: true });
+  if (r.status !== 0 || !status) throw new Error(`ElevenLabs: немає зв'язку з api.elevenlabs.io (${(r.stderr || '').trim().slice(0, 160)}). ${hint}`);
+  if (status === 401 || status === 403) throw new Error(`ElevenLabs: відмова ${status} (ключ відсутній, хибний або хост заблоковано політикою мережі). ${hint} ${text.slice(0, 200)}`);
+  if (status < 200 || status >= 300) throw new Error(`ElevenLabs: помилка ${status}: ${text.slice(0, 300)}`);
+  let j; try { j = JSON.parse(text); } catch (e) { throw new Error('ElevenLabs: відповідь не є JSON: ' + text.slice(0, 200)); }
   if (!j.audio_base64) throw new Error('ElevenLabs: у відповіді немає audio_base64.');
   fs.writeFileSync(file, Buffer.from(j.audio_base64, 'base64'));
   const al = j.alignment || {};
