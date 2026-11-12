@@ -1,668 +1,669 @@
 {
- "art": {
-  "x": 0,
-  "y": 0,
-  "w": 1920,
-  "h": 1080
- },
- "parts": [
-  "slot",
-  "arm_m",
-  "vein_m",
-  "arm_w",
-  "vein_w",
-  "pat_m",
-  "stairs",
-  "pat_w",
-  "foot",
-  "nerve",
-  "scope",
-  "syr",
-  "arr_m",
-  "arr_w",
-  "blood_m",
-  "blood_w",
-  "tube_m",
-  "tube_w",
-  "tag_m",
-  "tag_w",
-  "num_m",
-  "num_w",
-  "slot_front",
-  "drop_m",
-  "drop_w"
- ],
- "narration": [
-  {
-   "id": "n1",
-   "text": "Дві вени, дві [[drops]]краплі крові. І в обох пробі́рках аналіза́тор покаже одне число́: [[hb]]гемоглобі́н — дев'яносто шість гра́мів на літр."
+  "art": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
   },
-  {
-   "id": "n2",
-   "text": "[[man]]Перша крапля — від чоловіка шістдесяти чотирьох років: [[stairs]]зади́шка на сходах, утома. [[woman]]Друга — від жінки сімдесяти років: [[feet]]онімі́ння в стопах, хи́ткість у темряві.",
-   "gap": 0.6
-  },
-  {
-   "id": "n3",
-   "text": "Число́ одне. Але [[split]]одному з них потрібна колоноскопі́я, [[b12]]а другій — ін'є́кції вітамі́ну B12.",
-   "gap": 0.6
-  },
-  {
-   "id": "n4",
-   "text": "[[q]]Як це прочитати з однієї пробі́рки? [[go]]Простежмо, куди поведе кожна крапля, — [[road]]від вени до діагнозу й лікування.",
-   "gap": 0.7
-  }
- ],
- "brief": {
-  "in": "Перший кадр лекції без затемнення: на чорному одразу промальовуються (draw, 1,2 с) два передпліччя — ліве й праве від центру, долонями догори, з синіми венами ліктьового згину; центр кадру порожній під дві пробірки.",
-  "out": "Обидві пробірки з бирками «96» їдуть (travel) униз до щілини аналізатора внизу центру; камера (camera) опускається слідом і зупиняється на щілині — цей кадр бере carry сцени 02.",
-  "reuse": "18-summary: ендоскоп із групи path1 (значок колоноскопії) і шприц із групи path2 (значок B12) — вирізати як окремі значки. Решта нова: руки, вени, краплі, пробірки, бирки, силуети пацієнтів (за world.md).",
-  "art": "Повний кадр, симетрія навколо центру. Частини: arm_m, arm_w (передпліччя), vein_m, vein_w (вени), drop_m, drop_w (краплі з кільцями-мітками бурштин/блакитний), tube_m, tube_w (пробірки в центрі, поруч), tag_m, tag_w (бирки з числом), pat_m (силует чоловіка + сходинки, ліва третина), pat_w (силует жінки з паличкою + стопа з жовтим нервом, права третина), scope (значок ендоскопа під tube_m), syr (шприц під tube_w), slot (щілина аналізатора внизу, поки сіра). Траєкторії p_drop_m, p_drop_w (від вени до пробірки), p_tube_m, p_tube_w (від пробірки до щілини).",
-  "flow": [
-   {
-    "at": "start",
-    "color": "vein_m, vein_w",
-    "move": "draw контурів рук і вен (1,2 с); loop — біг штрихів у венах (кровотік)",
-    "text": "—"
-   },
-   {
-    "at": "@drops",
-    "color": "drop_m, drop_w, vein_*",
-    "move": "grow крапель із точки пункції (0,6 с), далі travel по p_drop_m/p_drop_w у центр; tube_m, tube_w draw, кров у пробірках grow знизу",
-    "text": "note «Навчальний приклад» (дрібно, внизу праворуч)"
-   },
-   {
-    "at": "@hb",
-    "color": "tube_m, tube_w, tag_m, tag_w",
-    "move": "бирки виростають (grow) на нитках; count 0 → 96 в обох синхронно (1,4 с); руки стають сірими",
-    "text": "hook у нижній смузі: «Однаковий гемоглобін — 96 г/л»"
-   },
-   {
-    "at": "@man",
-    "color": "pat_m, tag_m",
-    "move": "camera плавно зсуває центр на чоловічу пару (на 15 %); pat_m draw (1 с); сходинки промальовуються по черзі (draw), силует трохи похитується (loop, дихання)",
-    "text": "підпис «Чоловік, 64» біля силуету"
-   },
-   {
-    "at": "@woman",
-    "color": "pat_w, tag_w",
-    "move": "camera перекочує центр на жіночу пару; pat_m сірий; pat_w draw; жовтий нерв у стопі промальовується, далі loop — переривчастий пунктир (оніміння)",
-    "text": "підпис «Жінка, 70»"
-   },
-   {
-    "at": "n3",
-    "color": "tube_m, tube_w, tag_m, tag_w",
-    "move": "camera повертає центр між пробірками; пацієнти сірі; loop — пульс кілець-міток",
-    "text": "—"
-   },
-   {
-    "at": "@split",
-    "color": "scope, syr + обидві краплі",
-    "move": "від tube_m до scope росте (grow) бурштинова стрілка вниз-ліворуч, від tube_w до syr — блакитна вниз-праворуч; значки draw",
-    "text": "hook змінюється тезою: «Одне число — різні діагнози»"
-   },
-   {
-    "at": "@q",
-    "color": "tube_m, tube_w",
-    "move": "scope, syr сірі; camera повільно наближається до двох пробірок (3 с)",
-    "text": "title по центру внизу: «Як прочитати це з однієї пробірки?»"
-   },
-   {
-    "at": "n4+3",
-    "color": "tube_m, tube_w, slot",
-    "move": "slot draw; пробірки travel по p_tube_*, camera опускається за ними",
-    "text": "title гасне"
-   }
+  "parts": [
+    "slot",
+    "arm_m",
+    "vein_m",
+    "arm_w",
+    "vein_w",
+    "pat_m",
+    "stairs",
+    "pat_w",
+    "foot",
+    "nerve",
+    "scope",
+    "syr",
+    "arr_m",
+    "arr_w",
+    "blood_m",
+    "blood_w",
+    "tube_m",
+    "tube_w",
+    "tag_m",
+    "tag_w",
+    "num_m",
+    "num_w",
+    "slot_front",
+    "drop_m",
+    "drop_w"
   ],
-  "texts": "hook: «Однаковий гемоглобін — 96 г/л»; thesis (@split): «Одне число — різні діагнози»; title (@q): «Як прочитати це з однієї пробірки?»; note: «Навчальний приклад»; підписи «Чоловік, 64», «Жінка, 70»."
- },
- "lead": 0.3,
- "tail": 0.7,
- "enter": "fade",
- "exit": "cut",
- "camera": [
-  {
-   "at": "start",
-   "dur": 0.01,
-   "view": "v-in"
+  "narration": [
+    {
+      "id": "n1",
+      "text": "Дві вени, дві [[drops]]краплі крові. І в обох пробі́рках аналіза́тор покаже одне число́: [[hb]]гемоглобі́н — дев'яносто шість гра́мів на літр."
+    },
+    {
+      "id": "n2",
+      "text": "[[man]]Перша крапля — від чоловіка шістдесяти чотирьох років: [[stairs]]зади́шка на сходах, утома. [[woman]]Друга — від жінки сімдесяти років: [[feet]]онімі́ння в стопах, хи́ткість у темряві.",
+      "gap": 0.6
+    },
+    {
+      "id": "n3",
+      "text": "Число́ одне. Але [[split]]одному з них потрібна колоноскопі́я, [[b12]]а другій — ін'є́кції вітамі́ну B12.",
+      "gap": 0.6
+    },
+    {
+      "id": "n4",
+      "text": "[[q]]Як це прочитати з однієї пробі́рки? [[go]]Простежмо, куди поведе кожна крапля, — [[road]]від вени до діагнозу й лікування.",
+      "gap": 0.7
+    }
+  ],
+  "brief": {
+    "in": "Перший кадр лекції без затемнення: на чорному одразу промальовуються (draw, 1,2 с) два передпліччя — ліве й праве від центру, долонями догори, з синіми венами ліктьового згину; центр кадру порожній під дві пробірки.",
+    "out": "Обидві пробірки з бирками «96» їдуть (travel) униз до щілини аналізатора внизу центру; камера (camera) опускається слідом і зупиняється на щілині — цей кадр бере carry сцени 02.",
+    "reuse": "18-summary: ендоскоп із групи path1 (значок колоноскопії) і шприц із групи path2 (значок B12) — вирізати як окремі значки. Решта нова: руки, вени, краплі, пробірки, бирки, силуети пацієнтів (за world.md).",
+    "art": "Повний кадр, симетрія навколо центру. Частини: arm_m, arm_w (передпліччя), vein_m, vein_w (вени), drop_m, drop_w (краплі з кільцями-мітками бурштин/блакитний), tube_m, tube_w (пробірки в центрі, поруч), tag_m, tag_w (бирки з числом), pat_m (силует чоловіка + сходинки, ліва третина), pat_w (силует жінки з паличкою + стопа з жовтим нервом, права третина), scope (значок ендоскопа під tube_m), syr (шприц під tube_w), slot (щілина аналізатора внизу, поки сіра). Траєкторії p_drop_m, p_drop_w (від вени до пробірки), p_tube_m, p_tube_w (від пробірки до щілини).",
+    "flow": [
+      {
+        "at": "start",
+        "color": "vein_m, vein_w",
+        "move": "draw контурів рук і вен (1,2 с); loop — біг штрихів у венах (кровотік)",
+        "text": "—"
+      },
+      {
+        "at": "@drops",
+        "color": "drop_m, drop_w, vein_*",
+        "move": "grow крапель із точки пункції (0,6 с), далі travel по p_drop_m/p_drop_w у центр; tube_m, tube_w draw, кров у пробірках grow знизу",
+        "text": "note «Навчальний приклад» (дрібно, внизу праворуч)"
+      },
+      {
+        "at": "@hb",
+        "color": "tube_m, tube_w, tag_m, tag_w",
+        "move": "бирки виростають (grow) на нитках; count 0 → 96 в обох синхронно (1,4 с); руки стають сірими",
+        "text": "hook у нижній смузі: «Однаковий гемоглобін — 96 г/л»"
+      },
+      {
+        "at": "@man",
+        "color": "pat_m, tag_m",
+        "move": "camera плавно зсуває центр на чоловічу пару (на 15 %); pat_m draw (1 с); сходинки промальовуються по черзі (draw), силует трохи похитується (loop, дихання)",
+        "text": "підпис «Чоловік, 64» біля силуету"
+      },
+      {
+        "at": "@woman",
+        "color": "pat_w, tag_w",
+        "move": "camera перекочує центр на жіночу пару; pat_m сірий; pat_w draw; жовтий нерв у стопі промальовується, далі loop — переривчастий пунктир (оніміння)",
+        "text": "підпис «Жінка, 70»"
+      },
+      {
+        "at": "n3",
+        "color": "tube_m, tube_w, tag_m, tag_w",
+        "move": "camera повертає центр між пробірками; пацієнти сірі; loop — пульс кілець-міток",
+        "text": "—"
+      },
+      {
+        "at": "@split",
+        "color": "scope, syr + обидві краплі",
+        "move": "від tube_m до scope росте (grow) бурштинова стрілка вниз-ліворуч, від tube_w до syr — блакитна вниз-праворуч; значки draw",
+        "text": "hook змінюється тезою: «Одне число — різні діагнози»"
+      },
+      {
+        "at": "@q",
+        "color": "tube_m, tube_w",
+        "move": "scope, syr сірі; camera повільно наближається до двох пробірок (3 с)",
+        "text": "title по центру внизу: «Як прочитати це з однієї пробірки?»"
+      },
+      {
+        "at": "n4+3",
+        "color": "tube_m, tube_w, slot",
+        "move": "slot draw; пробірки travel по p_tube_*, camera опускається за ними",
+        "text": "title гасне"
+      }
+    ],
+    "texts": "hook: «Однаковий гемоглобін — 96 г/л»; thesis (@split): «Одне число — різні діагнози»; title (@q): «Як прочитати це з однієї пробірки?»; note: «Навчальний приклад»; підписи «Чоловік, 64», «Жінка, 70»."
   },
-  {
-   "at": "@man",
-   "dur": 1.6,
-   "view": "v-man"
-  },
-  {
-   "at": "@woman",
-   "dur": 1.8,
-   "view": "v-woman"
-  },
-  {
-   "at": "n3",
-   "dur": 1.6,
-   "view": "v-in"
-  },
-  {
-   "at": "@q",
-   "dur": 3.0,
-   "view": "v-q"
-  },
-  {
-   "at": "@go+0.4",
-   "dur": 2.6,
-   "view": "v-out"
-  }
- ],
- "states": [
-  {
-   "at": "start",
-   "dur": 0.01,
-   "set": {
-    "slot": "hidden",
-    "arm_m": "hidden",
-    "vein_m": "hidden",
-    "arm_w": "hidden",
-    "vein_w": "hidden",
-    "pat_m": "hidden",
-    "stairs": "hidden",
-    "pat_w": "hidden",
-    "foot": "hidden",
-    "nerve": "hidden",
-    "scope": "hidden",
-    "syr": "hidden",
-    "arr_m": "hidden",
-    "arr_w": "hidden",
-    "blood_m": "hidden",
-    "blood_w": "hidden",
-    "tube_m": "hidden",
-    "tube_w": "hidden",
-    "tag_m": "hidden",
-    "tag_w": "hidden",
-    "num_m": "hidden",
-    "num_w": "hidden",
-    "slot_front": "hidden",
-    "drop_m": "hidden",
-    "drop_w": "hidden"
-   }
-  },
-  {
-   "at": "start+0.02",
-   "dur": 1.0,
-   "set": {
-    "arm_m": "color",
-    "arm_w": "color",
-    "vein_m": "color",
-    "vein_w": "color"
-   }
-  },
-  {
-   "at": "@drops",
-   "dur": 0.5,
-   "set": {
-    "drop_m": "color",
-    "drop_w": "color"
-   }
-  },
-  {
-   "at": "@drops+1.2",
-   "dur": 0.5,
-   "set": {
-    "tube_m": "color",
-    "tube_w": "color",
-    "blood_m": "color",
-    "blood_w": "color"
-   }
-  },
-  {
-   "at": "@hb",
-   "dur": 0.6,
-   "set": {
-    "tag_m": "color",
-    "tag_w": "color",
-    "num_m": "color",
-    "num_w": "color",
-    "arm_m": "grey",
-    "arm_w": "grey",
-    "vein_m": "grey",
-    "vein_w": "grey"
-   }
-  },
-  {
-   "at": "@man",
-   "dur": 0.8,
-   "set": {
-    "pat_m": "color",
-    "tube_w": "grey",
-    "blood_w": "grey",
-    "tag_w": "grey",
-    "num_w": "grey",
-    "drop_w": "grey",
-    "arm_m": "hidden",
-    "arm_w": "hidden",
-    "vein_m": "hidden",
-    "vein_w": "hidden"
-   }
-  },
-  {
-   "at": "@stairs",
-   "dur": 0.5,
-   "set": {
-    "stairs": "color"
-   }
-  },
-  {
-   "at": "@woman",
-   "dur": 0.6,
-   "set": {
-    "pat_m": "grey",
-    "stairs": "grey",
-    "tube_m": "grey",
-    "blood_m": "grey",
-    "tag_m": "grey",
-    "num_m": "grey",
-    "drop_m": "grey",
-    "pat_w": "color",
-    "tube_w": "color",
-    "blood_w": "color",
-    "tag_w": "color",
-    "num_w": "color",
-    "drop_w": "color"
-   }
-  },
-  {
-   "at": "@feet",
-   "dur": 0.5,
-   "set": {
-    "foot": "color",
-    "nerve": "color"
-   }
-  },
-  {
-   "at": "n3",
-   "dur": 0.6,
-   "set": {
-    "pat_w": "grey",
-    "foot": "grey",
-    "nerve": "grey",
-    "tube_m": "color",
-    "blood_m": "color",
-    "tag_m": "color",
-    "num_m": "color",
-    "drop_m": "color",
-    "arm_m": "grey",
-    "arm_w": "grey",
-    "vein_m": "grey",
-    "vein_w": "grey"
-   }
-  },
-  {
-   "at": "@split",
-   "dur": 0.5,
-   "set": {
-    "arr_m": "color",
-    "scope": "color"
-   }
-  },
-  {
-   "at": "@b12",
-   "dur": 0.5,
-   "set": {
-    "arr_w": "color",
-    "syr": "color"
-   }
-  },
-  {
-   "at": "@q",
-   "dur": 0.6,
-   "set": {
-    "arr_m": "hidden",
-    "arr_w": "hidden",
-    "scope": "hidden",
-    "syr": "hidden"
-   }
-  },
-  {
-   "at": "@go",
-   "dur": 0.5,
-   "set": {
-    "slot": "color",
-    "slot_front": "color"
-   }
-  }
- ],
- "draw": [
-  {
-   "id": "arm_m",
-   "at": "start",
-   "dur": 1.2
-  },
-  {
-   "id": "arm_w",
-   "at": "start",
-   "dur": 1.2
-  },
-  {
-   "id": "vein_m",
-   "at": "start+0.4",
-   "dur": 1.0
-  },
-  {
-   "id": "vein_w",
-   "at": "start+0.4",
-   "dur": 1.0
-  },
-  {
-   "id": "tube_m",
-   "at": "@drops+1.2",
-   "dur": 1.2
-  },
-  {
-   "id": "tube_w",
-   "at": "@drops+1.2",
-   "dur": 1.2
-  },
-  {
-   "id": "num_m",
-   "at": "@hb+0.3",
-   "dur": 1.4
-  },
-  {
-   "id": "num_w",
-   "at": "@hb+0.3",
-   "dur": 1.4
-  },
-  {
-   "id": "pat_m",
-   "at": "@man+0.3",
-   "dur": 1.0
-  },
-  {
-   "id": "stairs",
-   "at": "@stairs",
-   "dur": 1.4
-  },
-  {
-   "id": "pat_w",
-   "at": "@woman+0.3",
-   "dur": 1.0
-  },
-  {
-   "id": "foot",
-   "at": "@feet",
-   "dur": 1.0
-  },
-  {
-   "id": "nerve",
-   "at": "@feet+0.6",
-   "dur": 1.0
-  },
-  {
-   "id": "scope",
-   "at": "@split+0.5",
-   "dur": 1.0
-  },
-  {
-   "id": "syr",
-   "at": "@b12+0.5",
-   "dur": 1.0
-  },
-  {
-   "id": "slot",
-   "at": "@go",
-   "dur": 1.0
-  },
-  {
-   "id": "slot_front",
-   "at": "@go+0.3",
-   "dur": 1.2
-  }
- ],
- "grow": [
-  {
-   "id": "drop_m",
-   "origin": "site_m",
-   "at": "@drops",
-   "dur": 1.6
-  },
-  {
-   "id": "drop_w",
-   "origin": "site_w",
-   "at": "@drops",
-   "dur": 1.6
-  },
-  {
-   "id": "blood_m",
-   "origin": "o_blood_m",
-   "at": "@drops+2.5",
-   "dur": 1.8
-  },
-  {
-   "id": "blood_w",
-   "origin": "o_blood_w",
-   "at": "@drops+2.5",
-   "dur": 1.8
-  },
-  {
-   "id": "tag_m",
-   "origin": "o_tag_m",
-   "at": "@hb",
-   "dur": 1.6
-  },
-  {
-   "id": "tag_w",
-   "origin": "o_tag_w",
-   "at": "@hb",
-   "dur": 1.6
-  },
-  {
-   "id": "arr_m",
-   "origin": "o_arr_m",
-   "at": "@split",
-   "dur": 1.6
-  },
-  {
-   "id": "arr_w",
-   "origin": "o_arr_w",
-   "at": "@b12",
-   "dur": 1.6
-  }
- ],
- "travel": [
-  {
-   "id": "drop_m",
-   "path": "p_drop_m",
-   "at": "@drops",
-   "dur": 2.6,
-   "scale": 0.55
-  },
-  {
-   "id": "drop_w",
-   "path": "p_drop_w",
-   "at": "@drops",
-   "dur": 2.6,
-   "scale": 0.55
-  }
- ],
- "move": [
-  {
-   "id": "tube_m",
-   "to": "pt_tube_m_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "blood_m",
-   "to": "pt_blood_m_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "tag_m",
-   "to": "pt_tag_m_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "num_m",
-   "to": "pt_num_m_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "drop_m",
-   "to": "pt_drop_m_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "tube_w",
-   "to": "pt_tube_w_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "blood_w",
-   "to": "pt_blood_w_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "tag_w",
-   "to": "pt_tag_w_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "num_w",
-   "to": "pt_num_w_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  },
-  {
-   "id": "drop_w",
-   "to": "pt_drop_w_out",
-   "at": "@go+0.6",
-   "dur": 2.6
-  }
- ],
- "loop": [
-  {
-   "id": "flow_m",
-   "kind": "flow",
-   "in": "start+1.2",
-   "out": "@hb",
-   "amp": 14,
-   "period": 1.4
-  },
-  {
-   "id": "flow_w",
-   "kind": "flow",
-   "in": "start+1.2",
-   "out": "@hb",
-   "amp": 14,
-   "period": 1.4
-  },
-  {
-   "id": "ring_m",
-   "kind": "pulse",
-   "in": "@hb+1.6",
-   "amp": 0.04,
-   "period": 2.4
-  },
-  {
-   "id": "ring_w",
-   "kind": "pulse",
-   "in": "@hb+1.6",
-   "amp": 0.04,
-   "period": 2.4
-  },
-  {
-   "id": "pat_m",
-   "kind": "float",
-   "in": "@man+1.4",
-   "out": "@woman",
-   "amp": 3,
-   "period": 3.5
-  },
-  {
-   "id": "nerve",
-   "kind": "flow",
-   "in": "@feet+1.6",
-   "out": "n3",
-   "amp": 10,
-   "period": 1.6
-  }
- ],
- "count": [
-  {
-   "id": "hook",
-   "from": 0,
-   "to": 96,
-   "at": "@hb+0.3",
-   "dur": 1.4
-  }
- ],
- "texts": [
-  {
-   "id": "note",
-   "kind": "note",
-   "html": "Навчальний приклад",
-   "in": "@drops",
-   "out": "n3",
-   "x": 1700,
-   "y": 1000
-  },
-  {
-   "id": "hook",
-   "kind": "hook",
-   "html": "Однаковий гемоглобін — {n} г/л",
-   "in": "@hb",
-   "out": "n2"
-  },
-  {
-   "id": "th",
-   "kind": "thesis",
-   "html": "Одне число — різні діагнози",
-   "in": "@split",
-   "out": "@q",
-   "band": "top"
-  },
-  {
-   "id": "q",
-   "kind": "title",
-   "html": "Як прочитати це з однієї пробірки?",
-   "in": "@q+0.3",
-   "out": "@go"
-  }
- ],
- "labels": [
-  {
-   "id": "lm",
-   "text": "Чоловік, 64",
-   "anchor": "a_man",
-   "x": 610,
-   "y": 90,
-   "align": "left",
-   "in": "@man+1.2",
-   "out": "@woman",
-   "focus": "pat_m"
-  },
-  {
-   "id": "lw",
-   "text": "Жінка, 70",
-   "anchor": "a_woman",
-   "x": 1310,
-   "y": 90,
-   "align": "right",
-   "in": "@woman+1.2",
-   "out": "n3",
-   "focus": "pat_w"
-  }
- ],
- "sources": [
-  {
-   "ref": "s1",
-   "in": "@hb",
-   "out": "n2"
-  }
- ]
+  "lead": 0.3,
+  "tail": 0.7,
+  "enter": "fade",
+  "exit": "cut",
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "@man",
+      "dur": 1.6,
+      "view": "v-man"
+    },
+    {
+      "at": "@woman",
+      "dur": 1.8,
+      "view": "v-woman"
+    },
+    {
+      "at": "n3",
+      "dur": 1.6,
+      "view": "v-in"
+    },
+    {
+      "at": "@q",
+      "dur": 3,
+      "view": "v-q"
+    },
+    {
+      "at": "@go+0.4",
+      "dur": 2.6,
+      "view": "v-out"
+    }
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "slot": "hidden",
+        "arm_m": "hidden",
+        "vein_m": "hidden",
+        "arm_w": "hidden",
+        "vein_w": "hidden",
+        "pat_m": "hidden",
+        "stairs": "hidden",
+        "pat_w": "hidden",
+        "foot": "hidden",
+        "nerve": "hidden",
+        "scope": "hidden",
+        "syr": "hidden",
+        "arr_m": "hidden",
+        "arr_w": "hidden",
+        "blood_m": "hidden",
+        "blood_w": "hidden",
+        "tube_m": "hidden",
+        "tube_w": "hidden",
+        "tag_m": "hidden",
+        "tag_w": "hidden",
+        "num_m": "hidden",
+        "num_w": "hidden",
+        "slot_front": "hidden",
+        "drop_m": "hidden",
+        "drop_w": "hidden"
+      }
+    },
+    {
+      "at": "start+0.02",
+      "dur": 1,
+      "set": {
+        "arm_m": "color",
+        "arm_w": "color",
+        "vein_m": "color",
+        "vein_w": "color"
+      }
+    },
+    {
+      "at": "@drops",
+      "dur": 0.5,
+      "set": {
+        "drop_m": "color",
+        "drop_w": "color"
+      }
+    },
+    {
+      "at": "@drops+1.2",
+      "dur": 0.5,
+      "set": {
+        "tube_m": "color",
+        "tube_w": "color",
+        "blood_m": "color",
+        "blood_w": "color"
+      }
+    },
+    {
+      "at": "@hb",
+      "dur": 0.6,
+      "set": {
+        "tag_m": "color",
+        "tag_w": "color",
+        "num_m": "color",
+        "num_w": "color",
+        "arm_m": "grey",
+        "arm_w": "grey",
+        "vein_m": "grey",
+        "vein_w": "grey"
+      }
+    },
+    {
+      "at": "@man",
+      "dur": 0.8,
+      "set": {
+        "pat_m": "color",
+        "tube_w": "grey",
+        "blood_w": "grey",
+        "tag_w": "grey",
+        "num_w": "grey",
+        "drop_w": "grey",
+        "arm_m": "hidden",
+        "arm_w": "hidden",
+        "vein_m": "hidden",
+        "vein_w": "hidden"
+      }
+    },
+    {
+      "at": "@stairs",
+      "dur": 0.5,
+      "set": {
+        "stairs": "color"
+      }
+    },
+    {
+      "at": "@woman",
+      "dur": 0.6,
+      "set": {
+        "pat_m": "grey",
+        "stairs": "grey",
+        "tube_m": "grey",
+        "blood_m": "grey",
+        "tag_m": "grey",
+        "num_m": "grey",
+        "drop_m": "grey",
+        "pat_w": "color",
+        "tube_w": "color",
+        "blood_w": "color",
+        "tag_w": "color",
+        "num_w": "color",
+        "drop_w": "color"
+      }
+    },
+    {
+      "at": "@feet",
+      "dur": 0.5,
+      "set": {
+        "foot": "color",
+        "nerve": "color"
+      }
+    },
+    {
+      "at": "n3",
+      "dur": 0.6,
+      "set": {
+        "pat_w": "grey",
+        "foot": "grey",
+        "nerve": "grey",
+        "tube_m": "color",
+        "blood_m": "color",
+        "tag_m": "color",
+        "num_m": "color",
+        "drop_m": "color",
+        "arm_m": "grey",
+        "arm_w": "grey",
+        "vein_m": "grey",
+        "vein_w": "grey"
+      }
+    },
+    {
+      "at": "@split",
+      "dur": 0.5,
+      "set": {
+        "arr_m": "color",
+        "scope": "color"
+      }
+    },
+    {
+      "at": "@b12",
+      "dur": 0.5,
+      "set": {
+        "arr_w": "color",
+        "syr": "color"
+      }
+    },
+    {
+      "at": "@q",
+      "dur": 0.6,
+      "set": {
+        "arr_m": "hidden",
+        "arr_w": "hidden",
+        "scope": "hidden",
+        "syr": "hidden"
+      }
+    },
+    {
+      "at": "@go",
+      "dur": 0.5,
+      "set": {
+        "slot": "color",
+        "slot_front": "color"
+      }
+    }
+  ],
+  "draw": [
+    {
+      "id": "arm_m",
+      "at": "start",
+      "dur": 1.2
+    },
+    {
+      "id": "arm_w",
+      "at": "start",
+      "dur": 1.2
+    },
+    {
+      "id": "vein_m",
+      "at": "start+0.4",
+      "dur": 1
+    },
+    {
+      "id": "vein_w",
+      "at": "start+0.4",
+      "dur": 1
+    },
+    {
+      "id": "tube_m",
+      "at": "@drops+1.2",
+      "dur": 1.2
+    },
+    {
+      "id": "tube_w",
+      "at": "@drops+1.2",
+      "dur": 1.2
+    },
+    {
+      "id": "num_m",
+      "at": "@hb+0.3",
+      "dur": 1.4
+    },
+    {
+      "id": "num_w",
+      "at": "@hb+0.3",
+      "dur": 1.4
+    },
+    {
+      "id": "pat_m",
+      "at": "@man+0.3",
+      "dur": 1
+    },
+    {
+      "id": "stairs",
+      "at": "@stairs",
+      "dur": 1.4
+    },
+    {
+      "id": "pat_w",
+      "at": "@woman+0.3",
+      "dur": 1
+    },
+    {
+      "id": "foot",
+      "at": "@feet",
+      "dur": 1
+    },
+    {
+      "id": "nerve",
+      "at": "@feet+0.6",
+      "dur": 1
+    },
+    {
+      "id": "scope",
+      "at": "@split+0.5",
+      "dur": 1
+    },
+    {
+      "id": "syr",
+      "at": "@b12+0.5",
+      "dur": 1
+    },
+    {
+      "id": "slot",
+      "at": "@go",
+      "dur": 1
+    },
+    {
+      "id": "slot_front",
+      "at": "@go+0.3",
+      "dur": 1.2
+    }
+  ],
+  "grow": [
+    {
+      "id": "drop_m",
+      "origin": "site_m",
+      "at": "@drops",
+      "dur": 1.6
+    },
+    {
+      "id": "drop_w",
+      "origin": "site_w",
+      "at": "@drops",
+      "dur": 1.6
+    },
+    {
+      "id": "blood_m",
+      "origin": "o_blood_m",
+      "at": "@drops+2.5",
+      "dur": 1.8
+    },
+    {
+      "id": "blood_w",
+      "origin": "o_blood_w",
+      "at": "@drops+2.5",
+      "dur": 1.8
+    },
+    {
+      "id": "tag_m",
+      "origin": "o_tag_m",
+      "at": "@hb",
+      "dur": 1.6
+    },
+    {
+      "id": "tag_w",
+      "origin": "o_tag_w",
+      "at": "@hb",
+      "dur": 1.6
+    },
+    {
+      "id": "arr_m",
+      "origin": "o_arr_m",
+      "at": "@split",
+      "dur": 1.6
+    },
+    {
+      "id": "arr_w",
+      "origin": "o_arr_w",
+      "at": "@b12",
+      "dur": 1.6
+    }
+  ],
+  "travel": [
+    {
+      "id": "drop_m",
+      "path": "p_drop_m",
+      "at": "@drops",
+      "dur": 2.6,
+      "scale": 0.55
+    },
+    {
+      "id": "drop_w",
+      "path": "p_drop_w",
+      "at": "@drops",
+      "dur": 2.6,
+      "scale": 0.55
+    }
+  ],
+  "move": [
+    {
+      "id": "tube_m",
+      "to": "pt_tube_m_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "blood_m",
+      "to": "pt_blood_m_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "tag_m",
+      "to": "pt_tag_m_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "num_m",
+      "to": "pt_num_m_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "drop_m",
+      "to": "pt_drop_m_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "tube_w",
+      "to": "pt_tube_w_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "blood_w",
+      "to": "pt_blood_w_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "tag_w",
+      "to": "pt_tag_w_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "num_w",
+      "to": "pt_num_w_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    },
+    {
+      "id": "drop_w",
+      "to": "pt_drop_w_out",
+      "at": "@go+0.6",
+      "dur": 2.6
+    }
+  ],
+  "loop": [
+    {
+      "id": "flow_m",
+      "kind": "flow",
+      "in": "start+1.2",
+      "out": "@hb",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "flow_w",
+      "kind": "flow",
+      "in": "start+1.2",
+      "out": "@hb",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ring_m",
+      "kind": "pulse",
+      "in": "@hb+1.6",
+      "amp": 0.04,
+      "period": 2.4
+    },
+    {
+      "id": "ring_w",
+      "kind": "pulse",
+      "in": "@hb+1.6",
+      "amp": 0.04,
+      "period": 2.4
+    },
+    {
+      "id": "pat_m",
+      "kind": "float",
+      "in": "@man+1.4",
+      "out": "@woman",
+      "amp": 3,
+      "period": 3.5
+    },
+    {
+      "id": "nerve",
+      "kind": "flow",
+      "in": "@feet+1.6",
+      "out": "n3",
+      "amp": 10,
+      "period": 1.6
+    }
+  ],
+  "count": [
+    {
+      "id": "hook",
+      "from": 0,
+      "to": 96,
+      "at": "@hb+0.3",
+      "dur": 1.4
+    }
+  ],
+  "texts": [
+    {
+      "id": "note",
+      "kind": "note",
+      "html": "Навчальний приклад",
+      "in": "@drops",
+      "out": "n3",
+      "x": 1700,
+      "y": 1000
+    },
+    {
+      "id": "hook",
+      "kind": "hook",
+      "html": "Однаковий гемоглобін — {n} г/л",
+      "in": "@hb",
+      "out": "n2"
+    },
+    {
+      "id": "th",
+      "kind": "thesis",
+      "html": "Одне число — різні діагнози",
+      "in": "@split",
+      "out": "@q",
+      "band": "top"
+    },
+    {
+      "id": "q",
+      "kind": "title",
+      "html": "Як прочитати це з однієї пробірки?",
+      "in": "@q+0.3",
+      "out": "@go"
+    }
+  ],
+  "labels": [
+    {
+      "id": "lm",
+      "text": "Чоловік, 64",
+      "anchor": "a_man",
+      "x": 610,
+      "y": 90,
+      "align": "left",
+      "in": "@man+1.2",
+      "out": "@woman",
+      "focus": "pat_m"
+    },
+    {
+      "id": "lw",
+      "text": "Жінка, 70",
+      "anchor": "a_woman",
+      "x": 1310,
+      "y": 90,
+      "align": "right",
+      "in": "@woman+1.2",
+      "out": "n3",
+      "focus": "pat_w"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s1",
+      "in": "@hb",
+      "out": "n2"
+    }
+  ],
+  "kicker": false
 }
