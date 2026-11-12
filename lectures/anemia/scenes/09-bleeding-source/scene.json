@@ -151,10 +151,10 @@
   {
    "id": "gastro",
    "text": "Гастроскопія",
-   "anchor": "a_stomach",
-   "x": 1700,
-   "y": 470,
-   "align": "left",
+   "anchor": "a_eso",
+   "x": 1190,
+   "y": 250,
+   "align": "right",
    "focus": "upper",
    "in": "@up+0.3",
    "out": "@low"
@@ -206,10 +206,10 @@
   {
    "id": "gastro2",
    "text": "Гастроскопія",
-   "anchor": "a_stomach",
-   "x": 1700,
-   "y": 470,
-   "align": "left",
+   "anchor": "a_eso",
+   "x": 1190,
+   "y": 250,
+   "align": "right",
    "focus": "upper",
    "in": "@ob+0.3",
    "out": "n6"
@@ -228,10 +228,10 @@
   {
    "id": "gastro3",
    "text": "Гастроскопія",
-   "anchor": "a_stomach",
-   "x": 1700,
-   "y": 470,
-   "align": "left",
+   "anchor": "a_eso",
+   "x": 1190,
+   "y": 250,
+   "align": "right",
    "focus": "upper",
    "in": "n7+0.3"
   },
