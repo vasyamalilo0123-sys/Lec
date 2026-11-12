@@ -16,7 +16,7 @@ html,body{margin:0;background:#000}
 const NS='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,e)=>a+(b-a)*e;
 const eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
-let S,svg,P={},LB=[],TX=[],GR={},TV=[],X={},DR=[],LP=[],CN=new Map(),CE=[],STK=[],END=null,CY=null,XF=null,useCam=false,ASP=1,BASE,CAM0,CAMZ;
+let S,svg,P={},LB=[],TX=[],GR={},X={},DR=[],LP=[],CN=new Map(),CE=[],STK=[],END=null,CY=null,XF=null,useCam=false,ASP=1,BASE,CAM0,CAMZ;
 const VAL={hidden:[0,1],color:[1,1],grey:[1,0]};          /* [видимість, колірність] */
 window.init=function(data){S=data.scene;$('variant').textContent=data.css||'';CY=data.carry||null;END=CY&&CY.same?CY.end:null;
   S.parts=S.parts||[];S.states=S.states||[];let defs,diag=0;
@@ -30,16 +30,15 @@ window.init=function(data){S=data.scene;$('variant').textContent=data.css||'';CY
   for(const e of [...S.states].sort((a,b)=>a.t-b.t))for(const id in e.set){if(!P[id])throw new Error('scene.json: невідома частина '+id);P[id].ev.push({t:e.t,d:e.dur??.7,v:VAL[e.set[id]]})}
   for(const g of S.grow||[]){const o=svg.querySelector('#'+g.origin);if(!o)throw new Error('art.svg: немає точки #'+g.origin);const c=document.createElementNS(NS,'clipPath');c.id='kit-grow-'+g.id;c.setAttribute('clipPathUnits','userSpaceOnUse');
     const ci=document.createElementNS(NS,'circle');ci.setAttribute('cx',o.getAttribute('cx'));ci.setAttribute('cy',o.getAttribute('cy'));ci.setAttribute('r',0);c.appendChild(ci);defs.appendChild(c);
-    const el=P[g.id].g,w=document.createElementNS(NS,'g');w.setAttribute('clip-path',`url(#${c.id})`);el.parentNode.insertBefore(w,el);w.appendChild(el);GR[g.id]={ci,diag,t:g.t,d:g.dur||1.4}}
+    const el=P[g.id].g,w=document.createElementNS(NS,'g');w.setAttribute('clip-path',`url(#${c.id})`);el.parentNode.insertBefore(w,el);w.appendChild(el);GR[g.id]={ci,diag,w,t:g.t,d:g.dur||1.4}}
   const L=S.leader||{};
   for(const cfg of S.labels||[]){const d=document.createElement('div');d.className='t '+(cfg.onArt?'onart':'lab')+' l-'+cfg.id;d.innerHTML=cfg.text+(cfg.sub?`<small>${cfg.sub}</small>`:'');
     const al=cfg.align||'left';d.style.top=cfg.y+'px';d.style.left=cfg.x+'px';d.style.textAlign=al;d.style.transform=al==='right'?'translateX(-100%)':al==='center'?'translateX(-50%)':'';$('stage').appendChild(d);
     let ln=null,mk=null;if(!cfg.onArt&&cfg.leader!==false){ln=document.createElementNS(NS,'polyline');ln.setAttribute('fill','none');ln.setAttribute('stroke',L.color||'#f4f1ee');ln.setAttribute('stroke-width',L.width||1.4);ln.setAttribute('stroke-linecap','round');$('over').appendChild(ln);
       if((L.marker||'ring')!=='none'){mk=document.createElementNS(NS,'circle');mk.setAttribute('r',L.markerSize||5.5);if((L.marker||'ring')==='ring'){mk.setAttribute('fill',L.markerFill||'#000');mk.setAttribute('stroke',L.color||'#f4f1ee');mk.setAttribute('stroke-width',L.width||1.4)}else mk.setAttribute('fill',L.color||'#f4f1ee');$('over').appendChild(mk)}}
-    LB.push({d,ln,mk,cfg,al})}
+    LB.push({d,ln,mk,cfg,al,fx:cfg.follow?ensureX(cfg.follow):null})}
   for(const cfg of S.texts||[]){const d=document.createElement(cfg.tag||'p');d.id=cfg.id;d.className='t'+(cfg.kind?' k-'+cfg.kind:'')+(cfg.class?' '+cfg.class:'');d.innerHTML=cfg.html;
     if(cfg.x!=null)d.style.left=cfg.x+'px';if(cfg.y!=null)d.style.top=cfg.y+'px';$('stage').appendChild(d);TX.push({d,cfg})}
-  for(const cfg of S.travel||[]){const el=svg.querySelector('#'+cfg.id),pa=svg.querySelector('#'+cfg.path);if(!el||!pa)throw new Error('art.svg: немає #'+cfg.id+' або #'+cfg.path);TV.push({el,pa,len:pa.getTotalLength(),cfg});el.style.opacity=0}
   setupMotion(data);
   return document.fonts.ready.then(()=>true)};
 const rectOf=e=>({x:+e.getAttribute('x')||0,y:+e.getAttribute('y')||0,w:+e.getAttribute('width'),h:+e.getAttribute('height')});
@@ -47,9 +46,9 @@ function fit(r){let w=r.w??r.width,h=r.h??r.height;const cx=r.x+w/2,cy=r.y+h/2;i
 const mixC=(a,b,k)=>({cx:lerp(a.cx,b.cx,k),cy:lerp(a.cy,b.cy,k),w:a.w*Math.pow(b.w/a.w,k)});
 function camAt(t){let c=CAM0;for(const e of CE){if(t<e.t)break;c=mixC(c,e.v,eio((t-e.t)/e.dur))}return c}
 const ptOf=id=>{const a=svg.querySelector('#'+id);if(!a)throw new Error('art.svg: немає точки #'+id);return{x:+a.getAttribute('cx'),y:+a.getAttribute('cy')}};
-function ensureX(id){if(X[id])return X[id];const el=svg.querySelector('#'+id);if(!el)throw new Error('art.svg: немає #'+id);
+function ensureX(id){if(X[id])return X[id];const el=GR[id]?GR[id].w:svg.querySelector('#'+id);if(!el)throw new Error('art.svg: немає #'+id);
   const M=el.transform.baseVal.consolidate(),b=el.getBBox(),c=new DOMPoint(b.x+b.width/2,b.y+b.height/2).matrixTransform(M?M.matrix:new DOMMatrix());
-  return X[id]={el,tr0:el.getAttribute('transform')||'',c,moves:[],loops:[],outs:[],start:(END&&END.xf[id])||{x:c.x,y:c.y,s:1,r:0}}}
+  return X[id]={id,show:null,el,tr0:el.getAttribute('transform')||'',c,moves:[],loops:[],outs:[],start:(END&&END.xf[id])||{x:c.x,y:c.y,s:1,r:0}}}
 function setupMotion(data){
   const cams=S.camera||[];useCam=cams.length>0||!!(END&&END.cam);
   if(useCam){$('art').style.overflow='hidden';CAM0=END&&END.cam?END.cam:CAMZ;
@@ -59,7 +58,10 @@ function setupMotion(data){
   if(END)for(const id in END.xf)ensureX(id);
   for(const m of S.move||[]){const x=ensureX(m.id),to=ptOf(m.to),from=m.from?ptOf(m.from):null;x.moves.push({t:m.t,dur:m.dur||1.4,to,from,s:m.scale,r:m.rotate});
     if(m.out!=null)x.outs.push(m.out)}
-  for(const x of Object.values(X)){x.moves.sort((a,b)=>a.t-b.t);const f=x.moves[0];if(f&&f.from&&!(END&&END.xf[x.el.id]))x.start={x:f.from.x,y:f.from.y,s:1,r:0}}
+  for(const c of S.travel||[]){const pa=svg.querySelector('#'+c.path);if(!pa)throw new Error('art.svg: немає #'+c.path);const x=ensureX(c.id),len=pa.getTotalLength(),tan=[];let pv=0;
+    for(let i=0;i<=200;i++){const a=pa.getPointAtLength(Math.max(0,len*i/200-.5)),b=pa.getPointAtLength(Math.min(len,len*i/200+.5));let r=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;if(i)r+=360*Math.round((pv-r)/360);tan.push(pv=r)}
+    x.moves.push({t:c.t,dur:c.dur||1.4,pa,len,tan,s:c.scale,rot:!!c.rotate});if(c.out!=null)x.outs.push(c.out)}
+  for(const x of Object.values(X)){x.moves.sort((a,b)=>a.t-b.t);const f=x.moves[0];x.show=f&&f.pa?f.t:null;if(f&&(f.from||f.pa)&&!(END&&END.xf[x.id])){if(f.pa){const q=f.pa.getPointAtLength(0);x.start={x:q.x,y:q.y,s:1,r:f.rot?f.tan[0]:0}}else if(f.from)x.start={x:f.from.x,y:f.from.y,s:1,r:0}}}
   for(const d of S.draw||[]){const els=[...svg.querySelector('#'+d.id).querySelectorAll('path,line,polyline')].filter(e=>{const cs=getComputedStyle(e);return cs.stroke!=='none'&&cs.strokeDasharray==='none'&&e.getTotalLength()>1}).map(e=>{const cs=getComputedStyle(e);return{el:e,len:e.getTotalLength(),fill:cs.fill!=='none',fo:parseFloat(cs.fillOpacity)}});DR.push({t:d.t,dur:d.dur||1.4,els})}
   for(const l of S.loop||[]){const po=(END&&END.phase[l.id+'|'+l.kind])||0,o={...l,po,ramp:!(l.in<=.001&&po)};
     if(l.kind==='flow'){const e=svg.querySelector('#'+l.id);if(!e)throw new Error('art.svg: немає #'+l.id);o.els=/^(path|line|polyline)$/i.test(e.tagName)?[e]:[...e.querySelectorAll('path,line,polyline')]}
@@ -68,8 +70,11 @@ function setupMotion(data){
   for(const c of S.count||[]){const T=TX.find(t=>t.cfg.id===c.id),B=LB.find(l=>l.cfg.id===c.id),d=T?T.d:B&&B.d;if(!d)throw new Error('scene.json: count: немає тексту чи підпису '+c.id);
     if(!CN.has(d))CN.set(d,{tpl:d.innerHTML,list:[],last:null});CN.get(d).list.push(c)}
   if(CY&&!CY.same&&CY.img){const im=document.createElement('img');im.id='xf';im.src=CY.img;im.style.cssText='position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none';$('stage').appendChild(im);XF=im}}
-const outF=(id,t)=>{const x=X[id];let f=1;if(x)for(const o of x.outs)f*=1-eo((t-o)/.3);return f};
-function xfAt(x,t){let c=x.start;for(const m of x.moves){if(t<m.t)break;const a=m.from?{x:m.from.x,y:m.from.y,s:c.s,r:c.r}:c,k=eio((t-m.t)/m.dur);c={x:lerp(a.x,m.to.x,k),y:lerp(a.y,m.to.y,k),s:lerp(a.s,m.s??a.s,k),r:lerp(a.r,m.r??a.r,k)}}return c}
+const outF=(id,t)=>{const x=X[id];let f=1;if(x){if(x.show!=null&&t<x.show)return 0;for(const o of x.outs)f*=1-eo((t-o)/.3)}return f};
+const tanAt=(m,k,r0)=>{const f=clamp(k)*200,i=Math.min(199,Math.floor(f)),v=lerp(m.tan[i],m.tan[i+1],f-i);return v+360*Math.round((r0-v)/360)};
+function xfAt(x,t){let c=x.start;for(const m of x.moves){if(t<m.t)break;
+    if(m.pa){const k=eio((t-m.t)/m.dur),q=m.pa.getPointAtLength(k*m.len);c={x:q.x,y:q.y,s:lerp(c.s,m.s??c.s,k),r:m.rot?lerp(c.r,tanAt(m,k,c.r),eo(k/.1)):c.r};continue}
+    const a=m.from?{x:m.from.x,y:m.from.y,s:c.s,r:c.r}:c,k=eio((t-m.t)/m.dur);c={x:lerp(a.x,m.to.x,k),y:lerp(a.y,m.to.y,k),s:lerp(a.s,m.s??a.s,k),r:lerp(a.r,m.r??a.r,k)}}return c}
 const RAMP=1.2,spinInt=u=>u<RAMP?u-RAMP/4*(1-Math.pow(1-u/RAMP,4)):u-RAMP/4;
 function loopEnv(l,t){return(l.ramp?eo((t-l.in)/RAMP):(t>=l.in?1:0))*(l.out==null?1:1-eo((t-l.out)/RAMP))}
 function loopTf(l,t,c){const e=loopEnv(l,t);if(e<=0&&l.kind!=='spin')return'';const per=l.period||(l.kind==='float'?4:l.kind==='pulse'?2.4:10),ph=2*Math.PI*(t+l.po)/per,about=(f)=>`translate(${c.x} ${c.y}) ${f} translate(${-c.x} ${-c.y})`;
@@ -94,25 +99,26 @@ window.endState=function(){const D=S.duration,parts={},xf={},phase={};for(const 
   for(const id in X)xf[id]=xfAt(X[id],D);for(const l of LP)if(loopEnv(l,D)>.5)phase[l.id+'|'+l.kind]=D+l.po;
   return{parts,xf,cam:useCam?camAt(D):null,phase}};
 function partState(id,t){const ev=P[id].ev;let v=P[id].init;for(const e of ev){if(t<e.t)break;const k=eio((t-e.t)/e.d);v=[lerp(v[0],e.v[0],k),lerp(v[1],e.v[1],k)]}return v}
+const scr=(x,t,p)=>{const c=useCam?camAt(t):BASE,A=S.art,s=A.w/c.w,q=xfAt(x,t);return[A.x+A.w/2+(q.x-c.cx)*s,A.y+A.h/2+(q.y-c.cy)*s]};
 function anchorPt(id){const a=svg.querySelector('#'+id);if(!a)throw new Error('art.svg: немає точки #'+id);const p=svg.createSVGPoint();p.x=+a.getAttribute('cx');p.y=+a.getAttribute('cy');const q=p.matrixTransform(a.getScreenCTM()),r=$('stage').getBoundingClientRect();return [q.x-r.left,q.y-r.top]}
 function firstLineY(d){const r=document.createRange();r.selectNodeContents(d);const rs=r.getClientRects();return rs.length?rs[0].top+rs[0].height/2:d.getBoundingClientRect().top+20}
 /* виноска виходить із зовнішнього боку тексту й ніколи не йде крізь нього */
-function leaderPts(L){const b=L.d.getBoundingClientRect(),A=anchorPt(L.cfg.anchor),gap=(S.leader&&S.leader.gap)||14,side=L.cfg.attach||(L.al==='right'?'right':L.al==='left'?'left':(A[1]>b.bottom?'bottom':'top'));
+function leaderPts(L){const b=L.d.getBoundingClientRect(),A=L.A||anchorPt(L.cfg.anchor),gap=(S.leader&&S.leader.gap)||14,side=L.cfg.attach||(L.al==='right'?'right':L.al==='left'?'left':(A[1]>b.bottom?'bottom':'top'));
   let Q;if(side==='left')Q=[b.left-gap,firstLineY(L.d)];else if(side==='right')Q=[b.right+gap,firstLineY(L.d)];else if(side==='bottom')Q=[b.left+b.width/2,b.bottom+gap];else Q=[b.left+b.width/2,b.top-gap];
   if(S.leader&&S.leader.type==='elbow'&&(side==='left'||side==='right')){const k=(S.leader.elbow||40)*(side==='left'?-1:1);return [A,[Q[0]+k,Q[1]],Q]}return [A,Q]}
 function wipe(el,a,d,right){const m=(S.motion&&S.motion.text)||'wipe',q=eo(a/d);if(m==='fade'){el.style.clipPath='';return q}el.style.clipPath=right?`inset(-14px 0 -14px ${(1-q)*100}%)`:`inset(-14px ${(1-q)*100}% -14px 0)`;return a>0?1:0}
 window.renderAt=function(t){motionAt(t);const gb=(S.grey&&S.grey.brightness)??.42,go=(S.grey&&S.grey.opacity)??1;
   for(const id in P){const [v,c]=partState(id,t),g=P[id].g;g.style.opacity=v*lerp(go,1,c)*outF(id,t);g.style.filter=c>.995?'':`grayscale(${(1-c).toFixed(3)}) brightness(${lerp(gb,1,c).toFixed(3)})`}
   for(const id in GR){const g=GR[id];g.ci.setAttribute('r',eio((t-g.t)/g.d)*g.diag)}
-  for(const L of LB){const c=L.cfg,a=t-c.in,out=c.out==null?1:1-eo((t-c.out)/.3);let dim=1;if(c.focus){const st=partState(c.focus,t);dim=eio(st[1])*Math.min(1,st[0]*3)}
-    if(useCam&&c.anchor){const A=anchorPt(c.anchor),W=S.art;dim*=clamp(Math.min(A[0]-W.x,W.x+W.w-A[0],A[1]-W.y,W.y+W.h-A[1])/50)}
+  for(const L of LB){const c=L.cfg,a=t-c.in;if(L.fx){const p=scr(L.fx,t),p0=scr(L.fx,c.in);L.A=p;L.d.style.left=(c.x+p[0]-p0[0])+'px';L.d.style.top=(c.y+p[1]-p0[1])+'px'}
+    out=c.out==null?1:1-eo((t-c.out)/.3);let dim=1;if(c.focus){const st=partState(c.focus,t);dim=eio(st[1])*Math.min(1,st[0]*3)}
+    if(useCam&&(c.anchor||L.fx)){const A=L.A||anchorPt(c.anchor),W=S.art;dim*=clamp(Math.min(A[0]-W.x,W.x+W.w-A[0],A[1]-W.y,W.y+W.h-A[1])/50)}
     const on=a>0?1:0,q=eo((a-(L.ln?.26:0))/.36);
     if(L.ln){const pts=leaderPts(L),p=eo(a/.32),cut=[pts[0]];let rem=p*(pts.length-1);for(let i=1;i<pts.length;i++){const e=clamp(rem);cut.push([lerp(pts[i-1][0],pts[i][0],e),lerp(pts[i-1][1],pts[i][1],e)]);rem-=1;if(rem<=0)break}
       L.ln.setAttribute('points',cut.map(x=>x.join(',')).join(' '));L.ln.style.opacity=on*out*dim*((S.leader&&S.leader.opacity)||.9);if(L.mk){L.mk.setAttribute('cx',pts[0][0]);L.mk.setAttribute('cy',pts[0][1]);L.mk.style.opacity=on*out*dim}}
     const w=wipe(L.d,a-(L.ln?.26:0),.36,L.al==='right');L.d.style.opacity=w*out*dim;L.vis=on&&q>.9&&out>.5&&dim>.5}
   for(const T of TX){const c=T.cfg,a=t-c.in,out=c.out==null?1:c.exit==='cut'?(t<c.out?1:0):1-eo((t-c.out)/.35),
       w=c.enter==='cut'?(a>0?1:0):c.enter==='fade'?(T.d.style.clipPath='',eo(a/(c.dur||.6))):wipe(T.d,a,c.dur||.6,false);T.d.style.opacity=w*out;T.vis=a>(c.dur||.6)*.9&&out>.5}
-  for(const V of TV){const c=V.cfg,k=eio((t-c.t)/c.dur),pt=V.pa.getPointAtLength(k*V.len);V.el.setAttribute('cx',pt.x);V.el.setAttribute('cy',pt.y);V.el.style.opacity=(t>=c.t?1:0)*(c.out==null?1:1-eo((t-c.out)/.3))}
   $('stage').style.opacity=(S.enter==='fade'?eo(t/.45):1)*(S.exit==='cut'?1:1-eo((t-(S.duration-.5))/.45))};
 window.geometry=function(){const out={texts:[],lines:[]},sr=$('stage').getBoundingClientRect();
   const push=(el,id,kind)=>{const cs=getComputedStyle(el);if(+cs.opacity<.5)return;const b=el.getBoundingClientRect();out.texts.push({id,kind,x:b.left-sr.left,y:b.top-sr.top,w:b.width,h:b.height,size:parseFloat(cs.fontSize),color:cs.color,small:[...el.querySelectorAll('small')].map(s=>parseFloat(getComputedStyle(s).fontSize))})};

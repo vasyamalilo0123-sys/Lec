@@ -3,6 +3,8 @@
 <g id="vessel"><path d="M780,304L1480,304" fill="none" stroke="#efe9df" stroke-width="3"/><path d="M780,396L1480,396" fill="none" stroke="#efe9df" stroke-width="3"/><path id="fl" d="M790,350L1470,350" fill="none" stroke="#efe9df" stroke-width="1.5"/></g>
 <g id="cell"><circle cx="840" cy="350" r="24" fill="#d8402f" stroke="#efe9df" stroke-width="2"/><path d="M824,350L856,350" fill="none" stroke="#efe9df" stroke-width="1.5"/></g>
 <g id="plt"><circle cx="1330" cy="330" r="12" fill="#e8b23a"/><circle cx="1360" cy="372" r="14" fill="#e8b23a"/><circle cx="1388" cy="338" r="11" fill="#e8b23a"/><circle cx="1356" cy="318" r="10" fill="#e8b23a"/></g>
+<g id="wbc"><ellipse cx="0" cy="0" rx="34" ry="24" fill="#e7e1d6" stroke="#efe9df" stroke-width="2"/><circle cx="8" cy="0" r="10" fill="#7a5fa8"/><path d="M-34,0L-58,0" fill="none" stroke="#efe9df" stroke-width="2"/></g>
+<path id="p-wbc" d="M620,120C820,40 1000,200 1180,130C1280,92 1360,120 1420,170" fill="none" stroke="none"/>
 <circle id="a-zone" cx="1356" cy="346" r="0"/>
 <circle id="pt-a" cx="840" cy="350" r="0"/><circle id="pt-b" cx="1200" cy="350" r="0"/>
 <rect id="v-zone" x="1196" y="245" width="320" height="210" fill="none" stroke="none"/>
