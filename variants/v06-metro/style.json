@@ -1,0 +1,66 @@
+{
+ "name": "Схема ліній",
+ "fontCss": [
+  "node_modules/@fontsource/montserrat/500.css",
+  "node_modules/@fontsource/montserrat/700.css",
+  "node_modules/@fontsource/montserrat/800.css"
+ ],
+ "art": {
+  "x": 860,
+  "y": 110,
+  "w": 640,
+  "h": 860
+ },
+ "labels": {
+  "aorta": {
+   "x": 1340,
+   "y": 120,
+   "align": "left"
+  },
+  "rv": {
+   "x": 1180,
+   "y": 690,
+   "align": "center",
+   "onArt": true
+  },
+  "lv": {
+   "x": 1410,
+   "y": 720,
+   "align": "center",
+   "onArt": true
+  },
+  "rca": {
+   "x": 820,
+   "y": 640,
+   "align": "right"
+  },
+  "lca": {
+   "x": 1510,
+   "y": 300,
+   "align": "left"
+  },
+  "lad": {
+   "x": 1500,
+   "y": 800,
+   "align": "left"
+  },
+  "lcx": {
+   "x": 1500,
+   "y": 560,
+   "align": "left"
+  }
+ },
+ "leader": {
+  "type": "elbow",
+  "width": 2,
+  "color": "#f2f2f4",
+  "marker": "dot",
+  "markerSize": 5,
+  "gap": 12
+ },
+ "motion": {
+  "text": "wipe",
+  "dimTissue": 0.4,
+  "dimOther": 0.28
+ }
+}

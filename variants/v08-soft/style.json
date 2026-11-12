@@ -1,0 +1,20 @@
+{
+  "name": "М'яка геометрія",
+  "fontCss": [
+    "node_modules/@fontsource/comfortaa/700.css",
+    "node_modules/@fontsource/nunito/600.css",
+    "node_modules/@fontsource/nunito/700.css"
+  ],
+  "art": {"x": 760, "y": 100, "w": 680, "h": 860},
+  "labels": {
+    "aorta": {"x": 1490, "y": 150, "align": "left"},
+    "rv": {"x": 1042, "y": 660, "align": "center", "onArt": true},
+    "lv": {"x": 1490, "y": 600, "align": "left"},
+    "rca": {"x": 720, "y": 590, "align": "right"},
+    "lca": {"x": 1490, "y": 330, "align": "left"},
+    "lad": {"x": 1490, "y": 690, "align": "left"},
+    "lcx": {"x": 1490, "y": 500, "align": "left"}
+  },
+  "leader": {"type": "straight", "width": 2.4, "color": "#fff6f1", "marker": "dot", "markerSize": 6.5, "gap": 18, "opacity": 1},
+  "motion": {"text": "fade", "dimTissue": 0.34, "dimOther": 0.32}
+}

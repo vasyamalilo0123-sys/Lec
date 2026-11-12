@@ -1,0 +1,16 @@
+{
+  "name": "Одна лінія",
+  "fontCss": ["node_modules/@fontsource/jost/300.css", "node_modules/@fontsource/jost/400.css", "node_modules/@fontsource/jost/500.css"],
+  "art": {"x": 960, "y": 130, "w": 652, "h": 820},
+  "labels": {
+    "aorta": {"x": 1470, "y": 150, "align": "left"},
+    "rv": {"x": 1236, "y": 640, "align": "center", "onArt": true},
+    "lv": {"x": 1453, "y": 700, "align": "center", "onArt": true},
+    "rca": {"x": 1000, "y": 742, "align": "right"},
+    "lca": {"x": 1110, "y": 380, "align": "right"},
+    "lad": {"x": 1580, "y": 760, "align": "left"},
+    "lcx": {"x": 1580, "y": 470, "align": "left"}
+  },
+  "leader": {"type": "straight", "width": 1, "color": "#f2e9dc", "marker": "dot", "markerSize": 3.2, "gap": 12, "opacity": 1},
+  "motion": {"text": "wipe", "dimTissue": 0.4, "dimOther": 0.28}
+}

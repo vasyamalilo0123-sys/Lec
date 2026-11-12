@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 880">
+<g id="tissue">
+<path d="M122 768Q122 760 130 760L204 760Q212 760 212 768L212 850Q212 858 204 858L130 858Q122 858 122 850Z" fill="#191c26" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>нижня порожниста вена</title></path>
+<path d="M126 846H208" stroke="#7d7884" stroke-width="1.2" fill="none"/>
+<path d="M108 310Q100 310 100 302L100 158Q100 150 108 150L164 150Q172 150 172 158L172 302Q172 310 164 310Z" fill="#191c26" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>верхня порожниста вена</title></path>
+<path d="M104 163H168" stroke="#7d7884" stroke-width="1.2" fill="none"/>
+<path d="M230 374Q230 360 244 360L396 360Q410 360 419.9 369.9L440.1 390.1Q450 400 450 414L450 834Q450 848 436 848L294 848Q280 848 270.1 838.1L209.9 777.9Q200 768 186 768L164 768Q150 768 140.1 758.1L104.9 722.9Q95 713 95 699L95 569Q95 555 104.9 545.1L220.1 429.9Q230 420 230 406Z" fill="#241b20" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>правий шлуночок</title></path>
+<path d="M450 446Q450 430 466 430L524 430Q540 430 551.3 441.3L613.7 503.7Q625 515 625 531L625 706Q625 722 613.7 733.3L508.3 838.7Q497 850 481 850L466 850Q450 850 450 834Z" fill="#2c1e24" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>лівий шлуночок</title></path>
+<path d="M86 309.8Q96 300 110 300L168 300Q182 300 191.9 309.9L220.1 338.1Q230 348 230 362L230 406Q230 420 220.1 429.9L109.9 540.1Q100 550 100 564L100 676Q100 690 109.9 699.9L140.1 730.1Q150 740 150 754L150 758Q150 772 136 772L110 772Q96 772 86.1 762.1L59.9 735.9Q50 726 50 712L50 359Q50 345 60 335.2Z" fill="#1f1a24" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>праве передсердя</title></path>
+<path d="M55.3 358Q50 352 44.3 346.3L31.7 333.7Q26 328 26 320L26 310Q26 302 34 302L40 302Q48 302 53.7 307.7L90.3 344.3Q96 350 96 358L96 376Q96 384 88 384L86 384Q78 384 72.7 378Z" fill="#1f1a24" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>праве вушко</title></path>
+<path d="M295 70Q290 70 290 65L290 29Q290 24 295 24L305 24Q310 24 310 29L310 65Q310 70 305 70Z" fill="#2a1c1b" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>гілка дуги аорти</title></path>
+<path d="M328 70Q323 70 323 65L323 29Q323 24 328 24L336 24Q341 24 341 29L341 65Q341 70 336 70Z" fill="#2a1c1b" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>гілка дуги аорти</title></path>
+<path d="M361 78Q356 78 356 73L356 37Q356 32 361 32L369 32Q374 32 374 37L374 73Q374 78 369 78Z" fill="#2a1c1b" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>гілка дуги аорти</title></path>
+<path d="M193 366Q175 366 175 348L175 194Q175 176 187.7 163.3L277.3 73.7Q290 61 308 61L346 61Q364 61 376.7 73.7L397.3 94.3Q410 107 410 125L410 232Q410 250 392 250L348 250Q330 250 317.3 262.7L297.7 282.3Q285 295 285 313L285 348Q285 366 267 366Z" fill="#2a1c1b" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>аорта</title></path>
+<path d="M205 330L205 206Q205 190 216.3 178.7L288.7 106.3Q300 95 316 95L350 95" fill="none" stroke="#4a3533" stroke-width="1.4"/>
+<path d="M430 347Q430 335 442 335L460 335Q472 335 480.5 343.5L539.5 402.5Q548 411 548 423L548 440Q548 452 539.5 460.5L506.5 493.5Q498 502 486.5 502L486.5 502Q475 502 466.5 493.5L438.5 465.5Q430 457 430 445Z" fill="#2a2030" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>ліве вушко</title></path>
+<path d="M280 386Q268 386 268 374L268 304Q268 292 276.5 283.5L318.5 241.5Q327 233 339 233L548 233Q560 233 568.5 241.5L606.5 279.5Q615 288 606.5 296.5L593.5 309.5Q585 318 576.5 309.5L548.5 281.5Q540 273 528 273L482 273Q470 273 461.5 281.5L433.5 309.5Q425 318 425 330L425 374Q425 386 413 386Z" fill="#1b2130" stroke="#7d7884" stroke-width="1.6" stroke-linejoin="round"><title>легеневий стовбур</title></path>
+<path d="M590 263L604 249" stroke="#7d7884" stroke-width="1.2" fill="none"/>
+<path d="M300 370H395" stroke="#3a4256" stroke-width="1.4" fill="none"/>
+<circle id="a-aorta" cx="385" cy="125" r="0"/>
+<circle id="a-rv" cx="330" cy="630" r="0"/>
+<circle id="a-lv" cx="565" cy="640" r="0"/>
+</g>
+<g id="rca">
+<path d="M230 366L230 406Q230 420 220.1 429.9L109.9 540.1Q100 550 100 564L100 676Q100 690 109.9 699.9L145.1 735.1Q155 745 169 745L226 745Q240 745 249.9 754.9L290.1 795.1Q300 805 314 805L432 805" fill="none" stroke="#ef4a55" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M432 805L490 805" fill="none" stroke="#ef4a55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 13"/>
+<path d="M230 402L291 402Q305 402 314.9 411.9L328 425" fill="none" stroke="#ef4a55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M130 520L175.1 565.1Q185 575 199 575L261 575Q275 575 284.9 584.9L305 605" fill="none" stroke="#ef4a55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M100 632L128.1 660.1Q138 670 152 670L236 670Q250 670 259.9 679.9L280 700" fill="none" stroke="#ef4a55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M300 805L340.1 764.9Q350 755 364 755L400 755" fill="none" stroke="#ef4a55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="230" cy="366" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="230" cy="366" r="3.6" fill="#15151a"/>
+<circle cx="230" cy="402" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="230" cy="402" r="3.6" fill="#15151a"/>
+<circle cx="130" cy="520" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="130" cy="520" r="3.6" fill="#15151a"/>
+<circle cx="100" cy="632" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="100" cy="632" r="3.6" fill="#15151a"/>
+<circle cx="300" cy="805" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="300" cy="805" r="3.6" fill="#15151a"/>
+<circle id="o-rca" cx="230" cy="366" r="0"/>
+<circle id="a-rca" cx="100" cy="600" r="0"/>
+</g>
+<g id="lca">
+<path d="M285 350L316 350Q330 350 339.9 359.9L370 390" fill="none" stroke="#f3b33d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 13"/>
+<circle cx="285" cy="350" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="285" cy="350" r="3.6" fill="#15151a"/>
+<circle id="o-left" cx="285" cy="350" r="0"/>
+<circle id="a-lca" cx="330" cy="350" r="0"/>
+</g>
+<g id="lad">
+<path d="M370 390L440.1 460.1Q450 470 450 484L450 500" fill="none" stroke="#3aa0ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 13"/>
+<path d="M450 500L450 798Q450 812 459.9 821.9L478 840" fill="none" stroke="#3aa0ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M450 545L417.9 577.1Q408 587 394 587L360 587" fill="none" stroke="#3aa0ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M450 640L394.9 695.1Q385 705 385 719L385 740" fill="none" stroke="#3aa0ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M450 595L482.1 627.1Q492 637 492 651L492 728Q492 742 501.9 751.9L512 762" fill="none" stroke="#3aa0ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="450" cy="545" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="450" cy="545" r="3.6" fill="#15151a"/>
+<circle cx="450" cy="595" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="450" cy="595" r="3.6" fill="#15151a"/>
+<circle cx="450" cy="640" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="450" cy="640" r="3.6" fill="#15151a"/>
+<circle id="a-lad" cx="450" cy="720" r="0"/>
+</g>
+<g id="lcx">
+<path d="M370 390L396 390Q410 390 419.9 399.9L485.1 465.1Q495 475 495 489L495 520" fill="none" stroke="#3cc483" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 13"/>
+<path d="M495 520L495 525Q495 530 504.9 539.9L570.1 605.1Q580 615 580 627.5L580 640" fill="none" stroke="#3cc483" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M580 640L580 708Q580 722 570.1 731.9L548 754" fill="none" stroke="#3cc483" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 13"/>
+<path d="M540 575L540 690" fill="none" stroke="#3cc483" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="540" cy="575" r="8.5" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><circle cx="540" cy="575" r="3.6" fill="#15151a"/>
+<rect x="355" y="381" width="30" height="18" rx="9" fill="#fff" stroke="#0b0b0d" stroke-width="2"/><rect x="362" y="387" width="16" height="6" rx="3" fill="#15151a"/>
+<circle id="a-lcx" cx="560" cy="595" r="0"/>
+</g>
+</svg>

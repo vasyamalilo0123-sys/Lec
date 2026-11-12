@@ -1,0 +1,66 @@
+{
+  "name": "Туш",
+  "fontCss": [
+    "node_modules/@fontsource/commissioner/200.css",
+    "node_modules/@fontsource/commissioner/300.css",
+    "node_modules/@fontsource/commissioner/400.css"
+  ],
+  "art": {
+    "x": 860,
+    "y": 110,
+    "w": 700,
+    "h": 880
+  },
+  "labels": {
+    "aorta": {
+      "x": 1290,
+      "y": 150,
+      "align": "left"
+    },
+    "rv": {
+      "x": 1170,
+      "y": 700,
+      "align": "center",
+      "onArt": true
+    },
+    "lv": {
+      "x": 1520,
+      "y": 820,
+      "align": "left"
+    },
+    "rca": {
+      "x": 940,
+      "y": 600,
+      "align": "right"
+    },
+    "lca": {
+      "x": 1430,
+      "y": 250,
+      "align": "left"
+    },
+    "lad": {
+      "x": 1540,
+      "y": 800,
+      "align": "left"
+    },
+    "lcx": {
+      "x": 1570,
+      "y": 560,
+      "align": "left"
+    }
+  },
+  "leader": {
+    "type": "straight",
+    "width": 1.1,
+    "color": "#f1e7d6",
+    "opacity": 0.9,
+    "marker": "dot",
+    "markerSize": 3.5,
+    "gap": 12
+  },
+  "motion": {
+    "text": "fade",
+    "dimTissue": 0.4,
+    "dimOther": 0.28
+  }
+}

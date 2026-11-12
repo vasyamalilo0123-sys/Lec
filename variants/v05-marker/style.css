@@ -1,0 +1,12 @@
+#stage{font-family:'Nunito',sans-serif;color:#f3efe6;background:#000}
+#kicker{left:120px;top:76px;font:700 28px/1.2 'Nunito';color:#f3efe6}
+#title{left:120px;top:330px;font:800 128px/1.02 'Nunito';letter-spacing:-2px;color:#f3efe6;text-decoration:underline;text-decoration-color:#e3584b;text-decoration-thickness:8px;text-underline-offset:18px;text-decoration-skip-ink:none}
+#thesis{left:120px;top:200px;font:800 52px/1.14 'Nunito';white-space:normal;width:640px;color:#f3efe6}
+#credit{left:120px;top:1012px;font:600 18px 'Nunito';color:#bdb8ae}
+.lab{font:800 36px/1.12 'Nunito';color:#f5c542}
+.l-aorta{color:#f3efe6}
+.lab small{display:block;font:600 26px/1.25 'Nunito';color:#f3efe6;margin-top:6px}
+.onart{font:700 28px/1.06 'Nunito';color:#f3efe6}
+.l-lad,.l-lcx{white-space:normal;width:270px}
+.l-rca,.l-lca{white-space:normal;width:300px}
+.l-lv{letter-spacing:-.4px}

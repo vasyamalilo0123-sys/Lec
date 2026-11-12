@@ -1,0 +1,67 @@
+{
+ "name": "Маркер",
+ "fontCss": [
+  "node_modules/@fontsource/nunito/600.css",
+  "node_modules/@fontsource/nunito/700.css",
+  "node_modules/@fontsource/nunito/800.css"
+ ],
+ "art": {
+  "x": 840,
+  "y": 110,
+  "w": 640,
+  "h": 860
+ },
+ "labels": {
+  "aorta": {
+   "x": 1262,
+   "y": 112,
+   "align": "left"
+  },
+  "rv": {
+   "x": 1102,
+   "y": 664,
+   "align": "center",
+   "onArt": true
+  },
+  "lv": {
+   "x": 1326,
+   "y": 722,
+   "align": "center",
+   "onArt": true
+  },
+  "rca": {
+   "x": 862,
+   "y": 640,
+   "align": "right"
+  },
+  "lca": {
+   "x": 842,
+   "y": 420,
+   "align": "right"
+  },
+  "lad": {
+   "x": 1546,
+   "y": 700,
+   "align": "left"
+  },
+  "lcx": {
+   "x": 1546,
+   "y": 470,
+   "align": "left"
+  }
+ },
+ "leader": {
+  "type": "straight",
+  "width": 3,
+  "color": "#f3efe6",
+  "marker": "dot",
+  "markerSize": 6.5,
+  "gap": 16,
+  "opacity": 1
+ },
+ "motion": {
+  "text": "wipe",
+  "dimTissue": 0.34,
+  "dimOther": 0.28
+ }
+}

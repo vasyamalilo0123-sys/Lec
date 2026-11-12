@@ -1,0 +1,9 @@
+#stage{font-family:'Jost',sans-serif;color:#f2e9dc}
+#kicker{left:120px;top:84px;font:500 28px/1.2 'Jost';color:#f2e9dc}
+#title{left:112px;top:560px;font:300 200px/.9 'Jost';letter-spacing:-5px;color:#f2e9dc}
+#thesis{left:120px;top:190px;font:300 60px/1.1 'Jost';letter-spacing:-1px;white-space:normal;width:740px;color:#f2e9dc}
+#credit{left:120px;top:1006px;font:400 18px 'Jost';color:rgba(242,233,220,.6)}
+.lab{font:500 34px/1.12 'Jost';color:#f2e9dc}
+.lab small{display:block;font:400 26px/1.25 'Jost';color:rgba(242,233,220,.8);margin-top:6px}
+.onart{font:500 30px/1.08 'Jost';color:#f2e9dc}
+.l-lad,.l-lcx{white-space:normal;width:290px}

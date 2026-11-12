@@ -1,0 +1,12 @@
+#stage{font-family:'Montserrat',sans-serif;color:#f2f2f4}
+#kicker{left:120px;top:80px;font:500 24px 'Montserrat';color:rgba(242,242,244,.72)}
+#title{left:120px;top:360px;font:800 96px/1.02 'Montserrat';letter-spacing:-2px;white-space:normal;width:760px}
+#thesis{left:120px;top:250px;font:700 46px/1.15 'Montserrat';white-space:normal;width:720px}
+#credit{left:120px;top:1010px;font:500 18px 'Montserrat';color:rgba(242,242,244,.55)}
+.lab{font:700 34px/1.12 'Montserrat'}
+.lab small{font:500 26px/1.25 'Montserrat';color:rgba(242,242,244,.78);margin-top:6px}
+.onart{font:700 28px/1.1 'Montserrat';color:#f2f2f4}
+.l-lad,.l-lcx{white-space:normal;width:300px}
+.l-lad{font-size:32px}
+.l-rv,.l-lv{white-space:normal;width:170px;text-align:center}
+.l-lca{white-space:normal;width:280px}
