@@ -1,9 +1,9 @@
 {
  "art": {
-  "x": 650,
-  "y": 50,
-  "w": 1144,
-  "h": 874
+  "x": 740,
+  "y": 112,
+  "w": 1045,
+  "h": 798
  },
  "parts": [
   "root",
@@ -160,8 +160,8 @@
    "id": "root",
    "text": "Анемія",
    "anchor": "a-root",
-   "x": 1157,
-   "y": 104,
+   "x": 1203,
+   "y": 161,
    "align": "left",
    "in": "@tree",
    "focus": "root"
@@ -170,8 +170,8 @@
    "id": "mic",
    "text": "Мікроцитоз",
    "anchor": "a-mic",
-   "x": 786,
-   "y": 267,
+   "x": 864,
+   "y": 310,
    "align": "left",
    "in": "@mic",
    "focus": "br_mic"
@@ -180,8 +180,8 @@
    "id": "ida",
    "text": "Дефіцит<br>заліза",
    "anchor": "a-l-ida",
-   "x": 771,
-   "y": 353,
+   "x": 851,
+   "y": 389,
    "align": "left",
    "in": "@ida",
    "focus": "leaf_mic"
@@ -190,8 +190,8 @@
    "id": "inflam",
    "text": "Хронічне<br>запалення",
    "anchor": "a-l-inflam",
-   "x": 771,
-   "y": 446,
+   "x": 851,
+   "y": 474,
    "align": "left",
    "in": "@inf",
    "focus": "leaf_mic"
@@ -200,8 +200,8 @@
    "id": "thal",
    "text": "Таласемія",
    "anchor": "a-l-thal",
-   "x": 771,
-   "y": 560,
+   "x": 851,
+   "y": 578,
    "align": "left",
    "in": "@thal",
    "focus": "leaf_mic"
@@ -210,8 +210,8 @@
    "id": "nor",
    "text": "Нормоцитоз",
    "anchor": "a-nor",
-   "x": 1129,
-   "y": 267,
+   "x": 1178,
+   "y": 310,
    "align": "left",
    "in": "@nor",
    "focus": "br_nor"
@@ -220,8 +220,8 @@
    "id": "nlow",
    "text": "Ретикулоцити ↓",
    "anchor": "a-nlow",
-   "x": 1155,
-   "y": 354,
+   "x": 1201,
+   "y": 390,
    "align": "left",
    "in": "@nlow",
    "focus": "br_nlow"
@@ -230,8 +230,8 @@
    "id": "ckd",
    "text": "ХХН",
    "anchor": "a-l-ckd",
-   "x": 1160,
-   "y": 425,
+   "x": 1206,
+   "y": 455,
    "align": "left",
    "in": "@ckd",
    "focus": "br_nlow"
@@ -240,8 +240,8 @@
    "id": "inflam2",
    "text": "Запалення",
    "anchor": "a-l-inflam2",
-   "x": 1160,
-   "y": 477,
+   "x": 1206,
+   "y": 502,
    "align": "left",
    "in": "@inf2",
    "focus": "br_nlow"
@@ -250,8 +250,8 @@
    "id": "marrow",
    "text": "Кістковий мозок",
    "anchor": "a-l-marrow",
-   "x": 1160,
-   "y": 529,
+   "x": 1206,
+   "y": 550,
    "align": "left",
    "in": "@marrow",
    "focus": "br_nlow"
@@ -260,8 +260,8 @@
    "id": "nhigh",
    "text": "Ретикулоцити ↑",
    "anchor": "a-nhigh",
-   "x": 1155,
-   "y": 622,
+   "x": 1201,
+   "y": 634,
    "align": "left",
    "in": "@nhigh",
    "focus": "br_nhigh"
@@ -270,8 +270,8 @@
    "id": "bleed",
    "text": "Кровотеча",
    "anchor": "a-l-bleed",
-   "x": 1160,
-   "y": 696,
+   "x": 1206,
+   "y": 702,
    "align": "left",
    "in": "@nhigh+1.2",
    "focus": "br_nhigh"
@@ -280,8 +280,8 @@
    "id": "hemol",
    "text": "Гемоліз",
    "anchor": "a-l-hemol",
-   "x": 1160,
-   "y": 747,
+   "x": 1206,
+   "y": 749,
    "align": "left",
    "in": "@nhigh+2.4",
    "focus": "br_nhigh"
@@ -290,8 +290,8 @@
    "id": "mac",
    "text": "Макроцитоз",
    "anchor": "a-mac",
-   "x": 1555,
-   "y": 267,
+   "x": 1567,
+   "y": 310,
    "align": "left",
    "in": "@mac",
    "focus": "br_mac"
@@ -301,8 +301,8 @@
    "text": "Мегалобластна",
    "sub": "B12, фолат",
    "anchor": "a-l-meg",
-   "x": 1541,
-   "y": 325,
+   "x": 1554,
+   "y": 363,
    "align": "left",
    "in": "@meg",
    "focus": "leaf_mac"
@@ -311,8 +311,8 @@
    "id": "nonmeg",
    "text": "Немегалобластна",
    "anchor": "a-l-nonmeg",
-   "x": 1541,
-   "y": 489,
+   "x": 1554,
+   "y": 513,
    "align": "left",
    "in": "@nonmeg",
    "focus": "leaf_mac"

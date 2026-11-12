@@ -63,8 +63,8 @@
       }
     },
     {
-      "at": "@one",
-      "dur": 0.8,
+      "at": "n2+0.2",
+      "dur": 0.5,
       "set": {
         "pill_daily": "color"
       }
@@ -89,8 +89,11 @@
     },
     {
       "at": "n4",
-      "dur": 0.7,
+      "dur": 0.4,
       "set": {
+        "axis_w": "color",
+        "hb_curve": "color",
+        "check": "color",
         "alt": "hidden",
         "pill_daily": "hidden",
         "axis_h": "hidden",
@@ -99,7 +102,7 @@
     },
     {
       "at": "@hb",
-      "dur": 0.8,
+      "dur": 0.4,
       "set": {
         "axis_w": "color",
         "hb_curve": "color",
@@ -128,7 +131,7 @@
       "id": "hb_curve",
       "origin": "o-hb",
       "at": "@hb",
-      "dur": 2.5
+      "dur": 1.5
     },
     {
       "id": "store_bar",
@@ -145,7 +148,7 @@
       "x": 1489,
       "y": 366,
       "align": "left",
-      "in": "@one+0.3",
+      "in": "n2+0.6",
       "out": "@alt",
       "focus": "pill_daily",
       "sub": "≈ 65 мг елементарного заліза"
@@ -171,6 +174,28 @@
       "in": "@alt+0.3",
       "out": "n4",
       "focus": "alt"
+    },
+    {
+      "id": "axh",
+      "text": "години",
+      "anchor": "a-axis-h",
+      "x": 1776,
+      "y": 334,
+      "align": "center",
+      "in": "@hep+0.5",
+      "out": "@alt",
+      "focus": "axis_h"
+    },
+    {
+      "id": "axw",
+      "text": "тижні",
+      "anchor": "a-w24",
+      "x": 1790,
+      "y": 966,
+      "align": "center",
+      "in": "n4+0.5",
+      "out": "@st",
+      "focus": "axis_w"
     },
     {
       "id": "check",
@@ -208,14 +233,14 @@
       "id": "th1",
       "kind": "thesis",
       "html": "Одна доза на день<br>або через день",
-      "in": "@one+0.5",
-      "out": "n2.end"
+      "in": "n2+0.5",
+      "out": "n3.end"
     },
     {
       "id": "th2",
       "kind": "thesis",
       "html": "Немає відповіді —<br>шукайте причину",
-      "in": "n4+1",
+      "in": "n4+0.3",
       "out": "n4.end"
     },
     {
