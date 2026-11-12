@@ -1,0 +1,78 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:S;font-weight:600;src:url(fonts/cormorant-garamond-600-normal.ttf)}
+@font-face{font-family:S;font-style:italic;font-weight:500;src:url(fonts/cormorant-garamond-500-italic.ttf)}
+@font-face{font-family:M;font-weight:500;src:url(fonts/manrope-500-normal.ttf)}
+@font-face{font-family:M;font-weight:700;src:url(fonts/manrope-700-normal.ttf)}
+html,body{margin:0;background:#000}canvas{display:block}</style>
+<canvas id="out" width="1920" height="1080"></canvas>
+<script type="module">
+const W=1920,H=1080,out=document.getElementById('out'),g=out.getContext('2d');
+const D=await (await fetch('ink.json')).json();
+const fill=new Image();fill.src='fill2x.png';await fill.decode();
+for(const f of ['600 40px S','italic 500 40px S','500 40px M','700 40px M'])await document.fonts.load(f);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),seg=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,out3=x=>1-Math.pow(1-x,3),lerp=(a,b,e)=>a+(b-a)*e;
+const IVORY='#efe6d6',GOLD='#c9a86a',MUTE='#8d8578';
+let seed=7;const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+const S=D.strokes.map(s=>{const n=s.p.length/2,x=new Float32Array(n),y=new Float32Array(n),cum=new Float32Array(n);
+  for(let j=0;j<n;j++){x[j]=s.p[2*j];y[j]=s.p[2*j+1];if(j)cum[j]=cum[j-1]+Math.hypot(x[j]-x[j-1],y[j]-y[j-1])}
+  return {...s,x,y,cum,len:cum[n-1],d:rnd()}});
+function path(s,p){const L=s.len*p;g.beginPath();g.moveTo(s.x[0],s.y[0]);
+  for(let j=1;j<s.x.length;j++){if(s.cum[j]<=L)g.lineTo(s.x[j],s.y[j]);else{const e=(L-s.cum[j-1])/(s.cum[j]-s.cum[j-1]);g.lineTo(s.x[j-1]+(s.x[j]-s.x[j-1])*e,s.y[j-1]+(s.y[j]-s.y[j-1])*e);break}}}
+function draw(layer,t,t0,dur,spread,mul,filter){g.lineCap='round';g.lineJoin='round';
+  for(const s of S){if(s.l!==layer||(filter&&!filter(s)))continue;const p=out3(seg(t,t0+s.d*spread,t0+s.d*spread+dur));if(p<=0)continue;
+    g.globalAlpha=s.a*mul;g.strokeStyle=s.c;g.lineWidth=s.w;path(s,p);g.stroke()}g.globalAlpha=1}
+/* підписи */
+const N={1717:['Аорта','aorta'],1663:['Легеневий стовбур','truncus pulmonalis'],2282:['Верхня порожниста вена','vena cava superior'],1638:['Праве передсердя','atrium dextrum'],
+ 1639:['Правий шлуночок','ventriculus dexter'],1636:['Лівий шлуночок','ventriculus sinister'],1635:['Ліве передсердя','atrium sinistrum']};
+const cx=(D.bbox[0]+D.bbox[2])/2,LL=[],RL=[];
+for(const k in D.anchors){const a=D.anchors[k];(a[0]<cx?LL:RL).push({k,a,uk:N[k][0],la:N[k][1]})}
+[LL,RL].forEach(c=>c.sort((p,q)=>p.a[1]-q.a[1]));
+const LAB=[];LL.forEach((l,i)=>LAB.push({...l,side:-1,x:560,y:300+i*112}));RL.forEach((l,i)=>LAB.push({...l,side:1,x:1400,y:486+i*112}));
+LAB.sort((p,q)=>p.y-q.y).forEach((l,i)=>l.t0=2.5+i*.09);
+function txt(s,x,y,font,color,a,align,ls){if(a<=0)return;g.save();g.globalAlpha=a;g.fillStyle=color;g.font=font;g.textAlign=align||'left';g.textBaseline='alphabetic';
+  if(ls)g.letterSpacing=ls;g.fillText(s,x,y);g.restore()}
+function wrap(s,x,y,font,color,a,maxW,lh){g.save();g.font=font;const ws=s.split(' ');let line='',yy=y;const ls=[];
+  for(const w of ws){if(g.measureText(line+w).width>maxW&&line){ls.push(line.trim());line=''}line+=w+' '}ls.push(line.trim());g.restore();
+  ls.forEach((l,i)=>txt(l,x,y+i*lh,font,color,a))}
+const F=D.vcent.lad;
+window.renderAt=function(t){
+  g.globalAlpha=1;g.fillStyle='#000';g.fillRect(0,0,W,H);
+  const z=ease(seg(t,7.4,9.4)),sc=lerp(1,1.85,z),tx=lerp(0,1440-F[0]*1.85,z),ty=lerp(0,560-F[1]*1.85,z);
+  const X=p=>[p[0]*sc+tx,p[1]*sc+ty];
+  g.save();g.translate(tx,ty);g.scale(sc,sc);
+  const fa=ease(seg(t,.5,1.9));
+  if(fa>0){g.globalAlpha=fa;g.drawImage(fill,0,0,W,H);g.globalAlpha=1}
+  draw('engrave',t,1.0,.9,.7,1);
+  draw('vessel',t,1.3,1.0,.3,1);
+  draw('outline',t,.35,1.2,.25,1);
+  const dim=ease(seg(t,8.0,9.2));
+  if(dim>0){g.globalAlpha=.72*dim;g.fillStyle='#000';g.fillRect(-tx/sc,-ty/sc,W/sc,H/sc);g.globalAlpha=1;
+    draw('outline',t,.35,1.2,.25,.35*dim);
+    draw('vessel',t,0,.01,0,dim,s=>s.g==='lad')}
+  g.restore();
+  if(dim>0){const gr=g.createLinearGradient(0,0,980,0);gr.addColorStop(0,'rgba(0,0,0,1)');gr.addColorStop(.62,'rgba(0,0,0,.92)');gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=dim;g.fillStyle=gr;g.fillRect(0,0,980,H);g.globalAlpha=1}
+  /* шапка */
+  const ha=seg(t,.2,1.0)*(1-seg(t,7.0,7.5));
+  txt('АНАТОМІЯ СЕРЦЯ',112,128,'700 17px M',GOLD,ha,'left','4px');
+  txt('Серце',106,214,'600 96px S',IVORY,ha);
+  txt('вигляд спереду',112,262,'italic 500 34px S',MUTE,seg(t,.5,1.3)*(1-seg(t,7.0,7.5)));
+  /* підписи */
+  const lo=1-seg(t,6.9,7.4);
+  for(const l of LAB){const a=out3(seg(t,l.t0,l.t0+.45))*lo;if(a<=0)continue;const al=l.side<0?'right':'left',A=X(l.a);
+    txt(l.uk,l.x,l.y,'500 29px M',IVORY,a,al);txt(l.la,l.x,l.y+31,'italic 500 24px S',GOLD,a*.9,al);
+    const x0=l.x+l.side*-22,y0=l.y-9,p=out3(seg(t,l.t0+.1,l.t0+.6));
+    g.save();g.globalAlpha=.8*lo;g.strokeStyle=GOLD;g.lineWidth=1;g.beginPath();g.moveTo(x0,y0);const kx=x0+l.side*-46;
+    g.lineTo(lerp(x0,kx,clamp(p*2)),y0);if(p>.5)g.lineTo(lerp(kx,A[0],(p-.5)*2),lerp(y0,A[1],(p-.5)*2));g.stroke();
+    if(p>=1){g.fillStyle='#000';g.beginPath();g.arc(A[0],A[1],5,0,7);g.fill();g.stroke()}g.restore()}
+  /* теза про одну артерію */
+  const a1=out3(seg(t,9.3,10.0)),a2=out3(seg(t,9.7,10.5)),a3=out3(seg(t,10.2,11.0));
+  txt('ПЕРЕДНЯ МІЖШЛУНОЧКОВА ГІЛКА',150,400,'700 17px M',GOLD,a1,'left','4px');
+  txt('ramus interventricularis anterior',150,446,'italic 500 32px S',MUTE,a1);
+  if(a2>0)wrap('Живить передню стінку лівого шлуночка, верхівку і передні дві третини перегородки',150,540,'600 54px S',IVORY,a2,600,64);
+  if(a3>0){g.save();g.globalAlpha=a3;g.strokeStyle=GOLD;g.lineWidth=1;g.beginPath();g.moveTo(150,822);g.lineTo(150+90*a3,822);g.stroke();g.restore()}
+  txt('Форма за моделлю Z-Anatomy / BodyParts3D, CC BY-SA 4.0',W-110,H-58,'500 15px M','#5e584f',seg(t,1.5,2.3),'right');
+};
+window.frame=(t,q)=>{window.renderAt(t);return out.toDataURL('image/jpeg',q||.95).slice(23)};window.READY=true;
+</script>
