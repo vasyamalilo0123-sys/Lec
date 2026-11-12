@@ -17,7 +17,7 @@ const PAL=Object.assign({liver:'#e2664b',gall:'#7fc98c',duct:'#7fc98c',stomach:'
   myo:'#ef6652',atr:'#e58a72',aorta:'#ff8f73',pa:'#6f9bff',pv:'#ff8f73',vein:'#5f86e6',art:'#ff6f5a',cvein:'#7fa2ff'},{});
 function fillLayer(fn){const c=document.createElement('canvas');c.width=rc.width;c.height=rc.height;const x=c.getContext('2d'),im=x.createImageData(c.width,c.height),d=im.data;
   const P=KI.map(k=>k?fn(k):null).map(p=>p?[...hex(p[0]),p[1]*255]:[0,0,0,0]);
-  for(let i=0;i<REG.length;i+=4){const k=Math.round(REG[i]/30);if(k){const p=P[k];d[i]=p[0];d[i+1]=p[1];d[i+2]=p[2];d[i+3]=p[3]}}x.putImageData(im,0,0);g.drawImage(c,0,0,W,H)}
+  for(let i=0;i<REG.length;i+=4){const k=Math.round(REG[i]/20);if(k){const p=P[k];d[i]=p[0];d[i+1]=p[1];d[i+2]=p[2];d[i+3]=p[3]}}x.putImageData(im,0,0);g.drawImage(c,0,0,W,H)}
 const S=D.strokes.map(s=>{const n=s.p.length/2,x=new Float32Array(n),y=new Float32Array(n);for(let j=0;j<n;j++){x[j]=s.p[2*j];y[j]=s.p[2*j+1]}return {...s,x,y}});
 function strokes(layer,style){g.lineCap='round';g.lineJoin='round';for(const s of S){if(s.l!==layer)continue;const st=style(s);if(!st)continue;
   g.globalAlpha=st.a??1;g.strokeStyle=st.c;g.lineWidth=st.w??s.w;g.beginPath();g.moveTo(s.x[0],s.y[0]);for(let j=1;j<s.x.length;j++)g.lineTo(s.x[j],s.y[j]);g.stroke()}g.globalAlpha=1}

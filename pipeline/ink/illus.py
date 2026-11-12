@@ -198,7 +198,7 @@ KIDX = {k: i + 1 for i, k in enumerate(KINDS)}
 reg = np.zeros(base2.shape, np.uint8)
 for g in np.unique(base2):
     if g:
-        reg[base2 == g] = KIDX[KIND[int(g)]] * 30
+        reg[base2 == g] = KIDX[KIND[int(g)]] * 20
 cv2.imwrite(OUT + 'regions2x.png', reg)
 for g in np.unique(base):
     if g == 0:
@@ -211,6 +211,47 @@ mh = cv2.erode(body.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
 for p in streamlines(mh, 6, 40, 280, np.ones((H, W), np.float32)):
     mid = p[len(p) // 2]; add(smooth(p, 2.0, 4.0), 1.0, '#ffffff', 1, 'hatch', KIND[int(base[int(mid[1]), int(mid[0])])])
 
+# ---------- extras for the art-directed styles ----------
+from skimage import measure
+REGS = [int(g) for g in np.unique(base2) if g]
+regid = np.zeros(base2.shape, np.uint8)
+for i, g in enumerate(REGS):
+    m2 = base2 == g
+    cv2.imwrite(OUT + 'reg_%d.png' % g, np.dstack([np.full(m2.shape + (3,), 255, np.uint8), (cv2.GaussianBlur(m2.astype(np.float32), (0, 0), 1.0) * 255).astype(np.uint8)]))
+import os
+for g in REGS:
+    f = OUT + 'solo_%d.png' % g
+    if not os.path.exists(f):
+        continue
+    sm2 = cv2.imread(f)[:, :, 2] > 0
+    cv2.imwrite(OUT + 'solo_%d_a.png' % g, np.dstack([np.full(sm2.shape + (3,), 255, np.uint8), (cv2.GaussianBlur(sm2.astype(np.float32), (0, 0), 1.0) * 255).astype(np.uint8)]))
+    cs, _ = cv2.findContours(sm2[::2, ::2].astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    for c in cs:
+        if len(c) >= 40:
+            p = c[:, 0, :].astype(np.float32); add(smooth(np.vstack([p, p[:1]]), 4.0), 1.2, '#ffffff', 1, 'solo', str(g))
+# depth iso-lines, region by region
+if ves.any():
+    jy, jx = ndi.distance_transform_edt(ves, return_indices=True)[1]; dsurf = depth[jy, jx]
+else:
+    dsurf = depth
+dmin, dmax = float(dsurf[fg].min()), float(dsurf[fg].max()); NL = 56
+for g in REGS:
+    m = base == g
+    if m.sum() < 200:
+        continue
+    w_ = cv2.GaussianBlur(m.astype(np.float32), (0, 0), 3) + 1e-4
+    dr = cv2.GaussianBlur(dsurf * m, (0, 0), 3) / w_
+    me = cv2.erode(m.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    for li in range(1, NL):
+        lv = dmin + (dmax - dmin) * li / NL
+        for c in measure.find_contours(dr, lv, mask=me):
+            if len(c) >= 14:
+                add(smooth(c[:, ::-1].astype(np.float32), 2.5, 3.0), 1.0, '#ffffff', 1, 'topo', '%.3f|%s' % (li / NL, KIND[g]))
+regions = []
+for g in REGS:
+    yy, xx = np.nonzero(base == g)
+    regions.append({'gid': g, 'kind': KIND[g], 'bb': [int(xx.min()), int(yy.min()), int(xx.max()), int(yy.max())]})
+
 anch = {}
 for g in [int(k) for k in SC['labels']]:
     g = MERGE.get(g, g); mm = (base == g) & ~near_ves
@@ -219,7 +260,7 @@ for g in [int(k) for k in SC['labels']]:
     if mm.sum() >= 30:
         d = ndi.distance_transform_edt(mm); y, x = np.unravel_index(d.argmax(), d.shape); anch[str(g)] = [int(x), int(y)]
 ys, xs = np.nonzero(fg)
-json.dump({'w': W, 'h': H, 'bbox': [int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())], 'anchors': anch, 'kinds': KINDS, 'labels': SC['labels'], 'title': SC['title'], 'strokes': strokes},
+json.dump({'w': W, 'h': H, 'bbox': [int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())], 'anchors': anch, 'kinds': KINDS, 'regions': regions, 'labels': SC['labels'], 'title': SC['title'], 'strokes': strokes},
           open(OUT + 'ink.json', 'w'), separators=(',', ':'))
 from collections import Counter
 print(Counter(s['l'] for s in strokes), anch)

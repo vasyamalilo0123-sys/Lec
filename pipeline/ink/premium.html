@@ -1,0 +1,71 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Jost;font-weight:300;src:url(fonts/jost-300.ttf)}@font-face{font-family:Jost;font-weight:400;src:url(fonts/jost-400.ttf)}@font-face{font-family:Jost;font-weight:500;src:url(fonts/jost-500.ttf)}
+@font-face{font-family:Tight;font-weight:300;src:url(fonts/inter-tight-300.ttf)}@font-face{font-family:Tight;font-weight:500;src:url(fonts/inter-tight-500.ttf)}@font-face{font-family:Tight;font-weight:700;src:url(fonts/inter-tight-700.ttf)}
+@font-face{font-family:Manrope;font-weight:200;src:url(fonts/manrope-200.ttf)}@font-face{font-family:Manrope;font-weight:300;src:url(fonts/manrope-300.ttf)}@font-face{font-family:Manrope;font-weight:500;src:url(fonts/manrope-500-normal.ttf)}
+@font-face{font-family:Unb;font-weight:300;src:url(fonts/unbounded-300.ttf)}@font-face{font-family:Unb;font-weight:700;src:url(fonts/unbounded-700.ttf)}
+html,body{margin:0;background:#000}canvas{display:block}</style>
+<canvas id="out" width="1920" height="1080"></canvas>
+<script type="module">
+const W=1920,H=1080,out=document.getElementById('out'),g=out.getContext('2d');
+const q=new URLSearchParams(location.search),dir='out/'+q.get('scene')+'/';
+const D=await (await fetch(dir+'ink.json')).json();
+const img=async u=>{const i=new Image();i.src=u;try{await i.decode();return i}catch(e){return null}};
+const REGM={},SOLO={};for(const r of D.regions){REGM[r.gid]=await img(dir+'reg_'+r.gid+'.png');SOLO[r.gid]=await img(dir+'solo_'+r.gid+'_a.png')}
+const S=D.strokes.map(s=>{const n=s.p.length/2,x=new Float32Array(n),y=new Float32Array(n);for(let j=0;j<n;j++){x[j]=s.p[2*j];y[j]=s.p[2*j+1]}return {...s,x,y}});
+/* розміщення: велика ілюстрація праворуч */
+const bw=D.bbox[2]-D.bbox[0],bh=D.bbox[3]-D.bbox[1],sc=Math.min(940/bh,900/bw),tx=1330-(D.bbox[0]+bw/2)*sc,ty=545-(D.bbox[1]+bh/2)*sc;
+const X=p=>[p[0]*sc+tx,p[1]*sc+ty];
+const il=document.createElement('canvas');il.width=W;il.height=H;const c=il.getContext('2d');
+function begin(){c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-over';c.globalAlpha=1;c.clearRect(0,0,W,H);c.setTransform(sc,0,0,sc,tx,ty)}
+function end(){g.drawImage(il,0,0)}
+function strokes(layer,style){c.lineCap='round';c.lineJoin='round';for(const s of S){if(s.l!==layer)continue;const st=style(s);if(!st)continue;
+  c.globalAlpha=st.a??1;c.strokeStyle=st.c;c.lineWidth=(st.w??s.w)/ (st.px?sc:1);c.beginPath();c.moveTo(s.x[0],s.y[0]);for(let j=1;j<s.x.length;j++)c.lineTo(s.x[j],s.y[j]);c.stroke()}c.globalAlpha=1}
+function tinted(mask,style){const t=document.createElement('canvas');t.width=W;t.height=H;const x=t.getContext('2d');x.setTransform(sc,0,0,sc,tx,ty);x.drawImage(mask,0,0,W,H);
+  x.globalCompositeOperation='source-in';x.fillStyle=typeof style==='function'?style(x):style;x.fillRect(-tx/sc,-ty/sc,W/sc,H/sc);return t}
+function put(t,a,op){c.save();c.setTransform(1,0,0,1,0,0);c.globalAlpha=a??1;c.globalCompositeOperation=op||'source-over';c.drawImage(t,0,0);c.restore()}
+function txt(s,x,y,font,color,align,ls){g.save();g.fillStyle=color;g.font=font;g.textAlign=align||'left';g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls;g.fillText(s,x,y);const w=g.measureText(s).width;g.restore();return w}
+const LAB=Object.keys(D.anchors).map(k=>({k,a:D.anchors[k],uk:D.labels[k][0],la:D.labels[k][1]})).sort((p,q)=>p.a[1]-q.a[1]);
+function legend(o){const y0=H-150-(LAB.length-1)*58;g.save();g.strokeStyle=o.rule;g.lineWidth=1;g.beginPath();g.moveTo(112,y0-58);g.lineTo(640,y0-58);g.stroke();g.restore();
+  LAB.forEach((l,i)=>{const y=y0+i*58,n=String(i+1).padStart(2,'0');txt(n,112,y,o.fn,o.cn,'left','1px');const w=txt(l.uk,176,y,o.f1,o.c1);txt(l.la,176+w+16,y,o.f2,o.c2);
+    const A=X(l.a);g.save();g.beginPath();g.arc(A[0],A[1],15,0,7);g.fillStyle=o.mf;g.fill();g.strokeStyle=o.ms;g.lineWidth=1.2;g.stroke();g.restore();txt(String(i+1),A[0],A[1]+5.5,o.fm,o.mc,'center')})}
+function tag(n,name){txt('ВАРІАНТ '+n+'  —  '+name.toUpperCase(),W-112,84,'500 14px Tight','#7c766c','right','3px');txt('Форма за моделлю Z-Anatomy / BodyParts3D, CC BY-SA 4.0',W-112,H-52,'300 14px Tight','#55504a','right')}
+const kindOf={};D.regions.forEach(r=>kindOf[r.gid]=r.kind);
+const V={
+1(){ /* золоте тиснення: один метал, лінія і штрих */
+  begin();const gr=c.createLinearGradient(D.bbox[0],D.bbox[1],D.bbox[2],D.bbox[3]);[[0,'#f7e7b8'],[.22,'#c9a35c'],[.45,'#f3dca2'],[.68,'#a67e3c'],[.86,'#ecd292'],[1,'#b8914c']].forEach(s=>gr.addColorStop(s[0],s[1]));
+  strokes('hatch',s=>({c:gr,a:.55,w:.75}));strokes('outline',s=>({c:gr,w:1.2}));strokes('rcontour',s=>({c:gr,w:1.9}));strokes('vessel',s=>({c:gr,w:Math.min(s.w,3.4)}));end();
+  txt('СЕРЦЕ',108,236,'300 116px Jost','#f3dca2','left','22px');txt('COR  ·  ВИГЛЯД СПЕРЕДУ',114,290,'400 17px Jost','#a39a8a','left','7px');
+  legend({rule:'#5d4a26',fn:'400 18px Jost',cn:'#c9a35c',f1:'400 27px Jost',c1:'#f1ebdf',f2:'300 20px Jost',c2:'#8f887b',mf:'#000',ms:'#e6cc8c',fm:'500 15px Jost',mc:'#f3dca2'});tag(1,'Золоте тиснення')},
+2(){ /* топографія: форма передана ізолініями глибини */
+  begin();const ramp=(t,k)=>{const cold=['pa','svc','ivc'].includes(k),A=cold?[226,238,255]:[255,238,214],B=cold?[58,96,220]:[255,92,62],C=cold?[44,66,180]:[158,36,36];
+    const m=(a,b,e)=>a.map((v,i)=>Math.round(v+(b[i]-v)*e)),r=t<.5?m(A,B,t*2):m(B,C,(t-.5)*2);return `rgb(${r})`};
+  strokes('topo',s=>{const [lv,k]=s.g.split('|');return {c:ramp(+lv,k),w:1.25,a:1}});strokes('rcontour',s=>({c:'#f5efe6',w:1.1,a:.55}));strokes('vessel',s=>({c:s.g==='cvein'?'#8fb0ff':'#fff3e2',w:Math.min(s.w,2.6)}));end();
+  txt('Серце',104,250,'200 150px Manrope','#f5efe6','left','-5px');txt('ВИГЛЯД СПЕРЕДУ',114,300,'500 15px Manrope','#8c857a','left','6px');
+  const gx=g.createLinearGradient(112,0,372,0);gx.addColorStop(0,'#ffeed6');gx.addColorStop(.5,'#ff5c3e');gx.addColorStop(1,'#601216');g.fillStyle=gx;g.fillRect(112,356,260,3);
+  txt('ближче',112,388,'300 16px Manrope','#8c857a');txt('далі',372,388,'300 16px Manrope','#8c857a','right');
+  legend({rule:'#2c2926',fn:'300 18px Manrope',cn:'#ff5c3e',f1:'300 27px Manrope',c1:'#f5efe6',f2:'300 19px Manrope',c2:'#8c857a',mf:'#000',ms:'#f5efe6',fm:'500 14px Manrope',mc:'#f5efe6'});tag(2,'Топографія')},
+3(){ /* кольорове скло: кожна структура — прозорий аркуш, перекриття змішують колір */
+  const col={lv:'#ff3d2e',rv:'#ff7a3d',ra:'#c93a7e',la:'#e0469a',aorta:'#ffb52e',pa:'#2f8dff',svc:'#5b55ff',ivc:'#5b55ff',pv:'#ff86a0'};
+  begin();for(const r of D.regions){if(SOLO[r.gid])put(tinted(SOLO[r.gid],col[r.kind]),.58,'screen')}
+  strokes('solo',s=>({c:'#ffffff',a:.55,w:1,px:false}));strokes('vessel',s=>({c:'#ffffff',a:s.g==='cvein'?.45:.95,w:Math.min(s.w,2.6)}));end();
+  txt('Серце',104,246,'500 140px Tight','#ffffff','left','-6px');txt('Вигляд спереду. Те, що ззаду, видно крізь переднє',112,300,'300 22px Tight','#9a958c');
+  legend({rule:'#2c2926',fn:'500 17px Tight',cn:'#ffb52e',f1:'500 27px Tight',c1:'#ffffff',f2:'300 20px Tight',c2:'#8c877e',mf:'#ffffff',ms:'#ffffff',fm:'700 15px Tight',mc:'#000'});tag(3,'Кольорове скло')},
+4(){ /* паперова аплікація: матові плашки, зазори замість контуру, зерно */
+  const col={lv:'#c9553e',rv:'#de7c5c',ra:'#a5423a',la:'#8a3840',aorta:'#ecb698',pa:'#5d7bb2',svc:'#34487e',ivc:'#34487e',pv:'#dba58e'};
+  begin();for(const r of D.regions)put(tinted(REGM[r.gid],col[r.kind]),1);
+  strokes('outline',s=>({c:'#000',w:5.5}));strokes('rcontour',s=>({c:'#000',w:5.5}));strokes('vessel',s=>({c:s.g==='cvein'?'#232f58':'#f6ecda',w:Math.min(s.w,4.2)}));
+  c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-atop';let sd=3;const r=()=>{sd=(sd*1664525+1013904223)>>>0;return sd/4294967296};
+  for(let i=0;i<260000;i++){c.fillStyle=r()<.5?'#000':'#fff';c.globalAlpha=.05+.07*r();c.fillRect(r()*W,r()*H,1.4,1.4)}end();
+  txt('Серце',100,244,'700 116px Unb','#f6ecda','left','-3px');txt('ВИГЛЯД СПЕРЕДУ',112,298,'500 16px Manrope','#de7c5c','left','6px');
+  legend({rule:'#3a2a25',fn:'700 15px Unb',cn:'#de7c5c',f1:'500 26px Manrope',c1:'#f6ecda',f2:'300 19px Manrope',c2:'#958d81',mf:'#f6ecda',ms:'#f6ecda',fm:'700 12px Unb',mc:'#000'});tag(4,'Паперова аплікація')},
+5(){ /* градієнт: колір тече всередині форми, без контурів */
+  const col={lv:['#ff5a3c','#a8105c'],rv:['#ff9a4c','#e2304f'],ra:['#e04a72','#6d1c6e'],la:['#c63c7c','#521a66'],aorta:['#ffc94a','#ff4f3a'],pa:['#4fd0ff','#3445dc'],svc:['#6f8bff','#34209a'],ivc:['#34209a','#6f8bff'],pv:['#ffa2ae','#d2456f']};
+  begin();for(const r of D.regions)put(tinted(REGM[r.gid],x=>{const k=x.createLinearGradient(r.bb[0],r.bb[1],r.bb[0]+(r.bb[2]-r.bb[0])*.35,r.bb[3]);k.addColorStop(0,col[r.kind][0]);k.addColorStop(1,col[r.kind][1]);return k}),1);
+  strokes('outline',s=>({c:'#000',w:3.2}));strokes('rcontour',s=>({c:'#000',w:3.2}));strokes('vessel',s=>({c:'#ffffff',a:s.g==='cvein'?.5:.95,w:Math.min(s.w,2.4)}));end();
+  txt('Серце',102,250,'700 148px Tight','#ffffff','left','-7px');txt('вигляд спереду',112,302,'300 26px Tight','#a09b93');
+  legend({rule:'#2c2926',fn:'700 17px Tight',cn:'#ff5a3c',f1:'500 27px Tight',c1:'#ffffff',f2:'300 20px Tight',c2:'#8c877e',mf:'#000',ms:'#ffffff',fm:'700 15px Tight',mc:'#fff'});tag(5,'Градієнт')}};
+window.render=async v=>{for(const f of ['300 20px Jost','400 20px Jost','500 20px Jost','300 20px Tight','500 20px Tight','700 20px Tight','200 20px Manrope','300 20px Manrope','500 20px Manrope','300 20px Unb','700 20px Unb'])await document.fonts.load(f,'Серце cor 01');
+  g.globalAlpha=1;g.fillStyle='#000';g.fillRect(0,0,W,H);V[v]();return out.toDataURL('image/png').slice(22)};
+window.READY=true;
+</script>
