@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8">
+<style id="base">
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1920px;height:1080px;background:#000;overflow:hidden;color:#f4f1ee}
+#art{position:absolute}#art svg{width:100%;height:100%;overflow:visible;display:block}
+#over{position:absolute;inset:0;pointer-events:none}
+.t{position:absolute;white-space:nowrap;margin:0}
+.lab small{display:block}
+.onart{text-align:center}
+</style>
+<style id="variant"></style>
+<div id="stage">
+  <div id="art"></div>
+  <svg id="over" viewBox="0 0 1920 1080"></svg>
+  <p class="t" id="kicker">Кровопостачання серця</p>
+  <h1 class="t" id="title">Вінцеві<br>артерії</h1>
+  <p class="t" id="thesis"></p>
+  <p class="t" id="credit">Анатомічний референс: Z-Anatomy / BodyParts3D, CC BY-SA</p>
+</div>
+<script>
+/* Спільний рушій варіантів. Зміст і хронометраж однакові для всіх стилів; стиль задають art.svg, style.json і style.css. */
+const NS='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,e)=>a+(b-a)*e;
+const eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+function key(t,ks){if(t<=ks[0][0])return ks[0][1];for(let i=1;i<ks.length;i++)if(t<=ks[i][0])return lerp(ks[i-1][1],ks[i][1],eio((t-ks[i-1][0])/(ks[i][0]-ks[i-1][0])));return ks[ks.length-1][1]}
+const COPY={aorta:['Аорта'],rv:['Правий<br>шлуночок'],lv:['Лівий<br>шлуночок'],rca:['Права вінцева артерія'],lca:['Ліва вінцева артерія'],
+  lad:['Передня міжшлуночкова гілка','живить передню стінку лівого шлуночка'],lcx:['Огинальна гілка','йде на задню поверхню серця']};
+const THESES=[[13.0,15.6,'Обидві починаються від кореня аорти'],[22.6,25.4,'Ліва артерія дає дві гілки, права — одну']];
+const DUR=26,CHECK=[1.5,7.2,12.4,14.4,18.6,21.6,24.4];
+let S,svg,G={},LB={},grow={};
+window.init=function(data){S=data.style;$('variant').textContent=data.css||'';
+  const A=S.art;Object.assign($('art').style,{left:A.x+'px',top:A.y+'px',width:A.w+'px',height:A.h+'px'});
+  $('art').innerHTML=data.svg;svg=$('art').querySelector('svg');svg.setAttribute('preserveAspectRatio',A.fit||'xMidYMid meet');
+  for(const id of ['tissue','rca','lca','lad','lcx']){G[id]=svg.querySelector('#'+id);if(!G[id])throw new Error('art.svg: немає групи #'+id)}
+  let defs=svg.querySelector('defs');if(!defs){defs=document.createElementNS(NS,'defs');svg.insertBefore(defs,svg.firstChild)}
+  const vb=svg.viewBox.baseVal,diag=Math.hypot(vb.width,vb.height);
+  const mk=(id,o,els)=>{const o1=svg.querySelector('#'+o);if(!o1)throw new Error('art.svg: немає точки #'+o);const c=document.createElementNS(NS,'clipPath');c.id=id;c.setAttribute('clipPathUnits','userSpaceOnUse');
+    const ci=document.createElementNS(NS,'circle');ci.setAttribute('cx',o1.getAttribute('cx'));ci.setAttribute('cy',o1.getAttribute('cy'));ci.setAttribute('r',0);c.appendChild(ci);defs.appendChild(c);
+    const w=document.createElementNS(NS,'g');w.setAttribute('clip-path',`url(#${id})`);els[0].parentNode.insertBefore(w,els[0]);els.forEach(e=>w.appendChild(e));grow[id]={ci,diag}};
+  mk('kit-grow-r','o-rca',[G.rca]);mk('kit-grow-l','o-left',[G.lca,G.lad,G.lcx]);
+  const L=S.leader||{};
+  for(const id in COPY){const cfg=S.labels[id];if(!cfg)throw new Error('style.json: немає labels.'+id);const d=document.createElement('div');
+    d.className='t '+(cfg.onArt?'onart':'lab')+' l-'+id;d.dataset.id=id;d.innerHTML=COPY[id][0]+(COPY[id][1]&&cfg.sub!==false?`<small>${COPY[id][1]}</small>`:'');
+    const al=cfg.align||'left';d.style.top=cfg.y+'px';d.style.left=cfg.x+'px';d.style.textAlign=al;d.style.transform=al==='right'?'translateX(-100%)':al==='center'?'translateX(-50%)':'';
+    $('stage').appendChild(d);let ln=null,mk2=null;
+    if(!cfg.onArt&&cfg.leader!==false){ln=document.createElementNS(NS,'polyline');ln.setAttribute('fill','none');ln.setAttribute('stroke',L.color||'#f4f1ee');ln.setAttribute('stroke-width',L.width||1.6);ln.setAttribute('stroke-linecap','round');$('over').appendChild(ln);
+      if((L.marker||'ring')!=='none'){mk2=document.createElementNS(NS,'circle');mk2.setAttribute('r',L.markerSize||6);if((L.marker||'ring')==='ring'){mk2.setAttribute('fill',L.markerFill||'#000');mk2.setAttribute('stroke',L.color||'#f4f1ee');mk2.setAttribute('stroke-width',L.width||1.6)}else mk2.setAttribute('fill',L.color||'#f4f1ee');$('over').appendChild(mk2)}}
+    LB[id]={d,ln,mk:mk2,cfg,al}}
+  return document.fonts.ready.then(()=>true)};
+function anchor(id){const a=svg.querySelector('#a-'+id);if(!a)throw new Error('art.svg: немає точки #a-'+id);const m=a.getScreenCTM(),p=svg.createSVGPoint();p.x=+a.getAttribute('cx');p.y=+a.getAttribute('cy');const q=p.matrixTransform(m),r=$('stage').getBoundingClientRect();return [q.x-r.left,q.y-r.top]}
+function firstLineY(d){const r=document.createRange();r.selectNodeContents(d);const rs=r.getClientRects();return rs.length?rs[0].top+rs[0].height/2:d.getBoundingClientRect().top+20}
+/* виноска завжди виходить із зовнішнього боку тексту й ніколи не йде крізь нього */
+function leaderPts(id){const L=LB[id],b=L.d.getBoundingClientRect(),A=anchor(id),gap=(S.leader&&S.leader.gap)||14,side=L.cfg.attach||(L.al==='right'?'right':L.al==='left'?'left':(A[1]>b.bottom?'bottom':'top'));
+  let P;if(side==='left')P=[b.left-gap,firstLineY(L.d)];else if(side==='right')P=[b.right+gap,firstLineY(L.d)];else if(side==='bottom')P=[b.left+b.width/2,b.bottom+gap];else P=[b.left+b.width/2,b.top-gap];
+  if(S.leader&&S.leader.type==='elbow'&&(side==='left'||side==='right')){const k=(S.leader.elbow||44)*(side==='left'?-1:1);return [A,[P[0]+k,P[1]],P]}return [A,P]}
+function showLabel(id,a,dim=1){const L=LB[id],on=a>0?1:0,m=(S.motion&&S.motion.text)||'wipe',q=eo((a-(L.ln?.26:0))/.36);
+  if(L.ln){const pts=leaderPts(id),p=eo(a/.32);const cut=[pts[0]];let rem=p*(pts.length-1);for(let i=1;i<pts.length;i++){const e=clamp(rem);cut.push([lerp(pts[i-1][0],pts[i][0],e),lerp(pts[i-1][1],pts[i][1],e)]);rem-=1;if(rem<=0)break}
+    L.ln.setAttribute('points',cut.map(c=>c.join(',')).join(' '));L.ln.style.opacity=on*dim*((S.leader&&S.leader.opacity)||.9);if(L.mk){L.mk.setAttribute('cx',pts[0][0]);L.mk.setAttribute('cy',pts[0][1]);L.mk.style.opacity=on*dim}}
+  if(m==='fade'){L.d.style.clipPath='';L.d.style.opacity=q*dim}else{L.d.style.clipPath=L.al==='right'?`inset(-12px 0 -12px ${(1-q)*100}%)`:`inset(-12px ${(1-q)*100}% -12px 0)`;L.d.style.opacity=on*dim}
+  L.d.dataset.vis=(on*dim*q>.5)?'1':'0'}
+function reveal(el,a,d=.55){const m=(S.motion&&S.motion.text)||'wipe',q=eo(a/d);if(m==='fade'){el.style.clipPath='';return q}el.style.clipPath=`inset(-14px ${(1-q)*100}% -14px 0)`;return a>0?1:0}
+window.renderAt=function(t){const M=S.motion||{},dT=M.dimTissue??.36,dO=M.dimOther??.3;
+  /* заставка розділу, потім малюнок */
+  $('title').style.opacity=reveal($('title'),t-.3,.7)*(1-eo((t-7.4)/.4));$('title').dataset.vis=(t>1&&t<7.4)?'1':'0';
+  $('kicker').style.opacity=eo((t-.2)/.6);$('credit').style.opacity=eo((t-2.8)/.6);
+  G.tissue.style.opacity=eo((t-2.6)/.9)*key(t,[[7.8,1],[8.5,dT]]);
+  grow['kit-grow-r'].ci.setAttribute('r',eio((t-8.6)/1.6)*grow['kit-grow-r'].diag);grow['kit-grow-l'].ci.setAttribute('r',eio((t-10.8)/1.8)*grow['kit-grow-l'].diag);
+  const aR=key(t,[[15.6,1],[16.2,dO],[22.2,dO],[22.8,1]]),aA=key(t,[[19.2,1],[19.8,dO],[22.2,dO],[22.8,1]]),aX=key(t,[[15.6,1],[16.2,dO],[19.2,dO],[19.8,1]]),aT=key(t,[[19.2,1],[19.8,dO],[22.2,dO],[22.8,1]]);
+  G.rca.style.opacity=aR;G.lad.style.opacity=aA;G.lcx.style.opacity=aX;G.lca.style.opacity=aT;
+  const pre=t<7.4?1:1-eo((t-7.4)/.3);
+  showLabel('aorta',t-4,pre);showLabel('rv',t-5.2,pre);showLabel('lv',t-6.2,pre);
+  showLabel('rca',t-9.4,(aR>.6?1:.36)*(t>16&&t<22.4?0:1));
+  showLabel('lca',t-11.8,t<15.6?1:1-eo((t-15.6)/.3));
+  showLabel('lad',t-16.6,t<19.2?1:(t<22.4?1-eo((t-19.2)/.3):eo((t-22.6)/.3)));
+  showLabel('lcx',t-19.8,1);
+  let th='',ta=0;for(const [a,b,s] of THESES)if(t>=a-.01&&t<b+.5){th=s;ta=reveal($('thesis'),t-a,.55)*(1-eo((t-b)/.35))}
+  if($('thesis').textContent!==th&&th)$('thesis').textContent=th;$('thesis').style.opacity=ta;$('thesis').dataset.vis=ta>.5?'1':'0';
+  $('stage').style.opacity=1-eo((t-(DUR-.5))/.45)};
+/* геометрія для перевірки: прямокутники видимих текстів і відрізки виносок */
+window.geometry=function(){const out={texts:[],lines:[]},sr=$('stage').getBoundingClientRect();
+  const push=(el,id,kind)=>{const cs=getComputedStyle(el);if(+cs.opacity<.5)return;const b=el.getBoundingClientRect();out.texts.push({id,kind,x:b.left-sr.left,y:b.top-sr.top,w:b.width,h:b.height,size:parseFloat(cs.fontSize),color:cs.color,
+    small:[...el.querySelectorAll('small')].map(s=>parseFloat(getComputedStyle(s).fontSize))})};
+  for(const id in LB){const L=LB[id];if(L.d.dataset.vis!=='1')continue;push(L.d,id,L.cfg.onArt?'onart':'label');if(L.ln&&+L.ln.style.opacity>.3){const p=leaderPts(id);for(let i=1;i<p.length;i++)out.lines.push({id,a:p[i-1],b:p[i]})}}
+  if($('title').dataset.vis==='1')push($('title'),'title','title');if($('thesis').dataset.vis==='1')push($('thesis'),'thesis','thesis');push($('kicker'),'kicker','meta');push($('credit'),'credit','meta');return out};
+window.hideText=function(h){document.querySelectorAll('.t').forEach(e=>e.style.visibility=h?'hidden':'');$('over').style.visibility=h?'hidden':''};
+window.DUR=DUR;window.CHECK=CHECK;
+</script>

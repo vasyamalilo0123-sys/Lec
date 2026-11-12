@@ -1,0 +1,63 @@
+{
+  "name": "Приклад контракту (не стиль!)",
+  "fontCss": [
+    "fonts/fixel.css"
+  ],
+  "art": {
+    "x": 930,
+    "y": 110,
+    "w": 640,
+    "h": 860
+  },
+  "labels": {
+    "aorta": {
+      "x": 1500,
+      "y": 150,
+      "align": "left"
+    },
+    "rv": {
+      "x": 1258,
+      "y": 548,
+      "align": "center",
+      "onArt": true
+    },
+    "lv": {
+      "x": 1412,
+      "y": 640,
+      "align": "center",
+      "onArt": true
+    },
+    "rca": {
+      "x": 900,
+      "y": 560,
+      "align": "right"
+    },
+    "lca": {
+      "x": 1500,
+      "y": 300,
+      "align": "left"
+    },
+    "lad": {
+      "x": 1560,
+      "y": 720,
+      "align": "left"
+    },
+    "lcx": {
+      "x": 1560,
+      "y": 520,
+      "align": "left"
+    }
+  },
+  "leader": {
+    "type": "straight",
+    "width": 1.6,
+    "color": "#f4f1ee",
+    "marker": "ring",
+    "gap": 14
+  },
+  "motion": {
+    "text": "wipe",
+    "dimTissue": 0.36,
+    "dimOther": 0.3
+  }
+}
