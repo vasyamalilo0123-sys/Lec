@@ -47,8 +47,8 @@
     {"id": "s9", "text": "Carson J. L. et al. Red blood cell transfusion: 2023 AABB International Guidelines. JAMA, 2023", "url": "https://doi.org/10.1001/jama.2023.12914"},
     {"id": "s10", "text": "NICE NG24. Blood transfusion", "url": "https://www.nice.org.uk/guidance/ng24"},
     {"id": "s11", "text": "Hill Q. A. et al. BSH guideline: the diagnosis and management of primary autoimmune haemolytic anaemia. Br J Haematol, 2017", "url": "https://doi.org/10.1111/bjh.14478"},
-    {"id": "s12", "text": "Powers J. M. et al. ASH guidelines on the diagnosis of iron deficiency. Blood Advances, 2026", "url": "https://ashpublications.org/bloodadvances"},
-    {"id": "s13", "text": "Rao S. V. et al. 2025 ACC/AHA guideline for the management of patients with acute coronary syndromes. Circulation, 2025", "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001309"}
+    {"id": "s12", "text": "Powers J. M. et al. American Society of Hematology 2026 guidelines for diagnosis of iron deficiency. Blood Advances, 2026", "url": "https://doi.org/10.1182/bloodadvances.2025015950"},
+    {"id": "s13", "text": "Rao S. V. et al. 2025 ACC/AHA/ACEP/NAEMSP/SCAI guideline for the management of patients with acute coronary syndromes. Circulation, 2025;151:e771-e862", "url": "https://doi.org/10.1161/CIR.0000000000001309"}
   ],
   "pronounce": {
     "MCV": "ем-сі-ві",
