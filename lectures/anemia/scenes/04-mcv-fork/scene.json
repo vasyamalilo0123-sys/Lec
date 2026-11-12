@@ -1,33 +1,779 @@
 {
-  "parts": ["vessel", "vessel_cells", "zone_micro", "zone_normo", "zone_macro", "axis", "axis_flow", "axis_ticks", "axis_nums", "mark90", "micro", "micro_tint", "normo", "peer1", "peer2", "peer3", "peer4", "macro", "macro_cell", "mixed_b", "mixed_s", "rdw_arrow", "gap_line", "drop_m", "drop_w"],
-  "narration": [
-    {"id": "n1", "text": "[[axis]]Сере́дній об'є́м — це розвилка на три дороги."},
-    {"id": "n2", "text": "[[micro]]Нижче вісімдесяти фемтолі́трів — мікроцита́рна анемі́я. Кліти́ни дрібні́ й часто бліді: їм бракує гемоглобі́ну, найчастіше через нестачу залі́за.", "gap": 0.5},
-    {"id": "n3", "text": "[[normo]]Від вісімдесяти до ста — нормоцита́рна: розмір звичайний, але кліти́н замало, — їх утрачено, зруйновано або вироблено недостатньо."},
-    {"id": "n4", "text": "[[macro]]Понад сто — макроцита́рна. Великі кліти́ни часто означають, що в кістково́му мо́зку загальмований поділ ядра́, як при нестачі B12 чи фола́ту."},
-    {"id": "n5", "text": "А тепер наші краплі. [[m71]]У чоловіка сере́дній об'є́м сімдесят один — дорога ліворуч. [[m112]]У жінки — сто дванадцять, дорога праворуч. [[apart]]Однакове число́ розійшлося.", "gap": 0.6},
-    {"id": "n6", "text": "Межі в лабораторіях трохи різняться — звіряйтеся з бланком. А при змішаному дефіци́ті, скажімо залі́за й B12, сере́дній об'є́м буває нормальним; тоді [[rdw]]підкаже RDW.", "gap": 0.5}
-  ],
-  "brief": {
-    "in": "carry з 03: широка горизонтальна вісь MCV через центр кадру (рядок бланка, що розтягнувся). Від осі вгору відростають три дороги до трьох клітин.",
-    "out": "Камера відпускає вісь і йде вниз-ліворуч уздовж гілки мікроцитів, за нею — в тонку судину, що веде до кістки (camera, 2 с); три клітини лишаються вгорі сірими. Кадр «вхід у судину» — carry для 05.",
-    "reuse": "04-mcv/art.svg: micro, normo, macro (з гілками й траєкторіями micro-grow/normo-grow/macro-grow), axis (з axis-80, axis-100); root не потрібен — замість нього вісь-рядок. 03-cbc/ery_mixed — для репліки про RDW (купка дисків різного калібру). Розгорнути на весь кадр: вісь унизу (y ≈ 800), клітини над нею, центр — normo.",
-    "art": "Повний кадр: унизу вісь MCV 60–120 фл, три зони (бліда / червона / бордова); над кожною зоною дорога вгору до великої клітини. Частини: axis, micro, normo, macro, drop_m, drop_w (маленькі краплі-маркери з бирками над віссю), mixed (купка різних дисків над normo). Траєкторії p_m (від центру осі до 71 фл), p_w (до 112 фл).",
-    "flow": [
-      {"at": "start", "color": "axis", "move": "вісь трохи осідає вниз кадру (move, 0,8 с); поділки 80 і 100 draw", "text": "—"},
-      {"at": "@axis", "color": "axis", "move": "три зони осі заливаються по черзі зліва направо (grow, 1,2 с); loop — біг штрихів по осі", "text": "теза вгорі: «Три дороги»"},
-      {"at": "@micro", "color": "micro", "move": "гілка micro росте вгору (grow по micro-grow, 1,2 с), мікроцит проявляється й блідне до гіпохромного", "text": "підпис «Мікроцитарна < 80 фл»; джерело s22"},
-      {"at": "n2+5", "color": "micro", "move": "камера трохи підтягує мікроцит до центру (camera, 1,5 с)", "text": "—"},
-      {"at": "@normo", "color": "normo", "move": "micro сірий; camera повертає центр на normo; гілка grow; навколо нормоцита кілька таких самих дисків зникають (fade по одному) — «замало»", "text": "підпис «Нормоцитарна 80–100 фл»"},
-      {"at": "@macro", "color": "macro", "move": "normo сірий; camera праворуч; гілка grow; макроцит виростає з нормального розміру до овалу (move, масштаб 1 → 1,35)", "text": "підпис «Макроцитарна > 100 фл»; джерело s6"},
-      {"at": "n5", "color": "drop_m, drop_w, axis", "move": "три клітини сірі; camera від'їжджає на весь кадр; дві краплі-маркери стоять над центром осі", "text": "—"},
-      {"at": "@m71", "color": "drop_m, micro", "move": "drop_m travel по p_m ліворуч до 71; бирка count 96 → 71; micro знову кольоровий", "text": "бирка «MCV 71»"},
-      {"at": "@m112", "color": "drop_w, macro", "move": "micro сірий; drop_w travel по p_w праворуч до 112; бирка count 96 → 112", "text": "бирка «MCV 112»"},
-      {"at": "@apart", "color": "drop_m, drop_w", "move": "обидві краплі коротко пульсують на протилежних краях; між ними draw пунктир відстані", "text": "теза внизу: «Однакове число розійшлося»"},
-      {"at": "n6", "color": "normo", "move": "краплі сірі; на normo накладається купка mixed — дрібні й великі диски з'їжджаються (move) до середини, і маркер над віссю стає на 90", "text": "—"},
-      {"at": "@rdw", "color": "mixed", "move": "купка розсипається на два розміри (move), над нею draw стрілка «RDW ↑»", "text": "теза: «Змішаний дефіцит ховається від MCV»; джерело s24"},
-      {"at": "n6.end", "color": "micro, drop_m", "move": "камера рушає вниз-ліворуч уздовж гілки micro до судини (camera)", "text": "теза гасне"}
-    ],
-    "texts": "Теза (n1): «Три дороги». Підписи: «Мікроцитарна < 80 фл», «Нормоцитарна 80–100 фл», «Макроцитарна > 100 фл», «RDW ↑». Бирки: «MCV 71», «MCV 112». Тези: «Однакове число розійшлося», «Змішаний дефіцит ховається від MCV». Джерела: s22, s6, s24."
+ "art": {
+  "x": 0,
+  "y": 0,
+  "w": 1920,
+  "h": 1080
+ },
+ "parts": [
+  "vessel",
+  "vessel_cells",
+  "zone_micro",
+  "zone_normo",
+  "zone_macro",
+  "axis",
+  "axis_flow",
+  "axis_ticks",
+  "axis_nums",
+  "mark90",
+  "micro",
+  "micro_tint",
+  "normo",
+  "peer1",
+  "peer2",
+  "peer3",
+  "peer4",
+  "macro",
+  "macro_cell",
+  "mixed_b",
+  "mixed_s",
+  "rdw_arrow",
+  "gap_line",
+  "drop_m",
+  "drop_w"
+ ],
+ "narration": [
+  {
+   "id": "n1",
+   "text": "[[axis]]Сере́дній об'є́м — це розвилка на три дороги."
+  },
+  {
+   "id": "n2",
+   "text": "[[micro]]Нижче вісімдесяти фемтолі́трів — мікроцита́рна анемі́я. Кліти́ни дрібні́ й часто бліді: їм бракує гемоглобі́ну, найчастіше через нестачу залі́за.",
+   "gap": 0.5
+  },
+  {
+   "id": "n3",
+   "text": "[[normo]]Від вісімдесяти до ста — нормоцита́рна: розмір звичайний, але кліти́н замало, — їх утрачено, зруйновано або вироблено недостатньо."
+  },
+  {
+   "id": "n4",
+   "text": "[[macro]]Понад сто — макроцита́рна. Великі кліти́ни часто означають, що в кістково́му мо́зку загальмований поділ ядра́, як при нестачі B12 чи фола́ту."
+  },
+  {
+   "id": "n5",
+   "text": "А тепер наші краплі. [[m71]]У чоловіка сере́дній об'є́м сімдесят один — дорога ліворуч. [[m112]]У жінки — сто дванадцять, дорога праворуч. [[apart]]Однакове число́ розійшлося.",
+   "gap": 0.6
+  },
+  {
+   "id": "n6",
+   "text": "Межі в лабораторіях трохи різняться — звіряйтеся з бланком. А при змішаному дефіци́ті, скажімо залі́за й B12, сере́дній об'є́м буває нормальним; тоді [[rdw]]підкаже RDW.",
+   "gap": 0.5
   }
+ ],
+ "brief": {
+  "in": "carry з 03: широка горизонтальна вісь MCV через центр кадру (рядок бланка, що розтягнувся). Від осі вгору відростають три дороги до трьох клітин.",
+  "out": "Камера відпускає вісь і йде вниз-ліворуч уздовж гілки мікроцитів, за нею — в тонку судину, що веде до кістки (camera, 2 с); три клітини лишаються вгорі сірими. Кадр «вхід у судину» — carry для 05.",
+  "reuse": "04-mcv/art.svg: micro, normo, macro (з гілками й траєкторіями micro-grow/normo-grow/macro-grow), axis (з axis-80, axis-100); root не потрібен — замість нього вісь-рядок. 03-cbc/ery_mixed — для репліки про RDW (купка дисків різного калібру). Розгорнути на весь кадр: вісь унизу (y ≈ 800), клітини над нею, центр — normo.",
+  "art": "Повний кадр: унизу вісь MCV 60–120 фл, три зони (бліда / червона / бордова); над кожною зоною дорога вгору до великої клітини. Частини: axis, micro, normo, macro, drop_m, drop_w (маленькі краплі-маркери з бирками над віссю), mixed (купка різних дисків над normo). Траєкторії p_m (від центру осі до 71 фл), p_w (до 112 фл).",
+  "flow": [
+   {
+    "at": "start",
+    "color": "axis",
+    "move": "вісь трохи осідає вниз кадру (move, 0,8 с); поділки 80 і 100 draw",
+    "text": "—"
+   },
+   {
+    "at": "@axis",
+    "color": "axis",
+    "move": "три зони осі заливаються по черзі зліва направо (grow, 1,2 с); loop — біг штрихів по осі",
+    "text": "теза вгорі: «Три дороги»"
+   },
+   {
+    "at": "@micro",
+    "color": "micro",
+    "move": "гілка micro росте вгору (grow по micro-grow, 1,2 с), мікроцит проявляється й блідне до гіпохромного",
+    "text": "підпис «Мікроцитарна < 80 фл»; джерело s22"
+   },
+   {
+    "at": "n2+5",
+    "color": "micro",
+    "move": "камера трохи підтягує мікроцит до центру (camera, 1,5 с)",
+    "text": "—"
+   },
+   {
+    "at": "@normo",
+    "color": "normo",
+    "move": "micro сірий; camera повертає центр на normo; гілка grow; навколо нормоцита кілька таких самих дисків зникають (fade по одному) — «замало»",
+    "text": "підпис «Нормоцитарна 80–100 фл»"
+   },
+   {
+    "at": "@macro",
+    "color": "macro",
+    "move": "normo сірий; camera праворуч; гілка grow; макроцит виростає з нормального розміру до овалу (move, масштаб 1 → 1,35)",
+    "text": "підпис «Макроцитарна > 100 фл»; джерело s6"
+   },
+   {
+    "at": "n5",
+    "color": "drop_m, drop_w, axis",
+    "move": "три клітини сірі; camera від'їжджає на весь кадр; дві краплі-маркери стоять над центром осі",
+    "text": "—"
+   },
+   {
+    "at": "@m71",
+    "color": "drop_m, micro",
+    "move": "drop_m travel по p_m ліворуч до 71; бирка count 96 → 71; micro знову кольоровий",
+    "text": "бирка «MCV 71»"
+   },
+   {
+    "at": "@m112",
+    "color": "drop_w, macro",
+    "move": "micro сірий; drop_w travel по p_w праворуч до 112; бирка count 96 → 112",
+    "text": "бирка «MCV 112»"
+   },
+   {
+    "at": "@apart",
+    "color": "drop_m, drop_w",
+    "move": "обидві краплі коротко пульсують на протилежних краях; між ними draw пунктир відстані",
+    "text": "теза внизу: «Однакове число розійшлося»"
+   },
+   {
+    "at": "n6",
+    "color": "normo",
+    "move": "краплі сірі; на normo накладається купка mixed — дрібні й великі диски з'їжджаються (move) до середини, і маркер над віссю стає на 90",
+    "text": "—"
+   },
+   {
+    "at": "@rdw",
+    "color": "mixed",
+    "move": "купка розсипається на два розміри (move), над нею draw стрілка «RDW ↑»",
+    "text": "теза: «Змішаний дефіцит ховається від MCV»; джерело s24"
+   },
+   {
+    "at": "n6.end",
+    "color": "micro, drop_m",
+    "move": "камера рушає вниз-ліворуч уздовж гілки micro до судини (camera)",
+    "text": "теза гасне"
+   }
+  ],
+  "texts": "Теза (n1): «Три дороги». Підписи: «Мікроцитарна < 80 фл», «Нормоцитарна 80–100 фл», «Макроцитарна > 100 фл», «RDW ↑». Бирки: «MCV 71», «MCV 112». Тези: «Однакове число розійшлося», «Змішаний дефіцит ховається від MCV». Джерела: s22, s6, s24."
+ },
+ "carry": true,
+ "lead": 0.3,
+ "tail": 3.2,
+ "enter": "cut",
+ "exit": "cut",
+ "camera": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "view": "v-in"
+  },
+  {
+   "at": "n1+0.1",
+   "dur": 1.6,
+   "view": "v-full"
+  },
+  {
+   "at": "@micro+0.1",
+   "dur": 1.6,
+   "view": "v-micro"
+  },
+  {
+   "at": "@micro+4.7",
+   "dur": 1.8,
+   "view": {
+    "x": 290,
+    "y": 120,
+    "w": 1400,
+    "h": 787.5
+   }
+  },
+  {
+   "at": "@micro+7.1",
+   "dur": 1.8,
+   "view": "v-micro"
+  },
+  {
+   "at": "@normo+0.1",
+   "dur": 1.6,
+   "view": "v-normo"
+  },
+  {
+   "at": "@macro+0.1",
+   "dur": 1.6,
+   "view": {
+    "x": 980,
+    "y": 49,
+    "w": 1600,
+    "h": 900
+   }
+  },
+  {
+   "at": "@macro+5.0",
+   "dur": 2.0,
+   "view": {
+    "x": 1080,
+    "y": 150,
+    "w": 1400,
+    "h": 787.5
+   }
+  },
+  {
+   "at": "n5",
+   "dur": 1.8,
+   "view": "v-full"
+  },
+  {
+   "at": "n6.end+0.1",
+   "dur": 2.2,
+   "view": "v-out"
+  }
+ ],
+ "states": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "set": {
+    "vessel": "hidden",
+    "vessel_cells": "hidden",
+    "zone_micro": "color",
+    "zone_normo": "color",
+    "zone_macro": "color",
+    "axis": "color",
+    "axis_flow": "hidden",
+    "axis_ticks": "color",
+    "axis_nums": "hidden",
+    "mark90": "hidden",
+    "micro": "hidden",
+    "micro_tint": "hidden",
+    "normo": "hidden",
+    "peer1": "hidden",
+    "peer2": "hidden",
+    "peer3": "hidden",
+    "peer4": "hidden",
+    "macro": "hidden",
+    "macro_cell": "hidden",
+    "mixed_b": "hidden",
+    "mixed_s": "hidden",
+    "rdw_arrow": "hidden",
+    "gap_line": "hidden",
+    "drop_m": "hidden",
+    "drop_w": "hidden"
+   }
+  },
+  {
+   "at": "n1+0.7",
+   "dur": 0.6,
+   "set": {
+    "axis_nums": "color"
+   }
+  },
+  {
+   "at": "n1+1.3",
+   "dur": 0.6,
+   "set": {
+    "axis_flow": "color"
+   }
+  },
+  {
+   "at": "@micro",
+   "dur": 0.6,
+   "set": {
+    "micro": "color",
+    "micro_tint": "color",
+    "zone_normo": "hidden",
+    "zone_macro": "hidden",
+    "axis_flow": "hidden"
+   }
+  },
+  {
+   "at": "@micro+4.9",
+   "dur": 1.4,
+   "set": {
+    "micro_tint": "hidden"
+   }
+  },
+  {
+   "at": "@normo",
+   "dur": 0.6,
+   "set": {
+    "micro": "grey",
+    "zone_micro": "grey",
+    "zone_normo": "color",
+    "normo": "color",
+    "zone_macro": "grey"
+   }
+  },
+  {
+   "at": "@normo+2.9",
+   "dur": 0.7,
+   "set": {
+    "peer1": "color",
+    "peer2": "color",
+    "peer3": "color",
+    "peer4": "color"
+   }
+  },
+  {
+   "at": "@normo+4.7",
+   "dur": 0.6,
+   "set": {
+    "peer1": "hidden"
+   }
+  },
+  {
+   "at": "@normo+5.7",
+   "dur": 0.6,
+   "set": {
+    "peer2": "hidden"
+   }
+  },
+  {
+   "at": "@normo+6.5",
+   "dur": 0.6,
+   "set": {
+    "peer3": "hidden"
+   }
+  },
+  {
+   "at": "@normo+7.5",
+   "dur": 0.6,
+   "set": {
+    "peer4": "hidden"
+   }
+  },
+  {
+   "at": "@macro",
+   "dur": 0.6,
+   "set": {
+    "normo": "grey",
+    "zone_normo": "hidden",
+    "zone_macro": "color",
+    "macro": "color",
+    "micro": "hidden",
+    "zone_micro": "hidden"
+   }
+  },
+  {
+   "at": "@macro+0.5",
+   "dur": 0.6,
+   "set": {
+    "macro_cell": "color"
+   }
+  },
+  {
+   "at": "n5",
+   "dur": 0.7,
+   "set": {
+    "macro": "grey",
+    "macro_cell": "grey",
+    "zone_micro": "color",
+    "zone_normo": "color",
+    "zone_macro": "color",
+    "micro": "grey"
+   }
+  },
+  {
+   "at": "n5+0.5",
+   "dur": 0.6,
+   "set": {
+    "drop_m": "color",
+    "drop_w": "color"
+   }
+  },
+  {
+   "at": "@m71",
+   "dur": 0.6,
+   "set": {
+    "drop_w": "grey",
+    "micro": "color",
+    "zone_normo": "grey",
+    "zone_macro": "grey"
+   }
+  },
+  {
+   "at": "@m112",
+   "dur": 0.6,
+   "set": {
+    "drop_m": "grey",
+    "micro": "grey",
+    "drop_w": "color",
+    "macro": "color",
+    "macro_cell": "color",
+    "zone_micro": "grey",
+    "zone_macro": "color"
+   }
+  },
+  {
+   "at": "@apart",
+   "dur": 0.6,
+   "set": {
+    "drop_m": "color",
+    "macro": "grey",
+    "macro_cell": "grey",
+    "gap_line": "color",
+    "zone_micro": "color"
+   }
+  },
+  {
+   "at": "n6",
+   "dur": 0.6,
+   "set": {
+    "drop_m": "grey",
+    "drop_w": "grey",
+    "gap_line": "hidden",
+    "zone_micro": "grey",
+    "zone_macro": "grey",
+    "zone_normo": "grey"
+   }
+  },
+  {
+   "at": "n6+3.8",
+   "dur": 0.6,
+   "set": {
+    "normo": "color"
+   }
+  },
+  {
+   "at": "n6+5.7",
+   "dur": 0.5,
+   "set": {
+    "mixed_s": "color"
+   }
+  },
+  {
+   "at": "n6+6.3",
+   "dur": 0.5,
+   "set": {
+    "mixed_b": "color"
+   }
+  },
+  {
+   "at": "n6+6.8",
+   "dur": 0.6,
+   "set": {
+    "mark90": "color",
+    "zone_normo": "color"
+   }
+  },
+  {
+   "at": "@rdw+0.2",
+   "dur": 0.5,
+   "set": {
+    "rdw_arrow": "color",
+    "normo": "grey"
+   }
+  },
+  {
+   "at": "n6.end",
+   "dur": 0.8,
+   "set": {
+    "mixed_s": "hidden",
+    "mixed_b": "hidden",
+    "rdw_arrow": "hidden",
+    "mark90": "grey",
+    "zone_normo": "grey",
+    "micro": "color",
+    "drop_m": "color"
+   }
+  },
+  {
+   "at": "n6.end+0.2",
+   "dur": 0.6,
+   "set": {
+    "vessel": "color"
+   }
+  },
+  {
+   "at": "n6.end+1.0",
+   "dur": 0.6,
+   "set": {
+    "vessel_cells": "color"
+   }
+  }
+ ],
+ "grow": [
+  {
+   "id": "micro",
+   "origin": "o-micro",
+   "at": "@micro",
+   "dur": 1.2
+  },
+  {
+   "id": "normo",
+   "origin": "o-normo",
+   "at": "@normo",
+   "dur": 1.2
+  },
+  {
+   "id": "macro",
+   "origin": "o-macro",
+   "at": "@macro",
+   "dur": 1.0
+  },
+  {
+   "id": "gap_line",
+   "origin": "o-gap",
+   "at": "@apart",
+   "dur": 1.2
+  },
+  {
+   "id": "rdw_arrow",
+   "origin": "o-rdw",
+   "at": "@rdw+0.2",
+   "dur": 1.0
+  }
+ ],
+ "draw": [
+  {
+   "id": "drop_m",
+   "at": "n5+0.5",
+   "dur": 1.0
+  },
+  {
+   "id": "drop_w",
+   "at": "n5+0.5",
+   "dur": 1.0
+  },
+  {
+   "id": "mark90",
+   "at": "n6+6.8",
+   "dur": 0.8
+  },
+  {
+   "id": "vessel",
+   "at": "n6.end+0.2",
+   "dur": 2.0
+  }
+ ],
+ "move": [
+  {
+   "id": "macro_cell",
+   "to": "pt-macro",
+   "at": "@macro+1.9",
+   "dur": 1.6,
+   "scale": 1.35
+  },
+  {
+   "id": "mixed_s",
+   "from": "pt-mixs-side",
+   "to": "pt-mixs-heap",
+   "at": "n6+5.7",
+   "dur": 1.4
+  },
+  {
+   "id": "mixed_b",
+   "from": "pt-mixb-side",
+   "to": "pt-mixb-heap",
+   "at": "n6+6.3",
+   "dur": 1.4
+  },
+  {
+   "id": "mixed_s",
+   "to": "pt-mixs-side",
+   "at": "@rdw",
+   "dur": 1.2
+  },
+  {
+   "id": "mixed_b",
+   "to": "pt-mixb-side",
+   "at": "@rdw",
+   "dur": 1.2
+  },
+  {
+   "id": "drop_m",
+   "to": "pt-dm-71",
+   "at": "@m71+0.2",
+   "dur": 2.2
+  },
+  {
+   "id": "drop_w",
+   "to": "pt-dw-112",
+   "at": "@m112+0.2",
+   "dur": 2.2
+  }
+ ],
+ "travel": [],
+ "loop": [
+  {
+   "id": "axis-line",
+   "kind": "flow",
+   "in": "n1+1.3",
+   "out": "@micro",
+   "amp": 14,
+   "period": 1.4
+  },
+  {
+   "id": "micro",
+   "kind": "pulse",
+   "in": "@micro+7.2",
+   "out": "@normo",
+   "amp": 0.03,
+   "period": 2.4
+  },
+  {
+   "id": "macro_cell",
+   "kind": "pulse",
+   "in": "@macro+5.4",
+   "out": "n5+1",
+   "amp": 0.04,
+   "period": 2.4
+  },
+  {
+   "id": "axis_ticks",
+   "kind": "pulse",
+   "in": "n6",
+   "out": "n6+4",
+   "amp": 0.04,
+   "period": 1.6
+  },
+  {
+   "id": "vessel_cells",
+   "kind": "float",
+   "in": "n6.end+1.2",
+   "amp": 4,
+   "period": 3
+  },
+  {
+   "id": "gap_line",
+   "kind": "pulse",
+   "in": "@apart+1.0",
+   "out": "n6",
+   "amp": 0.03,
+   "period": 1.6
+  }
+ ],
+ "count": [
+  {
+   "id": "tm",
+   "from": 85,
+   "to": 71,
+   "at": "@m71+0.2",
+   "dur": 2.2
+  },
+  {
+   "id": "tw",
+   "from": 96,
+   "to": 112,
+   "at": "@m112+0.2",
+   "dur": 2.2
+  }
+ ],
+ "labels": [
+  {
+   "id": "lmi",
+   "text": "Мікроцитарна",
+   "sub": "&lt; 80 фл",
+   "anchor": "micro-lab",
+   "x": 1120,
+   "y": 200,
+   "align": "left",
+   "in": "@micro+1.2",
+   "out": "@normo",
+   "focus": "micro"
+  },
+  {
+   "id": "lno",
+   "text": "Нормоцитарна",
+   "sub": "80–100 фл",
+   "anchor": "normo-lab",
+   "x": 1300,
+   "y": 395,
+   "align": "left",
+   "in": "@normo+1.2",
+   "out": "@macro",
+   "focus": "normo"
+  },
+  {
+   "id": "lma",
+   "text": "Макроцитарна",
+   "sub": "&gt; 100 фл",
+   "anchor": "macro-lab",
+   "x": 1270,
+   "y": 190,
+   "align": "left",
+   "in": "@macro+1.0",
+   "out": "n5",
+   "focus": "macro"
+  },
+  {
+   "id": "tm",
+   "text": "MCV {n}",
+   "onArt": true,
+   "follow": "drop_m",
+   "x": 943,
+   "y": 553,
+   "align": "center",
+   "in": "n5+1.3",
+   "out": "n6.end"
+  },
+  {
+   "id": "tw",
+   "text": "MCV {n}",
+   "onArt": true,
+   "follow": "drop_w",
+   "x": 1163,
+   "y": 553,
+   "align": "center",
+   "in": "n5+1.3",
+   "out": "n6.end"
+  },
+  {
+   "id": "lrdw",
+   "text": "RDW ↑",
+   "onArt": true,
+   "anchor": "a-rdw",
+   "x": 960,
+   "y": 176,
+   "align": "center",
+   "in": "@rdw+0.6",
+   "out": "n6.end",
+   "focus": "rdw_arrow"
+  },
+  {
+   "id": "tm2",
+   "text": "MCV 71",
+   "onArt": true,
+   "anchor": "dm-num-71",
+   "x": 1264,
+   "y": 34,
+   "align": "center",
+   "in": "n6.end+2.3",
+   "focus": "drop_m"
+  }
+ ],
+ "texts": [
+  {
+   "id": "t1",
+   "kind": "thesis",
+   "html": "Три дороги",
+   "band": "top",
+   "in": "n1+2.1",
+   "out": "@micro+1.0"
+  },
+  {
+   "id": "t2",
+   "kind": "thesis",
+   "html": "Однакове число розійшлося",
+   "in": "@apart",
+   "out": "n6",
+   "y": 900
+  },
+  {
+   "id": "t3",
+   "kind": "thesis",
+   "html": "Змішаний дефіцит ховається від MCV",
+   "in": "n6+4.1",
+   "out": "n6.end",
+   "y": 900
+  }
+ ],
+ "sources": [
+  {
+   "ref": "s22",
+   "in": "@micro+1.2",
+   "out": "n3.end"
+  },
+  {
+   "ref": "s6",
+   "in": "@normo+1.2",
+   "out": "n4.end"
+  },
+  {
+   "ref": "s24",
+   "in": "n6+4.1",
+   "out": "n6.end"
+  }
+ ]
 }

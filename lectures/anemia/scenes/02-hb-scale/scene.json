@@ -1,4 +1,15 @@
 {
+  "art": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
+  },
+  "carry": true,
+  "enter": "cut",
+  "exit": "cut",
+  "lead": 0.15,
+  "tail": 1.0,
   "narration": [
     {
       "id": "n1",
@@ -125,5 +136,650 @@
       }
     ],
     "texts": "Підписи: «Гемоглобін, г/л», «Чоловіки < 130 г/л», «Жінки < 120 г/л», «I і III триместри < 110 г/л», «II триместр < 105 г/л», «Невагітні дорослі», «Помірна 80–109», «Тяжка < 80», «плазма», «еритроцити». Теза (n5): «Лінійка каже: анемія є. Але не чому». Джерела: s1, s33."
-  }
+  },
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "start+0.1",
+      "dur": 1.3,
+      "view": {
+        "x": 1220.0,
+        "y": 424.25,
+        "w": 1400,
+        "h": 787.5
+      }
+    },
+    {
+      "at": "@ruler",
+      "dur": 1.7,
+      "view": "v-main"
+    },
+    {
+      "at": "n2",
+      "dur": 1.8,
+      "view": {
+        "x": 1120.0,
+        "y": 205.0,
+        "w": 1760,
+        "h": 990.0
+      }
+    },
+    {
+      "at": "@drop",
+      "dur": 3.0,
+      "view": {
+        "x": 960.0,
+        "y": 245.0,
+        "w": 1760,
+        "h": 990.0
+      }
+    },
+    {
+      "at": "@sev",
+      "dur": 1.6,
+      "view": {
+        "x": 960.0,
+        "y": 506.25,
+        "w": 1400,
+        "h": 787.5
+      }
+    },
+    {
+      "at": "n5",
+      "dur": 2.6,
+      "view": "v-tube"
+    },
+    {
+      "at": "@only+3.32",
+      "dur": 2.6,
+      "view": "v-out"
+    }
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "sev_bands": "hidden",
+        "sev_sev": "hidden",
+        "sev_mod": "hidden",
+        "scale": "hidden",
+        "scale_num": "hidden",
+        "mark_preg_105": "hidden",
+        "mark_preg": "hidden",
+        "mark_women": "hidden",
+        "mark_men": "hidden",
+        "bar_plasma": "hidden",
+        "bar_rbc": "hidden",
+        "tube": "hidden",
+        "tube_cells": "hidden",
+        "drop_w": "hidden",
+        "drop_m": "hidden",
+        "slot_top": "color",
+        "tube_m0": "color",
+        "tube_w0": "color",
+        "slot": "color"
+      }
+    },
+    {
+      "at": "start+1.0",
+      "dur": 0.3,
+      "set": {
+        "scale": "color"
+      }
+    },
+    {
+      "at": "start+1.1",
+      "dur": 0.5,
+      "set": {
+        "slot": "hidden"
+      }
+    },
+    {
+      "at": "start+1.5",
+      "dur": 0.5,
+      "set": {
+        "slot_top": "hidden",
+        "tube_m0": "hidden",
+        "tube_w0": "hidden"
+      }
+    },
+    {
+      "at": "@ruler",
+      "dur": 0.3,
+      "set": {
+        "scale_num": "color"
+      }
+    },
+    {
+      "at": "n1+4",
+      "dur": 0.4,
+      "set": {
+        "drop_m": "color",
+        "drop_w": "color"
+      }
+    },
+    {
+      "at": "@men",
+      "dur": 0.6,
+      "set": {
+        "mark_men": "color",
+        "scale": "grey",
+        "scale_num": "grey",
+        "drop_w": "grey"
+      }
+    },
+    {
+      "at": "@women",
+      "dur": 0.6,
+      "set": {
+        "mark_men": "grey",
+        "drop_m": "grey",
+        "mark_women": "color",
+        "drop_w": "color"
+      }
+    },
+    {
+      "at": "@preg",
+      "dur": 0.6,
+      "set": {
+        "mark_women": "grey",
+        "drop_w": "grey",
+        "mark_preg": "color"
+      }
+    },
+    {
+      "at": "@preg+3.16",
+      "dur": 0.5,
+      "set": {
+        "mark_preg_105": "color"
+      }
+    },
+    {
+      "at": "@preg+5.44",
+      "dur": 0.4,
+      "set": {
+        "bar_plasma": "color",
+        "bar_rbc": "color"
+      }
+    },
+    {
+      "at": "@drop",
+      "dur": 0.6,
+      "set": {
+        "mark_preg": "grey",
+        "mark_preg_105": "grey",
+        "bar_plasma": "hidden",
+        "bar_rbc": "hidden",
+        "drop_m": "color",
+        "drop_w": "color",
+        "mark_men": "color",
+        "mark_women": "color"
+      }
+    },
+    {
+      "at": "@sev",
+      "dur": 0.6,
+      "set": {
+        "mark_men": "grey",
+        "mark_women": "grey",
+        "drop_m": "grey",
+        "drop_w": "grey",
+        "sev_bands": "color",
+        "sev_mod": "color",
+        "sev_sev": "color"
+      }
+    },
+    {
+      "at": "@mod",
+      "dur": 0.6,
+      "set": {
+        "sev_sev": "grey",
+        "drop_m": "color",
+        "drop_w": "color"
+      }
+    },
+    {
+      "at": "@only",
+      "dur": 0.6,
+      "set": {
+        "sev_bands": "grey",
+        "sev_mod": "grey",
+        "tube": "color"
+      }
+    },
+    {
+      "at": "@only+3.92",
+      "dur": 0.6,
+      "set": {
+        "tube_cells": "color"
+      }
+    }
+  ],
+  "grow": [
+    {
+      "id": "scale",
+      "origin": "pt_w_96",
+      "at": "start",
+      "dur": 6
+    },
+    {
+      "id": "scale_num",
+      "origin": "g_num",
+      "at": "@ruler",
+      "dur": 6
+    },
+    {
+      "id": "bar_plasma",
+      "origin": "g_plasma",
+      "at": "@preg+5.44",
+      "dur": 7
+    },
+    {
+      "id": "bar_rbc",
+      "origin": "g_rbc",
+      "at": "@preg+5.44",
+      "dur": 11
+    },
+    {
+      "id": "sev_bands",
+      "origin": "g_sev",
+      "at": "@sev",
+      "dur": 4.6
+    },
+    {
+      "id": "sev_mod",
+      "origin": "g_sev",
+      "at": "@sev",
+      "dur": 4.6
+    },
+    {
+      "id": "sev_sev",
+      "origin": "g_sev",
+      "at": "@sev",
+      "dur": 4.6
+    }
+  ],
+  "travel": [],
+  "move": [
+    {
+      "id": "tube_m0",
+      "to": "pt_tm_down",
+      "at": "start+0.05",
+      "dur": 0.8
+    },
+    {
+      "id": "tube_w0",
+      "to": "pt_tw_down",
+      "at": "start+0.05",
+      "dur": 0.8
+    },
+    {
+      "id": "drop_m",
+      "from": "pt_m_in",
+      "to": "pt_m_160",
+      "at": "n1+4",
+      "dur": 1.4
+    },
+    {
+      "id": "drop_w",
+      "from": "pt_w_in",
+      "to": "pt_w_160",
+      "at": "n1+4.2",
+      "dur": 1.4
+    },
+    {
+      "id": "drop_m",
+      "to": "pt_m_96",
+      "at": "@drop",
+      "dur": 3.0
+    },
+    {
+      "id": "drop_w",
+      "to": "pt_w_96",
+      "at": "@drop",
+      "dur": 3.0
+    },
+    {
+      "id": "drop_m",
+      "to": "pt_m_tube",
+      "at": "@only+1.52",
+      "dur": 1.8,
+      "scale": 0.25
+    },
+    {
+      "id": "drop_w",
+      "to": "pt_w_tube",
+      "at": "@only+1.67",
+      "dur": 1.8,
+      "scale": 0.25
+    }
+  ],
+  "draw": [
+    {
+      "id": "mark_men",
+      "at": "@men",
+      "dur": 0.8
+    },
+    {
+      "id": "mark_women",
+      "at": "@women",
+      "dur": 0.8
+    },
+    {
+      "id": "mark_preg",
+      "at": "@preg",
+      "dur": 0.8
+    },
+    {
+      "id": "mark_preg_105",
+      "at": "@preg+3.16",
+      "dur": 0.9
+    },
+    {
+      "id": "tube",
+      "at": "@only",
+      "dur": 1.2
+    }
+  ],
+  "loop": [
+    {
+      "id": "scale_run",
+      "kind": "flow",
+      "in": "@ruler+0.4",
+      "out": "@ruler+3.4",
+      "amp": 18,
+      "period": 1.4
+    },
+    {
+      "id": "drop_m_ring",
+      "kind": "pulse",
+      "in": "@men",
+      "out": "@women",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "drop_w_ring",
+      "kind": "pulse",
+      "in": "@women",
+      "out": "@preg",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "mark_preg_110",
+      "kind": "pulse",
+      "in": "@preg+1",
+      "out": "@drop",
+      "amp": 0.03,
+      "period": 2.4
+    },
+    {
+      "id": "sev_mod",
+      "kind": "pulse",
+      "in": "@mod",
+      "out": "@only",
+      "amp": 0.04,
+      "period": 1.4
+    },
+    {
+      "id": "drop_m_ring",
+      "kind": "pulse",
+      "in": "@mod",
+      "out": "@only+1.52",
+      "amp": 0.05,
+      "period": 2.0
+    },
+    {
+      "id": "drop_w_ring",
+      "kind": "pulse",
+      "in": "@mod",
+      "out": "@only+1.52",
+      "amp": 0.05,
+      "period": 2.0
+    }
+  ],
+  "count": [
+    {
+      "id": "cm",
+      "from": 160,
+      "to": 96,
+      "at": "@drop",
+      "dur": 3.0
+    },
+    {
+      "id": "cw",
+      "from": 160,
+      "to": 96,
+      "at": "@drop",
+      "dur": 3.0
+    }
+  ],
+  "labels": [
+    {
+      "id": "ls",
+      "text": "Гемоглобін, г/л",
+      "anchor": "a_scale",
+      "x": 1242,
+      "y": 640,
+      "align": "center",
+      "in": "@ruler+1.8",
+      "focus": "scale",
+      "out": "n1.end"
+    },
+    {
+      "id": "cm",
+      "text": "{n}",
+      "onArt": true,
+      "follow": "drop_m",
+      "x": 1350,
+      "y": 228,
+      "align": "center",
+      "in": "n1+5.6",
+      "out": "@sev",
+      "focus": "drop_m"
+    },
+    {
+      "id": "cw",
+      "text": "{n}",
+      "onArt": true,
+      "follow": "drop_w",
+      "x": 1745,
+      "y": 228,
+      "align": "center",
+      "in": "n1+5.8",
+      "out": "@sev",
+      "focus": "drop_w"
+    },
+    {
+      "id": "cm2",
+      "text": "96",
+      "onArt": true,
+      "follow": "drop_m",
+      "x": 838,
+      "y": 113,
+      "align": "center",
+      "in": "@sev+1.7",
+      "out": "n5",
+      "focus": "drop_m"
+    },
+    {
+      "id": "cw2",
+      "text": "96",
+      "onArt": true,
+      "follow": "drop_w",
+      "x": 1334,
+      "y": 113,
+      "align": "center",
+      "in": "@sev+1.7",
+      "out": "n5",
+      "focus": "drop_w"
+    },
+    {
+      "id": "cm3",
+      "text": "96",
+      "onArt": true,
+      "follow": "drop_m",
+      "x": 727,
+      "y": 125,
+      "align": "center",
+      "in": "n5+2.7",
+      "out": "@only+1.52",
+      "focus": "drop_m"
+    },
+    {
+      "id": "cw3",
+      "text": "96",
+      "onArt": true,
+      "follow": "drop_w",
+      "x": 969,
+      "y": 125,
+      "align": "center",
+      "in": "n5+2.7",
+      "out": "@only+1.52",
+      "focus": "drop_w"
+    },
+    {
+      "id": "lmen",
+      "text": "Чоловіки < 130 г/л",
+      "anchor": "a_men",
+      "x": 1060,
+      "y": 443,
+      "align": "right",
+      "in": "@men+0.6",
+      "focus": "mark_men",
+      "out": "@women"
+    },
+    {
+      "id": "lwom",
+      "text": "Жінки < 120 г/л",
+      "anchor": "a_women",
+      "x": 930,
+      "y": 443,
+      "align": "right",
+      "in": "@women+0.6",
+      "focus": "mark_women",
+      "out": "@preg"
+    },
+    {
+      "id": "lp110",
+      "text": "I і III триместри < 110 г/л",
+      "anchor": "a_preg110",
+      "x": 800,
+      "y": 443,
+      "align": "right",
+      "in": "@preg+0.6",
+      "focus": "mark_preg",
+      "out": "n4"
+    },
+    {
+      "id": "lp105",
+      "text": "II триместр < 105 г/л",
+      "anchor": "a_preg105",
+      "x": 734,
+      "y": 525,
+      "align": "right",
+      "in": "@preg+3.76",
+      "focus": "mark_preg_105",
+      "out": "n4"
+    },
+    {
+      "id": "lpl",
+      "text": "плазма",
+      "anchor": "a_plasma",
+      "x": 640,
+      "y": 280,
+      "align": "right",
+      "in": "@preg+5.74",
+      "focus": "bar_plasma",
+      "out": "@drop"
+    },
+    {
+      "id": "lrbc",
+      "text": "еритроцити",
+      "anchor": "a_rbc",
+      "x": 640,
+      "y": 336,
+      "align": "right",
+      "in": "@preg+6.04",
+      "focus": "bar_rbc",
+      "out": "@drop"
+    },
+    {
+      "id": "lad",
+      "text": "Невагітні дорослі",
+      "anchor": "a_adults",
+      "x": 452,
+      "y": 647,
+      "align": "right",
+      "in": "@sev+1.0",
+      "focus": "sev_bands",
+      "out": "n5"
+    },
+    {
+      "id": "lmod",
+      "text": "Помірна 80–109",
+      "anchor": "a_mod",
+      "x": 1070,
+      "y": 745,
+      "align": "center",
+      "in": "@sev+1.6",
+      "focus": "sev_mod",
+      "out": "n5"
+    },
+    {
+      "id": "lsev",
+      "text": "Тяжка < 80",
+      "anchor": "a_sev",
+      "x": 658,
+      "y": 745,
+      "align": "center",
+      "in": "@sev+3.44",
+      "focus": "sev_sev",
+      "out": "@mod"
+    }
+  ],
+  "texts": [
+    {
+      "id": "kicker",
+      "kind": "meta",
+      "html": "Гематологія",
+      "in": -1,
+      "out": "@only+3.32"
+    },
+    {
+      "id": "th",
+      "kind": "thesis",
+      "html": "Лінійка каже: анемія є. Але не чому",
+      "in": "@only+0.3",
+      "out": "@only+3.32"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s1",
+      "in": "@ruler+4.36",
+      "out": "n2.end"
+    },
+    {
+      "ref": "s1",
+      "in": "@preg",
+      "out": "n3.end"
+    },
+    {
+      "ref": "s33",
+      "in": "@preg+5.44",
+      "out": "n3.end"
+    },
+    {
+      "ref": "s1",
+      "in": "@sev",
+      "out": "n4.end"
+    }
+  ]
 }

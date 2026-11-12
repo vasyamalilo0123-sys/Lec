@@ -1,30 +1,810 @@
 {
-  "parts": ["channel", "cells", "form", "row_rbc", "row_mcv", "row_mch", "row_rdw", "row_wbc", "hct_col", "hb_tet", "mcv_dot", "wbc_cell", "plt_cells", "ery_one", "ery_size", "ery_hb", "ery_mixed", "mx1", "mx2", "mx3", "mx4", "mx5", "mx6", "mx7", "mcv_axis", "tc1", "tc2", "tc3", "tc4"],
-  "narration": [
-    {"id": "n1", "text": "Всередині аналіза́тора кров розкладається на [[form]]рядки бланка. Кожен рядок — окрема властивість тих самих кліти́н."},
-    {"id": "n2", "text": "[[rbc]]Кількість еритроци́тів і гематокри́т кажуть, скільки кліти́н і яку частку об'є́му крові вони займають. Гемоглобі́н — білок у них, що переносить кисень."},
-    {"id": "n3", "text": "Далі — еритроцита́рні і́ндекси. [[mcv]]MCV — сере́дній об'є́м однієї кліти́ни, у фемтолі́трах. [[mch]]MCH — скільки гемоглобі́ну в середньому несе одна кліти́на. [[rdw]]RDW — наскільки кліти́ни різняться за розміром: змішайте дрібні з великими — і він зросте.", "gap": 0.5},
-    {"id": "n4", "text": "І ще два рядки, які легко пропустити: [[wbc]]лейкоци́ти й тромбоци́ти. Якщо знижено всі три ряди кліти́н, це вже не просто анемі́я, — до цього ми повернемося.", "gap": 0.5},
-    {"id": "n5", "text": "Але щоб розвести наші краплі, потрібен [[key]]один рядок — сере́дній об'є́м.", "gap": 0.5}
-  ],
-  "brief": {
-    "in": "carry з 02: камера всередині пробірки, густий потік еритроцитів (диски в кольорі) тече згори вниз. Потік звужується в тонкий канал по центру кадру — клітини йдуть по одній (travel вздовж каналу).",
-    "out": "Рядок MCV виїжджає (move) з бланка в центр і розтягується по горизонталі на всю ширину кадру — стає віссю; решта бланка сіріє й від'їжджає вгору за кадр (camera). Кадр-вісь — carry для 04.",
-    "reuse": "03-cbc/art.svg: form (бланк, без планшета-затискача, лише аркуш), row_rbc, row_mcv, row_mch, row_rdw, row_wbc, ery_one, ery_mixed; траєкторія p-mcv-ery. Бланк поставити в центр; канал із потоком клітин — новий, над бланком.",
-    "art": "Центр кадру: вертикальний канал аналізатора (дві тонкі паралельні лінії) угорі, під ним бланк із 8 рядків; ery_one і ery_mixed — ліворуч і праворуч від бланка, симетрично. Частини: channel, cells (потік дисків у каналі), form, row_rbc, row_mcv, row_mch, row_rdw, row_wbc, ery_one, ery_mixed. Траєкторія p_channel (крізь канал до верху бланка).",
-    "flow": [
-      {"at": "start", "color": "cells", "move": "loop — потік дисків униз по p_channel (стриманий, рівний)", "text": "—"},
-      {"at": "@form", "color": "form", "move": "з низу каналу виходить світла лінія й розгортається в аркуш бланка (draw рядків згори вниз, 1,5 с)", "text": "—"},
-      {"at": "n1+3", "color": "cells, form", "move": "кілька дисків з потоку падають на бланк і зникають у ньому (travel) — рядки поступово отримують значки", "text": "—"},
-      {"at": "@rbc", "color": "row_rbc, ery_one", "move": "form сірий; row_rbc вмикається; ery_one draw (анфас → профіль, пунктир проєкції промальовується); стовпчик у пробірці гематокриту grow знизу до 42 %", "text": "підпис «Еритроцити, гематокрит, гемоглобін»"},
-      {"at": "n2+5", "color": "row_rbc", "move": "тетрамер гемоглобіну в рядку злегка обертається (move, поворот 20°, 1 с)", "text": "—"},
-      {"at": "@mcv", "color": "row_mcv, ery_one", "move": "row_rbc сірий; стрілка розміру на диску grow; на шкалі MCV біжить маркер до смуги норми (travel)", "text": "підпис «MCV — середній об'єм, фл»; джерело s24"},
-      {"at": "@mch", "color": "row_mch", "move": "row_mcv сірий; зерна гемоглобіну наповнюють диск (grow по одному)", "text": "підпис «MCH — гемоглобін у клітині, пг»"},
-      {"at": "@rdw", "color": "row_rdw, ery_mixed", "move": "row_mch, ery_one сірі; диски ery_mixed з'їжджаються в купку з різних боків (move), купка трохи розсипається (loop)", "text": "підпис «RDW — різнорідність розміру»"},
-      {"at": "@wbc", "color": "row_wbc", "move": "row_rdw, ery_mixed сірі; лейкоцит і тромбоцити з'являються в рядку (grow), ядро лейкоцита ледь пульсує", "text": "підпис «Лейкоцити й тромбоцити»"},
-      {"at": "n4+4", "color": "row_rbc, row_wbc", "move": "обидва рядки коротко блимають разом — «три ряди»; потім row_rbc знову сірий", "text": "—"},
-      {"at": "@key", "color": "row_mcv", "move": "row_wbc сірий; row_mcv виїжджає з бланка в центр (move) і розтягується в широку вісь; бланк від'їжджає вгору (camera)", "text": "теза в нижній смузі: «Розвилка — середній об'єм»"}
-    ],
-    "texts": "Підписи: «Еритроцити, гематокрит, гемоглобін», «MCV — середній об'єм, фл», «MCH — гемоглобін у клітині, пг», «RDW — різнорідність розміру», «Лейкоцити й тромбоцити». Теза (n5): «Розвилка — середній об'єм». Джерело: s24."
+ "parts": [
+  "channel",
+  "cells",
+  "form",
+  "row_rbc",
+  "row_mcv",
+  "row_mch",
+  "row_rdw",
+  "row_wbc",
+  "hct_col",
+  "hb_tet",
+  "mcv_dot",
+  "wbc_cell",
+  "plt_cells",
+  "ery_one",
+  "ery_size",
+  "ery_hb",
+  "ery_mixed",
+  "mx1",
+  "mx2",
+  "mx3",
+  "mx4",
+  "mx5",
+  "mx6",
+  "mx7",
+  "mcv_axis",
+  "tc1",
+  "tc2",
+  "tc3",
+  "tc4"
+ ],
+ "narration": [
+  {
+   "id": "n1",
+   "text": "Всередині аналіза́тора кров розкладається на [[form]]рядки бланка. [[row]]Кожен рядок — окрема властивість [[same]]тих самих кліти́н."
+  },
+  {
+   "id": "n2",
+   "text": "[[rbc]]Кількість еритроци́тів і [[hct]]гематокри́т кажуть, скільки кліти́н і [[share]]яку частку об'є́му крові вони займають. [[hb]]Гемоглобі́н — білок у них, що [[o2]]переносить кисень."
+  },
+  {
+   "id": "n3",
+   "text": "[[idx]]Далі — еритроцита́рні і́ндекси. [[mcv]]MCV — сере́дній об'є́м однієї кліти́ни, [[fl]]у фемтолі́трах. [[mch]]MCH — [[hbm]]скільки гемоглобі́ну в середньому несе одна кліти́на. [[rdw]]RDW — наскільки кліти́ни різняться [[size]]за розміром: [[mix]]змішайте дрібні з великими — і [[up]]він зросте.",
+   "gap": 0.5
+  },
+  {
+   "id": "n4",
+   "text": "І ще два рядки, які легко пропустити: [[wbc]]лейкоци́ти й [[plt]]тромбоци́ти. Якщо [[three]]знижено всі три ряди кліти́н, це вже не просто анемі́я, — [[later]]до цього ми повернемося.",
+   "gap": 0.5
+  },
+  {
+   "id": "n5",
+   "text": "[[n5a]]Але щоб розвести наші краплі, потрібен [[key]]один рядок — сере́дній об'є́м.",
+   "gap": 0.5
   }
+ ],
+ "brief": {
+  "in": "carry з 02: камера всередині пробірки, густий потік еритроцитів (диски в кольорі) тече згори вниз. Потік звужується в тонкий канал по центру кадру — клітини йдуть по одній (travel вздовж каналу).",
+  "out": "Рядок MCV виїжджає (move) з бланка в центр і розтягується по горизонталі на всю ширину кадру — стає віссю; решта бланка сіріє й від'їжджає вгору за кадр (camera). Кадр-вісь — carry для 04.",
+  "reuse": "03-cbc/art.svg: form (бланк, без планшета-затискача, лише аркуш), row_rbc, row_mcv, row_mch, row_rdw, row_wbc, ery_one, ery_mixed; траєкторія p-mcv-ery. Бланк поставити в центр; канал із потоком клітин — новий, над бланком.",
+  "art": "Центр кадру: вертикальний канал аналізатора (дві тонкі паралельні лінії) угорі, під ним бланк із 8 рядків; ery_one і ery_mixed — ліворуч і праворуч від бланка, симетрично. Частини: channel, cells (потік дисків у каналі), form, row_rbc, row_mcv, row_mch, row_rdw, row_wbc, ery_one, ery_mixed. Траєкторія p_channel (крізь канал до верху бланка).",
+  "flow": [
+   {
+    "at": "start",
+    "color": "cells",
+    "move": "loop — потік дисків униз по p_channel (стриманий, рівний)",
+    "text": "—"
+   },
+   {
+    "at": "@form",
+    "color": "form",
+    "move": "з низу каналу виходить світла лінія й розгортається в аркуш бланка (draw рядків згори вниз, 1,5 с)",
+    "text": "—"
+   },
+   {
+    "at": "n1+3",
+    "color": "cells, form",
+    "move": "кілька дисків з потоку падають на бланк і зникають у ньому (travel) — рядки поступово отримують значки",
+    "text": "—"
+   },
+   {
+    "at": "@rbc",
+    "color": "row_rbc, ery_one",
+    "move": "form сірий; row_rbc вмикається; ery_one draw (анфас → профіль, пунктир проєкції промальовується); стовпчик у пробірці гематокриту grow знизу до 42 %",
+    "text": "підпис «Еритроцити, гематокрит, гемоглобін»"
+   },
+   {
+    "at": "n2+5",
+    "color": "row_rbc",
+    "move": "тетрамер гемоглобіну в рядку злегка обертається (move, поворот 20°, 1 с)",
+    "text": "—"
+   },
+   {
+    "at": "@mcv",
+    "color": "row_mcv, ery_one",
+    "move": "row_rbc сірий; стрілка розміру на диску grow; на шкалі MCV біжить маркер до смуги норми (travel)",
+    "text": "підпис «MCV — середній об'єм, фл»; джерело s24"
+   },
+   {
+    "at": "@mch",
+    "color": "row_mch",
+    "move": "row_mcv сірий; зерна гемоглобіну наповнюють диск (grow по одному)",
+    "text": "підпис «MCH — гемоглобін у клітині, пг»"
+   },
+   {
+    "at": "@rdw",
+    "color": "row_rdw, ery_mixed",
+    "move": "row_mch, ery_one сірі; диски ery_mixed з'їжджаються в купку з різних боків (move), купка трохи розсипається (loop)",
+    "text": "підпис «RDW — різнорідність розміру»"
+   },
+   {
+    "at": "@wbc",
+    "color": "row_wbc",
+    "move": "row_rdw, ery_mixed сірі; лейкоцит і тромбоцити з'являються в рядку (grow), ядро лейкоцита ледь пульсує",
+    "text": "підпис «Лейкоцити й тромбоцити»"
+   },
+   {
+    "at": "n4+4",
+    "color": "row_rbc, row_wbc",
+    "move": "обидва рядки коротко блимають разом — «три ряди»; потім row_rbc знову сірий",
+    "text": "—"
+   },
+   {
+    "at": "@key",
+    "color": "row_mcv",
+    "move": "row_wbc сірий; row_mcv виїжджає з бланка в центр (move) і розтягується в широку вісь; бланк від'їжджає вгору (camera)",
+    "text": "теза в нижній смузі: «Розвилка — середній об'єм»"
+   }
+  ],
+  "texts": "Підписи: «Еритроцити, гематокрит, гемоглобін», «MCV — середній об'єм, фл», «MCH — гемоглобін у клітині, пг», «RDW — різнорідність розміру», «Лейкоцити й тромбоцити». Теза (n5): «Розвилка — середній об'єм». Джерело: s24."
+ },
+ "art": {
+  "x": 0,
+  "y": 0,
+  "w": 1920,
+  "h": 1080
+ },
+ "carry": true,
+ "enter": "cut",
+ "exit": "cut",
+ "lead": 0.15,
+ "tail": 1.6,
+ "camera": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "view": "v-in"
+  },
+  {
+   "at": "start+0.2",
+   "dur": 1.6,
+   "view": "v-flow"
+  },
+  {
+   "at": "@form-1.0",
+   "dur": 2.0,
+   "view": {
+    "x": 1000,
+    "y": 320,
+    "w": 1840,
+    "h": 1035
+   }
+  },
+  {
+   "at": "@rbc",
+   "dur": 1.8,
+   "view": {
+    "x": 1060,
+    "y": 540,
+    "w": 1560,
+    "h": 877.5
+   }
+  },
+  {
+   "at": "@rdw",
+   "dur": 1.6,
+   "view": {
+    "x": 1420,
+    "y": 540,
+    "w": 1560,
+    "h": 877.5
+   }
+  },
+  {
+   "at": "@wbc-0.4",
+   "dur": 1.6,
+   "view": {
+    "x": 1140,
+    "y": 540,
+    "w": 1560,
+    "h": 877.5
+   }
+  },
+  {
+   "at": "@n5a",
+   "dur": 1.6,
+   "view": {
+    "x": 1000,
+    "y": 520,
+    "w": 1840,
+    "h": 1035
+   }
+  },
+  {
+   "at": "@key",
+   "dur": 2.2,
+   "view": "v-out"
+  }
+ ],
+ "states": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "set": {
+    "channel": "color",
+    "cells": "color",
+    "form": "hidden",
+    "row_rbc": "hidden",
+    "row_mcv": "hidden",
+    "row_mch": "hidden",
+    "row_rdw": "hidden",
+    "row_wbc": "hidden",
+    "hct_col": "hidden",
+    "hb_tet": "hidden",
+    "mcv_dot": "hidden",
+    "wbc_cell": "hidden",
+    "plt_cells": "hidden",
+    "ery_one": "hidden",
+    "ery_size": "hidden",
+    "ery_hb": "hidden",
+    "ery_mixed": "hidden",
+    "mx1": "hidden",
+    "mx2": "hidden",
+    "mx3": "hidden",
+    "mx4": "hidden",
+    "mx5": "hidden",
+    "mx6": "hidden",
+    "mx7": "hidden",
+    "mcv_axis": "hidden",
+    "tc1": "hidden",
+    "tc2": "hidden",
+    "tc3": "hidden",
+    "tc4": "hidden"
+   }
+  },
+  {
+   "at": "@form",
+   "dur": 0.6,
+   "set": {
+    "form": "color",
+    "cells": "grey",
+    "channel": "grey",
+    "row_rbc": "color",
+    "row_mcv": "color",
+    "row_mch": "color",
+    "row_rdw": "color",
+    "row_wbc": "color"
+   }
+  },
+  {
+   "at": "@same-0.2",
+   "dur": 0.3,
+   "set": {
+    "tc1": "color",
+    "tc2": "color",
+    "tc3": "color",
+    "tc4": "color"
+   }
+  },
+  {
+   "at": "@same+0.6",
+   "dur": 0.6,
+   "set": {
+    "cells": "color"
+   }
+  },
+  {
+   "at": "@rbc",
+   "dur": 0.6,
+   "set": {
+    "form": "grey",
+    "cells": "hidden",
+    "channel": "hidden",
+    "row_mcv": "grey",
+    "row_mch": "grey",
+    "row_rdw": "grey",
+    "row_wbc": "grey",
+    "ery_one": "color"
+   }
+  },
+  {
+   "at": "@hct",
+   "dur": 0.4,
+   "set": {
+    "hct_col": "color"
+   }
+  },
+  {
+   "at": "@hb",
+   "dur": 0.4,
+   "set": {
+    "hb_tet": "color"
+   }
+  },
+  {
+   "at": "@mcv",
+   "dur": 0.6,
+   "set": {
+    "row_rbc": "grey",
+    "hct_col": "grey",
+    "hb_tet": "grey",
+    "row_mcv": "color",
+    "mcv_dot": "color",
+    "ery_size": "color"
+   }
+  },
+  {
+   "at": "@mch",
+   "dur": 0.6,
+   "set": {
+    "row_mcv": "grey",
+    "mcv_dot": "grey",
+    "ery_size": "grey",
+    "row_mch": "color"
+   }
+  },
+  {
+   "at": "@hbm",
+   "dur": 0.4,
+   "set": {
+    "ery_hb": "color"
+   }
+  },
+  {
+   "at": "@rdw",
+   "dur": 0.6,
+   "set": {
+    "row_mch": "grey",
+    "ery_one": "grey",
+    "ery_hb": "grey",
+    "row_rdw": "color"
+   }
+  },
+  {
+   "at": "@rdw+0.6",
+   "dur": 0.6,
+   "set": {
+    "mx1": "color",
+    "mx2": "color",
+    "mx3": "color",
+    "mx4": "color",
+    "mx5": "color",
+    "mx6": "color",
+    "mx7": "color"
+   }
+  },
+  {
+   "at": "@up",
+   "dur": 0.6,
+   "set": {
+    "ery_mixed": "color"
+   }
+  },
+  {
+   "at": "@wbc-0.4",
+   "dur": 0.8,
+   "set": {
+    "row_rdw": "grey",
+    "ery_mixed": "hidden",
+    "ery_one": "hidden",
+    "ery_size": "hidden",
+    "ery_hb": "hidden",
+    "mx1": "hidden",
+    "mx2": "hidden",
+    "mx3": "hidden",
+    "mx4": "hidden",
+    "mx5": "hidden",
+    "mx6": "hidden",
+    "mx7": "hidden"
+   }
+  },
+  {
+   "at": "@wbc",
+   "dur": 0.6,
+   "set": {
+    "wbc_cell": "color",
+    "row_wbc": "color"
+   }
+  },
+  {
+   "at": "@plt",
+   "dur": 0.4,
+   "set": {
+    "plt_cells": "color"
+   }
+  },
+  {
+   "at": "@three",
+   "dur": 0.5,
+   "set": {
+    "row_rbc": "color",
+    "hct_col": "color",
+    "hb_tet": "color"
+   }
+  },
+  {
+   "at": "@later",
+   "dur": 0.6,
+   "set": {
+    "row_rbc": "grey",
+    "hct_col": "grey",
+    "hb_tet": "grey"
+   }
+  },
+  {
+   "at": "@key",
+   "dur": 0.6,
+   "set": {
+    "row_wbc": "grey",
+    "wbc_cell": "grey",
+    "plt_cells": "grey",
+    "row_mcv": "color"
+   }
+  },
+  {
+   "at": "@key+1.0",
+   "dur": 0.4,
+   "set": {
+    "mcv_axis": "color"
+   }
+  }
+ ],
+ "draw": [
+  {
+   "id": "form",
+   "at": "@form",
+   "dur": 1.5
+  },
+  {
+   "id": "row_rbc",
+   "at": "@row+0",
+   "dur": 1.0
+  },
+  {
+   "id": "row_mcv",
+   "at": "@row+0.3",
+   "dur": 1.0
+  },
+  {
+   "id": "row_mch",
+   "at": "@row+0.6",
+   "dur": 1.0
+  },
+  {
+   "id": "row_rdw",
+   "at": "@row+0.9",
+   "dur": 1.0
+  },
+  {
+   "id": "row_wbc",
+   "at": "@row+1.2",
+   "dur": 1.0
+  },
+  {
+   "id": "ery_one",
+   "at": "@rbc+0.3",
+   "dur": 1.4
+  },
+  {
+   "id": "ery_mixed",
+   "at": "@up",
+   "dur": 1.2
+  }
+ ],
+ "grow": [
+  {
+   "id": "hct_col",
+   "origin": "o-hct",
+   "at": "@share",
+   "dur": 14
+  },
+  {
+   "id": "ery_size",
+   "origin": "o-ery-size",
+   "at": "@mcv",
+   "dur": 8
+  },
+  {
+   "id": "ery_hb",
+   "origin": "o-ery-hb",
+   "at": "@hbm",
+   "dur": 8
+  },
+  {
+   "id": "wbc_cell",
+   "origin": "o-wbc",
+   "at": "@wbc",
+   "dur": 14
+  },
+  {
+   "id": "plt_cells",
+   "origin": "o-plt",
+   "at": "@plt",
+   "dur": 14
+  },
+  {
+   "id": "mcv_axis",
+   "origin": "o-axis",
+   "at": "@key+1.0",
+   "dur": 4.5
+  }
+ ],
+ "travel": [
+  {
+   "id": "tc1",
+   "path": "p_fall_rbc",
+   "at": "@same-0.2",
+   "dur": 1.4,
+   "out": "@same+1.3"
+  },
+  {
+   "id": "tc2",
+   "path": "p_fall_mcv",
+   "at": "@same+0.1",
+   "dur": 1.4,
+   "out": "@same+1.6"
+  },
+  {
+   "id": "tc3",
+   "path": "p_fall_mch",
+   "at": "@same+0.4",
+   "dur": 1.4,
+   "out": "@same+1.9"
+  },
+  {
+   "id": "tc4",
+   "path": "p_fall_rdw",
+   "at": "@same+0.7",
+   "dur": 1.4,
+   "out": "@same+2.2"
+  },
+  {
+   "id": "mcv_dot",
+   "path": "p_mcv_dot",
+   "at": "@fl",
+   "dur": 1.6,
+   "out": "@key"
+  }
+ ],
+ "move": [
+  {
+   "id": "hb_tet",
+   "to": "pt-hb-tet",
+   "at": "@hb",
+   "dur": 1.0,
+   "rotate": 20
+  },
+  {
+   "id": "hb_tet",
+   "to": "pt-hb-tet",
+   "at": "@o2",
+   "dur": 1.2,
+   "rotate": 0
+  },
+  {
+   "id": "mx1",
+   "from": "f-mx1",
+   "to": "h-mx1",
+   "at": "@size+0.15",
+   "dur": 1.8
+  },
+  {
+   "id": "mx2",
+   "from": "f-mx2",
+   "to": "h-mx2",
+   "at": "@size+0.30",
+   "dur": 1.8
+  },
+  {
+   "id": "mx3",
+   "from": "f-mx3",
+   "to": "h-mx3",
+   "at": "@mix+0.45",
+   "dur": 1.8
+  },
+  {
+   "id": "mx4",
+   "from": "f-mx4",
+   "to": "h-mx4",
+   "at": "@mix+0.00",
+   "dur": 1.8
+  },
+  {
+   "id": "mx5",
+   "from": "f-mx5",
+   "to": "h-mx5",
+   "at": "@mix+0.15",
+   "dur": 1.8
+  },
+  {
+   "id": "mx6",
+   "from": "f-mx6",
+   "to": "h-mx6",
+   "at": "@size+0.30",
+   "dur": 1.8
+  },
+  {
+   "id": "mx7",
+   "from": "f-mx7",
+   "to": "h-mx7",
+   "at": "@mix+0.45",
+   "dur": 1.8
+  },
+  {
+   "id": "row_mcv",
+   "to": "pt-mcv-out",
+   "at": "@key",
+   "dur": 2.0,
+   "scale": 1.875,
+   "out": "@key+2.2"
+  }
+ ],
+ "loop": [
+  {
+   "id": "cells_flow",
+   "kind": "flow",
+   "in": "start",
+   "out": "@rbc+1",
+   "amp": 24,
+   "period": 1.4
+  },
+  {
+   "id": "crowd_a",
+   "kind": "float",
+   "in": "start",
+   "out": "@rbc",
+   "amp": 5,
+   "period": 3.2
+  },
+  {
+   "id": "crowd_b",
+   "kind": "float",
+   "in": "start+0.8",
+   "out": "@rbc",
+   "amp": 5,
+   "period": 3.8
+  },
+  {
+   "id": "ery_one",
+   "kind": "pulse",
+   "in": "@rbc+1.8",
+   "out": "@rdw",
+   "amp": 0.02,
+   "period": 2.6
+  },
+  {
+   "id": "hb_tet",
+   "kind": "pulse",
+   "in": "@o2+1.2",
+   "out": "@mcv",
+   "amp": 0.05,
+   "period": 2
+  },
+  {
+   "id": "wbc_nuc",
+   "kind": "pulse",
+   "in": "@wbc+1.4",
+   "out": "@key",
+   "amp": 0.05,
+   "period": 2.2
+  },
+  {
+   "id": "mcv_axis",
+   "kind": "pulse",
+   "in": "@key+2.6",
+   "amp": 0.02,
+   "period": 2.6
+  },
+  {
+   "id": "mx1",
+   "kind": "float",
+   "in": "@up+0.2",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 3.3
+  },
+  {
+   "id": "mx2",
+   "kind": "float",
+   "in": "@up+0.4",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 3.6
+  },
+  {
+   "id": "mx3",
+   "kind": "float",
+   "in": "@up+0.6",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 3.9
+  },
+  {
+   "id": "mx4",
+   "kind": "float",
+   "in": "@up+0.8",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 4.2
+  },
+  {
+   "id": "mx5",
+   "kind": "float",
+   "in": "@up+1.0",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 4.5
+  },
+  {
+   "id": "mx6",
+   "kind": "float",
+   "in": "@up+1.2",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 4.8
+  },
+  {
+   "id": "mx7",
+   "kind": "float",
+   "in": "@up+1.4",
+   "out": "@wbc+1",
+   "amp": 5,
+   "period": 5.1
+  }
+ ],
+ "labels": [
+  {
+   "id": "l_rbc",
+   "text": "Еритроцити,<br>гематокрит,<br>гемоглобін",
+   "anchor": "r-rbc-grp",
+   "x": 1490,
+   "y": 300,
+   "align": "left",
+   "in": "@rbc+1.8",
+   "out": "@mcv",
+   "focus": "row_rbc"
+  },
+  {
+   "id": "l_mcv",
+   "text": "MCV — середній<br>об'єм, фл",
+   "anchor": "r-mcv",
+   "x": 1490,
+   "y": 495,
+   "align": "left",
+   "in": "@mcv+0.4",
+   "out": "@mch",
+   "focus": "row_mcv"
+  },
+  {
+   "id": "l_mch",
+   "text": "MCH — гемоглобін<br>у клітині, пг",
+   "anchor": "r-mch",
+   "x": 1490,
+   "y": 595,
+   "align": "left",
+   "in": "@mch+0.4",
+   "out": "@rdw",
+   "focus": "row_mch"
+  },
+  {
+   "id": "l_rdw",
+   "text": "RDW — різнорідність<br>розміру",
+   "anchor": "r-rdw",
+   "x": 1400,
+   "y": 770,
+   "align": "center",
+   "in": "@rdw+1.6",
+   "out": "@wbc",
+   "focus": "row_rdw"
+  },
+  {
+   "id": "l_wbc",
+   "text": "Лейкоцити й<br>тромбоцити",
+   "anchor": "r-wbc-grp",
+   "x": 1400,
+   "y": 820,
+   "align": "left",
+   "in": "@wbc+1.2",
+   "out": "@key",
+   "focus": "row_wbc"
+  }
+ ],
+ "texts": [
+  {
+   "id": "th",
+   "kind": "thesis",
+   "html": "Розвилка — середній об'єм",
+   "in": "@key+0.6"
+  }
+ ],
+ "sources": [
+  {
+   "ref": "s24",
+   "in": "@mcv",
+   "out": "n3.end"
+  }
+ ],
+ "kicker": "@rbc+1.8"
 }

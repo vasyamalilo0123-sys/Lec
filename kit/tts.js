@@ -45,7 +45,7 @@ function voiceId(voice) {
   if (p === 'beep') return { provider: p, rate: voice.rate || DEFAULT_RATE };
   return { provider: 'estimate', rate: voice.rate || DEFAULT_RATE };
 }
-const itemKey = (spoken, voice) => sha1(spoken + '\n' + JSON.stringify(voiceId(voice)) + (voice.languageCode || '') + JSON.stringify(voice.settings || {}));
+const itemKey = (spoken, voice) => sha1(String(spoken).replace(/\[\[[^\]]*\]\]/g, '') + '\n' + JSON.stringify(voiceId(voice)) + (voice.languageCode || '') + JSON.stringify(voice.settings || {}));
 
 function estimateDuration(plain, voice) {
   return Math.max(1.2, [...plain.replace(/\u0301/g, '')].length / (voice.rate || DEFAULT_RATE));
@@ -201,4 +201,4 @@ async function buildAudio(lectureDir, timing) {
   return out;
 }
 
-module.exports = { synthesize, buildAudio, measure };
+module.exports = { itemKey, synthesize, buildAudio, measure };
