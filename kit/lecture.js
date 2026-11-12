@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Рушій відеолекцій. Специфікація: kit/ENGINE.md.
-   node kit/lecture.js <тека лекції> plan | tts | qa [сцена] | render [сцена] | still <сцена> <час> | status
+   node kit/lecture.js <тека лекції> plan | tts | qa [сцена] | render [сцена] | still <сцена> <час> | status | motion
    Параметри: --jobs N, --force, --no-audio */
 const path = require('path'), fs = require('fs'), crypto = require('crypto'), { execFileSync, spawn } = require('child_process');
 const KIT = __dirname, FPS = 25;
@@ -10,7 +10,7 @@ let tts = null; try { tts = require('./tts.js'); } catch (e) { tts = null; }
 const flags = { jobs: 3, force: false, noAudio: false }, pos = [], argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) { const a = argv[i]; if (a === '--jobs') flags.jobs = Math.max(1, +argv[++i] || 3); else if (a === '--force') flags.force = true; else if (a === '--no-audio') flags.noAudio = true; else pos.push(a); }
 const [dirArg, action, ...rest] = pos;
-if (!dirArg || !action) { console.log('Використання: node kit/lecture.js <тека лекції> plan|tts|qa [сцена]|render [сцена]|still <сцена> <час>|status [--jobs N] [--force] [--no-audio]'); process.exit(2); }
+if (!dirArg || !action) { console.log('Використання: node kit/lecture.js <тека лекції> plan|tts|qa [сцена]|render [сцена]|still <сцена> <час>|status|motion [--jobs N] [--force] [--no-audio]'); process.exit(2); }
 const dir = path.resolve(dirArg), OUT = path.join(dir, 'out');
 const die = (m, code = 1) => { console.error(m); process.exit(code); };
 
@@ -19,15 +19,15 @@ const DEF = { leader: { type: 'elbow', width: 1.3, color: '#efe9df', marker: 'ri
 const readJson = f => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { die(`Не вдалося прочитати ${path.relative(process.cwd(), f)}: ${e.message}`); } };
 const sha = s => crypto.createHash('sha1').update(s).digest('hex');
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const MARK = /\[\[(\w+)\]\]/g, strip = s => s.replace(MARK, '');
+const noAcc = x => String(x).replace(/\u0301/g, ''), MARK = /\[\[(\w+)\]\]/g, strip = s => s.replace(MARK, '');
 const readIf = f => fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '';
 const hasId = (svg, id) => new RegExp(`\\bid\\s*=\\s*["']${id.replace(/[^\w-]/g, '')}["']`).test(svg);
 
 /* ---------- тривалість і позначки репліки ---------- */
 function measure(voice, sceneId, n) {
   if (tts && tts.measure) { try { const m = tts.measure(dir, voice, sceneId, { id: n.id, text: n.text, spoken: n.spoken }); if (m && m.duration > 0) return m; } catch (e) { /* запасна оцінка */ } }
-  const plain = strip(n.spoken), duration = Math.max(1.2, plain.length / (voice.rate || 14.5)), markers = {};
-  let removed = 0; for (const m of n.spoken.matchAll(MARK)) { markers[m[1]] = +((m.index - removed) / Math.max(1, plain.length) * duration).toFixed(3); removed += m[0].length; }
+  const plain = strip(n.spoken), acc = k => (plain.slice(0, k).match(/\u0301/g) || []).length, len = plain.length - acc(plain.length), duration = Math.max(1.2, len / (voice.rate || 14.5)), markers = {};
+  let removed = 0; for (const m of n.spoken.matchAll(MARK)) { const pos = m.index - removed; markers[m[1]] = +((pos - acc(pos)) / Math.max(1, len) * duration).toFixed(3); removed += m[0].length; }
   return { duration: +duration.toFixed(3), markers, estimated: true };
 }
 
@@ -38,10 +38,11 @@ function load() {
   const pron = Object.entries(lj.pronounce || {}).sort((a, b) => b[0].length - a[0].length);
   const facts = fs.existsSync(path.join(dir, 'facts.json')) ? readJson(path.join(dir, 'facts.json')) : [];
   for (const f of facts) if (f.verdict === 'помилка' || f.verdict === 'не підтверджено') errors.push(`facts.json: твердження ${f.id} має вердикт «${f.verdict}»: ${f.claim}`);
-  const css0 = readIf(path.join(KIT, 'theme', 'base.css')), fonts = readJson(path.join(KIT, 'theme', 'fonts.json'));
+  const center = lj.layout === 'center', css0 = readIf(path.join(KIT, 'theme', 'base.css')) + (center ? readIf(path.join(KIT, 'theme', 'center.css')) : ''), fonts = readJson(path.join(KIT, 'theme', 'fonts.json'));
   const scenes = [], chapters = lj.chapters || [];
   if (!chapters.length) errors.push('lecture.json: немає розділів (chapters)');
   const seen = new Set(); let start = 0;
+  const player = readIf(path.join(KIT, 'player2.html')), hashOf = s => sha(JSON.stringify([s.resolved, s.svg, s.css, fonts, player, FPS, s.prevHash]));
   const addScene = (id, ci, sc, svg, css) => {
     const E = m => errors.push(`сцена ${id}: ${m}`), narr = sc.narration || [], lead = sc.lead ?? .5, gap0 = .35, tail = sc.tail ?? .8, nar = {}, markers = {};
     let t = lead;
@@ -50,7 +51,7 @@ function load() {
       if (!n.text) E(`репліка ${n.id} без тексту`);
       let spoken = n.text || ''; for (const [k, v] of pron) spoken = spoken.split(k).join(v);
       if (i > 0) t += n.gap ?? gap0;
-      const m = measure(voice, id, { id: n.id, text: n.text || '', spoken }), r = { id: n.id, start: +t.toFixed(3), end: +(t + m.duration).toFixed(3), text: strip(n.text || ''), spoken, markers: {}, estimated: !!m.estimated };
+      const m = measure(voice, id, { id: n.id, text: n.text || '', spoken }), r = { id: n.id, start: +t.toFixed(3), end: +(t + m.duration).toFixed(3), text: noAcc(strip(n.text || '')), spoken, markers: {}, estimated: !!m.estimated };
       for (const k in m.markers || {}) { r.markers[k] = +(t + m.markers[k]).toFixed(3); markers[k] = r.markers[k]; }
       nar[n.id] = r; t = r.end;
     });
@@ -65,7 +66,7 @@ function load() {
       else { const [nid, e] = b.split('.'), r = nar[nid]; if (!r) { E(`${where}: немає репліки «${nid}»`); base = 0; } else base = e ? r.end : r.start; }
       return +(base + (m[2] ? (m[2] === '-' ? -1 : 1) * +m[3] : 0)).toFixed(3);
     };
-    const parts = sc.parts || [], needArt = parts.length || (sc.labels || []).length || (sc.grow || []).length || (sc.travel || []).length;
+    const parts = sc.parts || [], needArt = parts.length || (sc.labels || []).length || (sc.grow || []).length || (sc.travel || []).length || (sc.camera || []).length || (sc.move || []).length || (sc.draw || []).length || (sc.loop || []).length;
     if (needArt && !svg) E('є частини чи підписи, але немає art.svg');
     if (svg) {
       if (!/<svg[^>]*\sviewBox=/.test(svg)) E('art.svg: немає viewBox'); if (/<svg[^>]*\s(width|height)=/.test(svg.match(/<svg[^>]*>/)[0])) E('art.svg: кореневий svg не повинен мати width/height');
@@ -75,23 +76,43 @@ function load() {
     }
     const chk = (what, idv, list) => { if (!list.includes(idv)) E(`${what}: невідома частина «${idv}»`); };
     const anch = (what, a) => { if (svg && a && !hasId(svg, a)) E(`${what}: у art.svg немає точки #${a}`); };
-    const R = { art: svg ? sc.art : null, parts, states: [], grow: [], travel: [], labels: [], texts: [], duration, checkpoints: [], leader: { ...DEF.leader, ...sc.leader }, grey: { ...DEF.grey, ...sc.grey }, motion: { ...DEF.motion, ...sc.motion }, enter: sc.enter || 'fade', exit: sc.exit || 'fade' };
+    const R = { art: svg ? sc.art : null, parts, states: [], grow: [], travel: [], camera: [], move: [], draw: [], loop: [], count: [], carry: null, labels: [], texts: [], duration, checkpoints: [], leader: { ...DEF.leader, ...sc.leader }, grey: { ...DEF.grey, ...sc.grey }, motion: { ...DEF.motion, ...sc.motion }, enter: sc.enter || 'fade', exit: sc.exit || 'fade' };
     if (svg && !sc.art) E('немає поля art (x, y, w, h)');
+    const prev = scenes[scenes.length - 1], dfl = (v, d) => v ?? d;
+    if (sc.carry) {
+      if (!prev) E('carry: сцена перша в лекції, їй нема від чого продовжуватись');
+      else { const same = !!(svg && prev.svg === svg && JSON.stringify(sc.art) === JSON.stringify(prev.art)); R.carry = { same }; R.enter = 'cut'; prev.resolved.exit = 'cut'; prev.hash = hashOf(prev);
+        if (same) { sc.__init = {}; for (const id of prev.resolved.parts) sc.__init[id] = vcAt(prev, id, prev.duration); } }
+    }
+    (sc.camera || []).forEach((c, i) => { const w = `camera[${i}]`, v = c.view;
+      if (typeof v === 'string') { if (v !== 'camera0' && svg && !hasId(svg, v)) E(`${w}: у art.svg немає прямокутника #${v}`); }
+      else if (!v || ![v.x, v.y, v.w, v.h].every(Number.isFinite) || v.w <= 0 || v.h <= 0) E(`${w}: view — це id прямокутника в art.svg або {x, y, w, h}`);
+      R.camera.push({ t: res(c.at, w + '.at'), dur: dfl(c.dur, 1.6), view: v }); });
+    (sc.move || []).forEach((m, i) => { const w = `move[${i}]`; chk(w, m.id, parts); if (!m.to) E(`${w}: немає to (id точки)`); anch(w, m.to); anch(w, m.from);
+      R.move.push({ id: m.id, to: m.to, from: m.from, t: res(m.at, w + '.at'), dur: dfl(m.dur, 1.4), scale: m.scale, rotate: m.rotate, out: res(m.out, w + '.out') }); });
+    (sc.draw || []).forEach((d, i) => { chk(`draw[${i}]`, d.id, parts); R.draw.push({ id: d.id, t: res(d.at, `draw[${i}].at`), dur: dfl(d.dur, 1.4) }); });
+    (sc.loop || []).forEach((l, i) => { const w = `loop[${i}]`; if (!['float', 'pulse', 'spin', 'flow'].includes(l.kind)) E(`${w}: невідомий kind «${l.kind}» (float, pulse, spin, flow)`);
+      if (svg && !hasId(svg, l.id)) E(`${w}: у art.svg немає #${l.id}`); if (l.in == null) E(`${w}: немає in`);
+      R.loop.push({ id: l.id, kind: l.kind, in: res(l.in, w + '.in'), out: res(l.out, w + '.out'), amp: l.amp, period: l.period }); });
+    (sc.count || []).forEach((c, i) => { const w = `count[${i}]`, tok = '{' + (c.token || 'n') + '}', T = (sc.texts || []).find(x => x.id === c.id), B = (sc.labels || []).find(x => x.id === c.id), src = T ? T.html : B ? (B.text || '') + (B.sub || '') : null;
+      if (src == null) E(`${w}: немає тексту чи підпису з id «${c.id}»`); else if (!src.includes(tok)) E(`${w}: у тексті «${c.id}» немає місця для числа ${tok}`);
+      if (!Number.isFinite(c.from) || !Number.isFinite(c.to)) E(`${w}: from і to — числа`);
+      R.count.push({ id: c.id, from: c.from, to: c.to, t: res(c.at, w + '.at'), dur: dfl(c.dur, 1.2), decimals: c.decimals, suffix: c.suffix, token: c.token }); });
     (sc.states || []).forEach((e, i) => { const w = `states[${i}]`; for (const k in e.set || {}) { chk(w, k, parts); if (!['hidden', 'color', 'grey'].includes(e.set[k])) E(`${w}: невідомий стан «${e.set[k]}»`); } R.states.push({ t: res(e.at, w + '.at'), dur: e.dur, set: e.set }); });
     (sc.grow || []).forEach((g, i) => { chk(`grow[${i}]`, g.id, parts); anch(`grow[${i}]`, g.origin); R.grow.push({ id: g.id, origin: g.origin, t: res(g.at, `grow[${i}].at`), dur: g.dur }); });
     (sc.travel || []).forEach((g, i) => { chk(`travel[${i}]`, g.id, parts); anch(`travel[${i}]`, g.path); R.travel.push({ id: g.id, path: g.path, t: res(g.at, `travel[${i}].at`), dur: g.dur, out: res(g.out, `travel[${i}].out`) }); });
-    (sc.labels || []).forEach((l, i) => { const w = `labels[${i}]`, o = { ...l, in: res(l.in, w + '.in'), out: res(l.out, w + '.out') }; if (l.focus) chk(w, l.focus, parts); anch(w, l.anchor); if (o.out != null && o.out <= o.in) E(`${w}: out не пізніше за in`); R.labels.push(o); });
+    (sc.labels || []).forEach((l, i) => { const w = `labels[${i}]`, o = { ...l, text: noAcc(l.text || ''), sub: l.sub && noAcc(l.sub), in: res(l.in, w + '.in'), out: res(l.out, w + '.out') }; if (l.focus) chk(w, l.focus, parts); anch(w, l.anchor); if (o.out != null && o.out <= o.in) E(`${w}: out не пізніше за in`); R.labels.push(o); });
     const texts = [];
-    if (lj.kicker && sc.kicker !== false && !(sc.texts || []).some(x => x.id === 'kicker')) texts.push({ id: 'kicker', kind: 'meta', html: esc(lj.kicker), in: typeof sc.kicker === 'string' ? res(sc.kicker, 'kicker') : .3, out: null });
-    (sc.texts || []).forEach((x, i) => { const w = `texts[${i}]`; if (!x.kind) E(`${w}: немає kind`); texts.push({ ...x, in: res(x.in, w + '.in'), out: res(x.out, w + '.out') }); });
+    if (lj.kicker && sc.kicker !== false && !(sc.texts || []).some(x => x.id === 'kicker')) texts.push({ id: 'kicker', kind: 'meta', html: esc(lj.kicker), in: typeof sc.kicker === 'string' ? res(sc.kicker, 'kicker') : R.carry && prev.resolved.texts.some(x => x.id === 'kicker') ? -1 : .3, out: null });
+    (sc.texts || []).forEach((x, i) => { const w = `texts[${i}]`; if (!x.kind) E(`${w}: немає kind`); texts.push({ ...x, html: noAcc(x.html || ''), class: x.band === 'top' ? ((x.class || '') + ' k-top').trim() : x.class, in: res(x.in, w + '.in'), out: res(x.out, w + '.out') }); });
     const srcs = (sc.sources || []).map((s, i) => { const w = `sources[${i}]`, d = srcById[s.ref]; if (!d) E(`${w}: невідоме джерело «${s.ref}»`); return { ref: s.ref, text: d ? d.text : '', in: res(s.in, w + '.in'), out: res(s.out, w + '.out') }; }).sort((a, b) => a.in - b.in);
     srcs.forEach((s, i) => { const e = s.out ?? duration; const k = srcs.slice(0, i).filter(p => (p.out ?? duration) > s.in).length; texts.push({ id: `src-${s.ref}-${i}`, kind: 'source', html: 'Джерело: ' + esc(s.text), in: s.in, out: s.out, enter: 'fade', ...(k ? { y: 996 - 34 * k } : {}) }); });
     for (const x of texts) if (x.kind === 'title' && x.y == null) { const hooks = texts.filter(h => h.kind === 'hook' && h.in < (x.out ?? duration) && x.in < (h.out ?? duration)); if (hooks.length && !/k-low/.test(x.class || '')) x.class = ((x.class || '') + ' k-low').trim(); }
     texts.forEach(x => { if (x.out != null && x.out <= x.in) E(`текст ${x.id}: out не пізніше за in`); }); R.texts = texts;
-    R.checkpoints = sc.checkpoints ? sc.checkpoints.map((c, i) => res(c, `checkpoints[${i}]`)) : nlist.length ? nlist.map(r => +((r.start + r.end) / 2).toFixed(2)) : [+(duration / 2).toFixed(2)];
-    const chars = nlist.reduce((a, r) => a + strip(r.spoken).length, 0), spoken = nlist.reduce((a, r) => a + r.end - r.start, 0);
-    const hash = sha(JSON.stringify([R, svg, css, css0, fonts, readIf(path.join(KIT, 'player2.html')), FPS]));
-    scenes.push({ id, chapter: ci, start: +start.toFixed(3), duration, narration: nlist, resolved: R, svg, css: css0 + '\n' + css, hash, tempo: spoken ? chars / spoken : 0, sources: srcs.length });
+    R.states.sort((a, b) => a.t - b.t); R.checkpoints = sc.checkpoints ? sc.checkpoints.map((c, i) => res(c, `checkpoints[${i}]`)) : nlist.length ? nlist.map(r => +((r.start + r.end) / 2).toFixed(2)) : [+(duration / 2).toFixed(2)];
+    const chars = nlist.reduce((a, r) => a + noAcc(strip(r.spoken)).length, 0), spoken = nlist.reduce((a, r) => a + r.end - r.start, 0);
+    const S0 = { id, chapter: ci, start: +start.toFixed(3), duration, narration: nlist, resolved: R, art: sc.art, svg, css: css0 + '\n' + css, init: sc.__init, prevHash: R.carry ? prev.hash : null, tempo: spoken ? chars / spoken : 0, sources: srcs.length };
+    S0.hash = hashOf(S0); scenes.push(S0);
     start += duration;
   };
   chapters.forEach((c, ci) => (c.scenes || []).forEach(id => {
@@ -116,8 +137,35 @@ function load() {
   chapDur.forEach((d, i) => { if (d > 360) warns.push(`розділ «${chapters[i].title}» триває ${(d / 60).toFixed(1)} хв (понад 6)`); });
   if (total < 600 || total > 1200) warns.push(`лекція триває ${(total / 60).toFixed(1)} хв (потрібно 10–20)`);
   scenes.forEach(s => { if (s.tempo && (s.tempo < 12 || s.tempo > 17)) warns.push(`сцена ${s.id}: темп мовлення ${s.tempo.toFixed(1)} символів/с (потрібно 12–17)`); });
-  return { lj, voice, scenes, chapters, chapDur, errors, warns, total, slug, facts, fonts };
+  return { center, lj, voice, scenes, chapters, chapDur, errors, warns, total, slug, facts, fonts };
 }
+
+/* ---------- рух і порожні кадри (без браузера) ---------- */
+const clampN = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), eioN = x => { x = clampN(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2 };
+const VALS = { hidden: [0, 1], color: [1, 1], grey: [1, 0] };
+function vcAt(s, id, t) { let v = (s.init && s.init[id]) || [0, 1];
+  for (const e of s.resolved.states) { if (!(id in e.set)) continue; if (t < e.t) break; const k = eioN((t - e.t) / (e.dur ?? .7)), w = VALS[e.set[id]]; v = [v[0] + (w[0] - v[0]) * k, v[1] + (w[1] - v[1]) * k]; } return v; }
+function analyze(s) {
+  const R = s.resolved, D = s.duration, iv = [], big = ['hook', 'title', 'thesis', 'quiz']; let ev = 0, loops = 0;
+  const add = (a, b) => { if (a != null) iv.push([a, Math.max(a, b)]); };
+  R.states.forEach(e => { add(e.t, e.t + (e.dur ?? .7)); ev++; });
+  R.texts.forEach(x => { add(x.in, x.in + .6); ev++; if (x.out != null) { add(x.out, x.out + .4); ev++; } });
+  R.labels.forEach(x => { add(x.in, x.in + .7); ev++; if (x.out != null) { add(x.out, x.out + .4); ev++; } });
+  for (const k of ['grow', 'travel', 'move', 'draw', 'count', 'camera']) R[k].forEach(e => { add(e.t, e.t + (e.dur || 1.4)); ev++; });
+  R.loop.forEach(l => { add(l.in, l.out ?? D); loops++; });
+  const gaps = []; let cur = 0;
+  for (const [a, b] of iv.map(([a, b]) => [Math.max(0, a), Math.min(D, b)]).filter(([a, b]) => b > a).sort((x, y) => x[0] - y[0])) { if (a > cur) gaps.push([cur, a]); cur = Math.max(cur, b); }
+  if (D > cur) gaps.push([cur, D]);
+  const partVis = t => R.parts.some(id => { const [v, c] = vcAt(s, id, t); if (v <= .5 || c <= .5) return false;
+    for (const k of ['draw', 'grow']) { const l = R[k].filter(d => d.id === id); if (l.length && !l.some(d => t >= d.t + .15 * d.dur)) return false; }
+    return !R.move.some(m => m.id === id && m.out != null && t >= m.out); });
+  const bigText = t => R.texts.some(x => big.includes(x.kind) && t >= x.in + .2 && (x.out == null || t < x.out));
+  const empty = []; let a = null; const t0 = R.carry ? 0 : .6, step = .04;
+  for (let t = t0; t <= D + 1e-9; t += step) { const e = !(bigText(t) || (R.art && partVis(t))); if (e && a == null) a = t; if ((!e || t + step > D) && a != null) { empty.push([a, e ? D : t]); a = null; } }
+  return { events: ev, loops, longest: Math.max(0, ...gaps.map(g => g[1] - g[0])), gaps, empty, emptyTotal: empty.reduce((x, g) => x + g[1] - g[0], 0) };
+}
+const warnsOf = (s, an) => s.id === '99-credits' ? [] : an.gaps.filter(g => g[1] - g[0] > 5).map(g => `${s.id} t=${g[0].toFixed(1)}–${g[1].toFixed(1)} застиглий кадр: ${(g[1] - g[0]).toFixed(1)} с без жодної події чи руху (додайте рух камери, loop чи зміну стану)`);
+const emptyFails = (s, an) => an.empty.filter(g => g[1] - g[0] > 1.2).map(g => `${s.id} t=${g[0].toFixed(1)}–${g[1].toFixed(1)} порожній кадр: ${(g[1] - g[0]).toFixed(1)} с немає ні кольорової частини малюнка, ні великого тексту`);
 
 function plan(L, quiet) {
   if (L.errors.length) { console.error('ПОМИЛКИ:\n' + L.errors.map(e => ' - ' + e).join('\n')); process.exit(1); }
@@ -136,11 +184,18 @@ function plan(L, quiet) {
 
 /* ---------- Playwright ---------- */
 function pw() { try { return require('playwright'); } catch (e) { return require(path.join(execFileSync('npm', ['root', '-g']).toString().trim(), 'playwright')); } }
-async function openScene(b, L, s) {
+/* Безшовний стик: кінцевий стан попередньої сцени (той самий малюнок) або її останній кадр (різні малюнки) */
+async function carryData(b, L, s) {
+  if (!s.resolved.carry) return null; const prev = L.scenes[L.scenes.indexOf(s) - 1], p = await openScene(b, L, prev, await carryData(b, L, prev));
+  await p.evaluate(t => window.renderAt(t), prev.duration); const end = await p.evaluate(() => window.endState()), same = s.resolved.carry.same;
+  const img = same ? null : 'data:image/jpeg;base64,' + (await p.locator('#stage').screenshot({ type: 'jpeg', quality: 92 })).toString('base64'); await p.close(); return { same, end, img };
+}
+async function openScene(b, L, s, carry) {
+  if (carry === undefined) carry = await carryData(b, L, s);
   const p = await b.newPage({ viewport: { width: 1920, height: 1080 } }); p.errs = []; p.on('pageerror', e => p.errs.push('JS: ' + e.message));
   await p.goto('file://' + path.join(KIT, 'player2.html'));
   for (const c of L.fonts) await p.addStyleTag({ url: 'file://' + path.join(KIT, c) });
-  try { await p.evaluate(d => window.init(d), { scene: s.resolved, svg: s.svg, css: s.css }); } catch (e) { throw new Error(`сцена ${s.id}: ${e.message.split('\n')[0]}`); }
+  try { await p.evaluate(d => window.init(d), { scene: s.resolved, svg: s.svg, css: s.css, carry }); } catch (e) { throw new Error(`сцена ${s.id}: ${e.message.split('\n')[0]}`); }
   await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(250); return p;
 }
 async function pool(items, n, fn) { const q = [...items], out = []; await Promise.all(Array.from({ length: Math.min(n, q.length) }, async () => { while (q.length) out.push(await fn(q.shift())); })); return out; }
@@ -156,12 +211,15 @@ const MIN = { label: 30, onart: 28, thesis: 36, title: 60, meta: 18, hook: 40, q
 
 async function qaScene(b, L, s) {
   const { PNG } = require(path.join(KIT, 'node_modules', 'pngjs')), qd = path.join(OUT, 'qa', s.id), tmp = path.join(qd, 'tmp'); fs.rmSync(tmp, { recursive: true, force: true }); fs.mkdirSync(tmp, { recursive: true });
-  const p = await openScene(b, L, s), stage = p.locator('#stage'), fails = [], shots = [], CH = s.resolved.checkpoints;
+  const p = await openScene(b, L, s), stage = p.locator('#stage'), an = analyze(s), fails = emptyFails(s, an), shots = [], CH = s.resolved.checkpoints;
   const times = [...new Set([...CH, ...Array.from({ length: Math.max(0, Math.floor(s.duration - 1)) }, (_, i) => i + .9)])].sort((a, c) => a - c);
   for (const t of times) {
     await p.evaluate(t => window.renderAt(t), t);
     if (CH.includes(t)) { const f = path.join(tmp, `q${String(shots.length + 1).padStart(2, '0')}.jpg`); await stage.screenshot({ path: f, type: 'jpeg', quality: 88 }); shots.push(f); }
     const g = await p.evaluate(() => window.geometry());
+    if (L.center && !s.resolved.camera.some(c => t >= c.t && t < c.t + c.dur)) { const f = PNG.sync.read(await stage.screenshot({ type: 'png' })); let sx = 0, n = 0;
+      for (let yy = 0; yy < 1080; yy += 4) for (let xx = 0; xx < 1920; xx += 4) { const i = (yy * 1920 + xx) * 4; if (Math.max(f.data[i], f.data[i + 1], f.data[i + 2]) > 40) { sx += xx; n++; } }
+      if (n > 150 && Math.abs(sx / n - 960) > 192) fails.push(`${s.id} t=${t} кадр зміщений: центр мас вмісту x=${Math.round(sx / n)} px, а має бути в межах ±10 % ширини (768…1152 px) від центру кадру`); }
     await p.evaluate(() => window.hideText(true)); const bg = PNG.sync.read(await stage.screenshot({ type: 'png' })); await p.evaluate(() => window.hideText(false));
     const tag = `${s.id} t=${t}`;
     for (const x of g.texts) {
@@ -181,7 +239,7 @@ async function qaScene(b, L, s) {
   let sheet = path.join(qd, 'sheet.jpg');
   try { execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-start_number', '1', '-framerate', '1', '-i', path.join(tmp, 'q%02d.jpg'), '-vf', `scale=640:360,tile=4x${Math.ceil(shots.length / 4)}`, '-frames:v', '1', sheet]); } catch (e) { p.errs.push('аркуш кадрів не зібрано'); sheet = null; }
   fs.rmSync(tmp, { recursive: true, force: true }); await p.close();
-  return { id: s.id, hash: s.hash, fails: [...new Set([...p.errs, ...fails])], sheet };
+  return { id: s.id, hash: s.hash, fails: [...new Set([...p.errs, ...fails])], warns: warnsOf(s, an), sheet };
 }
 
 /* ---------- субтитри ---------- */
@@ -222,6 +280,11 @@ async function main() {
       console.log([s.id, s.duration.toFixed(1) + ' с', qs, cached ? 'є' : 'немає'].map((h, i) => String(h).padEnd([16, 12, 20, 12][i])).join('')); }
     console.log('Готове відео: ' + (fs.existsSync(path.join(OUT, L.slug + '.mp4')) ? `out/${L.slug}.mp4` : 'ще немає')); return;
   }
+  if (action === 'motion') {
+    plan(L, true); const W = [18, 12, 8, 7, 22, 12]; console.log(['Сцена', 'Тривалість', 'Подій', 'Loop', 'Найдовше без подій', 'Порожні, с'].map((h, i) => h.padEnd(W[i])).join(''));
+    for (const s of L.scenes) { const a = analyze(s); console.log([s.id, s.duration.toFixed(1) + ' с', a.events, a.loops, a.longest.toFixed(1) + ' с' + (a.longest > 5 ? ' !' : ''), a.emptyTotal.toFixed(1) + (a.empty.some(g => g[1] - g[0] > 1.2) ? ' !' : '')].map((h, i) => String(h).padEnd(W[i])).join('')); }
+    return console.log('«!»: найдовший відрізок без подій > 5 с (застиглий кадр) або порожній відрізок > 1,2 с (помилка qa).');
+  }
   if (action === 'tts') {
     if (L.errors.length) plan(L, true);
     if (L.voice.provider === 'estimate') return console.log('Голос «estimate»: синтез не потрібен (оцінка тривалості).');
@@ -233,9 +296,9 @@ async function main() {
     if (L.errors.length) plan(L, true); const sel = pick(L, rest[0]), { chromium } = pw(), b = await chromium.launch();
     const results = await pool(sel, flags.jobs, s => qaScene(b, L, s)); await b.close(); results.sort((a, c) => L.scenes.findIndex(s => s.id === a.id) - L.scenes.findIndex(s => s.id === c.id));
     const rf = path.join(OUT, 'qa', 'report.json'), old = fs.existsSync(rf) ? readJson(rf).scenes : {}, scenes = {};
-    for (const s of L.scenes) if (old[s.id]) scenes[s.id] = old[s.id]; for (const r of results) scenes[r.id] = { hash: r.hash, pass: !r.fails.length, fails: r.fails, sheet: r.sheet && path.relative(dir, r.sheet) };
+    for (const s of L.scenes) if (old[s.id]) scenes[s.id] = old[s.id]; for (const r of results) scenes[r.id] = { hash: r.hash, pass: !r.fails.length, fails: r.fails, warns: r.warns, sheet: r.sheet && path.relative(dir, r.sheet) };
     const pass = L.scenes.every(s => scenes[s.id] && scenes[s.id].pass && scenes[s.id].hash === s.hash); fs.writeFileSync(rf, JSON.stringify({ pass, scenes }, null, 1));
-    for (const r of results) { console.log(`${r.id}: ${r.fails.length ? 'FAIL (' + r.fails.length + ')\n' + r.fails.slice(0, 40).join('\n') : 'PASS'}`); if (r.sheet) console.log('  аркуш кадрів: ' + r.sheet); }
+    for (const r of results) { console.log(`${r.id}: ${r.fails.length ? 'FAIL (' + r.fails.length + ')\n' + r.fails.slice(0, 40).join('\n') : 'PASS'}`); r.warns.forEach(w => console.log('Увага: ' + w)); if (r.sheet) console.log('  аркуш кадрів: ' + r.sheet); }
     process.exit(results.some(r => r.fails.length) ? 1 : 0);
   }
   if (action === 'still') {
@@ -273,6 +336,6 @@ async function main() {
     execFileSync('ffmpeg', [...a, ...maps, '-c:v', 'copy', ...(audio ? ['-c:a', 'aac', '-b:a', '192k'] : []), '-c:s', 'mov_text', '-metadata:s:s:0', 'language=ukr', '-movflags', '+faststart', mp4]);
     fs.rmSync(list, { force: true }); console.log(`Готово: ${mp4}` + (audio ? '' : ' (без звуку)')); return;
   }
-  die(`Невідома дія «${action}». Є: plan, tts, qa, render, still, status`, 2);
+  die(`Невідома дія «${action}». Є: plan, tts, qa, render, still, status, motion`, 2);
 }
 main().catch(e => die('Помилка: ' + (e.stack || e.message)));

@@ -1,5 +1,5 @@
 {
-  "art": {"x": 900, "y": 40, "w": 900, "h": 1000},
+  "art": {"x": 410, "y": 60, "w": 1100, "h": 700},
   "parts": ["body"],
   "narration": [
     {"id": "n1", "text": "Перше речення гачка. [[q]]Друге — запитання?"},
@@ -10,7 +10,7 @@
     {"at": "n2", "dur": 0.9, "set": {"body": "color"}}
   ],
   "labels": [
-    {"id": "body", "text": "Структура", "sub": "пояснення", "anchor": "a-body", "x": 1500, "y": 300, "align": "left", "focus": "body", "in": "@x", "out": "n2.end"}
+    {"id": "body", "text": "Структура", "sub": "пояснення", "anchor": "a-body", "x": 1200, "y": 290, "align": "left", "focus": "body", "in": "@x", "out": "n2.end"}
   ],
   "texts": [
     {"id": "hook", "kind": "hook", "html": "Гачок у два<br>рядки.", "in": "n1", "out": "n1.end"},

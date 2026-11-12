@@ -1,0 +1,41 @@
+{
+  "carry": true,
+  "lead": 0.15,
+  "art": {"x": 160, "y": 60, "w": 1600, "h": 700},
+  "parts": ["organ", "vessel", "cell", "plt"],
+  "narration": [
+    {"id": "n1", "text": "Ось орган і судина, що відходить від нього."},
+    {"id": "n2", "text": "Червона клітина рухається судиною, а потік підкреслює напрямок.", "gap": 0.4},
+    {"id": "n3", "text": "Наближаємо кадр до місця, де збираються тромбоцити.", "gap": 0.4}
+  ],
+  "states": [
+    {"at": "start", "dur": 0.01, "set": {"organ": "hidden", "vessel": "hidden", "cell": "hidden", "plt": "hidden"}},
+    {"at": "n1", "dur": 0.6, "set": {"organ": "color"}},
+    {"at": "n1+1.2", "dur": 0.6, "set": {"vessel": "color"}},
+    {"at": "n2", "dur": 0.6, "set": {"organ": "grey", "cell": "color"}},
+    {"at": "n3", "dur": 0.6, "set": {"vessel": "grey", "cell": "grey", "plt": "color"}}
+  ],
+  "draw": [
+    {"id": "organ", "at": "n1", "dur": 1.6},
+    {"id": "vessel", "at": "n1+1.2", "dur": 1.6}
+  ],
+  "move": [
+    {"id": "cell", "from": "pt-a", "to": "pt-b", "at": "n2+0.3", "dur": 3.4, "scale": 1.5, "rotate": 180}
+  ],
+  "loop": [
+    {"id": "organ", "kind": "pulse", "in": "n1+1.8", "amp": 0.04, "period": 2.2},
+    {"id": "fl", "kind": "flow", "in": "n2", "amp": 16, "period": 1.2}
+  ],
+  "camera": [
+    {"at": "n3", "dur": 2.2, "view": "v-zone"}
+  ],
+  "labels": [
+    {"id": "plt", "text": "Тромбоцити", "sub": "зупиняють кровотечу", "anchor": "a-zone", "x": 1240, "y": 520, "align": "left", "in": "n3+2.4", "out": "n3.end", "focus": "plt"}
+  ],
+  "texts": [
+    {"id": "t1", "kind": "thesis", "html": "Лінія за лінією", "in": "n1", "out": "n1.end"},
+    {"id": "t2", "kind": "thesis", "html": "Рух утримує увагу", "in": "n2+0.4", "out": "n2.end"},
+    {"id": "t3", "kind": "thesis", "html": "Камера веде погляд", "in": "n3+0.4", "out": "n3.end"}
+  ],
+  "exit": "fade"
+}

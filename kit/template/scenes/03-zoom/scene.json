@@ -1,0 +1,36 @@
+{
+  "carry": true,
+  "lead": 0.15,
+  "tail": 0.15,
+  "art": {"x": 160, "y": 60, "w": 1600, "h": 700},
+  "parts": ["organ", "vessel", "cell", "plt"],
+  "narration": [
+    {"id": "n4", "text": "Камера лишається там, де ми зупинилися, а потім відходить назад.", "gap": 0.1},
+    {"id": "n5", "text": "Лічильник росте на кожному кроці.", "gap": 0.4}
+  ],
+  "states": [
+    {"at": "n4+1.2", "dur": 0.7, "set": {"organ": "color", "vessel": "color", "cell": "color"}},
+    {"at": "n5", "dur": 0.7, "set": {"organ": "grey", "vessel": "grey", "cell": "grey", "plt": "color"}}
+  ],
+  "loop": [
+    {"id": "organ", "kind": "pulse", "in": "start", "amp": 0.04, "period": 2.2},
+    {"id": "fl", "kind": "flow", "in": "start", "amp": 16, "period": 1.2},
+    {"id": "plt", "kind": "float", "in": "start", "amp": 5, "period": 3}
+  ],
+  "camera": [
+    {"at": "n4+1.0", "dur": 2.0, "view": "camera0"}
+  ],
+  "move": [
+    {"id": "cell", "to": "pt-a", "at": "n4+1.2", "dur": 2.4, "scale": 1, "rotate": 360}
+  ],
+  "count": [
+    {"id": "cnt", "from": 120, "to": 250, "at": "n5", "dur": 2.4, "suffix": " тис./мкл"}
+  ],
+  "labels": [
+    {"id": "cnt", "text": "{n}", "sub": "тромбоцитів у крові", "anchor": "a-zone", "x": 1480, "y": 520, "align": "right", "in": "n5", "focus": "plt"}
+  ],
+  "texts": [
+    {"id": "t4", "kind": "thesis", "html": "Число змінюється плавно", "in": "n5+0.3"}
+  ],
+  "sources": [{"ref": "s1", "in": "n5", "out": "n5.end"}]
+}

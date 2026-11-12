@@ -1,0 +1,13 @@
+/* Центрована розкладка (lecture.json: "layout": "center"): малюнок у середині кадру, великий текст — у центрованій смузі.
+   Типово нижня смуга (y ≈ 790–960, над рядком джерел); смуга вгорі — клас k-top (у сцені: "band": "top"). */
+.k-meta,.k-hook,.k-title,.k-thesis,.k-note,.k-quiz,.k-source{left:50%;transform:translateX(-50%);text-align:center}
+.k-meta{top:44px;font-size:24px}
+.k-hook{top:790px;font-size:76px;line-height:1.1;letter-spacing:-1.5px}
+.k-title{top:800px;font-size:96px;letter-spacing:-2px}
+.k-title.k-low{top:110px}
+.k-thesis{top:830px;font-size:54px}
+.k-note{top:740px}
+.k-quiz{top:800px;font-size:60px}
+.k-quiz.k-answer{font-size:68px}
+.k-source{top:996px;font-size:20px}
+.k-top.k-hook{top:110px}.k-top.k-title{top:110px}.k-top.k-thesis{top:120px}.k-top.k-quiz{top:110px}

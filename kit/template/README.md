@@ -20,5 +20,11 @@
 - Сцена без малюнка: не додавайте `art.svg`, `parts`, `labels`; задайте `duration`, якщо немає реплік.
 - `style.css` у теці сцени (необов'язково) доповнює `kit/theme/base.css`.
 
+## Рух і розкладка (див. ENGINE.md 3.6, 3.7)
+- `lecture.json`: `"layout": "center"` — центрована розкладка: малюнок посередині, великий текст у нижній смузі (`"band": "top"` — у верхній).
+- Наголос: `замо́к` (U+0301) у тексті репліки чи в `pronounce`; на екрані й у субтитрах знак прибирається.
+- Зразок руху: `scenes/02-motion` (carry із різним малюнком, `draw`, `move`, `loop`, `camera` до `v-zone`, підпис за камерою) і `03-zoom` (carry з тим самим малюнком, камера назад до `camera0`, `count`). У `art.svg`: `<rect id="v-zone" fill="none" stroke="none">`, точки `pt-a`/`pt-b`.
+- `node kit/lecture.js lectures/<slug> motion` — таблиця руху по сценах.
+
 ## Команди
 `node kit/lecture.js lectures/<slug> plan | tts | qa | render | status`, `still <сцена> <час>`.

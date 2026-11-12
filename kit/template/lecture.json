@@ -1,13 +1,28 @@
 {
   "title": "Назва лекції",
   "kicker": "Розділ медицини",
-  "voice": {"provider": "estimate", "rate": 14.5},
+  "voice": {
+    "provider": "estimate",
+    "rate": 14.5
+  },
   "chapters": [
-    {"title": "Перший розділ", "scenes": ["01-intro"]}
+    {
+      "title": "Перший розділ",
+      "scenes": [
+        "01-intro",
+        "02-motion",
+        "03-zoom"
+      ]
+    }
   ],
   "sources": [
-    {"id": "s1", "text": "Назва джерела", "url": "https://example.org"}
+    {
+      "id": "s1",
+      "text": "Назва джерела",
+      "url": "https://example.org"
+    }
   ],
   "pronounce": {},
-  "credits": true
+  "credits": true,
+  "layout": "center"
 }

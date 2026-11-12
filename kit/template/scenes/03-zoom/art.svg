@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700">
+<g id="organ"><path d="M490,350C490,240 560,190 640,198C730,207 790,270 780,350C770,440 710,500 630,500C540,500 490,440 490,350Z" fill="#c9503c" stroke="#efe9df" stroke-width="3"/><path d="M570,310C605,282 660,290 680,335" fill="none" stroke="#efe9df" stroke-width="1.5"/></g>
+<g id="vessel"><path d="M780,304L1480,304" fill="none" stroke="#efe9df" stroke-width="3"/><path d="M780,396L1480,396" fill="none" stroke="#efe9df" stroke-width="3"/><path id="fl" d="M790,350L1470,350" fill="none" stroke="#efe9df" stroke-width="1.5"/></g>
+<g id="cell"><circle cx="840" cy="350" r="24" fill="#d8402f" stroke="#efe9df" stroke-width="2"/><path d="M824,350L856,350" fill="none" stroke="#efe9df" stroke-width="1.5"/></g>
+<g id="plt"><circle cx="1330" cy="330" r="12" fill="#e8b23a"/><circle cx="1360" cy="372" r="14" fill="#e8b23a"/><circle cx="1388" cy="338" r="11" fill="#e8b23a"/><circle cx="1356" cy="318" r="10" fill="#e8b23a"/></g>
+<circle id="a-zone" cx="1356" cy="346" r="0"/>
+<circle id="pt-a" cx="840" cy="350" r="0"/><circle id="pt-b" cx="1200" cy="350" r="0"/>
+<rect id="v-zone" x="1196" y="245" width="320" height="210" fill="none" stroke="none"/>
+</svg>

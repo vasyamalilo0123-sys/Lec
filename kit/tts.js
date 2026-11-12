@@ -48,7 +48,7 @@ function voiceId(voice) {
 const itemKey = (spoken, voice) => sha1(spoken + '\n' + JSON.stringify(voiceId(voice)) + (voice.languageCode || '') + JSON.stringify(voice.settings || {}));
 
 function estimateDuration(plain, voice) {
-  return Math.max(1.2, [...plain].length / (voice.rate || DEFAULT_RATE));
+  return Math.max(1.2, [...plain.replace(/\u0301/g, '')].length / (voice.rate || DEFAULT_RATE));
 }
 
 function probeDuration(file) {
@@ -60,7 +60,7 @@ function probeDuration(file) {
 // item: {id, spoken}. Для estimate звук не синтезується, тож завжди оцінка.
 function measure(lectureDir, voice, sceneId, item) {
   const { plain, marks } = parseMarks(item.spoken ?? item.text ?? '');
-  const len = [...plain].length;
+  const len = [...plain].length, nacc = (n) => [...plain].slice(0, n).filter((c) => c === '\u0301').length; // знак наголосу U+0301 не додає часу в оцінці
   const prov = voice.provider || 'estimate';
   const entry = prov === 'estimate' ? null : readManifest(lectureDir).items[`${sceneId}/${item.id}`];
   const valid = entry && entry.key === itemKey(item.spoken ?? item.text ?? '', voice);
@@ -70,7 +70,7 @@ function measure(lectureDir, voice, sceneId, item) {
     if (valid && entry.charStarts && len) {
       markers[m.id] = round(m.pos >= entry.charStarts.length ? duration : entry.charStarts[m.pos], 3);
     } else {
-      markers[m.id] = round(len ? (m.pos / len) * duration : 0, 3);
+      markers[m.id] = round(len ? ((m.pos - nacc(m.pos)) / (len - nacc(len))) * duration : 0, 3);
     }
   }
   return { duration: round(duration), markers, estimated: !valid };
