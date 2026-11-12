@@ -1,6 +1,6 @@
 {
   "art": {
-    "x": 900,
+    "x": 700,
     "y": 40,
     "w": 900,
     "h": 1000
@@ -79,8 +79,8 @@
       "at": "@low",
       "dur": 0.7,
       "set": {
-        "retic": "grey",
-        "mesh": "grey",
+        "retic": "hidden",
+        "mesh": "hidden",
         "marrow": "grey",
         "vessel": "grey",
         "flow_low": "color"
@@ -110,8 +110,6 @@
         "vessel": "color",
         "flow_low": "color",
         "flow_high": "color",
-        "retic": "color",
-        "mesh": "color",
         "counter": "color"
       }
     }
@@ -135,7 +133,7 @@
       "id": "marrow",
       "text": "Кістковий мозок",
       "anchor": "a-marrow",
-      "x": 700,
+      "x": 790,
       "y": 160,
       "align": "right",
       "focus": "marrow",
@@ -146,7 +144,7 @@
       "id": "retic",
       "text": "Ретикулоцит",
       "anchor": "a-retic",
-      "x": 700,
+      "x": 780,
       "y": 740,
       "align": "right",
       "focus": "retic",
@@ -157,7 +155,7 @@
       "id": "mesh",
       "text": "Залишки РНК",
       "anchor": "a-mesh",
-      "x": 1178,
+      "x": 978,
       "y": 940,
       "align": "center",
       "focus": "mesh",
@@ -168,8 +166,8 @@
       "id": "low",
       "text": "Мало: гіпорегенераторна",
       "anchor": "a-low",
-      "x": 1400,
-      "y": 50,
+      "x": 1150,
+      "y": 100,
       "align": "center",
       "focus": "flow_low",
       "in": "@low+0.8",
@@ -179,7 +177,7 @@
       "id": "high",
       "text": "Багато: гіперрегенераторна",
       "anchor": "a-high",
-      "x": 1300,
+      "x": 1120,
       "y": 565,
       "align": "center",
       "focus": "flow_high",
@@ -200,7 +198,8 @@
       "kind": "thesis",
       "html": "Рахуйте абсолютну кількість,<br>а не відсоток",
       "in": "@abs",
-      "out": "n5.end"
+      "out": "n5.end",
+      "y": 620
     }
   ],
   "sources": [

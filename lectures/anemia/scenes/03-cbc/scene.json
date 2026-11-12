@@ -1,6 +1,6 @@
 {
   "art": {
-    "x": 900,
+    "x": 620,
     "y": 60,
     "w": 900,
     "h": 960
@@ -130,7 +130,7 @@
       "id": "rbc",
       "text": "Еритроцити,<br>гематокрит, гемоглобін",
       "anchor": "a-rbc-grp",
-      "x": 925,
+      "x": 640,
       "y": 320,
       "align": "right",
       "focus": "row_rbc",
@@ -139,45 +139,42 @@
     },
     {
       "id": "mcv",
-      "text": "MCV",
+      "text": "MCV<br>середній об'єм, фл",
       "anchor": "a-mcv-grp",
-      "x": 925,
+      "x": 640,
       "y": 515,
       "align": "right",
       "focus": "row_mcv",
       "in": "@mcv+0.2",
-      "out": "n6.end",
-      "sub": "середній об'єм, фл"
+      "out": "n6.end"
     },
     {
       "id": "mch",
-      "text": "MCH",
+      "text": "MCH<br>гемоглобін у клітині, пг",
       "anchor": "a-mch-grp",
-      "x": 925,
+      "x": 640,
       "y": 625,
       "align": "right",
       "focus": "row_mch",
       "in": "@mch+0.2",
-      "out": "n3.end",
-      "sub": "гемоглобін у клітині, пг"
+      "out": "n3.end"
     },
     {
       "id": "rdw",
-      "text": "RDW",
+      "text": "RDW<br>різнорідність розміру",
       "anchor": "a-rdw-grp",
-      "x": 925,
+      "x": 640,
       "y": 735,
       "align": "right",
       "focus": "row_rdw",
       "in": "@rdw+0.2",
-      "out": "n4.end",
-      "sub": "різнорідність розміру"
+      "out": "n4.end"
     },
     {
       "id": "wbc",
       "text": "Лейкоцити й тромбоцити",
       "anchor": "a-wbc-grp",
-      "x": 925,
+      "x": 640,
       "y": 880,
       "align": "right",
       "focus": "row_wbc",

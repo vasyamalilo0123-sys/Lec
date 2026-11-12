@@ -183,9 +183,9 @@
       "id": "l-ile",
       "text": "Клубова кишка",
       "anchor": "a_ile",
-      "x": 1525,
-      "y": 771,
-      "align": "center",
+      "x": 1640,
+      "y": 735,
+      "align": "right",
       "focus": "ile",
       "in": "@ile+0.2",
       "out": "@mma"

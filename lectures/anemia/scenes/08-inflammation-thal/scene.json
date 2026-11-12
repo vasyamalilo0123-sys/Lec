@@ -1,9 +1,9 @@
 {
  "art": {
-  "x": 880,
+  "x": 780,
   "y": 40,
-  "w": 1000,
-  "h": 1000
+  "w": 900,
+  "h": 900
  },
  "parts": [
   "liver",
@@ -95,9 +95,9 @@
    "set": {
     "liver": "grey",
     "hep": "grey",
-    "macro": "grey",
+    "macro": "color",
     "gut": "grey",
-    "lock": "grey"
+    "lock": "color"
    }
   },
   {
@@ -140,8 +140,8 @@
    "id": "liver",
    "text": "Печінка",
    "anchor": "a_liver",
-   "x": 1180,
-   "y": 85,
+   "x": 1050,
+   "y": 100,
    "align": "center",
    "focus": "liver",
    "in": "@aci+0.3",
@@ -151,8 +151,8 @@
    "id": "hep",
    "text": "Гепцидин",
    "anchor": "a_hep",
-   "x": 1235,
-   "y": 455,
+   "x": 1120,
+   "y": 445,
    "align": "left",
    "focus": "hep",
    "in": "@hep+0.5",
@@ -162,19 +162,19 @@
    "id": "macro",
    "text": "Макрофаг",
    "anchor": "a_macro",
-   "x": 905,
-   "y": 880,
+   "x": 770,
+   "y": 790,
    "align": "left",
    "focus": "macro",
    "in": "@hep+0.8",
-   "out": "n3"
+   "out": "n3.end"
   },
   {
    "id": "gut",
    "text": "Ентероцит",
    "anchor": "a_gut",
-   "x": 1340,
-   "y": 880,
+   "x": 1240,
+   "y": 790,
    "align": "left",
    "focus": "gut",
    "in": "@hep+0.8",
@@ -182,21 +182,21 @@
   },
   {
    "id": "lock",
-   "text": "Феропортин закрито",
+   "text": "Феропортин закритий",
    "anchor": "a_lock",
-   "x": 1150,
-   "y": 960,
+   "x": 1030,
+   "y": 905,
    "align": "left",
    "focus": "lock",
    "in": "@lock+0.3",
-   "out": "n3"
+   "out": "n3.end"
   },
   {
    "id": "ida",
    "text": "ЗДА",
    "anchor": "a_ida",
-   "x": 1535,
-   "y": 240,
+   "x": 1369,
+   "y": 200,
    "align": "center",
    "focus": "smear_ida",
    "in": "@thal+0.3",
@@ -207,8 +207,8 @@
    "id": "thal",
    "text": "Носійство<br>таласемії",
    "anchor": "a_thal",
-   "x": 1760,
-   "y": 215,
+   "x": 1572,
+   "y": 200,
    "align": "center",
    "focus": "smear_thal",
    "in": "@thal+0.5",
@@ -219,8 +219,8 @@
    "id": "a2",
    "text": "HbA2 ↑ — бета-таласемія",
    "anchor": "a_a2",
-   "x": 1500,
-   "y": 880,
+   "x": 1480,
+   "y": 865,
    "align": "center",
    "focus": "a2",
    "in": "@a2+0.8",
