@@ -1,0 +1,71 @@
+{
+ "name": "Креслення",
+ "fontCss": [
+  "node_modules/@fontsource/exo-2/500.css",
+  "node_modules/@fontsource/exo-2/600.css",
+  "node_modules/@fontsource/exo-2/700.css",
+  "node_modules/@fontsource/jetbrains-mono/400.css",
+  "node_modules/@fontsource/jetbrains-mono/500.css"
+ ],
+ "art": {
+  "x": 840,
+  "y": 120,
+  "h": 850,
+  "w": 624
+ },
+ "labels": {
+  "aorta": {
+   "x": 903,
+   "y": 88,
+   "align": "right"
+  },
+  "rv": {
+   "x": 1127,
+   "y": 642,
+   "align": "center",
+   "onArt": true
+  },
+  "lv": {
+   "x": 1356,
+   "y": 723,
+   "align": "center",
+   "onArt": true
+  },
+  "rca": {
+   "x": 811,
+   "y": 648,
+   "align": "right"
+  },
+  "lca": {
+   "x": 1324,
+   "y": 389,
+   "align": "left"
+  },
+  "lad": {
+   "x": 1442,
+   "y": 788,
+   "align": "left"
+  },
+  "lcx": {
+   "x": 1534,
+   "y": 615,
+   "align": "left"
+  }
+ },
+ "leader": {
+  "type": "elbow",
+  "elbow": 150,
+  "width": 1.5,
+  "color": "#a9cdf0",
+  "marker": "ring",
+  "markerSize": 5.5,
+  "markerFill": "#000",
+  "gap": 12,
+  "opacity": 1
+ },
+ "motion": {
+  "text": "wipe",
+  "dimTissue": 0.42,
+  "dimOther": 0.3
+ }
+}
