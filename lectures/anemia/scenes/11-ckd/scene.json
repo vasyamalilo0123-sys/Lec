@@ -1,6 +1,23 @@
 {
-  "art": {"x": 760, "y": 40, "w": 1120, "h": 1000},
-  "parts": ["kidney", "peri", "epo", "epo_thin", "marrow", "iron", "scale", "risk", "corridor", "h100", "h115"],
+  "art": {
+    "x": 760,
+    "y": 40,
+    "w": 1120,
+    "h": 1000
+  },
+  "parts": [
+    "kidney",
+    "peri",
+    "epo",
+    "epo_thin",
+    "marrow",
+    "iron",
+    "scale",
+    "risk",
+    "corridor",
+    "h100",
+    "h115"
+  ],
   "narration": [
     {
       "id": "n1",
@@ -31,33 +48,230 @@
     "texts": "Підписи: «Перитубулярні клітини», «Еритропоетин», «Залізо, B12, фолат», «Діаліз: близько 90–100 г/л», «Без діалізу — індивідуально», «Не прагнути ≥ 115 г/л». Джерело в кадрі для n4–n5 — s8 (KDIGO 2026). Теза (n3): «Анемія при ХХН — діагноз виключення». Теза (n5): «Повна нормалізація — більше інсультів»."
   },
   "states": [
-    {"at": "start", "dur": 0.01, "set": {"kidney": "hidden", "peri": "hidden", "epo": "hidden", "epo_thin": "hidden", "marrow": "hidden", "iron": "hidden", "scale": "hidden", "risk": "hidden", "corridor": "hidden", "h100": "hidden", "h115": "hidden"}},
-    {"at": "@kid", "dur": 0.9, "set": {"kidney": "color"}},
-    {"at": "@epo", "dur": 0.8, "set": {"kidney": "grey", "peri": "color", "epo": "color", "marrow": "color"}},
-    {"at": "@low", "dur": 0.8, "set": {"epo": "hidden", "epo_thin": "color"}},
-    {"at": "@iron", "dur": 0.8, "set": {"peri": "grey", "epo_thin": "grey", "marrow": "grey", "iron": "color"}},
-    {"at": "n4", "dur": 0.8, "set": {"iron": "grey", "scale": "color"}},
-    {"at": "@h100", "dur": 0.6, "set": {"h100": "color"}},
-    {"at": "@h115", "dur": 0.6, "set": {"h100": "grey", "h115": "color", "corridor": "color"}},
-    {"at": "n5", "dur": 0.8, "set": {"h100": "color", "corridor": "color", "risk": "color"}},
-    {"at": "n5.end-1.5", "dur": 0.8, "set": {"kidney": "color", "peri": "color", "epo_thin": "color", "marrow": "color", "iron": "color"}}
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "kidney": "hidden",
+        "peri": "hidden",
+        "epo": "hidden",
+        "epo_thin": "hidden",
+        "marrow": "hidden",
+        "iron": "hidden",
+        "scale": "hidden",
+        "risk": "hidden",
+        "corridor": "hidden",
+        "h100": "hidden",
+        "h115": "hidden"
+      }
+    },
+    {
+      "at": "@kid",
+      "dur": 0.9,
+      "set": {
+        "kidney": "color"
+      }
+    },
+    {
+      "at": "@epo",
+      "dur": 0.8,
+      "set": {
+        "kidney": "grey",
+        "peri": "color",
+        "epo": "color",
+        "marrow": "color"
+      }
+    },
+    {
+      "at": "@low",
+      "dur": 0.8,
+      "set": {
+        "epo": "hidden",
+        "epo_thin": "color"
+      }
+    },
+    {
+      "at": "@iron",
+      "dur": 0.8,
+      "set": {
+        "peri": "grey",
+        "epo_thin": "grey",
+        "marrow": "grey",
+        "iron": "color"
+      }
+    },
+    {
+      "at": "n4",
+      "dur": 0.8,
+      "set": {
+        "iron": "grey",
+        "scale": "color"
+      }
+    },
+    {
+      "at": "@h100",
+      "dur": 0.6,
+      "set": {
+        "h100": "color"
+      }
+    },
+    {
+      "at": "@h115",
+      "dur": 0.6,
+      "set": {
+        "h100": "grey",
+        "h115": "color",
+        "corridor": "color"
+      }
+    },
+    {
+      "at": "n5",
+      "dur": 0.8,
+      "set": {
+        "h100": "color",
+        "corridor": "color",
+        "risk": "color"
+      }
+    },
+    {
+      "at": "n5.end-1.5",
+      "dur": 0.8,
+      "set": {
+        "kidney": "color",
+        "peri": "color",
+        "epo_thin": "color",
+        "marrow": "color",
+        "iron": "color"
+      }
+    }
   ],
   "labels": [
-    {"id": "l-kidney", "text": "Нирка", "anchor": "a-kidney", "x": 840, "y": 190, "align": "right", "focus": "kidney", "in": "@kid", "out": "n1.end"},
-    {"id": "l-peri", "text": "Перитубулярні клітини", "anchor": "a-peri", "x": 1245, "y": 150, "align": "left", "focus": "peri", "in": "@epo+0.4", "out": "@iron"},
-    {"id": "l-epo", "text": "Еритропоетин", "anchor": "a-epo", "x": 1090, "y": 560, "align": "right", "focus": "epo", "in": "@epo+1.2", "out": "@low"},
-    {"id": "l-epo2", "text": "Сигналу замало", "anchor": "a-epo", "x": 1090, "y": 560, "align": "right", "focus": "epo_thin", "in": "@low+0.4", "out": "@iron"},
-    {"id": "l-marrow", "text": "Кістковий мозок", "anchor": "a-marrow", "x": 1030, "y": 1000, "align": "center", "focus": "marrow", "in": "@epo+2.2", "out": "@iron"},
-    {"id": "l-iron", "text": "Залізо, B12, фолат", "anchor": "a-iron", "x": 1260, "y": 470, "align": "center", "focus": "iron", "in": "@iron+0.3", "out": "n4"},
-    {"id": "l-h100", "text": "Діаліз:<br>близько 90–100 г/л", "anchor": "a-h100", "x": 1440, "y": 715, "align": "left", "focus": "h100", "in": "@h100+0.3", "out": "@h115"},
-    {"id": "l-corr", "text": "Без діалізу —<br>індивідуально", "anchor": "a-corridor", "x": 1440, "y": 527, "align": "left", "focus": "corridor", "in": "@h115+0.4", "out": "n5"},
-    {"id": "l-h115", "text": "Не прагнути ≥ 115 г/л", "anchor": "a-h115", "x": 1470, "y": 415, "align": "left", "focus": "h115", "in": "@h115+0.3", "out": "n5"}
+    {
+      "id": "l-kidney",
+      "text": "Нирка",
+      "anchor": "a-kidney",
+      "x": 840,
+      "y": 190,
+      "align": "right",
+      "focus": "kidney",
+      "in": "@kid",
+      "out": "n1.end"
+    },
+    {
+      "id": "l-peri",
+      "text": "Перитубулярні клітини",
+      "anchor": "a-peri",
+      "x": 1245,
+      "y": 150,
+      "align": "left",
+      "focus": "peri",
+      "in": "@epo+0.4",
+      "out": "@iron"
+    },
+    {
+      "id": "l-epo",
+      "text": "Еритропоетин",
+      "anchor": "a-epo",
+      "x": 1090,
+      "y": 560,
+      "align": "right",
+      "focus": "epo",
+      "in": "@epo+1.2",
+      "out": "@low"
+    },
+    {
+      "id": "l-epo2",
+      "text": "Сигналу замало",
+      "anchor": "a-epo",
+      "x": 1090,
+      "y": 560,
+      "align": "right",
+      "focus": "epo_thin",
+      "in": "@low+0.4",
+      "out": "@iron"
+    },
+    {
+      "id": "l-marrow",
+      "text": "Кістковий мозок",
+      "anchor": "a-marrow",
+      "x": 1030,
+      "y": 1000,
+      "align": "center",
+      "focus": "marrow",
+      "in": "@epo+2.2",
+      "out": "@iron"
+    },
+    {
+      "id": "l-iron",
+      "text": "Залізо, B12, фолат",
+      "anchor": "a-iron",
+      "x": 1260,
+      "y": 470,
+      "align": "center",
+      "focus": "iron",
+      "in": "@iron+0.3",
+      "out": "n4"
+    },
+    {
+      "id": "l-h100",
+      "text": "Діаліз:<br>близько 90–100 г/л",
+      "anchor": "a-h100",
+      "x": 1440,
+      "y": 715,
+      "align": "left",
+      "focus": "h100",
+      "in": "@h100+0.3",
+      "out": "@h115"
+    },
+    {
+      "id": "l-corr",
+      "text": "Без діалізу —<br>індивідуально",
+      "anchor": "a-corridor",
+      "x": 1440,
+      "y": 527,
+      "align": "left",
+      "focus": "corridor",
+      "in": "@h115+0.4",
+      "out": "n5"
+    },
+    {
+      "id": "l-h115",
+      "text": "Не прагнути ≥ 115 г/л",
+      "anchor": "a-h115",
+      "x": 1470,
+      "y": 415,
+      "align": "left",
+      "focus": "h115",
+      "in": "@h115+0.3",
+      "out": "n5"
+    }
   ],
   "texts": [
-    {"id": "th1", "kind": "thesis", "html": "Анемія при ХХН —<br>діагноз виключення", "in": "@excl", "out": "n3.end"},
-    {"id": "th2", "kind": "thesis", "html": "Повна нормалізація —<br>більше інсультів", "in": "n5+0.2", "out": "n5.end"}
+    {
+      "id": "th1",
+      "kind": "thesis",
+      "html": "Анемія при ХХН —<br>діагноз виключення",
+      "in": "@excl",
+      "out": "n3.end"
+    },
+    {
+      "id": "th2",
+      "kind": "thesis",
+      "html": "Повна нормалізація —<br>більше інсультів",
+      "in": "n5+0.2",
+      "out": "n5.end"
+    }
   ],
   "sources": [
-    {"ref": "s8", "in": "n2", "out": "n5.end"}
+    {
+      "ref": "s8",
+      "in": "n2",
+      "out": "n5.end"
+    },
+    {
+      "ref": "s32",
+      "in": "n5",
+      "out": "n5.end"
+    }
   ]
 }

@@ -122,7 +122,7 @@
     },
     {
       "id": "s13",
-      "text": "Rao S. V. et al. 2025 ACC/AHA/ACEP/NAEMSP/SCAI guideline for the management of patients with acute coronary syndromes. Circulation, 2025;151:e771-e862",
+      "text": "Rao S. V. et al. 2025 ACC/AHA ACS guideline. Circulation, 2025",
       "url": "https://doi.org/10.1161/CIR.0000000000001309"
     },
     {
@@ -149,6 +149,56 @@
       "id": "s23",
       "text": "StatPearls. Macrocytosis",
       "url": "https://www.ncbi.nlm.nih.gov/books/NBK560607/"
+    },
+    {
+      "id": "s24",
+      "text": "StatPearls. Red Blood Cell Indices",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK539711/"
+    },
+    {
+      "id": "s25",
+      "text": "StatPearls. Hereditary Spherocytosis",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK539718/"
+    },
+    {
+      "id": "s26",
+      "text": "Scully M. et al. BSH guideline on TTP, 2012",
+      "url": "https://doi.org/10.1111/j.1365-2141.2012.09167.x"
+    },
+    {
+      "id": "s27",
+      "text": "StatPearls. Pancytopenia",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK553107/"
+    },
+    {
+      "id": "s28",
+      "text": "NICE NG12 (suspected cancer), розділ «Haematological cancers»",
+      "url": "https://www.nice.org.uk/guidance/ng12"
+    },
+    {
+      "id": "s29",
+      "text": "Moretti D. et al. Blood, 2015",
+      "url": "https://doi.org/10.1182/blood-2015-03-635946"
+    },
+    {
+      "id": "s30",
+      "text": "EMA PRAC, 2013 (в/в залізо)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/referrals/intravenous-iron-containing-medicines"
+    },
+    {
+      "id": "s31",
+      "text": "Wolf M. et al. JAMA, 2020 (PHOSPHARE)",
+      "url": "https://doi.org/10.1001/jama.2019.22450"
+    },
+    {
+      "id": "s32",
+      "text": "Pfeffer M. A. et al. TREAT. N Engl J Med, 2009",
+      "url": "https://doi.org/10.1056/NEJMoa0907845"
+    },
+    {
+      "id": "s33",
+      "text": "StatPearls. Anemia in Pregnancy",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK558953/"
     }
   ],
   "pronounce": {
