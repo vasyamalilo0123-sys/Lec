@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1040">
+<defs>
+<clipPath id="c-flask"><path d="M795,508L795,548L766,602C761,611 764,615 773,615L837,615C846,615 849,611 844,602L815,548L815,508Z"/></clipPath>
+</defs>
+
+<!-- ВЕРХНІЙ ГРАФІК: гепцидин за 48 год; x = 110 + 15·год -->
+<g id="axis_h" fill="none" stroke="#f2e6d3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M110,330L842,330" stroke-width="3.2"/>
+<path d="M836,323L850,330L836,337" stroke-width="3.2"/>
+<path d="M110,330L110,92" stroke-width="3.2"/>
+<path d="M103,100L110,86L117,100" stroke-width="3.2"/>
+<path d="M290,330v9M470,330v12M650,330v9M830,330v12" stroke-width="2.2"/>
+<path d="M200,330v5M380,330v5M560,330v5M740,330v5" stroke-width="1.4" stroke-opacity="0.7"/>
+</g>
+
+<g id="hep_curve" stroke-linecap="round" stroke-linejoin="round">
+<path d="M110,322C140,322 170,118 230,115C300,112 400,140 470,175C540,210 590,300 650,312C700,322 780,322 830,322L830,329L110,329Z" fill="#4a3516"/>
+<path d="M140,329C165,250 190,160 230,150M300,329C305,260 330,175 360,140M420,329C430,280 450,210 470,190M560,329C565,300 575,262 590,250" fill="none" stroke="#e0a43a" stroke-width="1.2" stroke-opacity="0.45"/>
+<path d="M470,329L470,182" fill="none" stroke="#f2e6d3" stroke-width="1.6" stroke-dasharray="5 6"/>
+<path d="M110,322C140,322 170,118 230,115C300,112 400,140 470,175C540,210 590,300 650,312C700,322 780,322 830,322" fill="none" stroke="#e0a43a" stroke-width="5"/>
+<circle cx="470" cy="175" r="6" fill="#e0a43a" stroke="#f2e6d3" stroke-width="1.6"/>
+<path d="M110,92L110,80L470,80L470,92" fill="none" stroke="#e0a43a" stroke-width="2.2"/>
+<path d="M290,80L290,72" fill="none" stroke="#e0a43a" stroke-width="2.2"/>
+</g>
+
+<!-- Таблетки сульфату заліза: щодня (0 і 24 год) -->
+<g id="pill_daily" stroke="#f2e6d3" stroke-linecap="round" stroke-linejoin="round">
+<rect x="82" y="359" width="56" height="26" rx="13" fill="#b04a2b" stroke-width="3.6"/>
+<path d="M110,364L110,380" stroke-width="1.6"/>
+<rect x="442" y="359" width="56" height="26" rx="13" fill="#b04a2b" stroke-width="3.6"/>
+<path d="M470,364L470,380" stroke-width="1.6"/>
+</g>
+
+<!-- Через день (0 і 48 год; на 24 год — пропуск) -->
+<g id="alt" stroke-linecap="round" stroke-linejoin="round">
+<rect x="82" y="415" width="56" height="26" rx="13" fill="#b04a2b" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M110,420L110,436" stroke="#f2e6d3" stroke-width="1.6"/>
+<rect x="442" y="415" width="56" height="26" rx="13" fill="none" stroke="#b04a2b" stroke-width="2.2" stroke-dasharray="6 5"/>
+<rect x="802" y="415" width="56" height="26" rx="13" fill="#b04a2b" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M830,420L830,436" stroke="#f2e6d3" stroke-width="1.6"/>
+</g>
+
+<!-- НИЖНІЙ ГРАФІК: гемоглобін за тижнями; x = 110 + 30·тиж, y = 960 − 5·(Hb − 70) -->
+<g id="axis_w" fill="none" stroke="#f2e6d3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M110,960L842,960" stroke-width="3.2"/>
+<path d="M836,953L850,960L836,967" stroke-width="3.2"/>
+<path d="M110,960L110,626" stroke-width="3.2"/>
+<path d="M103,634L110,620L117,634" stroke-width="3.2"/>
+<path d="M230,960v12M350,960v12M470,960v9M590,960v9M710,960v9M830,960v12" stroke-width="2.2"/>
+<path d="M140,960v5M170,960v5M200,960v5M260,960v5M290,960v5M320,960v5M380,960v5M410,960v5M440,960v5M500,960v5M530,960v5M560,960v5M620,960v5M650,960v5M680,960v5M740,960v5M770,960v5M800,960v5" stroke-width="1.2" stroke-opacity="0.6"/>
+<path d="M110,668L830,668" stroke-width="1.8" stroke-dasharray="10 8" stroke-opacity="0.85"/>
+</g>
+
+<g id="hb_curve" stroke-linecap="round" stroke-linejoin="round">
+<path d="M110,860C150,825 190,778 230,755C280,727 315,682 350,668C385,654 600,648 830,646L830,959L110,959Z" fill="#3e1613"/>
+<path d="M110,860C150,825 190,778 230,755C280,727 315,682 350,668C385,654 600,648 830,646" fill="none" stroke="#d8483b" stroke-width="5"/>
+<circle cx="110" cy="860" r="5" fill="#d8483b" stroke="#f2e6d3" stroke-width="1.6"/>
+</g>
+
+<g id="check" stroke-linecap="round" stroke-linejoin="round">
+<path d="M230,958L230,768" fill="none" stroke="#f2e6d3" stroke-width="1.8" stroke-dasharray="5 6"/>
+<circle cx="230" cy="755" r="11" fill="none" stroke="#f2e6d3" stroke-width="3.6"/>
+<circle cx="230" cy="755" r="4" fill="#d8483b"/>
+<!-- пробірка крові -->
+<path d="M190,686L190,734C190,742 206,742 206,734L206,686" fill="#1a1414" stroke="#f2e6d3" stroke-width="3"/>
+<path d="M192.5,708L203.5,708L203.5,734C203.5,738.5 192.5,738.5 192.5,734Z" fill="#d8483b"/>
+<path d="M186,686L210,686" stroke="#f2e6d3" stroke-width="3"/>
+<rect x="187" y="676" width="22" height="10" rx="2" fill="#5b6f8c" stroke="#f2e6d3" stroke-width="1.6"/>
+</g>
+
+<g id="store_bar" stroke-linecap="round" stroke-linejoin="round">
+<path d="M350,664L350,614" fill="none" stroke="#f2e6d3" stroke-width="1.6" stroke-dasharray="4 5"/>
+<circle cx="350" cy="668" r="6" fill="#d8483b" stroke="#f2e6d3" stroke-width="1.6"/>
+<path d="M350,590L732,590L752,601L732,612L350,612Z" fill="#c4692a" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M480,592L480,610M610,592L610,610" stroke="#f2e6d3" stroke-width="1.6"/>
+<path d="M795,508L795,548L766,602C761,611 764,615 773,615L837,615C846,615 849,611 844,602L815,548L815,508Z" fill="#241a12" stroke="none"/>
+<path d="M795,516L795,548L766,602C761,611 764,615 773,615L837,615C846,615 849,611 844,602L815,548L815,516" fill="none" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M789,510L821,510" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M799,560L811,560M792,574L818,574M785,588L825,588" stroke="#f2e6d3" stroke-width="1.2" stroke-opacity="0.55"/>
+</g>
+
+<g id="store_fill" clip-path="url(#c-flask)">
+<rect x="760" y="566" width="90" height="52" fill="#c4692a"/>
+<path d="M760,566L850,566" stroke="#f2e6d3" stroke-width="1.6"/>
+<circle cx="790" cy="590" r="3" fill="#e9a35a"/><circle cx="812" cy="600" r="3" fill="#e9a35a"/><circle cx="826" cy="582" r="2.5" fill="#e9a35a"/><circle cx="800" cy="606" r="2.5" fill="#e9a35a"/>
+</g>
+
+<!-- Точки прив'язки, початки росту, траєкторії -->
+<circle id="a-pill-daily" cx="512" cy="372" r="0"/>
+<circle id="a-alt" cx="152" cy="428" r="0"/>
+<circle id="a-skip" cx="470" cy="428" r="0"/>
+<circle id="a-hep" cx="290" cy="66" r="0"/>
+<circle id="a-hep-next" cx="470" cy="175" r="0"/>
+<circle id="a-axis-h" cx="852" cy="306" r="0"/>
+<circle id="a-hb" cx="600" cy="660" r="0"/>
+<circle id="a-check" cx="244" cy="770" r="0"/>
+<circle id="a-norm" cx="830" cy="676" r="0"/>
+<circle id="a-store" cx="545" cy="580" r="0"/>
+<circle id="a-flask" cx="805" cy="500" r="0"/>
+<circle id="a-w4" cx="230" cy="984" r="0"/>
+<circle id="a-w8" cx="350" cy="984" r="0"/>
+<circle id="a-w24" cx="830" cy="984" r="0"/>
+<circle id="o-hep" cx="110" cy="322" r="0"/>
+<circle id="o-hb" cx="110" cy="860" r="0"/>
+<circle id="o-store" cx="350" cy="601" r="0"/>
+<circle id="o-store-fill" cx="805" cy="615" r="0"/>
+<path id="p-hep" d="M110,322C140,322 170,118 230,115C300,112 400,140 470,175C540,210 590,300 650,312C700,322 780,322 830,322" fill="none" stroke="none"/>
+<path id="p-hb" d="M110,860C150,825 190,778 230,755C280,727 315,682 350,668C385,654 600,648 830,646" fill="none" stroke="none"/>
+<path id="p-store" d="M350,601L752,601" fill="none" stroke="none"/>
+</svg>

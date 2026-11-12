@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 580">
+<g id="scale">
+<path d="M95,253C119,252 138,272 137,296C136,319 117,338 94,337C70,336 52,318 53,295C54,271 72,254 95,253Z" fill="#c8323a" stroke="#f2e6d3" stroke-width="4.2" stroke-linejoin="round"/>
+<path d="M96,274C108,274 117,284 116,296C115,307 106,316 94,315C82,315 74,306 74,294C75,283 84,274 96,274Z" fill="#e8807c"/>
+<rect x="150" y="280" width="1260" height="30" rx="6" fill="#5c1e22" stroke="#f2e6d3" stroke-width="5.2"/>
+<path d="M180,282V302M240,282V289M300,282V297M360,282V289M420,282V302M480,282V289M540,282V297M600,282V289M660,282V302M720,282V289M780,282V297M840,282V289M900,282V302M960,282V289M1020,282V297M1080,282V289M1140,282V302M1200,282V289M1260,282V297M1320,282V289M1380,282V302" fill="none" stroke="#f2e6d3" stroke-width="2.2" stroke-linecap="round"/>
+<g fill="#f2e6d3" font-family="Geologica, sans-serif" font-weight="300" font-size="22" text-anchor="middle">
+<text x="180" y="342">60</text>
+<text x="300" y="342">70</text>
+<text x="420" y="342">80</text>
+<text x="540" y="342">90</text>
+<text x="660" y="342">100</text>
+<text x="780" y="342">110</text>
+<text x="900" y="342">120</text>
+<text x="1020" y="342">130</text>
+<text x="1140" y="342">140</text>
+<text x="1260" y="342">150</text>
+<text x="1380" y="342">160</text>
+</g></g>
+<g id="mark_men">
+<path d="M1020,145V259" fill="none" stroke="#a9c8f0" stroke-width="4.2" stroke-linecap="round"/>
+<path d="M1020,145H976M986,138L975,145L986,152" fill="none" stroke="#a9c8f0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1008,257L1032,257L1020,280Z" fill="#5f8fd0" stroke="#f2e6d3" stroke-width="2.6" stroke-linejoin="round"/>
+<path d="M1020,282V308" stroke="#a9c8f0" stroke-width="2.6" stroke-linecap="round"/>
+</g>
+<g id="mark_women">
+<path d="M900,145V259" fill="none" stroke="#f3a294" stroke-width="4.2" stroke-linecap="round"/>
+<path d="M900,145H856M866,138L855,145L866,152" fill="none" stroke="#f3a294" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M888,257L912,257L900,280Z" fill="#e0614f" stroke="#f2e6d3" stroke-width="2.6" stroke-linejoin="round"/>
+<path d="M900,282V308" stroke="#f3a294" stroke-width="2.6" stroke-linecap="round"/>
+</g>
+<g id="mark_preg">
+<g id="mark_preg_110">
+<path d="M780,145V259" fill="none" stroke="#dcb0e6" stroke-width="4.2" stroke-linecap="round"/>
+<path d="M780,145H736M746,138L735,145L746,152" fill="none" stroke="#dcb0e6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M768,257L792,257L780,280Z" fill="#b46cc4" stroke="#f2e6d3" stroke-width="2.6" stroke-linejoin="round"/>
+<path d="M780,282V308" stroke="#dcb0e6" stroke-width="2.6" stroke-linecap="round"/>
+</g>
+<g id="mark_preg_105">
+<path d="M720,205V259" fill="none" stroke="#dcb0e6" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="9 7"/>
+<path d="M720,205H676M686,198L675,205L686,212" fill="none" stroke="#dcb0e6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="9 7"/>
+<path d="M708,257L732,257L720,280Z" fill="#b46cc4" stroke="#f2e6d3" stroke-width="2.6" stroke-linejoin="round"/>
+<path d="M720,282V308" stroke="#dcb0e6" stroke-width="2.6" stroke-linecap="round"/>
+</g>
+</g>
+<g id="sev_bands">
+<path d="M180,432V424H780V432" fill="none" stroke="#f2e6d3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="420" y="444" width="360" height="42" fill="#b9706b"/>
+<rect x="180" y="444" width="240" height="42" fill="#9a2630"/>
+<clipPath id="cl-sev"><rect x="180" y="444" width="240" height="42"/></clipPath>
+<path d="M136,486L178,444M158,486L200,444M180,486L222,444M202,486L244,444M224,486L266,444M246,486L288,444M268,486L310,444M290,486L332,444M312,486L354,444M334,486L376,444M356,486L398,444M378,486L420,444M400,486L442,444M422,486L464,444M444,486L486,444M466,486L508,444" clip-path="url(#cl-sev)" stroke="#5e1018" stroke-width="2.6"/>
+<path d="M420,444V486" stroke="#f2e6d3" stroke-width="1.6"/>
+<rect x="180" y="444" width="600" height="42" rx="5" fill="none" stroke="#f2e6d3" stroke-width="4.2"/>
+</g>
+<circle id="a_scale" r="0" cx="95" cy="365"/>
+<circle id="a_unit" r="0" cx="1424" cy="295"/>
+<circle id="a_men" r="0" cx="1020" cy="118"/>
+<circle id="a_women" r="0" cx="900" cy="118"/>
+<circle id="a_preg110" r="0" cx="780" cy="118"/>
+<circle id="a_preg105" r="0" cx="664" cy="205"/>
+<circle id="a_adults" r="0" cx="180" cy="408"/>
+<circle id="a_moderate" r="0" cx="600.0" cy="516"/>
+<circle id="a_severe" r="0" cx="300.0" cy="516"/>
+<circle id="g_scale" r="0" cx="150" cy="295"/>
+<path id="p_scale" d="M150,295H1410" fill="none" stroke="none"/>
+<path id="p_sev" d="M780,465H180" fill="none" stroke="none"/>
+</svg>
