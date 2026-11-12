@@ -11,51 +11,40 @@
   },
   "chapters": [
     {
-      "title": "Перший крок: гемоглобін і розмір клітин",
+      "title": "Від вени до карти",
       "scenes": [
-        "01-hook",
-        "02-who-thresholds",
-        "03-cbc",
-        "04-mcv"
+        "01-two-drops",
+        "02-hb-scale",
+        "03-analyzer",
+        "04-mcv-fork",
+        "05-marrow",
+        "06-map"
       ]
     },
     {
-      "title": "Чи працює кістковий мозок",
+      "title": "Слід заліза",
       "scenes": [
-        "05-reticulocytes",
-        "06-tree"
+        "07-iron-store",
+        "08-locked-iron",
+        "09-gut-search"
       ]
     },
     {
-      "title": "Мікроцитарні анемії",
+      "title": "Бічні дороги",
       "scenes": [
-        "07-ferritin",
-        "08-inflammation-thal",
-        "09-bleeding-source"
-      ]
-    },
-    {
-      "title": "Гемоліз, нирки, макроцитоз",
-      "scenes": [
-        "10-hemolysis",
-        "11-ckd",
-        "12-macrocytic",
+        "10-burst-cell",
+        "11-kidney",
+        "12-b12-road",
         "13-red-flags"
       ]
     },
     {
-      "title": "Лікування",
+      "title": "Дорога назад",
       "scenes": [
-        "14-oral-iron",
-        "15-iv-iron",
-        "16-b12-folate",
-        "17-transfusion"
-      ]
-    },
-    {
-      "title": "Від аналізу до діагнозу",
-      "scenes": [
-        "18-summary"
+        "14-iron-return",
+        "15-b12-return",
+        "16-transfusion",
+        "17-two-drops-home"
       ]
     }
   ],
@@ -217,5 +206,6 @@
     "ДНК": "де-ен-ка",
     "AABB": "а-а-бе-бе"
   },
-  "credits": true
+  "credits": true,
+  "layout": "center"
 }
