@@ -188,14 +188,15 @@
   },
   {
    "id": "ltsat",
-   "text": "Насичення трансферину < 20 %",
+   "text": "Насичення трансферину",
    "anchor": "a-tsat",
    "x": 1440,
-   "y": 860,
+   "y": 840,
    "align": "left",
    "focus": "tsat",
    "in": "@tsat+0.3",
-   "out": "n5.end"
+   "out": "n5.end",
+   "sub": "< 20 %"
   }
  ],
  "texts": [
