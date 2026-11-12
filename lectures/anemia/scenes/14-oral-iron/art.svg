@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1040">
 <defs>
-<clipPath id="c-flask"><path d="M795,508L795,548L766,602C761,611 764,615 773,615L837,615C846,615 849,611 844,602L815,548L815,508Z"/></clipPath>
+<clipPath id="c-flask"><path d="M797,506L797,524C797,532 772,538 772,552L772,606C772,612 776,615 782,615L828,615C834,615 838,612 838,606L838,552C838,538 813,532 813,524L813,506Z"/></clipPath>
 </defs>
 
 <!-- ВЕРХНІЙ ГРАФІК: гепцидин за 48 год; x = 110 + 15·год -->
@@ -15,7 +15,6 @@
 
 <g id="hep_curve" stroke-linecap="round" stroke-linejoin="round">
 <path d="M110,322C140,322 170,118 230,115C300,112 400,140 470,175C540,210 590,300 650,312C700,322 780,322 830,322L830,329L110,329Z" fill="#4a3516"/>
-<path d="M140,329C165,250 190,160 230,150M300,329C305,260 330,175 360,140M420,329C430,280 450,210 470,190M560,329C565,300 575,262 590,250" fill="none" stroke="#e0a43a" stroke-width="1.2" stroke-opacity="0.45"/>
 <path d="M470,329L470,182" fill="none" stroke="#f2e6d3" stroke-width="1.6" stroke-dasharray="5 6"/>
 <path d="M110,322C140,322 170,118 230,115C300,112 400,140 470,175C540,210 590,300 650,312C700,322 780,322 830,322" fill="none" stroke="#e0a43a" stroke-width="5"/>
 <circle cx="470" cy="175" r="6" fill="#e0a43a" stroke="#f2e6d3" stroke-width="1.6"/>
@@ -73,16 +72,16 @@
 <circle cx="350" cy="668" r="6" fill="#d8483b" stroke="#f2e6d3" stroke-width="1.6"/>
 <path d="M350,590L732,590L752,601L732,612L350,612Z" fill="#c4692a" stroke="#f2e6d3" stroke-width="3.6"/>
 <path d="M480,592L480,610M610,592L610,610" stroke="#f2e6d3" stroke-width="1.6"/>
-<path d="M795,508L795,548L766,602C761,611 764,615 773,615L837,615C846,615 849,611 844,602L815,548L815,508Z" fill="#241a12" stroke="none"/>
-<path d="M795,516L795,548L766,602C761,611 764,615 773,615L837,615C846,615 849,611 844,602L815,548L815,516" fill="none" stroke="#f2e6d3" stroke-width="3.6"/>
-<path d="M789,510L821,510" stroke="#f2e6d3" stroke-width="3.6"/>
-<path d="M799,560L811,560M792,574L818,574M785,588L825,588" stroke="#f2e6d3" stroke-width="1.2" stroke-opacity="0.55"/>
+<path d="M797,506L797,524C797,532 772,538 772,552L772,606C772,612 776,615 782,615L828,615C834,615 838,612 838,606L838,552C838,538 813,532 813,524L813,506Z" fill="#241a12" stroke="none"/>
+<path d="M797,510L797,524C797,532 772,538 772,552L772,606C772,612 776,615 782,615L828,615C834,615 838,612 838,606L838,552C838,538 813,532 813,524L813,510" fill="none" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M791,508L819,508" stroke="#f2e6d3" stroke-width="3.6"/>
+<path d="M778,556L778,604" stroke="#f2e6d3" stroke-width="1.2" stroke-opacity="0.55"/>
 </g>
 
 <g id="store_fill" clip-path="url(#c-flask)">
-<rect x="760" y="566" width="90" height="52" fill="#c4692a"/>
-<path d="M760,566L850,566" stroke="#f2e6d3" stroke-width="1.6"/>
-<circle cx="790" cy="590" r="3" fill="#e9a35a"/><circle cx="812" cy="600" r="3" fill="#e9a35a"/><circle cx="826" cy="582" r="2.5" fill="#e9a35a"/><circle cx="800" cy="606" r="2.5" fill="#e9a35a"/>
+<rect x="768" y="560" width="74" height="58" fill="#a8532e"/>
+<path d="M768,560L842,560" stroke="#f2e6d3" stroke-width="1.6"/>
+<circle cx="788" cy="578" r="5" fill="#7a3a20" stroke="#e9a35a" stroke-width="1.2"/><circle cx="788" cy="578" r="2.3" fill="#e9a35a"/><circle cx="816" cy="572" r="4" fill="#7a3a20" stroke="#e9a35a" stroke-width="1.2"/><circle cx="816" cy="572" r="1.8" fill="#e9a35a"/><circle cx="826" cy="596" r="5" fill="#7a3a20" stroke="#e9a35a" stroke-width="1.2"/><circle cx="826" cy="596" r="2.3" fill="#e9a35a"/><circle cx="800" cy="600" r="4.5" fill="#7a3a20" stroke="#e9a35a" stroke-width="1.2"/><circle cx="800" cy="600" r="2.0" fill="#e9a35a"/><circle cx="784" cy="604" r="3.5" fill="#7a3a20" stroke="#e9a35a" stroke-width="1.2"/><circle cx="784" cy="604" r="1.6" fill="#e9a35a"/>
 </g>
 
 <!-- Точки прив'язки, початки росту, траєкторії -->
