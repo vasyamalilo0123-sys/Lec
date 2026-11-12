@@ -16,6 +16,6 @@
     "lad": {"x": 1620, "y": 800, "align": "left"},
     "lcx": {"x": 1620, "y": 580, "align": "left"}
   },
-  "leader": {"type": "straight", "width": 3.5, "color": "#f4efe4", "marker": "dot", "markerSize": 7, "gap": 16, "opacity": 1},
+  "leader": {"type": "straight", "width": 3.5, "color": "#f4efe4", "marker": "dot", "markerSize": 10, "gap": 16, "opacity": 1},
   "motion": {"text": "wipe", "dimTissue": 0.38, "dimOther": 0.28}
 }
