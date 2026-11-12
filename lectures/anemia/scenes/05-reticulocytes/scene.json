@@ -1,9 +1,9 @@
 {
   "art": {
     "x": 900,
-    "y": 60,
+    "y": 40,
     "w": 900,
-    "h": 960
+    "h": 1000
   },
   "parts": [
     "marrow",
@@ -43,5 +43,171 @@
     "art": "Ліворуч — плаский переріз кістки з кістковим мозком marrow (тепле червоно-жовте поле), праворуч — відрізок судини vessel. Між ними — шлях клітин. Частини: marrow, vessel, retic (збільшений ретикулоцит: диск із тонкою синьою сіточкою всередині, окрема група mesh для сіточки), flow_low (тонка стрілка з поодинокими клітинами мозок → судина), flow_high (товста стрілка з багатьма клітинами плюс поруч ознаки втрати: крапля крові й розірвана клітина), counter (пласка рамка «на 100 еритроцитів» із кількома позначеними — для пастки відсотка).",
     "flow": "@ret — marrow, vessel, retic кольорові. @mesh — retic сірий, mesh лишається кольоровою. @low — retic і mesh сірі, flow_low кольорова. @high — flow_low сіра, flow_high кольорова. @abs — flow_high сіра, counter кольорова.",
     "texts": "Підписи: «Ретикулоцит», «залишки РНК», «Мало: гіпорегенераторна», «Багато: гіперрегенераторна». Теза (n1): «Чи справляється кістковий мозок?». Теза (n5): «Рахуйте абсолютну кількість, а не відсоток»."
-  }
+  },
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "marrow": "hidden",
+        "vessel": "hidden",
+        "flow_low": "hidden",
+        "flow_high": "hidden",
+        "retic": "hidden",
+        "mesh": "hidden",
+        "counter": "hidden"
+      }
+    },
+    {
+      "at": "@ret",
+      "dur": 0.9,
+      "set": {
+        "marrow": "color",
+        "vessel": "color",
+        "retic": "color"
+      }
+    },
+    {
+      "at": "@mesh",
+      "dur": 0.7,
+      "set": {
+        "retic": "grey",
+        "mesh": "color"
+      }
+    },
+    {
+      "at": "@low",
+      "dur": 0.7,
+      "set": {
+        "retic": "grey",
+        "mesh": "grey",
+        "marrow": "grey",
+        "vessel": "grey",
+        "flow_low": "color"
+      }
+    },
+    {
+      "at": "@high",
+      "dur": 0.7,
+      "set": {
+        "flow_low": "grey",
+        "flow_high": "color"
+      }
+    },
+    {
+      "at": "@abs",
+      "dur": 0.7,
+      "set": {
+        "flow_high": "grey",
+        "counter": "color"
+      }
+    },
+    {
+      "at": "n5.end-1.2",
+      "dur": 0.8,
+      "set": {
+        "marrow": "color",
+        "vessel": "color",
+        "flow_low": "color",
+        "flow_high": "color",
+        "retic": "color",
+        "mesh": "color",
+        "counter": "color"
+      }
+    }
+  ],
+  "grow": [
+    {
+      "id": "flow_low",
+      "origin": "o-low",
+      "at": "@low",
+      "dur": 1.4
+    },
+    {
+      "id": "flow_high",
+      "origin": "o-high",
+      "at": "@high",
+      "dur": 1.4
+    }
+  ],
+  "labels": [
+    {
+      "id": "marrow",
+      "text": "Кістковий мозок",
+      "anchor": "a-marrow",
+      "x": 700,
+      "y": 160,
+      "align": "right",
+      "focus": "marrow",
+      "in": "@ret",
+      "out": "n1.end"
+    },
+    {
+      "id": "retic",
+      "text": "Ретикулоцит",
+      "anchor": "a-retic",
+      "x": 700,
+      "y": 740,
+      "align": "right",
+      "focus": "retic",
+      "in": "n2",
+      "out": "@mesh"
+    },
+    {
+      "id": "mesh",
+      "text": "Залишки РНК",
+      "anchor": "a-mesh",
+      "x": 1178,
+      "y": 940,
+      "align": "center",
+      "focus": "mesh",
+      "in": "@mesh",
+      "out": "n2.end"
+    },
+    {
+      "id": "low",
+      "text": "Мало: гіпорегенераторна",
+      "anchor": "a-low",
+      "x": 1400,
+      "y": 50,
+      "align": "center",
+      "focus": "flow_low",
+      "in": "@low+0.8",
+      "out": "n3.end"
+    },
+    {
+      "id": "high",
+      "text": "Багато: гіперрегенераторна",
+      "anchor": "a-high",
+      "x": 1400,
+      "y": 530,
+      "align": "center",
+      "focus": "flow_high",
+      "in": "@high+0.8",
+      "out": "n4.end"
+    }
+  ],
+  "texts": [
+    {
+      "id": "th1",
+      "kind": "thesis",
+      "html": "Чи справляється<br>кістковий мозок?",
+      "in": "n1",
+      "out": "n1.end"
+    },
+    {
+      "id": "th2",
+      "kind": "thesis",
+      "html": "Рахуйте абсолютну кількість,<br>а не відсоток",
+      "in": "@abs",
+      "out": "n5.end"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s14",
+      "in": "n2",
+      "out": "n5.end"
+    }
+  ]
 }

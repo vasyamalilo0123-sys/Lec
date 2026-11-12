@@ -12,43 +12,134 @@
   "chapters": [
     {
       "title": "Перший крок: гемоглобін і розмір клітин",
-      "scenes": ["01-hook", "02-who-thresholds", "03-cbc", "04-mcv"]
+      "scenes": [
+        "01-hook",
+        "02-who-thresholds",
+        "03-cbc",
+        "04-mcv"
+      ]
     },
     {
       "title": "Чи працює кістковий мозок",
-      "scenes": ["05-reticulocytes", "06-tree"]
+      "scenes": [
+        "05-reticulocytes",
+        "06-tree"
+      ]
     },
     {
       "title": "Мікроцитарні анемії",
-      "scenes": ["07-ferritin", "08-inflammation-thal", "09-bleeding-source"]
+      "scenes": [
+        "07-ferritin",
+        "08-inflammation-thal",
+        "09-bleeding-source"
+      ]
     },
     {
       "title": "Гемоліз, нирки, макроцитоз",
-      "scenes": ["10-hemolysis", "11-ckd", "12-macrocytic", "13-red-flags"]
+      "scenes": [
+        "10-hemolysis",
+        "11-ckd",
+        "12-macrocytic",
+        "13-red-flags"
+      ]
     },
     {
       "title": "Лікування",
-      "scenes": ["14-oral-iron", "15-iv-iron", "16-b12-folate", "17-transfusion"]
+      "scenes": [
+        "14-oral-iron",
+        "15-iv-iron",
+        "16-b12-folate",
+        "17-transfusion"
+      ]
     },
     {
       "title": "Від аналізу до діагнозу",
-      "scenes": ["18-summary"]
+      "scenes": [
+        "18-summary"
+      ]
     }
   ],
   "sources": [
-    {"id": "s1", "text": "WHO. Guideline on haemoglobin cutoffs to define anaemia, 2024", "url": "https://www.who.int/publications/i/item/9789240088542"},
-    {"id": "s2", "text": "WHO. Guideline on use of ferritin concentrations to assess iron status, 2020", "url": "https://www.who.int/publications/i/item/9789240000124"},
-    {"id": "s3", "text": "Snook J. et al. BSG guidelines for the management of iron deficiency anaemia in adults. Gut, 2021", "url": "https://gut.bmj.com/content/70/11/2030"},
-    {"id": "s4", "text": "Ko C. W. et al. AGA guidelines on the gastrointestinal evaluation of iron deficiency anemia. Gastroenterology, 2020", "url": "https://doi.org/10.1053/j.gastro.2020.06.046"},
-    {"id": "s5", "text": "AGA Clinical Practice Update on management of iron deficiency anemia, 2024", "url": "https://doi.org/10.1016/j.cgh.2024.03.046"},
-    {"id": "s6", "text": "Devalia V. et al. BSH guidelines for the diagnosis and treatment of cobalamin and folate disorders. Br J Haematol, 2014", "url": "https://doi.org/10.1111/bjh.12959"},
-    {"id": "s7", "text": "NICE NG239. Vitamin B12 deficiency in over 16s, 2024", "url": "https://www.nice.org.uk/guidance/ng239"},
-    {"id": "s8", "text": "KDIGO 2026. Anemia in CKD", "url": "https://kdigo.org/wp-content/uploads/2026/04/KDIGO-2026-Anemia-in-CKD-Guideline.pdf"},
-    {"id": "s9", "text": "Carson J. L. et al. Red blood cell transfusion: 2023 AABB International Guidelines. JAMA, 2023", "url": "https://doi.org/10.1001/jama.2023.12914"},
-    {"id": "s10", "text": "NICE NG24. Blood transfusion", "url": "https://www.nice.org.uk/guidance/ng24"},
-    {"id": "s11", "text": "Hill Q. A. et al. BSH guideline: the diagnosis and management of primary autoimmune haemolytic anaemia. Br J Haematol, 2017", "url": "https://doi.org/10.1111/bjh.14478"},
-    {"id": "s12", "text": "Powers J. M. et al. American Society of Hematology 2026 guidelines for diagnosis of iron deficiency. Blood Advances, 2026", "url": "https://doi.org/10.1182/bloodadvances.2025015950"},
-    {"id": "s13", "text": "Rao S. V. et al. 2025 ACC/AHA/ACEP/NAEMSP/SCAI guideline for the management of patients with acute coronary syndromes. Circulation, 2025;151:e771-e862", "url": "https://doi.org/10.1161/CIR.0000000000001309"}
+    {
+      "id": "s1",
+      "text": "WHO. Guideline on haemoglobin cutoffs to define anaemia, 2024",
+      "url": "https://www.who.int/publications/i/item/9789240088542"
+    },
+    {
+      "id": "s2",
+      "text": "WHO. Guideline on use of ferritin concentrations to assess iron status, 2020",
+      "url": "https://www.who.int/publications/i/item/9789240000124"
+    },
+    {
+      "id": "s3",
+      "text": "Snook J. et al. BSG guidelines for the management of iron deficiency anaemia in adults. Gut, 2021",
+      "url": "https://gut.bmj.com/content/70/11/2030"
+    },
+    {
+      "id": "s4",
+      "text": "Ko C. W. et al. AGA guidelines on the gastrointestinal evaluation of iron deficiency anemia. Gastroenterology, 2020",
+      "url": "https://doi.org/10.1053/j.gastro.2020.06.046"
+    },
+    {
+      "id": "s5",
+      "text": "AGA Clinical Practice Update on management of iron deficiency anemia, 2024",
+      "url": "https://doi.org/10.1016/j.cgh.2024.03.046"
+    },
+    {
+      "id": "s6",
+      "text": "Devalia V. et al. BSH guidelines for the diagnosis and treatment of cobalamin and folate disorders. Br J Haematol, 2014",
+      "url": "https://doi.org/10.1111/bjh.12959"
+    },
+    {
+      "id": "s7",
+      "text": "NICE NG239. Vitamin B12 deficiency in over 16s, 2024",
+      "url": "https://www.nice.org.uk/guidance/ng239"
+    },
+    {
+      "id": "s8",
+      "text": "KDIGO 2026. Anemia in CKD",
+      "url": "https://kdigo.org/wp-content/uploads/2026/04/KDIGO-2026-Anemia-in-CKD-Guideline.pdf"
+    },
+    {
+      "id": "s9",
+      "text": "Carson J. L. et al. Red blood cell transfusion: 2023 AABB International Guidelines. JAMA, 2023",
+      "url": "https://doi.org/10.1001/jama.2023.12914"
+    },
+    {
+      "id": "s10",
+      "text": "NICE NG24. Blood transfusion",
+      "url": "https://www.nice.org.uk/guidance/ng24"
+    },
+    {
+      "id": "s11",
+      "text": "Hill Q. A. et al. BSH guideline: the diagnosis and management of primary autoimmune haemolytic anaemia. Br J Haematol, 2017",
+      "url": "https://doi.org/10.1111/bjh.14478"
+    },
+    {
+      "id": "s12",
+      "text": "Powers J. M. et al. American Society of Hematology 2026 guidelines for diagnosis of iron deficiency. Blood Advances, 2026",
+      "url": "https://doi.org/10.1182/bloodadvances.2025015950"
+    },
+    {
+      "id": "s13",
+      "text": "Rao S. V. et al. 2025 ACC/AHA/ACEP/NAEMSP/SCAI guideline for the management of patients with acute coronary syndromes. Circulation, 2025;151:e771-e862",
+      "url": "https://doi.org/10.1161/CIR.0000000000001309"
+    },
+    {
+      "id": "s14",
+      "text": "StatPearls. Reticulocyte Count",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK531453/"
+    },
+    {
+      "id": "s20",
+      "text": "Weiss G. et al. Anemia of inflammation. Blood, 2019",
+      "url": "https://doi.org/10.1182/blood-2018-06-856500"
+    },
+    {
+      "id": "s21",
+      "text": "StatPearls. Thalassemia",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK545151/"
+    }
   ],
   "pronounce": {
     "MCV": "ем-сі-ві",
