@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 724 911">
+<g id="tissue" stroke="#000" stroke-width="4" stroke-linejoin="round">
+<path data-part="pv" fill="#d9bd8c" d="M50,318C62,310 76,326 82,342L80,380C64,366 50,344 50,318Z"><title>легенева вена</title></path>
+<path data-part="ivc" fill="#d9bd8c" d="M122,755L218,762C224,820 230,880 236,945L152,945C144,880 134,815 122,755Z"><title>нижня порожниста вена</title></path>
+<path data-part="svc" fill="#d9bd8c" d="M106,152C124,138 160,130 178,136C174,190 170,245 170,300L96,304C98,250 102,200 106,152Z"><title>верхня порожниста вена</title></path>
+<path data-part="aorta" fill="#b4432b" d="M192,362C172,300 170,222 192,162C214,100 262,50 326,44C378,40 412,74 414,124L418,228L300,250L268,366Z"><title>аорта</title></path>
+<path data-part="ra" fill="#d9bd8c" d="M100,296L178,296C198,298 212,314 220,328Q236,332 238,346Q252,352 250,370C215,450 175,540 140,610C150,680 175,740 205,776C160,782 118,772 94,740C70,700 52,650 48,590C44,520 62,430 80,360C86,330 92,310 100,296Z"><title>праве передсердя і вушко</title></path>
+<path data-part="lv" fill="#b4432b" d="M440,505C480,505 520,484 545,466C584,505 612,560 623,628C632,700 614,768 572,815C548,838 518,846 492,842C478,808 440,760 440,700Z"><title>лівий шлуночок</title></path>
+<path data-part="rv" fill="#1d3a8a" d="M252,362C232,385 222,420 200,465C170,525 120,590 97,648C88,675 100,700 130,722C180,760 250,800 330,822C390,838 450,843 496,840C482,800 470,760 470,700C468,630 474,560 472,505C464,458 444,424 414,398C360,386 300,374 252,362Z"><title>правий шлуночок</title></path>
+<path data-part="pa" fill="#1d3a8a" d="M266,364C260,318 274,272 304,242C330,218 366,208 402,212C442,216 480,236 512,266C556,306 606,352 656,392L636,436C596,408 556,386 520,372C486,360 452,350 428,350C422,372 418,390 416,400C368,390 312,378 266,364Z"><title>легеневий стовбур</title></path>
+<path data-part="la" fill="#d9bd8c" d="M428,352C452,342 488,350 512,378Q526,386 528,400Q542,406 540,420Q552,430 546,446Q554,458 544,468C528,482 502,496 478,502C462,478 450,448 440,420C432,398 424,372 428,352Z"><title>вушко лівого передсердя</title></path>
+<g fill="#000" stroke="none"><ellipse cx="141" cy="143" rx="30" ry="6.5" transform="rotate(-8 141 143)"/><ellipse cx="641" cy="411" rx="20" ry="5.5" transform="rotate(114 641 411)"/></g>
+</g>
+<g id="rca" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#f4efe4" stroke-dasharray="9 7" stroke-linecap="butt"><path d="M172,756C186,770 196,786 204,806" stroke-width="5"/></g>
+<g stroke="#000"><path d="M150,580C175,600 200,625 222,660" stroke-width="12"/><path d="M182,486C200,500 214,515 222,535C228,548 232,556 240,566" stroke-width="13"/><path d="M214,392C236,396 262,404 284,420" stroke-width="12"/><path d="M112,708C160,748 220,782 290,804C340,820 380,828 410,832" stroke-width="14"/><path d="M222,372C206,408 192,448 180,488C166,538 136,590 112,628C94,658 92,690 112,710C130,728 152,744 172,756" stroke-width="17"/></g>
+<g stroke="#f4efe4"><path d="M150,580C175,600 200,625 222,660" stroke-width="6"/><path d="M182,486C200,500 214,515 222,535C228,548 232,556 240,566" stroke-width="7"/><path d="M214,392C236,396 262,404 284,420" stroke-width="6"/><path d="M112,708C160,748 220,782 290,804C340,820 380,828 410,832" stroke-width="8"/><path d="M222,372C206,408 192,448 180,488C166,538 136,590 112,628C94,658 92,690 112,710C130,728 152,744 172,756" stroke-width="11"/></g>
+</g>
+<g id="lca" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#f4efe4" stroke-dasharray="9 7" stroke-linecap="butt"><path d="M335,352C352,360 380,376 402,392" stroke-width="7"/></g>
+</g>
+<g id="lad" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#f4efe4" stroke-dasharray="9 7" stroke-linecap="butt"><path d="M402,392C430,410 458,436 468,470C471,484 472,494 472,505" stroke-width="6"/></g>
+<g stroke="#000"><path d="M468,612C448,622 428,640 410,668" stroke-width="11"/><path d="M469,660C494,690 516,720 530,760" stroke-width="12"/><path d="M471,560C500,575 530,600 552,640C562,660 568,680 572,700" stroke-width="13"/><path d="M472,505C470,560 466,620 468,690C470,740 482,790 500,828C506,840 512,848 520,852" stroke-width="16"/></g>
+<g stroke="#f4efe4"><path d="M468,612C448,622 428,640 410,668" stroke-width="5"/><path d="M469,660C494,690 516,720 530,760" stroke-width="6"/><path d="M471,560C500,575 530,600 552,640C562,660 568,680 572,700" stroke-width="7"/><path d="M472,505C470,560 466,620 468,690C470,740 482,790 500,828C506,840 512,848 520,852" stroke-width="10"/></g>
+</g>
+<g id="lcx" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#f4efe4" stroke-dasharray="9 7" stroke-linecap="butt"><path d="M402,392C432,420 466,448 488,474C496,484 502,494 508,502" stroke-width="6"/><path d="M620,614C626,640 628,666 624,690" stroke-width="5"/></g>
+<g stroke="#000"><path d="M572,532C586,570 596,618 598,666C599,690 596,712 590,730" stroke-width="12"/><path d="M508,502C540,510 572,532 594,562C606,578 614,596 620,614" stroke-width="15"/></g>
+<g stroke="#f4efe4"><path d="M572,532C586,570 596,618 598,666C599,690 596,712 590,730" stroke-width="6"/><path d="M508,502C540,510 572,532 594,562C606,578 614,596 620,614" stroke-width="9"/></g>
+</g>
+<circle id="a-aorta" cx="330.0" cy="110.0" r="0"/>
+<circle id="a-rv" cx="300.0" cy="600.0" r="0"/>
+<circle id="a-lv" cx="560.0" cy="700.0" r="0"/>
+<circle id="a-rca" cx="180.0" cy="488.0" r="0"/>
+<circle id="a-lca" cx="370.0" cy="372.0" r="0"/>
+<circle id="a-lad" cx="468.0" cy="690.0" r="0"/>
+<circle id="a-lcx" cx="594.0" cy="562.0" r="0"/>
+<circle id="o-rca" cx="222.0" cy="372.0" r="0"/>
+<circle id="o-left" cx="335.0" cy="352.0" r="0"/>
+</svg>

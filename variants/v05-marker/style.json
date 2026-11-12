@@ -24,10 +24,9 @@
    "onArt": true
   },
   "lv": {
-   "x": 1326,
-   "y": 722,
-   "align": "center",
-   "onArt": true
+   "x": 1532,
+   "y": 770,
+   "align": "left"
   },
   "rca": {
    "x": 862,
@@ -40,12 +39,12 @@
    "align": "right"
   },
   "lad": {
-   "x": 1546,
+   "x": 1532,
    "y": 700,
    "align": "left"
   },
   "lcx": {
-   "x": 1546,
+   "x": 1532,
    "y": 470,
    "align": "left"
   }

@@ -1,0 +1,9 @@
+#stage{font-family:'Mulish',sans-serif}
+#kicker{left:120px;top:84px;font:600 26px/1.2 'Mulish';color:#e9e2d6}
+#title{left:120px;top:330px;font:700 104px/1.04 'Unbounded';letter-spacing:-2px;color:#f6efe4}
+#thesis{left:120px;top:250px;font:600 46px/1.2 'Unbounded';white-space:normal;width:700px;color:#f6efe4}
+#credit{left:120px;top:1012px;font:400 18px 'Mulish';color:#bdb4a8}
+.lab{font:800 34px/1.12 'Mulish';color:#f6efe4}
+.lab small{font:400 26px/1.25 'Mulish';color:#ddd3c4;margin-top:6px}
+.onart{font:800 30px/1.08 'Mulish';color:#fff6ea}
+.l-lad,.l-lcx{white-space:normal;width:280px}
