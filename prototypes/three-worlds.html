@@ -1,0 +1,331 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Три світи лекції</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Onest:wght@400;500&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: one cinema frame in the dark; everything else is a quiet caption strip under it. */
+:root{
+  color-scheme:dark;
+  --void:#000;
+  --ink:#f4eeee;
+  --dim:#8c8284;
+  --line:#2a2225;
+  --pulse:#ff4757;   /* тема «кардіологія» */
+  --cool:#9be7ff;    /* контрапункт: іони, імпульс */
+  --display:"Unbounded","Trebuchet MS",sans-serif;
+  --body:"Onest","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+html,body{height:100%}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(22px,4vw,34px);line-height:1.15;margin:6px 0 0;text-wrap:balance}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{font:500 14px var(--body);color:var(--dim);background:none;border:1px solid var(--line);
+  border-radius:999px;padding:9px 16px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--void);background:var(--ink);border-color:var(--ink)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--cool);outline-offset:3px}
+.stage{position:relative;aspect-ratio:16/9;max-width:100%;background:var(--void);border:1px solid var(--line);
+  overflow:hidden;container-type:inline-size}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#labels{position:absolute;inset:0;pointer-events:none}
+.lab{position:absolute;transform:translate(1.2cqw,-50%);font:500 1.7cqw var(--body);color:var(--ink);white-space:nowrap;
+  text-shadow:0 0 1cqw var(--void)}
+.lab::before{content:"";position:absolute;left:-1cqw;top:50%;width:.7cqw;height:1px;background:var(--ink)}
+#thesis3d{position:absolute;left:0;right:0;bottom:8%;text-align:center;font:600 2.5cqw var(--display);color:var(--ink);padding:0 4cqw}
+.transport{display:flex;align-items:center;gap:14px}
+#play{font:500 14px var(--body);color:var(--ink);background:none;border:1px solid var(--line);border-radius:999px;
+  padding:8px 16px;min-width:92px;cursor:pointer}
+#seek{flex:1;min-width:0;accent-color:var(--pulse)}
+#time{font:12px var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+.note{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px 36px;border-top:1px solid var(--line);padding-top:20px}
+.note h2{font:600 18px var(--display);margin:0 0 6px}
+.note p{margin:0;color:var(--ink);max-width:62ch}
+.note dl{margin:0;display:grid;gap:10px}
+.note dt{font:12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.note dd{margin:2px 0 0}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Прототип стилю · тема: серце</p>
+    <h1>Три світи для однієї лекції</h1>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Світ">
+    <button role="tab" id="tab-a" aria-selected="true" data-film="a">Жива схема</button>
+    <button role="tab" id="tab-b" aria-selected="false" data-film="b">Занурення вглиб</button>
+    <button role="tab" id="tab-c" aria-selected="false" data-film="c">3D-простір</button>
+  </div>
+
+  <div class="stage" id="stage">
+    <canvas id="c2d" width="1920" height="1080"></canvas>
+    <canvas id="c3d" hidden></canvas>
+    <div id="labels" hidden>
+      <div class="lab" id="l-sa">Синусовий вузол</div>
+      <div class="lab" id="l-av">АВ-вузол</div>
+      <div class="lab" id="l-his">Ніжки пучка Гіса</div>
+      <div id="thesis3d">Імпульс іде згори вниз: від передсердь до верхівки</div>
+    </div>
+  </div>
+
+  <div class="transport">
+    <button id="play" type="button">Пауза</button>
+    <input id="seek" type="range" min="0" max="24" step="0.01" value="0" aria-label="Перемотка">
+    <span id="time">0:00 / 0:24</span>
+  </div>
+
+  <section class="note" aria-live="polite">
+    <div>
+      <h2 id="n-title"></h2>
+      <p id="n-text"></p>
+    </div>
+    <dl>
+      <div><dt>Найкраще для</dt><dd id="n-best"></dd></div>
+      <div><dt>Слабке місце</dt><dd id="n-weak"></dd></div>
+    </dl>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+const css=getComputedStyle(document.documentElement);
+const C={pulse:css.getPropertyValue('--pulse').trim(),cool:css.getPropertyValue('--cool').trim(),
+         ink:css.getPropertyValue('--ink').trim(),dim:css.getPropertyValue('--dim').trim()};
+const W=1920,H=1080,DUR=24;
+const cv=document.getElementById('c2d'),g=cv.getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const seg=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const lerp=(a,b,e)=>a+(b-a)*e;
+const frac=x=>x-Math.floor(x);
+const beat=(t,p)=>{const f=frac(t/p);return Math.exp(-f*f*60)+.5*Math.exp(-Math.pow(f-.18,2)*200)};
+function rng(seed){let s=seed;return()=>{s=(s*1664525+1013904223)%4294967296;return s/4294967296}}
+function text(s,x,y,size,color,a,font,align){
+  if(a<=0)return;g.save();g.globalAlpha=a;g.fillStyle=color;g.textAlign=align||'left';g.textBaseline='middle';
+  g.font=(font==='d'?'600 ':font==='m'?'400 ':'500 ')+size+'px '+(font==='d'?'Unbounded,sans-serif':font==='m'?'"JetBrains Mono",monospace':'Onest,sans-serif');
+  g.fillText(s,x,y);g.restore();
+}
+function glowLine(pts,color,w,a,blur){
+  if(a<=0||pts.length<2)return;g.save();g.globalAlpha=a;g.strokeStyle=color;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';
+  g.shadowColor=color;g.shadowBlur=blur;g.beginPath();g.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.stroke();g.restore();
+}
+function dot(x,y,r,color,a,blur){
+  if(a<=0)return;g.save();g.globalAlpha=a;g.fillStyle=color;g.shadowColor=color;g.shadowBlur=blur||0;
+  g.beginPath();g.arc(x,y,r,0,7);g.fill();g.restore();
+}
+const part=(p,q,e)=>[p,[lerp(p[0],q[0],e),lerp(p[1],q[1],e)]];
+
+/* ───────── A · Жива схема ───────── */
+const SA=[760,300],AV=[900,520],HIS=[960,640],BL=[1120,820],BR=[800,820];
+const TW=[[BL,[1230,770]],[BL,[1200,910]],[BL,[1070,930]],[BR,[690,770]],[BR,[720,910]],[BR,[850,930]]];
+function ecg(p){const G=(c,w,a)=>a*Math.exp(-Math.pow((p-c)/w,2));
+  return G(.12,.04,.12)+G(.40,.008,-.08)+G(.43,.011,1)+G(.46,.009,-.2)+G(.72,.06,.25)}
+function filmA(t){
+  g.clearRect(0,0,W,H);
+  text('Усе починається з однієї точки',960,760,46,C.ink,seg(t,.5,1.5)*(1-seg(t,2.6,3.2)),'d','center');
+  const k=ease(seg(t,8.5,10.5)),s=lerp(1,.62,k),cx=lerp(960,450,k),cy=lerp(600,580,k);
+  g.save();g.translate(cx,cy);g.scale(s,s);g.translate(-960,-600);
+  const base=.6;
+  glowLine(part(SA,AV,ease(seg(t,3,4.5))),C.pulse,5,t>3?base:0,18);
+  glowLine(part(AV,HIS,ease(seg(t,4.8,5.6))),C.pulse,5,t>4.8?base:0,18);
+  glowLine(part(HIS,BL,ease(seg(t,5.6,7))),C.pulse,4,t>5.6?base:0,18);
+  glowLine(part(HIS,BR,ease(seg(t,5.6,7))),C.pulse,4,t>5.6?base:0,18);
+  TW.forEach(w=>glowLine(part(w[0],w[1],ease(seg(t,7,8.2))),C.pulse,2.5,t>7?base:0,14));
+  dot(SA[0],SA[1],13+9*beat(t,1.2),C.pulse,1,40);
+  dot(AV[0],AV[1],10,C.pulse,seg(t,4.3,4.7),26);
+  text('Синусовий вузол',SA[0]+34,SA[1],34,C.ink,seg(t,2.6,3.4));
+  text('АВ-вузол',AV[0]+30,AV[1],34,C.ink,seg(t,4.5,5.1));
+  text('Пучок Гіса',HIS[0]+34,HIS[1]-26,34,C.ink,seg(t,5.6,6.2));
+  text('Волокна Пуркіньє',960,1000,34,C.ink,seg(t,7.6,8.4),'','center');
+  /* імпульс, синхронний з ЕКГ */
+  const t0=10.5,T=2.4,el=t-t0;
+  if(el>0&&el<3*T){const p=frac(el/T);const d=(a,b,e)=>dot(lerp(a[0],b[0],e),lerp(a[1],b[1],e),11,C.cool,1,34);
+    if(p<.25)d(SA,AV,p/.25);else if(p<.38)dot(AV[0],AV[1],11,C.cool,1,34);
+    else if(p<.41)d(AV,HIS,(p-.38)/.03);
+    else if(p<.46){d(HIS,BL,(p-.41)/.05);d(HIS,BR,(p-.41)/.05)}
+    else if(p<.5)TW.forEach(w=>d(w[0],w[1],(p-.46)/.04));}
+  g.restore();
+  /* ЕКГ */
+  if(el>0){const X0=880,V=130,Y=600,A=230,end=Math.min(el,3*T);
+    g.save();g.globalAlpha=.25;g.strokeStyle=C.dim;g.lineWidth=1;g.beginPath();g.moveTo(X0,Y);g.lineTo(X0+3*T*V,Y);g.stroke();g.restore();
+    const pts=[];for(let q=0;q<=end;q+=.008)pts.push([X0+q*V,Y-ecg(frac(q/T))*A]);
+    glowLine(pts,C.ink,3.5,1,10);
+    if(el<3*T){const L=pts[pts.length-1];dot(L[0],L[1],8,C.cool,1,30)}
+    text('P',X0+.12*T*V,Y-.12*A-46,34,C.cool,seg(el,.35,.7),'m','center');
+    text('QRS',X0+.43*T*V,Y-A-36,34,C.cool,seg(el,1.05,1.4),'m','center');
+    text('T',X0+.72*T*V,Y-.25*A-46,34,C.cool,seg(el,1.8,2.15),'m','center');
+  }
+  text('Кожен зубець ЕКГ показує, де зараз імпульс',960,1000,44,C.ink,seg(t,18.2,19.4),'d','center');
+}
+
+/* ───────── B · Занурення вглиб ───────── */
+const N=2600,SH=[new Float32Array(N*2),new Float32Array(N*2),new Float32Array(N*2)];
+(function(){const r=rng(7);
+  const hc=a=>[22*16*Math.pow(Math.sin(a),3),-22*(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))-40];
+  const poly=[];for(let i=0;i<240;i++)poly.push(hc(i/240*Math.PI*2));
+  const inside=(x,y)=>{let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];
+    if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])c=!c}return c};
+  for(let i=0;i<N;i++){ /* серце */
+    let x,y;
+    if(i<N*.4){const q=hc(r()*Math.PI*2);x=q[0]+(r()-.5)*14;y=q[1]+(r()-.5)*14}
+    else{do{x=(r()*2-1)*360;y=(r()*2-1)*380-20}while(!inside(x,y))}
+    SH[0][i*2]=x;SH[0][i*2+1]=y;
+  }
+  const cw=460,ch=130;
+  for(let i=0;i<N;i++){ /* кардіоміоцит */
+    const u=i/N;let x,y;
+    if(u<.45){const p=r()*(4*cw+4*ch);const j=()=>(r()-.5)*8;
+      if(p<2*cw){x=p-cw;y=-ch+j()}else if(p<4*cw){x=p-3*cw;y=ch+j()}
+      else if(p<4*cw+2*ch){x=-cw+j();y=p-4*cw-ch}else{x=cw+j();y=p-4*cw-3*ch}}
+    else if(u<.6){const a=r()*7,k=Math.sqrt(r());x=k*95*Math.cos(a);y=k*58*Math.sin(a)}
+    else{x=(Math.floor(r()*17)-8)*52+(r()-.5)*6;y=(r()-.5)*2*(ch-14);
+      if(Math.abs(x)<110&&Math.abs(y)<70)y=Math.sign(y||1)*(70+r()*40)}
+    SH[1][i*2]=x;SH[1][i*2+1]=y;
+  }
+  for(let i=0;i<N;i++){ /* мембрана з каналом */
+    const u=i/N;let x,y;const out=()=>{const v=(r()*2-1)*960;return Math.abs(v)<78?v+Math.sign(v||1)*90:v};
+    if(u<.3){x=out();y=-62+(r()-.5)*10}
+    else if(u<.6){x=out();y=62+(r()-.5)*10}
+    else if(u<.72){x=(r()<.5?-1:1)*(70+(r()-.5)*10);y=(r()*2-1)*96}
+    else{x=out();y=(r()*2-1)*44}
+    SH[2][i*2]=x;SH[2][i*2+1]=y;
+  }
+})();
+const IONS=(function(){const r=rng(21),a=[];for(let i=0;i<150;i++)a.push({x:(r()*2-1)*820,y:-150-r()*300,ph:r(),go:r()<.34,x1:(r()*2-1)*500});return a})();
+function filmB(t){
+  g.clearRect(0,0,W,H);
+  let A=0,e=0;
+  if(t<6){A=0;e=0}else if(t<9){A=0;e=seg(t,6,9)}else if(t<14){A=1;e=0}else if(t<17){A=1;e=seg(t,14,17)}else{A=2;e=0}
+  const B=Math.min(2,A+1),ee=ease(e),zo=1+5*e*e,zi=.15+.85*ee;
+  const bt=A===0?1+.045*beat(t,1.1)*(1-e):1;
+  g.save();g.translate(960,540);g.globalCompositeOperation='lighter';
+  g.fillStyle=C.pulse;g.globalAlpha=.34*(1-.45*Math.sin(Math.PI*e));
+  const a=SH[A],b=SH[B];
+  for(let i=0;i<N;i++){
+    const x=lerp(a[i*2]*zo*bt,b[i*2]*zi,ee),y=lerp(a[i*2+1]*zo*bt,b[i*2+1]*zi,ee);
+    g.fillRect(x-4,y-4,8,8);
+  }
+  g.fillStyle='#ffd0d4';g.globalAlpha=.85;
+  for(let i=0;i<N;i++){
+    const x=lerp(a[i*2]*zo*bt,b[i*2]*zi,ee),y=lerp(a[i*2+1]*zo*bt,b[i*2+1]*zi,ee);
+    g.fillRect(x-1.2,y-1.2,2.4,2.4);
+  }
+  /* іони Na+ */
+  const ia=seg(t,17.5,19);
+  if(ia>0){g.fillStyle=C.cool;
+    IONS.forEach(o=>{let x=o.x+Math.sin(t*1.3+o.ph*40)*14,y=o.y+Math.cos(t*1.1+o.ph*30)*14,al=1;
+      if(o.go){const u=frac(t/4+o.ph);
+        if(u<.4){const q=ease(u/.4);x=lerp(o.x,(o.ph-.5)*40,q);y=lerp(o.y,-115,q)}
+        else if(u<.6){const q=(u-.4)/.2;x=(o.ph-.5)*40;y=lerp(-115,115,q)}
+        else{const q=(u-.6)/.4;x=lerp((o.ph-.5)*40,o.x1,q);y=lerp(115,430,q);al=1-q}}
+      g.globalAlpha=ia*al*.95;g.beginPath();g.arc(x,y,6,0,7);g.fill();});}
+  g.restore();
+  /* шкала масштабу */
+  g.save();g.globalAlpha=seg(t,15.5,17);g.fillStyle='#000';g.fillRect(0,270,400,540);g.restore();
+  const lv=[['ОРГАН','≈ 12 см'],['КЛІТИНА','≈ 100 мкм'],['МЕМБРАНА','≈ 7 нм']];
+  const cur=A+(e>.5?1:0);
+  g.save();g.strokeStyle=C.dim;g.globalAlpha=.5;g.lineWidth=2;g.beginPath();g.moveTo(110,330);g.lineTo(110,750);g.stroke();g.restore();
+  lv.forEach((l,i)=>{const y=330+i*210,on=i===Math.min(2,cur);
+    dot(110,y,on?10:5,on?C.ink:C.dim,1,on?18:0);
+    text(l[0],140,y-16,24,on?C.ink:C.dim,1,'m');text(l[1],140,y+18,24,on?C.ink:C.dim,on?1:.6,'m');});
+  const mk=A+e;dot(110,330+mk*210,5,C.cool,1,20);
+  text('Серце',960,960,48,C.ink,seg(t,.6,1.6)*(1-seg(t,5.4,6.2)),'d','center');
+  text('Кардіоміоцит',960,960,48,C.ink,seg(t,9.2,10.2)*(1-seg(t,13.4,14.2)),'d','center');
+  text('зовні клітини',1560,330,28,C.dim,seg(t,17.3,18.2),'m');
+  text('усередині',1560,750,28,C.dim,seg(t,17.3,18.2),'m');
+  text('Na⁺',1060,300,36,C.cool,ia,'m');
+  text('натрієвий канал',1040,540,28,C.ink,seg(t,18.2,19),'');
+  text('Збудження клітини починається з відкриття натрієвих каналів',960,980,38,C.ink,seg(t,20,21.2),'d','center');
+}
+
+/* ───────── C · 3D-простір ───────── */
+const c3=document.getElementById('c3d'),labels=document.getElementById('labels'),stage=document.getElementById('stage');
+let T3=null;
+function init3(){
+  if(!window.THREE)return null;
+  const R=new THREE.WebGLRenderer({canvas:c3,antialias:true,alpha:false});R.setClearColor(0x000000,1);
+  const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(42,16/9,.01,60);
+  const tc=document.createElement('canvas');tc.width=tc.height=64;const x=tc.getContext('2d');
+  const gr=x.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.55)');gr.addColorStop(1,'rgba(255,255,255,0)');
+  x.fillStyle=gr;x.fillRect(0,0,64,64);const tex=new THREE.CanvasTexture(tc);
+  const r=rng(3),P=[];let guard=0;
+  while(P.length<8500*3&&guard++<900000){const a=(r()*2-1)*1.4,b=(r()*2-1)*.8,c=(r()*2-1)*1.4;
+    const f=Math.pow(a*a+2.25*b*b+c*c-1,3)-a*a*c*c*c-.1125*b*b*c*c*c;
+    if(f<0&&f>-.09)P.push(a,c,b);}
+  const hg=new THREE.BufferGeometry();hg.setAttribute('position',new THREE.Float32BufferAttribute(P,3));
+  const hm=new THREE.PointsMaterial({color:new THREE.Color(C.pulse),size:.045,map:tex,transparent:true,opacity:.8,blending:THREE.AdditiveBlending,depthWrite:false});
+  const heart=new THREE.Group();heart.add(new THREE.Points(hg,hm));sc.add(heart);
+  const D=[];for(let i=0;i<1400;i++){const u=r()*7,v=Math.acos(r()*2-1),d=5+r()*12;D.push(d*Math.sin(v)*Math.cos(u),d*Math.cos(v),d*Math.sin(v)*Math.sin(u))}
+  const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.Float32BufferAttribute(D,3));
+  sc.add(new THREE.Points(dg,new THREE.PointsMaterial({color:new THREE.Color(C.dim),size:.05,map:tex,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false})));
+  const V=(a,b,c)=>new THREE.Vector3(a,b,c);
+  const nSA=V(-.52,.72,.05),nAV=V(-.08,.3,0),nH=V(0,.02,0),nL=V(.36,-.42,.05),nR=V(-.36,-.42,.05),nA=V(0,-.82,0);
+  const paths=[[nSA,V(-.4,.45,.12),nAV],[nAV,nH],[nH,V(.3,-.1,.08),nL,nA],[nH,V(-.3,-.1,.08),nR,nA]].map(p=>new THREE.CatmullRomCurve3(p));
+  const lm=new THREE.LineBasicMaterial({color:new THREE.Color(C.cool),transparent:true,opacity:.95});
+  const lines=paths.map(p=>{const ge=new THREE.BufferGeometry().setFromPoints(p.getPoints(80));const l=new THREE.Line(ge,lm);heart.add(l);return l});
+  const sm=new THREE.SpriteMaterial({map:tex,color:new THREE.Color(C.ink),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true});
+  const mk=s=>{const o=new THREE.Sprite(sm);o.scale.set(s,s,s);heart.add(o);return o};
+  const sp=[mk(.26),mk(.26)],nodeS=mk(.2),nodeA=mk(.16);nodeS.position.copy(nSA);nodeA.position.copy(nAV);
+  return {R,sc,cam,heart,hm,lines,paths,sp,nodes:[nSA,nAV,nL],w:0,h:0};
+}
+function filmC(t){
+  if(!T3){g.clearRect(0,0,W,H);text('3D-сцена не завантажилась у цьому перегляді',960,540,36,C.dim,1,'','center');return}
+  const o=T3,w=stage.clientWidth,h=stage.clientHeight;
+  if(w!==o.w||h!==o.h){o.w=w;o.h=h;o.R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));o.R.setSize(w,h,false)}
+  const dive=ease(seg(t,15,21));
+  const dist=lerp(lerp(7,3.3,ease(seg(t,0,5))),.8,dive),az=.5+t*.22,el=lerp(.25,.05,dive);
+  o.cam.position.set(Math.sin(az)*Math.cos(el)*dist,Math.sin(el)*dist+.05,Math.cos(az)*Math.cos(el)*dist);
+  o.cam.lookAt(0,lerp(.05,-.2,dive),0);
+  const s=1+.035*beat(t,1.1);o.heart.scale.set(s,s,s);
+  o.hm.opacity=lerp(.8,.5,dive);o.hm.size=lerp(.045,.03,dive);
+  const dr=[seg(t,6,7.6),seg(t,7.6,8.2),seg(t,8.2,10),seg(t,8.2,10)];
+  o.lines.forEach((l,i)=>l.geometry.setDrawRange(0,Math.floor(81*dr[i])));
+  const p=frac((t-10)/2.2),on=t>10;
+  o.sp.forEach(q=>q.visible=on);
+  if(on){if(p<.4){o.sp[0].position.copy(o.paths[0].getPoint(p/.4));o.sp[1].visible=false}
+    else if(p<.5){o.sp[0].position.copy(o.paths[1].getPoint((p-.4)/.1));o.sp[1].visible=false}
+    else{const q=Math.min(1,(p-.5)/.35);o.sp[0].position.copy(o.paths[2].getPoint(q));o.sp[1].position.copy(o.paths[3].getPoint(q))}}
+  o.R.render(o.sc,o.cam);
+  const show=[seg(t,7,7.6),seg(t,8,8.6),seg(t,9.6,10.2)],hide=1-seg(t,14.5,15.5);
+  ['l-sa','l-av','l-his'].forEach((id,i)=>{const v=o.nodes[i].clone().multiplyScalar(s).project(o.cam),e=document.getElementById(id);
+    e.style.left=((v.x+1)/2*100)+'%';e.style.top=((1-v.y)/2*100)+'%';e.style.opacity=show[i]*hide});
+  document.getElementById('thesis3d').style.opacity=seg(t,21,22.2);
+}
+
+/* ───────── Плеєр ───────── */
+const NOTES={
+ a:['Жива схема','Уся лекція — одна діаграма, яка росте на очах. Нічого не зникає: нове доростає до старого, тож у фіналі глядач бачить усю тему цілою й пам’ятає, звідки взялася кожна гілка.','Алгоритми, класифікації, патогенез, ЕКГ, фармакологія — усе, де важливі зв’язки й точність.','Найменш видовищна з трьох; тримається на ритмі й чистоті ліній.'],
+ b:['Занурення вглиб','Одна безперервна подорож крізь масштаби. Ті самі частинки перетікають з органа в клітину, з клітини в мембрану — жодної склейки. Шкала ліворуч завжди показує, де ми.','Фундаментальні теми: фізіологія, гістологія, біохімія, механізм дії ліків.','Клінічним темам без «глибини» (тактика, протоколи) метафора пасує гірше.'],
+ c:['3D-простір','Об’єкт висить у порожнечі, камера облітає його й залітає всередину. Підписи прив’язані до точок у просторі.','Анатомія, топографія, хірургічні доступи, просторові структури й молекули.','Найдорожчий у виробництві; для справжньої анатомії потрібні готові 3D-моделі, а не умовні форми, як тут.']
+};
+const FILMS={a:filmA,b:filmB,c:filmC},REST={a:16,b:3,c:11};
+const play=document.getElementById('play'),seek=document.getElementById('seek'),timeEl=document.getElementById('time');
+const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+let film='a',t=0,playing=!reduce,last=0;
+function setFilm(f){
+  film=f;t=playing?0:REST[f];
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.film===f)));
+  if(f==='c'&&!T3){try{T3=init3()}catch(e){T3=null}}
+  const is3=f==='c'&&!!T3;cv.hidden=is3;c3.hidden=!is3;labels.hidden=!is3;
+  const n=NOTES[f];document.getElementById('n-title').textContent=n[0];document.getElementById('n-text').textContent=n[1];
+  document.getElementById('n-best').textContent=n[2];document.getElementById('n-weak').textContent=n[3];
+}
+function frame(now){
+  const dt=Math.min(.1,(now-last)/1000||0);last=now;
+  if(playing){t+=dt;if(t>=DUR)t=0;seek.value=t}
+  FILMS[film](t);
+  const sec=Math.floor(t);timeEl.textContent='0:'+String(sec).padStart(2,'0')+' / 0:24';
+  requestAnimationFrame(frame);
+}
+function setPlaying(v){playing=v;play.textContent=v?'Пауза':'Грати'}
+play.addEventListener('click',()=>setPlaying(!playing));
+seek.addEventListener('input',()=>{t=parseFloat(seek.value)});
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>setFilm(b.dataset.film)));
+setPlaying(playing);setFilm('a');seek.value=t;requestAnimationFrame(frame);
+})();
+</script>
