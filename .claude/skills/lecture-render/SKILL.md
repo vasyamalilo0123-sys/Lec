@@ -1,9 +1,9 @@
 ---
 name: lecture-render
-description: Відрендерити варіант або сцену у відеофайл MP4. Використовувати, коли кадр пройшов перевірку.
-argument-hint: <тека>
+description: Зібрати лекцію у відеофайл MP4 з голосом і субтитрами. Використовувати, коли сцени пройшли перевірку.
+argument-hint: <тека лекції>
 context: fork
 agent: render-runner
 ---
 
-З кореня репозиторію: спершу `node kit/render.js $0 qa`. Якщо є зауваження — зупинись і поверни їх. Якщо PASS — `node kit/render.js $0 video` і поверни шлях до MP4.
+З кореня репозиторію по черзі: `node kit/lecture.js $0 plan`, `node kit/lecture.js $0 qa`, `node kit/lecture.js $0 tts`, `node kit/lecture.js $0 render`. Після першої ж помилки зупинись і поверни її. Якщо все пройшло — поверни шлях до MP4, тривалість і попередження з `plan`.

@@ -1,0 +1,7 @@
+[
+  {"id": "f1", "claim": "Біфуркація трахеї розташована на рівні Th4–Th5 (кут груднини)", "verdict": "підтверджено", "wording": "на рівні Th4–Th5", "source": "Lecturio. Trachea, pulmonary structures and esophagus", "url": "https://lecturio.com/medical-courses/trachea-pulmonary-structures-and-esophagus.lecture", "scenes": ["01-tree"]},
+  {"id": "f2", "claim": "Правий головний бронх коротший, ширший і вертикальніший за лівий", "verdict": "підтверджено", "wording": "коротший (≈2,5 см проти ≈5 см), ширший, крутіший", "source": "Radiopaedia. Main bronchus", "url": "https://radiopaedia.org/articles/main-bronchus", "scenes": ["01-tree"]},
+  {"id": "f3", "claim": "Кути відходження головних бронхів від осі трахеї в дорослих", "verdict": "уточнити", "wording": "правий ≈25°, лівий ≈45° (орієнтовні значення; джерела — навчальні сайти)", "source": "Respiratory Therapy Zone. Carina", "url": "https://www.respiratorytherapyzone.com/carina/", "scenes": ["01-tree"]},
+  {"id": "f4", "claim": "У дорослих аспіровані сторонні тіла частіше потрапляють у правий головний бронх", "verdict": "підтверджено", "wording": "у дорослих частіше праворуч; відсотків у кадрі не показувати", "source": "StatPearls. Airway foreign bodies", "url": "https://statpearls.com/sp/al/10/21909/", "scenes": ["01-tree"]},
+  {"id": "f5", "claim": "Права легеня має три частки, ліва — дві", "verdict": "підтверджено", "wording": "права: 3 частки, ліва: 2", "source": "Стандартна анатомія", "url": "", "scenes": ["01-tree"]}
+]
