@@ -1,0 +1,66 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Manrope;font-weight:400;src:url(fonts/manrope-400.ttf)}@font-face{font-family:Manrope;font-weight:500;src:url(fonts/manrope-500-normal.ttf)}@font-face{font-family:Manrope;font-weight:700;src:url(fonts/manrope-700-normal.ttf)}
+@font-face{font-family:Inter;font-weight:300;src:url(fonts/inter-300.ttf)}@font-face{font-family:Inter;font-weight:400;src:url(fonts/inter-400.ttf)}@font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-600.ttf)}
+@font-face{font-family:Geologica;font-weight:400;src:url(fonts/geologica-400.ttf)}@font-face{font-family:Geologica;font-weight:600;src:url(fonts/geologica-600.ttf)}
+@font-face{font-family:Unbounded;font-weight:400;src:url(fonts/unbounded-400.ttf)}@font-face{font-family:Unbounded;font-weight:600;src:url(fonts/unbounded-600.ttf)}
+@font-face{font-family:Onest;font-weight:400;src:url(fonts/onest-400.ttf)}@font-face{font-family:Onest;font-weight:500;src:url(fonts/onest-500.ttf)}
+@font-face{font-family:Mono;font-weight:400;src:url(fonts/jetbrains-mono-400.ttf)}@font-face{font-family:Golos;font-weight:500;src:url(fonts/golos-text-500.ttf)}
+html,body{margin:0;background:#000}canvas{display:block}</style>
+<canvas id="out" width="1920" height="1080"></canvas>
+<script type="module">
+const W=1920,H=1080,out=document.getElementById('out'),g=out.getContext('2d');
+const D=await (await fetch('ink3.json')).json();
+const regI=new Image();regI.src='regions2x.png';await regI.decode();
+const rc=document.createElement('canvas');rc.width=regI.width;rc.height=regI.height;const rx=rc.getContext('2d',{willReadFrequently:true});rx.drawImage(regI,0,0);
+const REG=rx.getImageData(0,0,rc.width,rc.height).data;
+const KI=['','myo','atr','aorta','pa','pv','vein'];
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+function fillLayer(pal,alpha){const c=document.createElement('canvas');c.width=rc.width;c.height=rc.height;const x=c.getContext('2d'),im=x.createImageData(c.width,c.height),d=im.data;
+  const P=KI.map(k=>k?hex(pal[k]):[0,0,0]);
+  for(let i=0;i<REG.length;i+=4){const k=Math.round(REG[i]/30);if(k){const p=P[k];d[i]=p[0];d[i+1]=p[1];d[i+2]=p[2];d[i+3]=255*alpha}}x.putImageData(im,0,0);return c}
+const S=D.strokes.map(s=>{const n=s.p.length/2,x=new Float32Array(n),y=new Float32Array(n);for(let j=0;j<n;j++){x[j]=s.p[2*j];y[j]=s.p[2*j+1]}return {...s,x,y}});
+function strokes(layer,style){g.lineCap='round';g.lineJoin='round';for(const s of S){if(s.l!==layer)continue;const st=style(s);if(!st)continue;
+  g.globalAlpha=st.a??1;g.strokeStyle=st.c;g.lineWidth=st.w??s.w;g.beginPath();g.moveTo(s.x[0],s.y[0]);for(let j=1;j<s.x.length;j++)g.lineTo(s.x[j],s.y[j]);g.stroke()}g.globalAlpha=1}
+const vk=s=>s.g==='cvein'?'cvein':'art';
+const N={1717:['Аорта','aorta'],1663:['Легеневий стовбур','truncus pulmonalis'],2282:['Верхня порожниста вена','vena cava superior'],1638:['Праве передсердя','atrium dextrum'],
+ 1639:['Правий шлуночок','ventriculus dexter'],1636:['Лівий шлуночок','ventriculus sinister'],1635:['Ліве передсердя','atrium sinistrum']};
+const cx=(D.bbox[0]+D.bbox[2])/2,LL=[],RL=[];for(const k in D.anchors){const a=D.anchors[k];(a[0]<cx?LL:RL).push({k,a,uk:N[k][0],la:N[k][1]})}
+[LL,RL].forEach(c=>c.sort((p,q)=>p.a[1]-q.a[1]));const LAB=[];
+LL.forEach((l,i)=>LAB.push({...l,side:-1,x:560,y:300+i*112}));RL.forEach((l,i)=>LAB.push({...l,side:1,x:1400,y:486+i*112}));
+function txt(s,x,y,font,color,align,ls){g.save();g.fillStyle=color;g.font=font;g.textAlign=align||'left';g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls;g.fillText(s,x,y);g.restore()}
+function labels(o){for(const l of LAB){const al=l.side<0?'right':'left';
+  txt(o.upper?l.uk.toUpperCase():l.uk,l.x,l.y,o.f1,o.c1,al,o.ls1);txt(l.la,l.x,l.y+(o.gap||30),o.f2,o.c2,al,o.ls2);
+  const x0=l.x+l.side*-22,y0=l.y-9,kx=x0+l.side*-46;g.save();g.strokeStyle=o.lc;g.lineWidth=o.lw||1;g.globalAlpha=o.la??.8;g.beginPath();g.moveTo(x0,y0);
+  if(o.straight){g.lineTo(l.a[0],y0);g.lineTo(l.a[0],l.a[1])}else{g.lineTo(kx,y0);g.lineTo(l.a[0],l.a[1])}g.stroke();g.globalAlpha=1;
+  if(o.dot==='ring'){g.fillStyle='#000';g.beginPath();g.arc(l.a[0],l.a[1],5,0,7);g.fill();g.stroke()}
+  else if(o.dot==='square'){g.fillStyle=o.lc;g.fillRect(l.a[0]-5,l.a[1]-5,10,10)}
+  else{g.fillStyle=o.lc;g.beginPath();g.arc(l.a[0],l.a[1],4,0,7);g.fill()}g.restore()}}
+function tag(n,name,font){txt('ВАРІАНТ '+n,112,H-92,'600 15px Inter','#77726a','left','3px');txt(name,112,H-58,font,'#cfc9be')}
+const V={
+1(){const pal={myo:'#b8402f',atr:'#8c3530',aorta:'#da6a4e',pa:'#4a6fb5',pv:'#c77a62',vein:'#34508f'};
+  g.drawImage(fillLayer(pal,1),0,0,W,H);
+  strokes('vessel',s=>({c:vk(s)==='art'?'#ff9478':'#9bb8ff'}));strokes('outline',s=>({c:'#f2ece0',w:s.w>1.5?2:1.3,a:1}));
+  txt('АНАТОМІЯ СЕРЦЯ',112,128,'700 16px Manrope','#da6a4e','left','4px');txt('Серце',108,206,'700 84px Manrope','#f2ece0');txt('вигляд спереду',112,252,'400 30px Manrope','#8d877c');
+  labels({f1:'500 29px Manrope',c1:'#f2ece0',f2:'400 20px Manrope',c2:'#8d877c',lc:'#f2ece0',la:.55,dot:'dot'});tag(1,'Плоский колір','500 26px Manrope')},
+2(){const col={myo:'#f2ece0',atr:'#f2ece0',aorta:'#ff6f5a',pa:'#6f9bff',pv:'#ff6f5a',vein:'#6f9bff'};
+  strokes('hatch',s=>({c:col[s.g],a:.16,w:.8}));strokes('rcontour',s=>({c:col[s.g],w:1.7}));strokes('vessel',s=>({c:vk(s)==='art'?'#ff6f5a':'#6f9bff',w:Math.min(s.w,3.2)}));
+  txt('Серце',108,200,'300 92px Inter','#f2ece0','left','-2px');txt('ВИГЛЯД СПЕРЕДУ',114,246,'400 16px Inter','#8d877c','left','5px');
+  labels({f1:'400 28px Inter',c1:'#f2ece0',f2:'300 20px Inter',c2:'#8d877c',lc:'#8d877c',la:1,dot:'ring',lw:1});tag(2,'Чиста лінія','400 26px Inter')},
+3(){const col={myo:'#e2553e',atr:'#c9695a',aorta:'#f08a6c',pa:'#6f97e6',pv:'#e3957c',vein:'#5a80d8'};
+  strokes('hatch',s=>({c:col[s.g],a:.85,w:1.25}));strokes('vessel',s=>({c:vk(s)==='art'?'#ffd9cf':'#cfdcff'}));strokes('outline',s=>({c:'#f2ece0',w:s.w>1.5?1.8:1.1}));
+  txt('Серце',108,204,'600 84px Geologica','#f2ece0');txt('вигляд спереду',112,250,'400 28px Geologica','#8d877c');
+  labels({f1:'400 28px Geologica',c1:'#f2ece0',f2:'400 19px Geologica',c2:'#e2553e',lc:'#f2ece0',la:.5,dot:'dot',straight:false});tag(3,'Штрих за формою','400 26px Geologica')},
+4(){const pal={myo:'#c63a2b',atr:'#8f271e',aorta:'#ea5d4c',pa:'#5e1b15',pv:'#a83125',vein:'#43120e'};
+  g.drawImage(fillLayer(pal,1),0,0,W,H);strokes('outline',s=>({c:'#000',w:s.w>1.5?0:4,a:1}));strokes('vessel',s=>({c:'#f6efe4',w:Math.min(s.w,4)}));
+  txt('Серце',106,204,'600 78px Unbounded','#f6efe4');txt('вигляд спереду',112,250,'400 26px Onest','#ea5d4c');
+  labels({f1:'500 28px Onest',c1:'#f6efe4',f2:'400 19px Onest',c2:'#8d877c',lc:'#ea5d4c',la:1,dot:'square',lw:1.5});tag(4,'Один колір, тони','500 26px Onest')},
+5(){const col={myo:'#ff6a55',atr:'#ff9a7a',aorta:'#ffb199',pa:'#6fa0ff',pv:'#ffb199',vein:'#4f7fe6'};
+  g.save();g.fillStyle='#ffffff';g.globalAlpha=.07;for(let x=40;x<W;x+=40)for(let y=40;y<H;y+=40)g.fillRect(x,y,1.5,1.5);g.restore();
+  g.drawImage(fillLayer(col,.17),0,0,W,H);strokes('rcontour',s=>({c:col[s.g],w:2}));strokes('vessel',s=>({c:vk(s)==='art'?'#ff6a55':'#6fa0ff',w:Math.min(s.w,3.6)}));
+  txt('01 / COR',112,128,'400 16px Mono','#6fa0ff','left','3px');txt('Серце',108,204,'600 80px Golos, Inter','#eef1f5');txt('вигляд спереду',112,250,'400 22px Mono','#7d8794');
+  labels({f1:'500 27px Golos, Inter',c1:'#eef1f5',f2:'400 17px Mono',c2:'#7d8794',lc:'#7d8794',la:1,dot:'ring',straight:true,gap:28});tag(5,'Технічне креслення','500 26px Golos, Inter')}};
+window.render=async v=>{for(const f of ['400 20px Manrope','700 20px Manrope','500 20px Manrope','300 20px Inter','400 20px Inter','600 20px Inter','400 20px Geologica','600 20px Geologica','600 20px Unbounded','400 20px Onest','500 20px Onest','400 20px Mono','500 20px Golos'])await document.fonts.load(f,'Серце cor');
+  g.globalAlpha=1;g.fillStyle='#000';g.fillRect(0,0,W,H);V[v]();return out.toDataURL('image/png').slice(22)};
+window.READY=true;
+</script>
