@@ -1,0 +1,21 @@
+{
+  "name": "Плакат",
+  "fontCss": [
+    "node_modules/@fontsource/sofia-sans-extra-condensed/800.css",
+    "node_modules/@fontsource/sofia-sans-extra-condensed/900.css",
+    "node_modules/@fontsource/sofia-sans/400.css",
+    "node_modules/@fontsource/sofia-sans/700.css"
+  ],
+  "art": {"x": 660, "y": -30, "w": 985, "h": 1239},
+  "labels": {
+    "aorta": {"x": 1300, "y": 96, "align": "left"},
+    "rv": {"x": 1082, "y": 760, "align": "center", "onArt": true},
+    "lv": {"x": 1415, "y": 850, "align": "center", "onArt": true},
+    "rca": {"x": 700, "y": 606, "align": "right"},
+    "lca": {"x": 1620, "y": 380, "align": "left"},
+    "lad": {"x": 1620, "y": 800, "align": "left"},
+    "lcx": {"x": 1620, "y": 580, "align": "left"}
+  },
+  "leader": {"type": "straight", "width": 3.5, "color": "#f4efe4", "marker": "dot", "markerSize": 7, "gap": 16, "opacity": 1},
+  "motion": {"text": "wipe", "dimTissue": 0.38, "dimOther": 0.28}
+}

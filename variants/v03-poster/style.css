@@ -1,0 +1,9 @@
+#stage{font-family:'Sofia Sans',sans-serif;color:#f4efe4}
+#kicker{left:80px;top:64px;font:700 30px/1 'Sofia Sans';color:#f4efe4}
+#title{left:72px;top:300px;font:900 262px/.84 'Sofia Sans Extra Condensed';letter-spacing:-2px;color:#f4efe4}
+#thesis{left:80px;top:150px;font:800 84px/.92 'Sofia Sans Extra Condensed';white-space:normal;width:520px;color:#f4efe4}
+#credit{left:80px;top:1024px;font:400 18px/1 'Sofia Sans';color:rgba(244,239,228,.62)}
+.lab{font:700 34px/1.05 'Sofia Sans';color:#f4efe4}
+.lab small{font:400 26px/1.2 'Sofia Sans';color:#f4efe4;margin-top:8px}
+.onart{font:700 32px/1.02 'Sofia Sans';color:#f4efe4}
+.l-lad,.l-lcx,.l-lca{white-space:normal;width:250px}
