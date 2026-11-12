@@ -1,0 +1,6 @@
+{"name":"coronary","files":["cardiovascular/arterial_system","cardiovascular/systemic_arteries","cardiovascular/right_subclavian_artery--pulmonary_veins","cardiovascular/systemic_veins.2","cardiovascular/superior_vena_cava"],
+ "parts":{"1629":"lca","1630":"lad","1631":"lad","1632":"lcx","1633":"rca","1634":"rca","1635":"la","1636":"lv","1638":"ra","1639":"rv","1652":"pa","1663":"pa","1664":"pa","1665":"pa","1717":"aorta","1752":"aorta",
+  "2079":"pv","2083":"pv","2089":"pv","2093":"pv","2176":"ivc","2282":"svc"},
+ "merge":{"1664":1663,"1652":1663,"1665":1663,"1752":1717},"thin":["lca","lad","lcx","rca"],"core":[1635,1636,1638,1639],"cut":[0.012,0.075],"az":0.18,"fit":0.90,
+ "labels":{"1717":["Аорта","aorta"],"1639":["Правий шлуночок","ventriculus dexter"],"1636":["Лівий шлуночок","ventriculus sinister"]},
+ "title":["Серце","вигляд спереду"]}

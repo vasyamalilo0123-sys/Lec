@@ -1,0 +1,101 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Inter;font-weight:400;src:url(fonts/inter-400.ttf)}@font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-600.ttf)}
+html,body{margin:0;background:#0a0a0b}canvas{display:block}</style>
+<canvas id="out" width="1920" height="1080"></canvas>
+<script type="module">
+/* Фрагмент лекції, побудований за правилами мультимедійного навчання:
+   нічого зайвого · підпис біля об'єкта і в його кольорі · елемент з'являється, коли про нього говорять ·
+   одне в фокусі, решта приглушена · раніше показане лишається на екрані. */
+const W=1920,H=1080,out=document.getElementById('out'),g=out.getContext('2d');
+const D=await (await fetch('out/coronary/ink.json')).json();
+const img=async u=>{const i=new Image();i.src=u;await i.decode();return i};
+const REGM={};for(const r of D.regions)REGM[r.gid]=await img('out/coronary/reg_'+r.gid+'.png');
+await document.fonts.load('400 40px Inter','Серце');await document.fonts.load('600 40px Inter','Серце');
+
+const BG='#0a0a0b',INK='#ececec',MUTE='#a0a0a8',LINE='#74747e';
+const TISSUE={rv:'#33292b',lv:'#3c2e30',ra:'#2a2325',la:'#2a2325',aorta:'#47323a',pa:'#2a2f3e',svc:'#232938',ivc:'#232938',pv:'#232938'};
+const C={rca:'#cc79a7',left:'#e69f00',lad:'#e69f00',lcx:'#f0e442'};   /* Окабе–Іто: розрізняються й при порушеннях кольоросприйняття */
+const DUR=72;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,e)=>a+(b-a)*e;
+const eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const on=(t,a,d=.5)=>eo((t-a)/d);                       /* поява */
+const win=(t,a,b,d=.5)=>eo((t-a)/d)*(1-eo((t-b)/d));     /* поява і зникнення */
+function key(t,ks){if(t<=ks[0][0])return ks[0][1];for(let i=1;i<ks.length;i++)if(t<=ks[i][0]){const e=eio((t-ks[i-1][0])/(ks[i][0]-ks[i-1][0]));return lerp(ks[i-1][1],ks[i][1],e)}return ks[ks.length-1][1]}
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),mixc=(a,b,e)=>{const A=hex(a),B=hex(b);return `rgb(${A.map((v,i)=>Math.round(lerp(v,B[i],e)))})`};
+
+/* ---- дані судин: відстань кожної точки від місця відходження, щоб артерія «росла» від аорти ---- */
+const S=D.strokes.filter(s=>s.l==='vessel'||s.l==='vhidden'||s.l==='outline').map(s=>{const n=s.p.length/2,x=new Float32Array(n),y=new Float32Array(n);for(let j=0;j<n;j++){x[j]=s.p[2*j];y[j]=s.p[2*j+1]}return {...s,x,y,n}});
+const grp=k=>S.filter(s=>(s.l==='vessel'||s.l==='vhidden')&&s.g===k);
+function nearest(ks,p){let b=null,bd=1e9;for(const k of ks)for(const s of grp(k))for(let j=0;j<s.n;j++){const d=Math.hypot(s.x[j]-p[0],s.y[j]-p[1]);if(d<bd){bd=d;b=[s.x[j],s.y[j]]}}return b}
+function setOrigin(ks,p){const o=nearest(ks,p);let m=0;for(const k of ks)for(const s of grp(k)){s.d=new Float32Array(s.n);for(let j=0;j<s.n;j++){s.d[j]=Math.hypot(s.x[j]-o[0],s.y[j]-o[1]);m=Math.max(m,s.d[j])}}for(const k of ks)for(const s of grp(k))s.dm=m}
+setOrigin(['rca'],[880,500]);setOrigin(['lca','lad','lcx'],[958,491]);
+
+/* ---- камера: один простір, плавні переїзди ---- */
+let cam={s:.86,cx:987,cy:594,sx:960,sy:566};
+const X=p=>[(p[0]-cam.cx)*cam.s+cam.sx,(p[1]-cam.cy)*cam.s+cam.sy];
+function camAt(t){const z=key(t,[[24.5,0],[26,1],[47,1],[48.5,0]]);cam={s:lerp(.86,1.16,z),cx:lerp(987,1120,z),cy:lerp(594,700,z),sx:lerp(960,820,z),sy:lerp(566,566,z)}}
+
+function heart(a){if(a<=0)return;g.save();g.globalAlpha=a;g.setTransform(cam.s,0,0,cam.s,cam.sx-cam.cx*cam.s,cam.sy-cam.cy*cam.s);
+  for(const r of D.regions){const t=document.createElement('canvas');t.width=W;t.height=H;const x=t.getContext('2d');x.drawImage(REGM[r.gid],0,0,W,H);x.globalCompositeOperation='source-in';x.fillStyle=TISSUE[r.kind]||'#2a2a2e';x.fillRect(0,0,W,H);g.drawImage(t,0,0)}
+  g.lineCap='round';g.lineJoin='round';g.strokeStyle=LINE;
+  for(const s of S){if(s.l!=='outline')continue;g.lineWidth=(s.w>1.5?2.4:1.6)/cam.s;g.beginPath();g.moveTo(s.x[0],s.y[0]);for(let j=1;j<s.n;j++)g.lineTo(s.x[j],s.y[j]);g.stroke()}
+  g.restore()}
+function artery(k,color,alpha,grow){if(alpha<=0||grow<=0)return;g.save();g.setTransform(cam.s,0,0,cam.s,cam.sx-cam.cx*cam.s,cam.sy-cam.cy*cam.s);g.lineCap='round';g.lineJoin='round';g.strokeStyle=color;
+  for(const s of grp(k)){const hid=s.l==='vhidden',R=grow*s.dm*1.02;g.globalAlpha=alpha*(hid?.75:1);g.lineWidth=Math.max(3.2/cam.s,s.w*(hid?.8:1));g.setLineDash(hid?[9,9]:[]);
+    g.beginPath();let pen=false;for(let j=0;j<s.n;j++){if(s.d[j]<=R){pen?g.lineTo(s.x[j],s.y[j]):g.moveTo(s.x[j],s.y[j]);pen=true}else pen=false}g.stroke()}
+  g.restore()}
+function text(s,x,y,size,weight,color,a,align,rise=0,ls){if(a<=0)return 0;g.save();g.globalAlpha=clamp(a);g.fillStyle=color;g.font=`${weight} ${size}px Inter`;g.textAlign=align||'left';g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls;
+  g.fillText(s,x,y+(1-clamp(a))*rise);const w=g.measureText(s).width;g.restore();return w}
+/* підпис стоїть поруч зі структурою, має її колір і коротку виноску до неї */
+function label(o,a,subA=0){if(a<=0)return;const P=X(o.at),A=X(o.to),al=o.align||'left';g.save();g.font='600 40px Inter';const w=g.measureText(o.title).width;g.restore();
+  const ex=al==='left'?P[0]-14:P[0]+14,ey=P[1]-13;
+  g.save();g.globalAlpha=.75*clamp(a);g.strokeStyle=o.color;g.fillStyle=o.color;g.lineWidth=2;g.beginPath();g.moveTo(ex,ey);g.lineTo(lerp(ex,A[0],eo(a)),lerp(ey,A[1],eo(a)));g.stroke();
+  if(a>=.98){g.beginPath();g.arc(A[0],A[1],5.5,0,7);g.fill()}g.restore();
+  text(o.title,P[0],P[1],40,600,o.color,a,al,10);if(o.sub)[].concat(o.sub).forEach((l,i)=>text(l,P[0],P[1]+44+i*38,30,400,'#c4c4ca',subA*Math.min(1,a*1.2),al,8))}
+
+const L={
+ aorta:{title:'Аорта',color:INK,at:[1130,262],to:[1010,262]},
+ rv:{title:'Правий шлуночок',color:INK,at:[640,700],to:[800,700],align:'right'},
+ lv:{title:'Лівий шлуночок',color:INK,at:[1345,790],to:[1200,790]},
+ rca:{title:'Права вінцева артерія',color:C.rca,at:[628,610],to:nearest(['rca'],[745,640]),align:'right',sub:['правий шлуночок','у більшості — нижня стінка ЛШ']},
+ left:{title:'Ліва вінцева артерія',color:C.left,at:[1250,430],to:nearest(['lca'],[990,515])},
+ lad:{title:'Передня міжшлуночкова гілка',color:C.lad,at:[1330,770],to:nearest(['lad'],[1112,760]),sub:['передня стінка ЛШ · верхівка','передні ⅔ перегородки']},
+ lcx:{title:'Огинальна гілка',color:C.lcx,at:[1330,590],to:nearest(['lcx'],[1215,640]),sub:'бічна і задня стінка ЛШ'}};
+
+function topbar(t){const a=on(t,6,.8);text('КРОВОПОСТАЧАННЯ СЕРЦЯ',112,84,19,600,MUTE,a*.9,'left',0,'2.5px');
+  g.save();g.globalAlpha=a;for(let i=0;i<3;i++){g.fillStyle='#34343a';g.fillRect(W-112-3*132+i*132,74,120,4)}g.fillStyle=INK;g.fillRect(W-112-3*132,74,120*clamp(t/DUR),4);g.restore();
+  text('1 · Вінцеві артерії',W-112-3*132-24,84,22,400,INK,a,'right')}
+function thesis(s,a){if(a<=0)return;g.save();g.globalAlpha=clamp(a);g.fillStyle=INK;g.fillRect(112,960+(1-clamp(a))*10,5,48);g.restore();text(s,138,998,46,600,INK,a,'left',10)}
+
+window.renderAt=function(t){
+  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.fillStyle=BG;g.fillRect(0,0,W,H);camAt(t);
+  /* гачок */
+  const hk=win(t,.6,5.2,.6);text('Серце перекачує близько 5 літрів крові щохвилини.',W/2,500,44,400,MUTE,win(t,.6,5.2,.6),'center',12);text('А хто годує саме серце?',W/2,600,84,600,INK,win(t,2.4,5.2,.6),'center',14);
+  heart(on(t,6.2,.8));
+  /* спершу — частини, потім процес */
+  const pre=1-eo((t-17.2)/.6);label(L.aorta,on(t,8.6)*pre);label(L.rv,on(t,12.3)*pre);label(L.lv,on(t,13.6)*pre);
+  /* артерії: з'являються тоді, коли про них ідеться; у фокусі одна */
+  const quiz=win(t,62,67.5,.6),ans=on(t,67.5,.6);
+  const aR=key(t,[[25,1],[26,.28],[47,.28],[48,1],[67.5,1],[68.1,.25]]);
+  const aLAD=key(t,[[39,1],[39.8,.3],[55,.3],[55.8,1]]);
+  const aLCX=key(t,[[26.2,1],[27,.3],[39,.3],[39.8,1],[47,1],[47.8,.3],[55,.3],[55.8,1],[67.5,1],[68.1,.25]]);
+  const aLCA=key(t,[[47,1],[47.8,.3],[55,.3],[55.8,1],[67.5,1],[68.1,.25]]);
+  artery('rca',C.rca,aR,eo((t-19.6)/1.1));
+  const gl=eo((t-21.4)/1.3);artery('lca',C.left,aLCA,gl);artery('lcx',mixc(C.left,C.lcx,eio((t-39)/.8)),aLCX,gl);artery('lad',C.lad,aLAD,gl);
+  label(L.rca,on(t,20.2)*aR*key(t,[[24.6,1],[25.2,0],[47.6,0],[48.4,1]]),on(t,50.5));
+  label(L.left,on(t,22)*(1-eo((t-26.3)/.5)));
+  label(L.lad,on(t,27)*aLAD,on(t,33.5));
+  label(L.lcx,on(t,39.8)*aLCX*(t<39?0:1),on(t,43));
+  const dl=win(t,22.8,28,.5);if(dl>0){const p=X([1250,486]);g.save();g.globalAlpha=dl;g.strokeStyle=MUTE;g.lineWidth=3;g.setLineDash([9,9]);g.beginPath();g.moveTo(p[0],p[1]-9);g.lineTo(p[0]+54,p[1]-9);g.stroke();g.restore();text('судина проходить позаду',p[0]+70,p[1],28,400,MUTE,dl)}
+  thesis('Дві вінцеві артерії починаються від кореня аорти',win(t,23.2,29.5));
+  thesis('Три артерії — три зони міокарда',win(t,55.8,61.5));
+  /* пауза на пригадування */
+  if(quiz>0){g.save();g.globalAlpha=.86*quiz;g.fillStyle=BG;g.fillRect(0,100,W,H);g.restore();
+    text('ЗУПИНІТЬСЯ І ЗГАДАЙТЕ',W/2,470,20,600,MUTE,quiz,'center',0,'3px');text('Яка артерія живить передню стінку',W/2,560,58,600,INK,quiz,'center',12);text('лівого шлуночка?',W/2,636,58,600,INK,quiz,'center',12);
+    g.save();g.globalAlpha=quiz;g.fillStyle='#34343a';g.fillRect(W/2-150,700,300,4);g.fillStyle=INK;g.fillRect(W/2-150,700,300*clamp((t-62.4)/5),4);g.restore()}
+  topbar(t);
+  const f=1-clamp((DUR-t)/.6);if(f>0){g.save();g.globalAlpha=f;g.fillStyle=BG;g.fillRect(0,0,W,H);g.restore()}
+};
+window.frame=(t,q)=>{window.renderAt(t);return out.toDataURL('image/jpeg',q||.95).slice(23)};window.DUR=DUR;window.READY=true;
+</script>

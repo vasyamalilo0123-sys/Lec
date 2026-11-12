@@ -1,0 +1,36 @@
+<!doctype html><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
+const q=new URLSearchParams(location.search),SS=parseInt(q.get('ss')||'2'),W=1920*SS,H=1080*SS;
+const SC=await (await fetch(q.get('scene'))).json();
+const R=new THREE.WebGLRenderer({antialias:false,preserveDrawingBuffer:true});R.setPixelRatio(1);R.setSize(W,H);R.setClearColor(0,1);
+const sc=new THREE.Scene(),FOV=22,cam=new THREE.PerspectiveCamera(FOV,W/H,.01,20);
+const GIDS=Object.keys(SC.parts).map(Number);
+const U={mode:{value:0},cutLo:{value:-9},cutHi:{value:9},near0:{value:0},range:{value:.4}};
+const vs=`varying vec3 vN;varying float vY;varying float vZ;void main(){vN=normalMatrix*normal;vec4 w=modelMatrix*vec4(position,1.);vY=w.y;vec4 mv=viewMatrix*w;vZ=-mv.z;gl_Position=projectionMatrix*mv;}`;
+const fs=`uniform int mode;uniform float cutLo,cutHi,near0,range,id;varying vec3 vN;varying float vY;varying float vZ;
+void main(){if(vY<cutLo||vY>cutHi)discard;vec3 n=normalize(vN);if(!gl_FrontFacing)n=-n;
+ if(mode==0)gl_FragColor=vec4(id/255.,0.,0.,1.);else if(mode==1)gl_FragColor=vec4(n*.5+.5,1.);
+ else{float d=clamp((vZ-near0)/range,0.,1.)*255.;gl_FragColor=vec4(floor(d)/255.,fract(d),0.,1.);}}`;
+const L=new GLTFLoader();L.setMeshoptDecoder(MeshoptDecoder);const grp=new THREE.Group();sc.add(grp);const byGid={};
+for(const f of SC.files){const gl=await L.loadAsync('data/standard/'+f+'.glb');gl.scene.updateMatrixWorld(true);
+  gl.scene.traverse(o=>{if(!o.isMesh)return;const geo=o.geometry,id=geo.getAttribute('_id'),idx=geo.index.array,src=geo.getAttribute('position'),by={};
+    for(let i=0;i<idx.length;i+=3){const k=id.getX(idx[i]);if(GIDS.includes(k))(by[k]||(by[k]=[])).push(idx[i],idx[i+1],idx[i+2])}
+    for(const k in by){const map=new Map(),pos=[],ni=[];
+      for(const i of by[k]){let j=map.get(i);if(j===undefined){j=pos.length/3;map.set(i,j);pos.push(src.getX(i),src.getY(i),src.getZ(i))}ni.push(j)}
+      const ng=new THREE.BufferGeometry();ng.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));ng.setIndex(ni);ng.applyMatrix4(o.matrixWorld);ng.computeVertexNormals();
+      const m=new THREE.Mesh(ng,new THREE.ShaderMaterial({uniforms:{...U,id:{value:GIDS.indexOf(+k)+1}},vertexShader:vs,fragmentShader:fs,side:THREE.DoubleSide}));grp.add(m);byGid[k]=m}});}
+const box=new THREE.Box3();SC.core.forEach(k=>box.expandByObject(byGid[k]));
+const C=box.getCenter(new THREE.Vector3()),sz=box.getSize(new THREE.Vector3());
+if(SC.cut){U.cutLo.value=box.min.y-SC.cut[0];U.cutHi.value=box.max.y+SC.cut[1]}
+const hh=(sz.y+(SC.cut?SC.cut[0]+SC.cut[1]:0))/2,d=hh/Math.tan(FOV*Math.PI/360)/(SC.fit||.72),az=SC.az||0;
+if(SC.cut)C.y+=(SC.cut[1]-SC.cut[0])/2;
+cam.position.set(C.x+Math.sin(az)*d,C.y+.02,C.z+Math.cos(az)*d);cam.lookAt(C);U.near0.value=d-.2;
+const MG=SC.merge||{};window.SOLO=[...new Set(GIDS.filter(k=>!(SC.thin||[]).includes(SC.parts[k])).map(k=>MG[k]||k))];
+window.grabSolo=t=>{for(const k in byGid)byGid[k].visible=((MG[k]||+k)==t);const r=window.grab(0);for(const k in byGid)byGid[k].visible=true;return r};
+window.SOLOK=SC.thin||[];window.grabSoloK=kd=>{for(const k in byGid)byGid[k].visible=(SC.parts[k]===kd);const r=window.grab(0);for(const k in byGid)byGid[k].visible=true;return r};
+window.grab=m=>{U.mode.value=m;R.render(sc,cam);return R.domElement.toDataURL('image/png').slice(22)};window.MISSING=GIDS.filter(k=>!byGid[k]);window.READY=true;
+</script>
