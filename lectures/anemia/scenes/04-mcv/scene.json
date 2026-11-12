@@ -237,7 +237,7 @@
   "sources": [
     {
       "ref": "s6",
-      "in": "n2",
+      "in": "n4",
       "out": "n4.end"
     },
     {

@@ -240,7 +240,7 @@
     {
       "ref": "s25",
       "in": "@sph",
-      "out": "n4.end"
+      "out": "@sch"
     },
     {
       "ref": "s26",
