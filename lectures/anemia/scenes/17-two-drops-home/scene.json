@@ -26,5 +26,6 @@
       {"at": "n6.end", "color": "drop_m, drop_w", "move": "краплі travel угору по p-path1/p-path2 до кореня, зливаються; arms draw — кадр першої сцени", "text": "відповідь гасне"}
     ],
     "texts": "Бирки: «Hb 96», «MCV 71», «Феритин 6», «MCV 112», «B12 ↓». Підписи: «Чоловік: MCV 71, феритин 6», «Жінка: MCV 112, B12 низький». Теза: «Hb → MCV → ретикулоцити → тести → діагноз». note: «Згадайте, не підглядаючи»; quiz: «Перший тест при мікроцитозі?»; відповідь: «Феритин». Джерела: s1, s2, s3, s6."
-  }
+  },
+  "parts": ["root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "rt", "rt_cell", "ic_torso", "ic_foot", "path1", "path2", "step_hb", "step_mcv", "step_ret", "step_test", "step_dx", "scope", "pill", "syr", "lock", "shackle", "fol", "flask", "drop_m", "drop_w", "tag_m", "tag_w", "num_m96", "num_m71", "num_m6", "num_w96", "num_w112", "num_wb12", "arm_m", "vein_m", "arm_w", "vein_w", "tube_m", "tube_w"]
 }
