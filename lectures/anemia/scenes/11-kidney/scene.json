@@ -186,22 +186,7 @@
     {
       "at": "n4",
       "dur": 1.8,
-      "view": {
-        "x": 650,
-        "y": 900,
-        "w": 1920,
-        "h": 1080
-      }
-    },
-    {
-      "at": "@risk-0.2",
-      "dur": 1.8,
-      "view": {
-        "x": 820,
-        "y": 930,
-        "w": 1600,
-        "h": 900
-      }
+      "view": "v-scale"
     },
     {
       "at": "n4.end-0.3",
@@ -398,8 +383,10 @@
     },
     {
       "at": "n4",
-      "dur": 0.6,
+      "dur": 1.0,
       "set": {
+        "kidney": "hidden",
+        "marrow": "hidden",
         "marrow_pale": "hidden",
         "iron": "hidden",
         "b12": "hidden",
@@ -407,8 +394,7 @@
         "chk_fe": "hidden",
         "chk_b12": "hidden",
         "chk_fol": "hidden",
-        "epo_thin": "hidden",
-        "epo": "color"
+        "epo_thin": "hidden"
       }
     },
     {
@@ -429,7 +415,6 @@
       "at": "@h100",
       "dur": 0.5,
       "set": {
-        "epo": "grey",
         "h100": "color"
       }
     },
@@ -903,7 +888,7 @@
       "id": "lh100",
       "text": "Діаліз: близько 90–100 г/л",
       "anchor": "a-h100",
-      "x": 980,
+      "x": 1060,
       "y": 560,
       "align": "left",
       "in": "@h100+0.6",
@@ -914,7 +899,7 @@
       "id": "lind",
       "text": "Без діалізу — індивідуально",
       "anchor": "a-indiv",
-      "x": 1210,
+      "x": 1290,
       "y": 400,
       "align": "left",
       "in": "@nodial+0.6",
@@ -925,7 +910,7 @@
       "id": "lh115",
       "text": "Не прагнути ≥ 115 г/л",
       "anchor": "a-h115",
-      "x": 1020,
+      "x": 1080,
       "y": 290,
       "align": "left",
       "in": "@h115+0.5",
