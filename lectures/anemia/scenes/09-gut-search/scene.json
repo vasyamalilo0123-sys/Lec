@@ -41,20 +41,20 @@
   "narration": [
     {
       "id": "n1",
-      "text": "Повернімося до чоловіка. Діагноз «залізодефіци́тна анемі́я» — ще не кінець: треба з'ясувати, [[where]]куди поділося залі́зо."
+      "text": "Повернімося до чоловіка. [[dx]]Діагноз «залізодефіци́тна анемі́я» — ще не кінець: треба з'ясувати, [[where]]куди поділося залі́зо."
     },
     {
       "id": "n2",
-      "text": "У чоловіків і в жінок після менопа́узи найчастіша причина — прихована кровотеча з травного тракту, зокрема з пухли́ни. Тому британська й американська настанови радять обидва дослі́дження: [[up]]гастроскопі́ю і [[low]]колоноскопі́ю.",
+      "text": "У чоловіків і в жінок після менопа́узи найчастіша причина — [[hid]]прихована кровотеча з травного тракту, [[tum]]зокрема з пухли́ни. [[gl]]Тому британська й американська настанови радять обидва дослі́дження: [[up]]гастроскопі́ю і [[low]]колоноскопі́ю.",
       "gap": 0.5
     },
     {
       "id": "n3",
-      "text": "Перевіряють і [[cel]]целіакію — серологі́чним тестом або біопсі́єю дванадцятипа́лої ки́шки: вона порушує всмо́ктування залі́за. І ще простий крок — [[uri]]ана́ліз се́чі на кров."
+      "text": "Перевіряють і [[cel]]целіакію — серологі́чним тестом або [[bx]]біопсі́єю дванадцятипа́лої ки́шки: [[abs]]вона порушує всмо́ктування залі́за. І ще простий крок — [[uri]]ана́ліз се́чі на кров."
     },
     {
       "id": "n4",
-      "text": "У жінок до менопа́узи найчастіша причина — [[mens]]менструа́льні втрати; травний тракт тоді обстежують за показаннями: за британською настановою — це скарги з боку кишківни́ка, рак ки́шки в родині або вік понад п'ятдесят.",
+      "text": "У жінок до менопа́узи найчастіша причина — [[mens]]менструа́льні втрати; [[ind]]травний тракт тоді обстежують за показаннями: за британською настановою — це [[sk]]скарги з боку кишківни́ка, рак ки́шки в родині або [[age]]вік понад п'ятдесят.",
       "gap": 0.5
     },
     {
@@ -160,5 +160,770 @@
       }
     ],
     "texts": "Теза: «Куди поділося залізо?». Підписи: «Прихована кровотеча», «Гастроскопія», «Колоноскопія», «Целіакія: серологія або біопсія», «Аналіз сечі на кров», «Менструальні втрати», «За показаннями (BSG)». note: «Згадайте, не підглядаючи»; quiz: «Чоловік, феритин 6. Яке обстеження рекомендоване?»; відповідь: «Гастро- і колоноскопія». Джерела: s3, s4."
-  }
+  },
+  "carry": true,
+  "lead": 0.15,
+  "tail": 5.4,
+  "enter": "cut",
+  "exit": "cut",
+  "kicker": false,
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "start+0.5",
+      "dur": 2.6,
+      "view": "v-body"
+    },
+    {
+      "at": "@tum",
+      "dur": 2.0,
+      "view": {
+        "x": 580,
+        "y": 1110,
+        "w": 1600,
+        "h": 900
+      }
+    },
+    {
+      "at": "@gl+0.2",
+      "dur": 1.8,
+      "view": "v-body"
+    },
+    {
+      "at": "@cel",
+      "dur": 1.5,
+      "view": "v-duod"
+    },
+    {
+      "at": "@uri",
+      "dur": 1.5,
+      "view": "v-body"
+    },
+    {
+      "at": "@sk",
+      "dur": 2.4,
+      "view": {
+        "x": 500,
+        "y": 1170,
+        "w": 1600,
+        "h": 900
+      }
+    },
+    {
+      "at": "@qz",
+      "dur": 1.6,
+      "view": "v-body"
+    },
+    {
+      "at": "n5.end",
+      "dur": 3.6,
+      "view": {
+        "x": 380,
+        "y": 1040,
+        "w": 1840,
+        "h": 1035
+      }
+    },
+    {
+      "at": "n6.end+0.1",
+      "dur": 2.4,
+      "view": "v-map"
+    },
+    {
+      "at": "n6.end+2.6",
+      "dur": 2.2,
+      "view": "v-out"
+    }
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "map": "hidden",
+        "badge": "hidden",
+        "mark_m": "hidden",
+        "mark_n": "hidden",
+        "body": "hidden",
+        "small": "hidden",
+        "lower": "hidden",
+        "upper": "hidden",
+        "gastro_line": "hidden",
+        "colono_line": "hidden",
+        "duod": "hidden",
+        "gut_dash": "hidden",
+        "kidney": "hidden",
+        "uri_dot": "hidden",
+        "uterus": "hidden",
+        "mens_flow": "hidden",
+        "drop": "hidden",
+        "drop_trail": "hidden",
+        "lens": "hidden",
+        "bx1": "hidden",
+        "bx2": "hidden",
+        "bx3": "hidden",
+        "fe1": "hidden",
+        "fe2": "hidden",
+        "fe3": "hidden",
+        "scope_up": "hidden",
+        "scope_low": "hidden",
+        "drop_m": "color",
+        "drop_m_num": "hidden",
+        "seam08_map": "grey",
+        "seam08_thal": "color"
+      }
+    },
+    {
+      "at": "start+0.1",
+      "dur": 0.6,
+      "set": {
+        "seam08_map": "hidden",
+        "seam08_thal": "hidden"
+      }
+    },
+    {
+      "at": "start+1.0",
+      "dur": 0.4,
+      "set": {
+        "body": "grey"
+      }
+    },
+    {
+      "at": "n1+1.0",
+      "dur": 0.6,
+      "set": {
+        "mark_m": "color"
+      }
+    },
+    {
+      "at": "@where",
+      "dur": 0.3,
+      "set": {
+        "upper": "color",
+        "lower": "color",
+        "small": "color"
+      }
+    },
+    {
+      "at": "@where+0.6",
+      "dur": 0.6,
+      "set": {
+        "drop_m": "hidden"
+      }
+    },
+    {
+      "at": "n2",
+      "dur": 0.6,
+      "set": {
+        "upper": "grey",
+        "small": "grey"
+      }
+    },
+    {
+      "at": "@hid",
+      "dur": 0.5,
+      "set": {
+        "drop": "color"
+      }
+    },
+    {
+      "at": "@hid+1.2",
+      "dur": 0.3,
+      "set": {
+        "drop_trail": "color"
+      }
+    },
+    {
+      "at": "@gl",
+      "dur": 0.6,
+      "set": {
+        "drop": "grey",
+        "drop_trail": "grey",
+        "lower": "grey"
+      }
+    },
+    {
+      "at": "@up-0.2",
+      "dur": 0.4,
+      "set": {
+        "upper": "color",
+        "gastro_line": "color",
+        "scope_up": "color"
+      }
+    },
+    {
+      "at": "@low",
+      "dur": 0.4,
+      "set": {
+        "lower": "color",
+        "colono_line": "color",
+        "scope_low": "color"
+      }
+    },
+    {
+      "at": "@low+1.1",
+      "dur": 0.6,
+      "set": {
+        "upper": "grey",
+        "gastro_line": "grey",
+        "scope_up": "grey"
+      }
+    },
+    {
+      "at": "@cel",
+      "dur": 0.6,
+      "set": {
+        "lower": "grey",
+        "colono_line": "grey",
+        "scope_low": "grey",
+        "duod": "color",
+        "drop": "hidden",
+        "drop_trail": "hidden"
+      }
+    },
+    {
+      "at": "@cel+0.4",
+      "dur": 0.3,
+      "set": {
+        "lens": "color"
+      }
+    },
+    {
+      "at": "@bx",
+      "dur": 0.3,
+      "set": {
+        "bx1": "color"
+      }
+    },
+    {
+      "at": "@bx+0.7",
+      "dur": 0.3,
+      "set": {
+        "bx2": "color"
+      }
+    },
+    {
+      "at": "@bx+1.4",
+      "dur": 0.3,
+      "set": {
+        "bx3": "color"
+      }
+    },
+    {
+      "at": "@abs",
+      "dur": 0.4,
+      "set": {
+        "fe1": "color",
+        "fe2": "color",
+        "fe3": "color",
+        "bx1": "grey",
+        "bx2": "grey",
+        "bx3": "grey"
+      }
+    },
+    {
+      "at": "@uri",
+      "dur": 0.6,
+      "set": {
+        "duod": "grey",
+        "lens": "hidden",
+        "bx1": "hidden",
+        "bx2": "hidden",
+        "bx3": "hidden",
+        "fe1": "hidden",
+        "fe2": "hidden",
+        "fe3": "hidden",
+        "gastro_line": "hidden",
+        "colono_line": "hidden",
+        "scope_up": "hidden",
+        "scope_low": "hidden",
+        "kidney": "color"
+      }
+    },
+    {
+      "at": "@uri+0.8",
+      "dur": 0.4,
+      "set": {
+        "uri_dot": "color"
+      }
+    },
+    {
+      "at": "n4",
+      "dur": 0.8,
+      "set": {
+        "mark_m": "hidden",
+        "mark_n": "grey",
+        "kidney": "grey",
+        "uri_dot": "hidden"
+      }
+    },
+    {
+      "at": "@mens",
+      "dur": 0.3,
+      "set": {
+        "uterus": "color",
+        "mens_flow": "color"
+      }
+    },
+    {
+      "at": "@ind",
+      "dur": 0.8,
+      "set": {
+        "uterus": "grey",
+        "mens_flow": "grey",
+        "gut_dash": "color",
+        "upper": "hidden",
+        "lower": "hidden",
+        "small": "hidden",
+        "kidney": "hidden",
+        "duod": "hidden"
+      }
+    },
+    {
+      "at": "@qz",
+      "dur": 0.8,
+      "set": {
+        "uterus": "hidden",
+        "mens_flow": "hidden",
+        "gut_dash": "hidden",
+        "upper": "grey",
+        "lower": "grey",
+        "small": "grey",
+        "duod": "grey",
+        "mark_n": "hidden",
+        "mark_m": "color",
+        "drop_m": "color"
+      }
+    },
+    {
+      "at": "@qz+1.0",
+      "dur": 0.4,
+      "set": {
+        "drop_m_num": "color"
+      }
+    },
+    {
+      "at": "n6",
+      "dur": 0.5,
+      "set": {
+        "upper": "color",
+        "lower": "color",
+        "gastro_line": "color",
+        "colono_line": "color",
+        "scope_up": "color",
+        "scope_low": "color",
+        "drop_m": "grey",
+        "drop_m_num": "grey"
+      }
+    },
+    {
+      "at": "n6.end",
+      "dur": 0.6,
+      "set": {
+        "upper": "grey",
+        "lower": "grey",
+        "gastro_line": "hidden",
+        "colono_line": "hidden",
+        "scope_up": "hidden",
+        "scope_low": "hidden",
+        "drop_m": "color",
+        "drop_m_num": "color"
+      }
+    },
+    {
+      "at": "n6.end+0.6",
+      "dur": 1.2,
+      "set": {
+        "map": "color",
+        "badge": "grey"
+      }
+    },
+    {
+      "at": "n6.end+4.4",
+      "dur": 0.4,
+      "set": {
+        "badge": "hidden",
+        "mark_m": "hidden",
+        "body": "hidden",
+        "small": "hidden",
+        "lower": "hidden",
+        "upper": "hidden",
+        "duod": "hidden",
+        "drop_m": "hidden",
+        "drop_m_num": "hidden"
+      }
+    }
+  ],
+  "move": [
+    {
+      "id": "drop_m",
+      "to": "pt-dm-belly",
+      "at": "start+0.6",
+      "dur": 2.8
+    },
+    {
+      "id": "drop_m",
+      "to": "pt-dm-belly",
+      "at": "@where+0.1",
+      "dur": 1.0,
+      "scale": 0.3
+    },
+    {
+      "id": "drop_m",
+      "to": "pt-dm-belly",
+      "at": "@qz",
+      "dur": 1.2,
+      "scale": 1
+    }
+  ],
+  "travel": [
+    {
+      "id": "scope_up",
+      "path": "p_gastro",
+      "at": "@up-0.2",
+      "dur": 2.5,
+      "rotate": true
+    },
+    {
+      "id": "scope_low",
+      "path": "p_colono",
+      "at": "@low",
+      "dur": 2.6,
+      "rotate": true
+    },
+    {
+      "id": "fe1",
+      "path": "p_fe1",
+      "at": "@abs",
+      "dur": 3.6
+    },
+    {
+      "id": "fe2",
+      "path": "p_fe2",
+      "at": "@abs+0.4",
+      "dur": 3.6
+    },
+    {
+      "id": "fe3",
+      "path": "p_fe3",
+      "at": "@abs+0.8",
+      "dur": 3.6
+    }
+  ],
+  "draw": [
+    {
+      "id": "body",
+      "at": "start+1.0",
+      "dur": 1.2
+    },
+    {
+      "id": "mark_m",
+      "at": "n1+1.0",
+      "dur": 1.0
+    },
+    {
+      "id": "upper",
+      "at": "@where",
+      "dur": 2
+    },
+    {
+      "id": "lower",
+      "at": "@where+0.3",
+      "dur": 2
+    },
+    {
+      "id": "small",
+      "at": "@where+0.8",
+      "dur": 1.5
+    },
+    {
+      "id": "drop_trail",
+      "at": "@hid+1.2",
+      "dur": 1.6
+    },
+    {
+      "id": "gastro_line",
+      "at": "@up-0.2",
+      "dur": 2.5
+    },
+    {
+      "id": "colono_line",
+      "at": "@low",
+      "dur": 2.6
+    },
+    {
+      "id": "kidney",
+      "at": "@uri",
+      "dur": 1.4
+    },
+    {
+      "id": "uterus",
+      "at": "@mens",
+      "dur": 1.2
+    }
+  ],
+  "grow": [
+    {
+      "id": "lens",
+      "origin": "o-lens",
+      "at": "@cel+0.4",
+      "dur": 1.0
+    }
+  ],
+  "loop": [
+    {
+      "id": "drop_m",
+      "kind": "pulse",
+      "in": "n1+2.5",
+      "out": "@where",
+      "amp": 0.04,
+      "period": 2.4
+    },
+    {
+      "id": "drop",
+      "kind": "pulse",
+      "in": "@hid+0.4",
+      "out": "@gl",
+      "amp": 0.08,
+      "period": 1.8
+    },
+    {
+      "id": "bx1",
+      "kind": "pulse",
+      "in": "@bx",
+      "out": "@abs",
+      "amp": 0.08,
+      "period": 1.2
+    },
+    {
+      "id": "bx2",
+      "kind": "pulse",
+      "in": "@bx+0.7",
+      "out": "@abs",
+      "amp": 0.08,
+      "period": 1.2
+    },
+    {
+      "id": "bx3",
+      "kind": "pulse",
+      "in": "@bx+1.4",
+      "out": "@abs",
+      "amp": 0.08,
+      "period": 1.2
+    },
+    {
+      "id": "uri_dot",
+      "kind": "pulse",
+      "in": "@uri+0.8",
+      "out": "n4",
+      "amp": 0.08,
+      "period": 1.6
+    },
+    {
+      "id": "mens-line",
+      "kind": "flow",
+      "in": "@mens+0.6",
+      "out": "@qz",
+      "amp": 6,
+      "period": 3
+    },
+    {
+      "id": "gut_dash",
+      "kind": "flow",
+      "in": "@ind+0.8",
+      "out": "@qz",
+      "amp": 12,
+      "period": 3
+    },
+    {
+      "id": "drop_m",
+      "kind": "pulse",
+      "in": "@qz+1.2",
+      "out": "n6",
+      "amp": 0.04,
+      "period": 2.4
+    },
+    {
+      "id": "gastro_line",
+      "kind": "flow",
+      "in": "n6",
+      "out": "n6.end",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "colono_line",
+      "kind": "flow",
+      "in": "n6",
+      "out": "n6.end",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-trunk",
+      "kind": "flow",
+      "in": "n6.end+1.0",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-mic",
+      "kind": "flow",
+      "in": "n6.end+1.0",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-nor",
+      "kind": "flow",
+      "in": "n6.end+1.0",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-nlow",
+      "kind": "flow",
+      "in": "n6.end+1.0",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-nhigh",
+      "kind": "flow",
+      "in": "n6.end+1.0",
+      "amp": 14,
+      "period": 1.4
+    }
+  ],
+  "count": [],
+  "labels": [
+    {
+      "id": "lhid",
+      "text": "Прихована кровотеча",
+      "anchor": "a-drop",
+      "x": 1250,
+      "y": 500,
+      "align": "left",
+      "in": "@hid+0.8",
+      "out": "@gl",
+      "focus": "drop"
+    },
+    {
+      "id": "lgas",
+      "text": "Гастроскопія",
+      "anchor": "a-eso",
+      "x": 700,
+      "y": 262,
+      "align": "right",
+      "in": "@up+0.3",
+      "out": "@low+1.1",
+      "focus": "gastro_line"
+    },
+    {
+      "id": "lcol",
+      "text": "Колоноскопія",
+      "anchor": "a-colon-asc",
+      "x": 680,
+      "y": 580,
+      "align": "right",
+      "in": "@low+0.3",
+      "out": "@cel",
+      "focus": "colono_line"
+    },
+    {
+      "id": "lcel",
+      "text": "Целіакія: серологія або біопсія",
+      "anchor": "a-lens",
+      "x": 650,
+      "y": 60,
+      "align": "center",
+      "in": "@cel+1.4",
+      "out": "@uri",
+      "focus": "lens"
+    },
+    {
+      "id": "luri",
+      "text": "Аналіз сечі на кров",
+      "anchor": "a-bladder",
+      "x": 1250,
+      "y": 680,
+      "align": "left",
+      "in": "@uri+0.8",
+      "out": "n4",
+      "focus": "kidney"
+    },
+    {
+      "id": "lmen",
+      "text": "Менструальні втрати",
+      "anchor": "a-uterus",
+      "x": 680,
+      "y": 700,
+      "align": "right",
+      "in": "@mens+0.6",
+      "out": "@ind",
+      "focus": "uterus"
+    },
+    {
+      "id": "lind",
+      "text": "За показаннями (BSG)",
+      "anchor": "a-colon-desc",
+      "x": 1300,
+      "y": 420,
+      "align": "left",
+      "in": "@ind+0.8",
+      "out": "n4.end",
+      "focus": "gut_dash"
+    }
+  ],
+  "texts": [
+    {
+      "id": "t1",
+      "kind": "thesis",
+      "html": "Куди поділося залізо?",
+      "in": "@where+0.3",
+      "out": "@hid",
+      "y": 930
+    },
+    {
+      "id": "tn",
+      "kind": "note",
+      "html": "Згадайте, не підглядаючи",
+      "in": "n5",
+      "out": "n5.end+1.5",
+      "y": 862
+    },
+    {
+      "id": "tq",
+      "kind": "quiz",
+      "html": "Чоловік, феритин 6. Яке обстеження рекомендоване?",
+      "in": "@qz+0.3",
+      "out": "n6",
+      "y": 920
+    },
+    {
+      "id": "ta",
+      "kind": "quiz",
+      "class": "k-answer",
+      "html": "Гастро- і колоноскопія",
+      "in": "n6",
+      "out": "n6.end",
+      "y": 910
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s3",
+      "in": "@hid+0.8",
+      "out": "n4.end"
+    },
+    {
+      "ref": "s4",
+      "in": "@hid+0.8",
+      "out": "n3.end"
+    }
+  ]
 }

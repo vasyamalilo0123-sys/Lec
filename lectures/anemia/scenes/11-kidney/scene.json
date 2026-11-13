@@ -475,7 +475,7 @@
       }
     },
     {
-      "at": "n2+5.20+1.3",
+      "at": "n2+6.50",
       "dur": 0.2,
       "set": {
         "epo_mol1": "hidden"
@@ -489,7 +489,7 @@
       }
     },
     {
-      "at": "n2+5.75+1.3",
+      "at": "n2+7.05",
       "dur": 0.2,
       "set": {
         "epo_mol2": "hidden"
@@ -503,35 +503,35 @@
       }
     },
     {
-      "at": "n2+6.30+1.3",
+      "at": "n2+7.60",
       "dur": 0.2,
       "set": {
         "epo_mol3": "hidden"
       }
     },
     {
-      "at": "@thin+0.6",
+      "at": "@thin+0.60",
       "dur": 0.15,
       "set": {
         "epo_mol1": "color"
       }
     },
     {
-      "at": "@thin+0.6+2.2",
+      "at": "@thin+2.80",
       "dur": 0.2,
       "set": {
         "epo_mol1": "hidden"
       }
     },
     {
-      "at": "@thin+0.6+3.0",
+      "at": "@thin+3.60",
       "dur": 0.15,
       "set": {
         "epo_mol1": "color"
       }
     },
     {
-      "at": "@thin+0.6+5.2",
+      "at": "@thin+5.80",
       "dur": 0.2,
       "set": {
         "epo_mol1": "hidden"
@@ -725,13 +725,13 @@
     {
       "id": "epo_mol1",
       "path": "p-epo",
-      "at": "@thin+0.6",
+      "at": "@thin+0.60",
       "dur": 2.4
     },
     {
       "id": "epo_mol1",
       "path": "p-epo",
-      "at": "@thin+0.6+3.0",
+      "at": "@thin+3.60",
       "dur": 2.4
     },
     {

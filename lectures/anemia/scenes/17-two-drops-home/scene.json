@@ -489,7 +489,8 @@
         "tag_w": "hidden",
         "num_m6": "hidden",
         "num_wb12": "hidden",
-        "flask": "hidden"
+        "flask": "hidden",
+        "drop_w": "color"
       }
     },
     {
@@ -531,7 +532,7 @@
       }
     },
     {
-      "at": "n6.end+2.2",
+      "at": "n6.end+1.6",
       "dur": 0.3,
       "set": {
         "arm_m": "color",
@@ -682,22 +683,22 @@
     },
     {
       "id": "arm_m",
-      "at": "n6.end+2.2",
+      "at": "n6.end+1.6",
       "dur": 1.2
     },
     {
       "id": "arm_w",
-      "at": "n6.end+2.2",
+      "at": "n6.end+1.6",
       "dur": 1.2
     },
     {
       "id": "vein_m",
-      "at": "n6.end+2.6",
+      "at": "n6.end+2.0",
       "dur": 1
     },
     {
       "id": "vein_w",
-      "at": "n6.end+2.6",
+      "at": "n6.end+2.0",
       "dur": 1
     }
   ],
@@ -730,7 +731,7 @@
       "at": "n6.end+0.1",
       "dur": 2.4,
       "scale": 0.45,
-      "out": "n6.end+3"
+      "out": "n6.end+2.8"
     },
     {
       "id": "drop_w",
@@ -738,7 +739,7 @@
       "at": "n6.end+0.1",
       "dur": 2.4,
       "scale": 0.45,
-      "out": "n6.end+3"
+      "out": "n6.end+2.8"
     }
   ],
   "loop": [
@@ -849,14 +850,14 @@
     {
       "id": "flow_m",
       "kind": "flow",
-      "in": "n6.end+3.4",
+      "in": "n6.end+3.0",
       "amp": 14,
       "period": 1.4
     },
     {
       "id": "flow_w",
       "kind": "flow",
-      "in": "n6.end+3.4",
+      "in": "n6.end+3.0",
       "amp": 14,
       "period": 1.4
     }
@@ -944,9 +945,9 @@
       "out": "n6.end"
     }
   ],
-  "carry": false,
+  "carry": true,
   "enter": "cut",
   "exit": "fade",
   "kicker": false,
-  "tail": 5.0
+  "tail": 4.6
 }

@@ -55,11 +55,11 @@
   "narration": [
     {
       "id": "n1",
-      "text": "Поки чоловік чекає на ендоскопі́ю, заглянемо на нормоцита́рну дорогу. Ретикулоци́тів багато, а кровотечі немає, — тоді підозрюють [[hem]]гемо́ліз."
+      "text": "Поки чоловік чекає на ендоскопі́ю, заглянемо на нормоцита́рну дорогу. [[ret]]Ретикулоци́тів багато, а [[bleed]]кровотечі немає, — тоді підозрюють [[hem]]гемо́ліз."
     },
     {
       "id": "n2",
-      "text": "Зруйнований еритроци́т лишає три сліди. [[ldh]]ЛДГ виходить із кліти́ни, і її рівень росте. [[hb]]З гемоглобі́ну утворюється [[bil]]непрями́й білірубі́н. А [[hp]]гаптоглобі́н зв'язує вільний гемоглобі́н і витрачається — його стає мало.",
+      "text": "Зруйнований еритроци́т лишає три сліди. [[ldh]]ЛДГ виходить із кліти́ни, і її рівень росте. [[hb]]З гемоглобі́ну утворюється [[bil]]непрями́й білірубі́н. А [[hp]]гаптоглобі́н зв'язує вільний гемоглобі́н і [[used]]витрачається — його стає мало.",
       "gap": 0.5
     },
     {
@@ -175,5 +175,954 @@
   "exit": "cut",
   "kicker": false,
   "lead": 0.15,
-  "tail": 3.4
+  "tail": 3.9,
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "map_low": "color",
+        "map_mac": "color",
+        "map": "color",
+        "map_leaf": "color",
+        "vessel": "hidden",
+        "vessel_cells": "hidden",
+        "dat": "hidden",
+        "smear": "hidden",
+        "smear_cells": "hidden",
+        "sph_norm": "hidden",
+        "sph1": "hidden",
+        "sph2": "hidden",
+        "sph3": "hidden",
+        "sph4": "hidden",
+        "sph5": "hidden",
+        "sch1a": "hidden",
+        "sch1b": "hidden",
+        "sch2a": "hidden",
+        "sch2b": "hidden",
+        "sch3a": "hidden",
+        "sch3b": "hidden",
+        "kidney": "hidden",
+        "plt1": "hidden",
+        "plt2": "hidden",
+        "plt3": "hidden",
+        "neg_cell": "hidden",
+        "dat_cell": "hidden",
+        "ab1": "hidden",
+        "ab2": "hidden",
+        "ab3": "hidden",
+        "ab4": "hidden",
+        "ab5": "hidden",
+        "ab6": "hidden",
+        "ab7": "hidden",
+        "ab8": "hidden",
+        "c3d1": "hidden",
+        "c3d2": "hidden",
+        "c3d3": "hidden",
+        "cell": "hidden",
+        "flap1": "hidden",
+        "flap2": "hidden",
+        "flap3": "hidden",
+        "tear": "hidden",
+        "hb": "hidden",
+        "hb_hp": "hidden",
+        "ldh": "hidden",
+        "ldh_arr": "hidden",
+        "bil": "hidden",
+        "bil_arr": "hidden",
+        "hp": "hidden",
+        "hp_arr": "hidden"
+      }
+    },
+    {
+      "at": "n1+0.6",
+      "dur": 0.8,
+      "set": {
+        "map_low": "grey",
+        "map_mac": "grey"
+      }
+    },
+    {
+      "at": "@ret",
+      "dur": 0.8,
+      "set": {
+        "map_low": "hidden"
+      }
+    },
+    {
+      "at": "@bleed",
+      "dur": 0.6,
+      "set": {
+        "map_leaf": "hidden"
+      }
+    },
+    {
+      "at": "@bleed+0.3",
+      "dur": 0.7,
+      "set": {
+        "cell": "color",
+        "flap1": "color",
+        "flap2": "color",
+        "flap3": "color"
+      }
+    },
+    {
+      "at": "@bleed+0.6",
+      "dur": 0.6,
+      "set": {
+        "map": "hidden",
+        "map_mac": "hidden"
+      }
+    },
+    {
+      "at": "@hem",
+      "dur": 0.3,
+      "set": {
+        "tear": "color"
+      }
+    },
+    {
+      "at": "n2+0.2",
+      "dur": 0.5,
+      "set": {
+        "hb": "color"
+      }
+    },
+    {
+      "at": "@ldh",
+      "dur": 0.6,
+      "set": {
+        "ldh": "color",
+        "cell": "grey",
+        "flap1": "grey",
+        "flap2": "grey",
+        "flap3": "grey",
+        "tear": "grey",
+        "hb": "grey"
+      }
+    },
+    {
+      "at": "@ldh+1.2",
+      "dur": 0.4,
+      "set": {
+        "ldh_arr": "color"
+      }
+    },
+    {
+      "at": "@hb",
+      "dur": 0.6,
+      "set": {
+        "hb": "color",
+        "ldh": "grey",
+        "ldh_arr": "grey"
+      }
+    },
+    {
+      "at": "@bil",
+      "dur": 0.5,
+      "set": {
+        "bil": "color",
+        "hb": "grey"
+      }
+    },
+    {
+      "at": "@bil+1.2",
+      "dur": 0.4,
+      "set": {
+        "bil_arr": "color"
+      }
+    },
+    {
+      "at": "@hp",
+      "dur": 0.6,
+      "set": {
+        "hp": "color",
+        "hb_hp": "color",
+        "bil": "grey",
+        "bil_arr": "grey"
+      }
+    },
+    {
+      "at": "@used",
+      "dur": 0.4,
+      "set": {
+        "hp_arr": "color"
+      }
+    },
+    {
+      "at": "n3",
+      "dur": 0.7,
+      "set": {
+        "hp": "grey",
+        "hp_arr": "grey",
+        "hb_hp": "grey",
+        "cell": "color"
+      }
+    },
+    {
+      "at": "@dat",
+      "dur": 0.4,
+      "set": {
+        "dat": "color"
+      }
+    },
+    {
+      "at": "@dat+1.2",
+      "dur": 0.5,
+      "set": {
+        "dat_cell": "color"
+      }
+    },
+    {
+      "at": "@ab+0.00",
+      "dur": 0.3,
+      "set": {
+        "ab1": "color"
+      }
+    },
+    {
+      "at": "@ab+0.22",
+      "dur": 0.3,
+      "set": {
+        "ab2": "color"
+      }
+    },
+    {
+      "at": "@ab+0.44",
+      "dur": 0.3,
+      "set": {
+        "ab3": "color"
+      }
+    },
+    {
+      "at": "@ab+0.66",
+      "dur": 0.3,
+      "set": {
+        "ab4": "color"
+      }
+    },
+    {
+      "at": "@ab+0.88",
+      "dur": 0.3,
+      "set": {
+        "ab5": "color"
+      }
+    },
+    {
+      "at": "@ab+1.10",
+      "dur": 0.3,
+      "set": {
+        "ab6": "color"
+      }
+    },
+    {
+      "at": "@ab+1.32",
+      "dur": 0.3,
+      "set": {
+        "ab7": "color"
+      }
+    },
+    {
+      "at": "@ab+1.54",
+      "dur": 0.3,
+      "set": {
+        "ab8": "color"
+      }
+    },
+    {
+      "at": "@c3+0.00",
+      "dur": 0.3,
+      "set": {
+        "c3d1": "color"
+      }
+    },
+    {
+      "at": "@c3+0.45",
+      "dur": 0.3,
+      "set": {
+        "c3d2": "color"
+      }
+    },
+    {
+      "at": "@c3+0.90",
+      "dur": 0.3,
+      "set": {
+        "c3d3": "color"
+      }
+    },
+    {
+      "at": "n4",
+      "dur": 0.6,
+      "set": {
+        "ab1": "grey",
+        "ab2": "grey",
+        "ab3": "grey",
+        "ab4": "grey",
+        "ab5": "grey",
+        "ab6": "grey",
+        "ab7": "grey",
+        "ab8": "grey",
+        "c3d1": "grey",
+        "c3d2": "grey",
+        "c3d3": "grey",
+        "dat_cell": "grey",
+        "cell": "grey",
+        "neg_cell": "color"
+      }
+    },
+    {
+      "at": "n4+1.0",
+      "dur": 0.4,
+      "set": {
+        "smear": "color"
+      }
+    },
+    {
+      "at": "@smear",
+      "dur": 0.6,
+      "set": {
+        "dat": "grey"
+      }
+    },
+    {
+      "at": "@smear+0.2",
+      "dur": 0.7,
+      "set": {
+        "sch1a": "color",
+        "sch1b": "color",
+        "sch2a": "color",
+        "sch2b": "color",
+        "sch3a": "color",
+        "sch3b": "color",
+        "sph_norm": "color",
+        "smear_cells": "color"
+      }
+    },
+    {
+      "at": "@smear+0.4",
+      "dur": 0.4,
+      "set": {
+        "neg_cell": "hidden"
+      }
+    },
+    {
+      "at": "@sph",
+      "dur": 0.8,
+      "set": {
+        "sph1": "color",
+        "sph2": "color",
+        "sph3": "color",
+        "sph4": "color",
+        "sph5": "color",
+        "sph_norm": "hidden"
+      }
+    },
+    {
+      "at": "@sch",
+      "dur": 0.6,
+      "set": {
+        "sph1": "grey",
+        "sph2": "grey",
+        "sph3": "grey",
+        "sph4": "grey",
+        "sph5": "grey"
+      }
+    },
+    {
+      "at": "@mech",
+      "dur": 0.8,
+      "set": {
+        "smear_cells": "grey"
+      }
+    },
+    {
+      "at": "n5",
+      "dur": 0.8,
+      "set": {
+        "smear": "grey"
+      }
+    },
+    {
+      "at": "@plt",
+      "dur": 0.4,
+      "set": {
+        "plt1": "color"
+      }
+    },
+    {
+      "at": "@plt+0.4",
+      "dur": 0.4,
+      "set": {
+        "plt2": "color"
+      }
+    },
+    {
+      "at": "@plt+0.8",
+      "dur": 0.4,
+      "set": {
+        "plt3": "color"
+      }
+    },
+    {
+      "at": "n5.end",
+      "dur": 0.7,
+      "set": {
+        "plt1": "grey",
+        "plt2": "grey",
+        "plt3": "grey",
+        "sch1a": "grey",
+        "sch1b": "grey",
+        "sch2a": "grey",
+        "sch3a": "grey",
+        "sch3b": "grey",
+        "vessel": "color"
+      }
+    },
+    {
+      "at": "n5.end+0.6",
+      "dur": 0.6,
+      "set": {
+        "vessel_cells": "color"
+      }
+    },
+    {
+      "at": "n5.end+1.4",
+      "dur": 0.8,
+      "set": {
+        "kidney": "color"
+      }
+    }
+  ],
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "n1+1.5",
+      "dur": 3.0,
+      "view": {
+        "x": -1014,
+        "y": -544,
+        "w": 3000,
+        "h": 1687.5
+      }
+    },
+    {
+      "at": "@bleed",
+      "dur": 2.0,
+      "view": "v-cell"
+    },
+    {
+      "at": "n2",
+      "dur": 1.6,
+      "view": "v-hem"
+    },
+    {
+      "at": "n3+0.1",
+      "dur": 1.8,
+      "view": "v-dat"
+    },
+    {
+      "at": "n4+0.6",
+      "dur": 2.0,
+      "view": "v-smear"
+    },
+    {
+      "at": "@sphs+1.0",
+      "dur": 2.2,
+      "view": {
+        "x": 700,
+        "y": 850,
+        "w": 1600,
+        "h": 900
+      }
+    },
+    {
+      "at": "@sch-0.3",
+      "dur": 1.6,
+      "view": "v-smear"
+    },
+    {
+      "at": "@urg",
+      "dur": 1.4,
+      "view": {
+        "x": 680,
+        "y": 870,
+        "w": 1840,
+        "h": 1035
+      }
+    },
+    {
+      "at": "n5.end+0.4",
+      "dur": 1.4,
+      "view": "v-vessel"
+    },
+    {
+      "at": "n5.end+1.8",
+      "dur": 1.4,
+      "view": "v-out"
+    }
+  ],
+  "draw": [
+    {
+      "id": "tear",
+      "at": "@hem",
+      "dur": 0.8
+    },
+    {
+      "id": "bil",
+      "at": "@bil",
+      "dur": 1.6
+    },
+    {
+      "id": "smear",
+      "at": "n4+1.0",
+      "dur": 1.0
+    },
+    {
+      "id": "vessel",
+      "at": "n5.end",
+      "dur": 1.2
+    }
+  ],
+  "move": [
+    {
+      "id": "flap1",
+      "to": "t-flap1",
+      "at": "@hem+0.3",
+      "dur": 1.0,
+      "rotate": -30
+    },
+    {
+      "id": "flap2",
+      "to": "t-flap2",
+      "at": "@hem+0.3",
+      "dur": 1.0,
+      "rotate": 20
+    },
+    {
+      "id": "flap3",
+      "to": "t-flap3",
+      "at": "@hem+0.3",
+      "dur": 1.0,
+      "rotate": 30
+    },
+    {
+      "id": "hp",
+      "to": "t-hp",
+      "at": "@hp+1.9",
+      "dur": 0.8
+    },
+    {
+      "id": "sph1",
+      "to": "t-sph1",
+      "at": "@sph+0.2",
+      "dur": 1.4,
+      "scale": 0.63
+    },
+    {
+      "id": "sph2",
+      "to": "t-sph2",
+      "at": "@sph+0.3",
+      "dur": 1.4,
+      "scale": 0.63
+    },
+    {
+      "id": "sph3",
+      "to": "t-sph3",
+      "at": "@sph+0.5",
+      "dur": 1.4,
+      "scale": 0.63
+    },
+    {
+      "id": "sph4",
+      "to": "t-sph4",
+      "at": "@sph+0.6",
+      "dur": 1.4,
+      "scale": 0.63
+    },
+    {
+      "id": "sph5",
+      "to": "t-sph5",
+      "at": "@sph+0.8",
+      "dur": 1.4,
+      "scale": 0.63
+    },
+    {
+      "id": "sch1a",
+      "to": "t-sch1a",
+      "at": "@sch+0.2",
+      "dur": 1.0,
+      "rotate": -12
+    },
+    {
+      "id": "sch1b",
+      "to": "t-sch1b",
+      "at": "@sch+0.2",
+      "dur": 1.0,
+      "rotate": 28
+    },
+    {
+      "id": "sch2a",
+      "to": "t-sch2a",
+      "at": "@sch+0.6",
+      "dur": 1.0,
+      "rotate": -10
+    },
+    {
+      "id": "sch2b",
+      "to": "t-sch2b",
+      "at": "@sch+0.6",
+      "dur": 1.0,
+      "rotate": 25
+    },
+    {
+      "id": "sch3a",
+      "to": "t-sch3a",
+      "at": "@sch+0.9",
+      "dur": 1.0,
+      "rotate": 12
+    },
+    {
+      "id": "sch3b",
+      "to": "t-sch3b",
+      "at": "@sch+0.9",
+      "dur": 1.0,
+      "rotate": -26
+    }
+  ],
+  "travel": [
+    {
+      "id": "hb",
+      "path": "p-hb",
+      "at": "n2+0.2",
+      "dur": 1.6
+    },
+    {
+      "id": "ldh",
+      "path": "p-ldh",
+      "at": "@ldh",
+      "dur": 1.4
+    },
+    {
+      "id": "bil",
+      "path": "p-bil",
+      "at": "@bil",
+      "dur": 1.4
+    },
+    {
+      "id": "hp",
+      "path": "p-hp",
+      "at": "@hp",
+      "dur": 1.4
+    },
+    {
+      "id": "hb_hp",
+      "path": "p-hbhp",
+      "at": "@hp+0.3",
+      "dur": 1.5
+    },
+    {
+      "id": "dat_cell",
+      "path": "p-pos",
+      "at": "@dat+1.2",
+      "dur": 1.8
+    },
+    {
+      "id": "neg_cell",
+      "path": "p-neg",
+      "at": "n4",
+      "dur": 2.2
+    },
+    {
+      "id": "sch2b",
+      "path": "p_vessel",
+      "at": "n5.end+0.4",
+      "dur": 2.8
+    }
+  ],
+  "grow": [
+    {
+      "id": "ldh_arr",
+      "origin": "o-ldh_arr",
+      "at": "@ldh+1.2",
+      "dur": 0.8
+    },
+    {
+      "id": "bil_arr",
+      "origin": "o-bil_arr",
+      "at": "@bil+1.2",
+      "dur": 0.8
+    },
+    {
+      "id": "hp_arr",
+      "origin": "o-hp_arr",
+      "at": "@used",
+      "dur": 0.8
+    },
+    {
+      "id": "dat",
+      "origin": "o-fork",
+      "at": "@dat",
+      "dur": 1.4
+    },
+    {
+      "id": "ab1",
+      "origin": "o-ab1",
+      "at": "@ab+0.00",
+      "dur": 0.5
+    },
+    {
+      "id": "ab2",
+      "origin": "o-ab2",
+      "at": "@ab+0.22",
+      "dur": 0.5
+    },
+    {
+      "id": "ab3",
+      "origin": "o-ab3",
+      "at": "@ab+0.44",
+      "dur": 0.5
+    },
+    {
+      "id": "ab4",
+      "origin": "o-ab4",
+      "at": "@ab+0.66",
+      "dur": 0.5
+    },
+    {
+      "id": "ab5",
+      "origin": "o-ab5",
+      "at": "@ab+0.88",
+      "dur": 0.5
+    },
+    {
+      "id": "ab6",
+      "origin": "o-ab6",
+      "at": "@ab+1.10",
+      "dur": 0.5
+    },
+    {
+      "id": "ab7",
+      "origin": "o-ab7",
+      "at": "@ab+1.32",
+      "dur": 0.5
+    },
+    {
+      "id": "ab8",
+      "origin": "o-ab8",
+      "at": "@ab+1.54",
+      "dur": 0.5
+    }
+  ],
+  "loop": [
+    {
+      "id": "ax-nhigh",
+      "kind": "flow",
+      "in": "n1+0.6",
+      "out": "@bleed+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "br_nhigh",
+      "kind": "pulse",
+      "in": "@ret",
+      "out": "@bleed",
+      "amp": 0.03,
+      "period": 2.0
+    },
+    {
+      "id": "hb",
+      "kind": "float",
+      "in": "n2+1.8",
+      "out": "n3",
+      "amp": 5,
+      "period": 3.2
+    },
+    {
+      "id": "dat_cell",
+      "kind": "pulse",
+      "in": "@dat+3.2",
+      "out": "n4",
+      "amp": 0.03,
+      "period": 2.4
+    },
+    {
+      "id": "c3d1",
+      "kind": "pulse",
+      "in": "@c3+0.00",
+      "out": "n4",
+      "amp": 0.08,
+      "period": 1.2
+    },
+    {
+      "id": "c3d2",
+      "kind": "pulse",
+      "in": "@c3+0.45",
+      "out": "n4",
+      "amp": 0.08,
+      "period": 1.2
+    },
+    {
+      "id": "c3d3",
+      "kind": "pulse",
+      "in": "@c3+0.90",
+      "out": "n4",
+      "amp": 0.08,
+      "period": 1.2
+    },
+    {
+      "id": "plt1",
+      "kind": "pulse",
+      "in": "@plt+0.0",
+      "out": "n5.end",
+      "amp": 0.08,
+      "period": 1.4
+    },
+    {
+      "id": "plt2",
+      "kind": "pulse",
+      "in": "@plt+0.4",
+      "out": "n5.end",
+      "amp": 0.08,
+      "period": 1.4
+    },
+    {
+      "id": "plt3",
+      "kind": "pulse",
+      "in": "@plt+0.8",
+      "out": "n5.end",
+      "amp": 0.08,
+      "period": 1.4
+    },
+    {
+      "id": "vessel_cells",
+      "kind": "float",
+      "in": "n5.end+1.2",
+      "amp": 4,
+      "period": 3
+    }
+  ],
+  "labels": [
+    {
+      "id": "lhem",
+      "text": "Гемоліз",
+      "anchor": "a-hem",
+      "x": 600,
+      "y": 200,
+      "align": "right",
+      "in": "@hem+0.4",
+      "out": "@ldh",
+      "focus": "cell"
+    },
+    {
+      "id": "lldh",
+      "text": "ЛДГ ↑",
+      "anchor": "a-ldh",
+      "x": 1450,
+      "y": 150,
+      "align": "left",
+      "in": "@ldh+1.4",
+      "out": "n3",
+      "focus": "ldh"
+    },
+    {
+      "id": "lbil",
+      "text": "Непрямий білірубін ↑",
+      "anchor": "a-bil",
+      "x": 1450,
+      "y": 390,
+      "align": "left",
+      "in": "@bil+1.4",
+      "out": "n3",
+      "focus": "bil"
+    },
+    {
+      "id": "lhp",
+      "text": "Гаптоглобін ↓",
+      "anchor": "a-hp",
+      "x": 1450,
+      "y": 760,
+      "align": "left",
+      "in": "@hp+1.2",
+      "out": "n3",
+      "focus": "hp"
+    },
+    {
+      "id": "ldat",
+      "text": "Проба Кумбса +:",
+      "sub": "ймовірний аутоімунний гемоліз",
+      "anchor": "a-dat",
+      "x": 960,
+      "y": 690,
+      "align": "center",
+      "in": "@dat+3.0",
+      "out": "n4",
+      "focus": "dat_cell"
+    },
+    {
+      "id": "lsph",
+      "text": "Сфероцити",
+      "anchor": "a-sph",
+      "x": 560,
+      "y": 240,
+      "align": "right",
+      "in": "@sphs",
+      "out": "@sch",
+      "focus": "sph1"
+    },
+    {
+      "id": "lsch",
+      "text": "Шистоцити",
+      "anchor": "a-sch",
+      "x": 1320,
+      "y": 380,
+      "align": "left",
+      "in": "@sch+0.9",
+      "out": "n5.end",
+      "focus": "sch1a"
+    }
+  ],
+  "texts": [
+    {
+      "id": "t1",
+      "kind": "thesis",
+      "html": "Три сліди гемолізу",
+      "band": "top",
+      "in": "n2+0.4",
+      "out": "n2.end"
+    },
+    {
+      "id": "t2",
+      "kind": "thesis",
+      "html": "Шистоцити + мало тромбоцитів = невідкладно",
+      "in": "@plt+1.4",
+      "out": "n5.end"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s11",
+      "in": "n2+0.4",
+      "out": "n3.end"
+    },
+    {
+      "ref": "s25",
+      "in": "@sph",
+      "out": "@sch"
+    },
+    {
+      "ref": "s26",
+      "in": "@plt+1.4",
+      "out": "n5.end"
+    },
+    {
+      "ref": "s34",
+      "in": "@plt+1.4",
+      "out": "n5.end"
+    }
+  ]
 }

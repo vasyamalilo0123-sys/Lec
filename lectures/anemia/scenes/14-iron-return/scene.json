@@ -385,7 +385,6 @@
         "store_bar": "color",
         "flask": "color",
         "hb_curve": "color",
-        "drop_m": "color",
         "hb_flat": "hidden",
         "cause_pill": "hidden",
         "cause_dx": "hidden",
@@ -512,11 +511,6 @@
   ],
   "camera": [
     {
-      "at": "start",
-      "dur": 0.01,
-      "view": "v-in"
-    },
-    {
       "at": "@pill",
       "dur": 2.4,
       "view": "v-gut"
@@ -524,17 +518,32 @@
     {
       "at": "@elem+1.1",
       "dur": 1.8,
-      "view": "v-hep"
+      "view": {
+        "x": 1770,
+        "y": 1080,
+        "w": 1920,
+        "h": 1080
+      }
     },
     {
       "at": "n2.end+0.1",
       "dur": 2.0,
-      "view": "v-hb"
+      "view": {
+        "x": 1770,
+        "y": 2160,
+        "w": 1920,
+        "h": 1080
+      }
     },
     {
       "at": "@iv-1.6",
       "dur": 2.0,
-      "view": "v-iv"
+      "view": {
+        "x": 1980,
+        "y": 3240,
+        "w": 1920,
+        "h": 1080
+      }
     },
     {
       "at": "n4.end-0.5",
@@ -867,8 +876,8 @@
       "id": "ldose",
       "text": "Сульфат заліза 200 мг ≈ 65 мг заліза",
       "anchor": "a-vessel",
-      "x": 1500,
-      "y": 860,
+      "x": 960,
+      "y": 800,
       "align": "center",
       "in": "@dose",
       "out": "@elem+1.1",
@@ -878,9 +887,9 @@
       "id": "lhep",
       "text": "Гепцидин тримається ≈ добу",
       "anchor": "a-hep",
-      "x": 1000,
-      "y": 40,
-      "align": "center",
+      "x": 1150,
+      "y": 80,
+      "align": "left",
       "in": "@hep+1.8",
       "out": "@side+2.4",
       "focus": "hep_brace"
@@ -889,9 +898,9 @@
       "id": "lalt",
       "text": "Через день",
       "anchor": "a-alt",
-      "x": 60,
-      "y": 880,
-      "align": "left",
+      "x": 440,
+      "y": 718,
+      "align": "right",
       "in": "@alt+0.4",
       "out": "n2.end+0.1",
       "focus": "alt"
@@ -901,7 +910,7 @@
       "text": "{n}",
       "onArt": true,
       "follow": "drop_m",
-      "x": 263,
+      "x": 413,
       "y": 530,
       "align": "center",
       "in": "@hb+1.3",
@@ -912,9 +921,9 @@
       "id": "lchk",
       "text": "Контроль ≈ 4 тижні",
       "anchor": "a-check",
-      "x": 500,
-      "y": 180,
-      "align": "center",
+      "x": 1000,
+      "y": 240,
+      "align": "left",
       "in": "@w4+0.6",
       "out": "@ni",
       "focus": "check"
@@ -923,8 +932,8 @@
       "id": "lst",
       "text": "Ще ≈ 3 місяці",
       "anchor": "a-store",
-      "x": 1120,
-      "y": 110,
+      "x": 1270,
+      "y": 100,
       "align": "center",
       "in": "@st+0.8",
       "out": "n4",
@@ -933,9 +942,9 @@
     {
       "id": "li1",
       "text": "Непереносимість, неефективність",
-      "anchor": "a-intol",
-      "x": 520,
-      "y": 420,
+      "follow": "intol",
+      "x": 460,
+      "y": 810,
       "align": "center",
       "in": "@i1+0.3",
       "out": "@i2",
@@ -944,9 +953,9 @@
     {
       "id": "li2",
       "text": "Порушене всмоктування",
-      "anchor": "a-malab",
-      "x": 740,
-      "y": 420,
+      "follow": "malab",
+      "x": 683,
+      "y": 810,
       "align": "center",
       "in": "@i2+0.3",
       "out": "@i3",
@@ -955,9 +964,9 @@
     {
       "id": "li3",
       "text": "Активне ЗЗК",
-      "anchor": "a-ibd",
-      "x": 600,
-      "y": 420,
+      "follow": "ibd",
+      "x": 902,
+      "y": 810,
       "align": "center",
       "in": "@i3+0.3",
       "out": "@i4",
@@ -966,9 +975,9 @@
     {
       "id": "li4",
       "text": "ХХН",
-      "anchor": "a-ckd",
-      "x": 1300,
-      "y": 420,
+      "follow": "ckd",
+      "x": 1119,
+      "y": 810,
       "align": "center",
       "in": "@i4+0.3",
       "out": "@i5",
@@ -977,9 +986,9 @@
     {
       "id": "li5",
       "text": "Потрібно швидко",
-      "anchor": "a-fast",
-      "x": 1500,
-      "y": 420,
+      "follow": "fast",
+      "x": 1342,
+      "y": 810,
       "align": "center",
       "in": "@i5+0.3",
       "out": "@dose2",
@@ -988,9 +997,9 @@
     {
       "id": "lphos",
       "text": "Фосфат ↓ — частіше після карбоксимальтозату",
-      "anchor": "a-phos",
-      "x": 1100,
-      "y": 60,
+      "follow": "phos",
+      "x": 1340,
+      "y": 330,
       "align": "center",
       "in": "@phos+0.8",
       "out": "n4.end-0.5",

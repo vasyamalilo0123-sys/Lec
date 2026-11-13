@@ -131,4 +131,5 @@
 <circle id="a-ampoule" cx="6370.99" cy="3316.06" r="0"/>
 <circle id="dfnum-out" cx="6240.17" cy="2950.99" r="0"/>
 <circle id="pt-pill-in" cx="846.8" cy="483.9" r="0"/><circle id="pt-pd-up" cx="2867.5" cy="1653" r="0"/><circle id="pt-pd-c" cx="2867.5" cy="1733" r="0"/>
+<rect id="camera0" x="0" y="0" width="1920" height="1080" fill="none" stroke="none"/>
 </svg>

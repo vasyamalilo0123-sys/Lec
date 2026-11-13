@@ -290,8 +290,7 @@
    "at": "n3.end+0.3",
    "dur": 0.5,
    "set": {
-    "smear_ida": "color",
-    "ep": "grey"
+    "smear_ida": "color"
    }
   },
   {
@@ -599,7 +598,7 @@
   },
   {
    "id": "ep",
-   "at": "n3.end+0.3",
+   "at": "n5",
    "dur": 1.4
   },
   {
@@ -704,8 +703,8 @@
    "id": "laci",
    "text": "Анемія запалення",
    "anchor": "a-macro",
-   "x": 360,
-   "y": 560,
+   "x": 420,
+   "y": 510,
    "align": "right",
    "in": "@aci",
    "out": "@liver",
@@ -781,8 +780,8 @@
    "id": "la2",
    "text": "HbA2 ↑ — бета-носійство",
    "anchor": "a-a2",
-   "x": 500,
-   "y": 690,
+   "x": 560,
+   "y": 800,
    "align": "right",
    "in": "@a2+2.0",
    "out": "@alfa",

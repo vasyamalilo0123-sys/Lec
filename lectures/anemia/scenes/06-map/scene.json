@@ -185,7 +185,12 @@
     {
       "at": "@mic+0.05",
       "dur": 1.5,
-      "view": "v-mic"
+      "view": {
+        "x": 293,
+        "y": 640,
+        "w": 1280,
+        "h": 720
+      }
     },
     {
       "at": "@nor+0.05",
@@ -195,16 +200,21 @@
     {
       "at": "@mac+0.05",
       "dur": 1.5,
-      "view": "v-mac"
+      "view": {
+        "x": 1627,
+        "y": 640,
+        "w": 1280,
+        "h": 720
+      }
     },
     {
       "at": "@thy",
       "dur": 2.4,
       "view": {
         "x": 1760,
-        "y": 700,
-        "w": 1344,
-        "h": 756
+        "y": 620,
+        "w": 1120,
+        "h": 630
       }
     },
     {
@@ -727,7 +737,7 @@
       "id": "lmic",
       "text": "Мікроцитоз",
       "anchor": "a-micv",
-      "x": 800,
+      "x": 600,
       "y": 150,
       "align": "right",
       "focus": "br_mic",
@@ -738,8 +748,8 @@
       "id": "lida",
       "text": "Дефіцит заліза",
       "anchor": "a-ida",
-      "x": 1080,
-      "y": 185,
+      "x": 870,
+      "y": 205,
       "align": "left",
       "focus": "leaf_ida",
       "in": "@ida+0.5",
@@ -749,8 +759,8 @@
       "id": "linf",
       "text": "Запалення",
       "anchor": "a-inf",
-      "x": 1080,
-      "y": 450,
+      "x": 870,
+      "y": 520,
       "align": "left",
       "focus": "leaf_inf",
       "in": "@inf+0.5",
@@ -760,8 +770,8 @@
       "id": "lthal",
       "text": "Таласемія",
       "anchor": "a-thal",
-      "x": 1080,
-      "y": 650,
+      "x": 870,
+      "y": 760,
       "align": "left",
       "focus": "leaf_thal",
       "in": "@thal+0.5",
@@ -806,7 +816,7 @@
       "id": "lmac",
       "text": "Макроцитоз",
       "anchor": "a-macv",
-      "x": 1120,
+      "x": 1320,
       "y": 150,
       "align": "left",
       "focus": "br_mac",
@@ -817,8 +827,8 @@
       "id": "lmeg",
       "text": "Мегалобластна",
       "anchor": "a-meg",
-      "x": 820,
-      "y": 185,
+      "x": 1050,
+      "y": 205,
       "align": "right",
       "focus": "leaf_meg",
       "in": "@meg+0.6",
@@ -829,8 +839,8 @@
       "id": "lnon",
       "text": "Немегалобластна",
       "anchor": "a-nonmeg",
-      "x": 820,
-      "y": 430,
+      "x": 1050,
+      "y": 505,
       "align": "right",
       "focus": "leaf_nonmeg",
       "in": "@nonmeg+0.8",
