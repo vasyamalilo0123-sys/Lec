@@ -1,4 +1,5 @@
 {
+  "parts": ["root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "rt", "rt_cell", "ic_torso", "ic_foot", "drop_m", "drop_w", "path1", "path2"],
   "narration": [
     {"id": "n1", "text": "Підні́мемося вище — і розвилки складаються в [[map]]карту."},
     {"id": "n2", "text": "[[mic]]На мікроцита́рній дорозі три зупинки: [[ida]]дефіци́т залі́за, [[inf]]залі́зо, замкнене запа́ленням, і [[thal]]таласемі́я — спадково порушений си́нтез глобі́ну.", "gap": 0.5},
