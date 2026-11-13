@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../kit/node_modules/@fontsource/geologica/200.css">
+<link rel="stylesheet" href="../../kit/node_modules/@fontsource/geologica/300.css">
+<link rel="stylesheet" href="../../kit/node_modules/@fontsource/geologica/400.css">
+<style>
+html,body{margin:0;background:transparent}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:'Geologica',sans-serif;color:#f2ece3}
+#stage>div,#stage>svg{position:absolute;opacity:0}
+#shade{left:0;top:0;width:1000px;height:1080px;background:linear-gradient(90deg,#000 0,#000 64%,rgba(0,0,0,0) 100%)}
+.k-meta{left:120px;top:76px;font:300 28px 'Geologica';color:rgba(242,236,227,.74)}
+.k-hook{left:120px;top:250px;font:300 72px/1.12 'Geologica';letter-spacing:-1.5px}
+.k-title{left:116px;top:520px;font:200 128px/1 'Geologica';letter-spacing:-3px}
+.k-thesis{left:120px;top:400px;font:300 52px/1.18 'Geologica'}
+.k-source{left:120px;top:984px;font:300 20px/1.25 'Geologica';color:rgba(242,236,227,.62);max-width:640px}
+.lab{font:300 36px/1.14 'Geologica';white-space:nowrap}
+.lab small,.wl small{display:block;font:300 24px/1.25 'Geologica';color:rgba(242,236,227,.8);margin-top:4px}
+.wl{font:300 36px/1.1 'Geologica';white-space:nowrap;text-align:center}
+.tick{font:300 20px/1 'Geologica';color:rgba(242,236,227,.62);white-space:nowrap}
+.note{left:120px;font:300 34px/1.2 'Geologica';white-space:nowrap}
+#credits{left:120px;top:210px}
+#credits h2{font:200 84px/1 'Geologica';letter-spacing:-2px;margin:0 0 40px}
+#credits p{font:300 26px/1.3 'Geologica';margin:0 0 14px;color:rgba(242,236,227,.9);max-width:1500px}
+#credits p.n{font-size:22px;color:rgba(242,236,227,.62);margin-top:36px}
+svg{left:0;top:0}
+svg *{fill:none;stroke:#f2ece3;stroke-linecap:round;stroke-linejoin:round}
+</style></head><body>
+<div id="stage"></div>
+<script>
+const W=1920,H=1080;
+let D=null,els={};
+const stage=document.getElementById('stage');
+function div(id,cls,html){const d=document.createElement('div');d.id=id;d.className=cls;d.innerHTML=html;stage.appendChild(d);els[id]=d;return d}
+function fade(t,a,b,d=0.4){if(t<a||t>b+d)return 0;return Math.min(1,(t-a)/d,(b+d-t)/d)}
+const G=(x,c,w)=>Math.exp(-(((x-c)/w)**2));
+// Нормальний комплекс: фаза циклу 0..1 (0,8 с). P ≈ 90 мс, PR ≈ 190 мс, QRS ≈ 90 мс, QT ≈ 370 мс.
+function ecg(p){p=((p%1)+1)%1;return 0.13*G(p,0.06,0.03)-0.10*G(p,0.245,0.011)+1.0*G(p,0.265,0.013)-0.22*G(p,0.292,0.013)+0.26*G(p,0.60,0.058)}
+// Фібриляція передсердь: без P, дрібні хвилі f, нерегулярні RR. tb — час від скорочення шлуночків, с.
+function ecgAF(t){const T=D.afPeriod;const tm=((t%T)+T)%T;let v=0.035*Math.sin(2*Math.PI*6.3*t)+0.03*Math.sin(2*Math.PI*8.9*t+1.3)+0.02*Math.sin(2*Math.PI*4.7*t+0.4);
+  for(const b of D.afBeats)for(const k of [-1,0,1]){const d=(tm-(b+k*T))/0.8;v+=-0.10*G(d,0.045,0.011)+1.0*G(d,0.065,0.013)-0.22*G(d,0.092,0.013)+0.24*G(d,0.38,0.055)}return v}
+function apCurve(x){ // потенціал дії шлуночкового кардіоміоцита, мВ; x — 0..1
+  if(x<0.09)return -90; if(x<0.105)return -90+110*(x-0.09)/0.015; if(x<0.14)return 20-12*(x-0.105)/0.035;
+  if(x<0.60)return 8-16*(x-0.14)/0.46; if(x<0.84){const u=(x-0.60)/0.24;return -8-82*(u*u*(3-2*u))} return -90}
+
+function init(data){
+  D=data;const s=D.s,e=D.e,m=D.m;
+  div('shade','','');
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('width',W);svg.setAttribute('height',H);svg.id='gfx';svg.style.opacity=1;stage.appendChild(svg);els.gfx=svg;
+  div('meta','k-meta t','Серце: від органа до клітини');
+  div('hook1','k-hook t','Серце запускає<br>кожне скорочення саме.');
+  div('hook2','k-title t','Звідки<br>сигнал?');
+  div('th2','k-thesis t','Імпульс має<br>постійний маршрут');
+  div('th3','k-thesis t','ЕКГ — запис<br>шляху імпульсу');
+  div('th4','k-thesis t','Фібриляція передсердь:<br>некоординоване збудження');
+  div('th5','k-thesis t','Міокард живлять<br>вінцеві артерії');
+  div('th6','k-thesis t','Потенціал дії<br>кардіоміоцита');
+  div('th7','k-thesis t','Від каналу до ЕКГ —<br>один сигнал');
+  D.sources.forEach(x=>div('src-'+x.id,'k-source t',x.text));
+  div('l-sa','lab t','Синусовий вузол');
+  div('l-av','lab t','Атріовентрикулярний вузол<small>затримка проведення</small>');
+  div('l-his','lab t','Пучок Гіса, ніжки');
+  div('l-purk','lab t','Волокна Пуркіньє');
+  div('l-cor','lab t','Вінцеві артерії');
+  div('l-rbc','lab t','Еритроцити');
+  div('w-p','wl t','P<small>передсердя</small>');div('w-qrs','wl t','QRS<small>шлуночки</small>');div('w-t','wl t','T<small>реполяризація шлуночків</small>');
+  div('a-nop','note t','Чітких зубців P немає');div('a-irr','note t','Інтервали RR нерегулярні');
+  div('i-na','wl t','Na⁺<small>деполяризація</small>');div('i-ca','wl t','Ca²⁺<small>плато, скорочення</small>');div('i-k','wl t','K⁺<small>реполяризація</small>');
+  div('tk-hi','tick t','+20 мВ');div('tk-lo','tick t','−90 мВ');
+  div('credits','t','<h2>Джерела</h2>'+D.sources.map(x=>`<p>${x.text}</p>`).join('')+
+    '<p class="n">Прототип: моделі серця, судини й клітин побудовано процедурно; рендер — Blender Cycles.</p>');
+  const qT=e.n1-2.6;
+  D.win=[
+    ['meta',s.n2,D.sceneEnd-0.6],
+    ['hook1',s.n1,e.n1],['hook2',qT,e.n1],
+    ['th2',s.n2+0.2,e.n2],['th3',s.n3+0.2,e.n3],['th4',s.n4+0.2,e.n4],['th5',s.n5+0.2,e.n5-0.2],['th6',s.n6+0.2,e.n6],['th7',s.n7+0.2,D.sceneEnd-0.7],
+    ['src-s1',s.n2,e.n2],['src-s2',s.n3,e.n3],['src-s3',s.n4,e.n4],['src-s4',s.n5,e.n5-0.2],['src-s5',s.n6,e.n6],
+    ['l-sa',m.sa,e.n2],['l-av',m.av,e.n2],['l-his',m.his,e.n2],['l-purk',m.purk,e.n2],
+    ['l-cor',m.cor,m.cor+1.1],['l-rbc',m.cor+2.4,e.n5-0.2],
+    ['w-p',m.p,e.n3],['w-qrs',m.qrs,e.n3],['w-t',m.t,e.n3],
+    ['a-nop',m.nop,e.n4],['a-irr',m.irr,e.n4],
+    ['i-na',m.na,e.n6],['i-ca',m.ca,e.n6],['i-k',m.k,e.n6],['tk-hi',m.na,e.n6],['tk-lo',s.n6+0.8,e.n6],
+    ['credits',D.sceneEnd+0.5,D.total-0.5],
+    ['shade',m.cor+1.2,s.n7-0.3],
+  ];
+  D.strip=[['ecg1',s.n3+0.6,e.n3],['ecgaf',s.n4+0.5,e.n4],['ap',s.n6+0.6,e.n6],['ecg2',s.n7+0.3,D.sceneEnd-0.7]];
+}
+function place(el,x,y,align){el.style.left=x+'px';el.style.top=y+'px';el.style.transform=align==='right'?'translateX(-100%)':align==='center'?'translateX(-50%)':'none'}
+const X0=120,X1=800,BASE=720,AMP=150;
+
+function render(f){
+  const t=f/D.fps,op={};
+  for(const [id,a,b] of D.win){op[id]=fade(t,a,b);els[id].style.opacity=op[id].toFixed(3)}
+  let g='';
+  const line=(a,b,o,w=1.6)=>{if(o>0.01)g+=`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke-width="${w}" opacity="${o.toFixed(3)}"/>`};
+  const dot=(a,o,r=4.5)=>{if(o>0.01)g+=`<circle cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="${r}" style="fill:#f2ece3;stroke:none" opacity="${o.toFixed(3)}"/>`};
+  const path=(pts,o,w=2.6)=>{if(o>0.01&&pts.length>1)g+=`<polyline points="${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}" stroke-width="${w}" opacity="${o.toFixed(3)}"/>`};
+  const leaders=[];
+  const leader=(id,from,key,dx=0,dy=0)=>{const p=D.proj[key];const to=[p[0]*W+dx,p[1]*H+dy];line(from,to,op[id]*0.9);dot(to,op[id]);if(op[id]>0.05)leaders.push({id,a:from,b:to})};
+  place(els['l-sa'],1000,300,'right');leader('l-sa',[1012,324],'sa');
+  place(els['l-av'],1000,560,'right');leader('l-av',[1012,584],'av');
+  place(els['l-his'],1000,716,'right');leader('l-his',[1012,738],'his');
+  place(els['l-purk'],1090,900,'right');leader('l-purk',[1102,920],'purk');
+  place(els['l-cor'],1000,640,'right');leader('l-cor',[1012,664],'lad',-6,0);
+  place(els['l-rbc'],1500,150);if(op['l-rbc']>0.01){line([1490,196],[1430,380],op['l-rbc']*0.9);if(op['l-rbc']>0.05)leaders.push({id:'l-rbc',a:[1490,196],b:[1430,380]})}
+  const so={};for(const [id,a,b] of D.strip)so[id]=fade(t,a,b);
+  // один комплекс ЕКГ, що промальовується разом з уповільненим серцем
+  if(so.ecg1>0.01){
+    const ph=D.condPhase[f]-2;const X=p=>X0+(X1-X0)*p/0.86;
+    line([X0,BASE],[X1,BASE],so.ecg1*0.25,1);
+    const pts=[];const end=Math.max(0,Math.min(0.86,ph));for(let p=0;p<=end;p+=0.002)pts.push([X(p),BASE-AMP*ecg(p)]);
+    path(pts,so.ecg1);if(pts.length&&end<0.86)dot(pts[pts.length-1],so.ecg1,6);
+    place(els['w-p'],X(0.06),770,'center');place(els['w-qrs'],X(0.268),770,'center');place(els['w-t'],X(0.60),770,'center');
+  }
+  const scroll=(o,fn)=>{if(o<0.01)return;const win=3.2;line([X0,BASE],[X1,BASE],o*0.25,1);const pts=[];
+    for(let i=0;i<=340;i++){const tt=t-win+win*i/340;pts.push([X0+(X1-X0)*i/340,BASE-AMP*0.8*fn(tt)])}path(pts,o);dot(pts[pts.length-1],o,6)};
+  // стрічки в реальному часі, синхронні з серцем у кадрі
+  const afT0=Math.round(D.keys[2][0]*D.fps)/D.fps;
+  scroll(so.ecgaf,tt=>{const fr=tt*D.fps;const T=D.afPeriod;return ecgAF(tt)});
+  scroll(so.ecg2,tt=>ecg(tt/D.cycle));
+  place(els['a-nop'],120,800);place(els['a-irr'],120,852);
+  // потенціал дії
+  if(so.ap>0.01){
+    const Y=v=>800-(v+90)/110*210;const X=x=>X0+(X1-X0)*x;
+    const prog=Math.max(0,Math.min(1,(D.cellPhase[f]-0.02)/0.62*0.86+0.06));
+    line([X0,Y(-90)],[X1,Y(-90)],so.ap*0.25,1);
+    const pts=[];for(let x=0;x<=prog;x+=0.002)pts.push([X(x),Y(apCurve(x))]);path(pts,so.ap);if(pts.length&&prog<1)dot(pts[pts.length-1],so.ap,6);
+    place(els['i-na'],X(0.1),836,'center');place(els['i-ca'],X(0.45),660,'center');place(els['i-k'],X(0.9),620,'center');
+    place(els['tk-hi'],X(0.125),Y(20)-28);place(els['tk-lo'],X1-70,Y(-90)+12);
+  }
+  els.gfx.innerHTML=g;
+  const vis=[...stage.querySelectorAll('.t')].filter(d=>+d.style.opacity>0.05).map(d=>{const r=d.getBoundingClientRect();return{id:d.id,l:r.left,t:r.top,r:r.right,b:r.bottom}});
+  const bad=[];
+  for(let i=0;i<vis.length;i++){const a=vis[i];
+    if(a.l<56||a.t<40||a.r>W-56||a.b>H-40)bad.push('поле: '+a.id);
+    for(let j=i+1;j<vis.length;j++){const b=vis[j];if(a.l<b.r&&b.l<a.r&&a.t<b.b&&b.t<a.b)bad.push('текст на тексті: '+a.id+' × '+b.id)}}
+  for(const L of leaders)for(const a of vis){if(a.id===L.id)continue;
+    for(let k=0;k<=24;k++){const x=L.a[0]+(L.b[0]-L.a[0])*k/24,y=L.a[1]+(L.b[1]-L.a[1])*k/24;if(x>a.l-4&&x<a.r+4&&y>a.t-4&&y<a.b+4){bad.push('виноска на тексті: '+L.id+' × '+a.id);break}}}
+  const sig=D.win.map(w=>op[w[0]].toFixed(3)).join(',')+'|'+(g.length?f:'');
+  return {bad,sig,any:vis.length>0||g.length>0||op.shade>0};
+}
+</script></body></html>

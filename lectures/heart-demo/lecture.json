@@ -1,0 +1,60 @@
+{
+  "title": "Серце: від органа до клітини",
+  "kicker": "Серцево-судинна система",
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "lBvcwD2nQgxr2mkKA71z",
+    "voiceName": "Ievgen Diachenko",
+    "model": "eleven_v4",
+    "languageCode": "uk",
+    "rate": 14.5
+  },
+  "chapters": [
+    {
+      "title": "Від органа до клітини",
+      "scenes": [
+        "01-heart"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "text": "StatPearls. Atrioventricular Node; Physiology, Cardiac",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK557664/"
+    },
+    {
+      "id": "s2",
+      "text": "StatPearls. Electrocardiogram",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK549803/"
+    },
+    {
+      "id": "s3",
+      "text": "Van Gelder IC et al. 2024 ESC Guidelines for the management of atrial fibrillation. Eur Heart J 2024",
+      "url": "https://doi.org/10.1093/eurheartj/ehae176"
+    },
+    {
+      "id": "s4",
+      "text": "StatPearls. Anatomy, Thorax, Heart Coronary Arteries",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30521211/"
+    },
+    {
+      "id": "s5",
+      "text": "StatPearls. Physiology, Cardiac Muscle",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK572070/"
+    },
+    {
+      "id": "s6",
+      "text": "Hall JE, Hall ME. Guyton and Hall Textbook of Medical Physiology. 14th ed. Elsevier, 2021",
+      "url": "https://shop.elsevier.com/books/guyton-and-hall-textbook-of-medical-physiology/hall/978-0-323-59712-8"
+    }
+  ],
+  "pronounce": {
+    "ЕКГ": "е-ка-ге",
+    "зубець P": "зубець пе",
+    "зубців P": "зубців пе",
+    "зубець T": "зубець те",
+    "QRS": "ку-ер-ес"
+  },
+  "credits": true
+}
