@@ -1,5 +1,12 @@
 {
+  "art": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
+  },
   "parts": [
+    "mcv_in",
     "marrow",
     "marrow_red",
     "fat",
@@ -22,7 +29,8 @@
     "ring3",
     "ring4",
     "ring5",
-    "ring6"
+    "ring6",
+    "plaque_out"
   ],
   "narration": [
     {
@@ -129,10 +137,737 @@
     ],
     "texts": "Підписи: «Кістковий мозок», «Ретикулоцит», «Залишки РНК», «Мало: мозок не відповідає», «Багато: втрата або руйнування». Тези: «У крові дозріває за добу», «Відсоток завищений», «Рахуйте абсолютну кількість». Джерело: s14."
   },
-  "art": {
-    "x": 0,
-    "y": 0,
-    "w": 1920,
-    "h": 1080
-  }
+  "carry": true,
+  "lead": 0.3,
+  "tail": 3.4,
+  "enter": "cut",
+  "exit": "cut",
+  "kicker": false,
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "n1+0.1",
+      "dur": 2.7,
+      "view": {
+        "x": 1920,
+        "y": 541,
+        "w": 1400,
+        "h": 787.5
+      }
+    },
+    {
+      "at": "n1+2.8",
+      "dur": 2.6,
+      "view": "v-marrow"
+    },
+    {
+      "at": "@retic",
+      "dur": 2.0,
+      "view": {
+        "x": 1410,
+        "y": 1150,
+        "w": 1020,
+        "h": 573.75
+      }
+    },
+    {
+      "at": "n2+4.6",
+      "dur": 3.0,
+      "view": {
+        "x": 1490,
+        "y": 1195,
+        "w": 860,
+        "h": 483.75
+      }
+    },
+    {
+      "at": "n2+10.7",
+      "dur": 2.0,
+      "view": "v-retic"
+    },
+    {
+      "at": "@low",
+      "dur": 2.2,
+      "view": "v-flow"
+    },
+    {
+      "at": "n5",
+      "dur": 2.0,
+      "view": "v-counter"
+    },
+    {
+      "at": "n5.end",
+      "dur": 2.5,
+      "view": "v-out"
+    }
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "mcv_in": "color",
+        "marrow": "hidden",
+        "marrow_red": "hidden",
+        "fat": "hidden",
+        "vessel": "color",
+        "vessel_flow": "color",
+        "vessel_cells": "color",
+        "drift": "hidden",
+        "flow_low": "hidden",
+        "low_cells": "hidden",
+        "flow_high": "hidden",
+        "high_cells": "hidden",
+        "loss": "hidden",
+        "scout": "hidden",
+        "retic": "hidden",
+        "mesh": "hidden",
+        "counter": "hidden",
+        "counter_half": "hidden",
+        "ring1": "hidden",
+        "ring2": "hidden",
+        "ring3": "hidden",
+        "ring4": "hidden",
+        "ring5": "hidden",
+        "ring6": "hidden",
+        "plaque_out": "hidden"
+      }
+    },
+    {
+      "at": "n1+1.4",
+      "dur": 0.8,
+      "set": {
+        "mcv_in": "hidden"
+      }
+    },
+    {
+      "at": "@marrow-0.5",
+      "dur": 0.3,
+      "set": {
+        "marrow": "color"
+      }
+    },
+    {
+      "at": "@marrow+0.5",
+      "dur": 0.3,
+      "set": {
+        "marrow_red": "color",
+        "fat": "color"
+      }
+    },
+    {
+      "at": "n1.end-0.3",
+      "dur": 0.4,
+      "set": {
+        "scout": "color"
+      }
+    },
+    {
+      "at": "@retic",
+      "dur": 0.7,
+      "set": {
+        "marrow": "grey",
+        "marrow_red": "grey",
+        "fat": "grey",
+        "vessel": "grey",
+        "vessel_cells": "grey",
+        "vessel_flow": "grey"
+      }
+    },
+    {
+      "at": "@retic+1.4",
+      "dur": 0.5,
+      "set": {
+        "retic": "color"
+      }
+    },
+    {
+      "at": "@mesh",
+      "dur": 0.3,
+      "set": {
+        "mesh": "color"
+      }
+    },
+    {
+      "at": "n2+10.8",
+      "dur": 2.0,
+      "set": {
+        "mesh": "hidden"
+      }
+    },
+    {
+      "at": "@low",
+      "dur": 0.7,
+      "set": {
+        "marrow": "color",
+        "marrow_red": "color",
+        "fat": "color",
+        "vessel": "color",
+        "vessel_cells": "color",
+        "vessel_flow": "color",
+        "retic": "grey"
+      }
+    },
+    {
+      "at": "@low+0.8",
+      "dur": 0.3,
+      "set": {
+        "flow_low": "color"
+      }
+    },
+    {
+      "at": "@low+1.6",
+      "dur": 0.3,
+      "set": {
+        "low_cells": "color"
+      }
+    },
+    {
+      "at": "n3+4.2",
+      "dur": 0.5,
+      "set": {
+        "fat": "grey"
+      }
+    },
+    {
+      "at": "n3+5.6",
+      "dur": 0.6,
+      "set": {
+        "fat": "color"
+      }
+    },
+    {
+      "at": "n3+7.8",
+      "dur": 0.6,
+      "set": {
+        "marrow_red": "grey",
+        "fat": "grey"
+      }
+    },
+    {
+      "at": "@high",
+      "dur": 0.6,
+      "set": {
+        "flow_low": "grey",
+        "low_cells": "grey",
+        "marrow_red": "color",
+        "fat": "color"
+      }
+    },
+    {
+      "at": "@high+0.3",
+      "dur": 0.3,
+      "set": {
+        "flow_high": "color"
+      }
+    },
+    {
+      "at": "@high+1.0",
+      "dur": 0.3,
+      "set": {
+        "high_cells": "color"
+      }
+    },
+    {
+      "at": "n4+5.0",
+      "dur": 0.3,
+      "set": {
+        "loss": "color"
+      }
+    },
+    {
+      "at": "n5",
+      "dur": 0.7,
+      "set": {
+        "flow_high": "grey",
+        "high_cells": "grey",
+        "loss": "grey",
+        "marrow": "grey",
+        "marrow_red": "grey",
+        "fat": "grey",
+        "vessel": "grey",
+        "vessel_cells": "grey",
+        "vessel_flow": "grey",
+        "flow_low": "hidden",
+        "low_cells": "hidden"
+      }
+    },
+    {
+      "at": "@pct",
+      "dur": 0.3,
+      "set": {
+        "counter": "color",
+        "counter_half": "color"
+      }
+    },
+    {
+      "at": "@pct+1.4",
+      "dur": 0.4,
+      "set": {
+        "ring1": "color"
+      }
+    },
+    {
+      "at": "@pct+1.7",
+      "dur": 0.4,
+      "set": {
+        "ring2": "color"
+      }
+    },
+    {
+      "at": "@pct+2.0",
+      "dur": 0.4,
+      "set": {
+        "ring3": "color"
+      }
+    },
+    {
+      "at": "@pct+2.3",
+      "dur": 0.4,
+      "set": {
+        "ring4": "color"
+      }
+    },
+    {
+      "at": "@pct+2.6",
+      "dur": 0.4,
+      "set": {
+        "ring5": "color"
+      }
+    },
+    {
+      "at": "@pct+2.9",
+      "dur": 0.4,
+      "set": {
+        "ring6": "color"
+      }
+    },
+    {
+      "at": "n5+4.4",
+      "dur": 1.0,
+      "set": {
+        "counter_half": "hidden"
+      }
+    },
+    {
+      "at": "@abs+0.4",
+      "dur": 0.6,
+      "set": {
+        "counter": "grey"
+      }
+    },
+    {
+      "at": "n5.end",
+      "dur": 0.6,
+      "set": {
+        "counter": "color"
+      }
+    },
+    {
+      "at": "n5.end+0.9",
+      "dur": 0.6,
+      "set": {
+        "plaque_out": "color"
+      }
+    },
+    {
+      "at": "n5.end+2.3",
+      "dur": 0.6,
+      "set": {
+        "counter": "hidden",
+        "ring1": "hidden",
+        "ring2": "hidden",
+        "ring3": "hidden",
+        "ring4": "hidden",
+        "ring5": "hidden",
+        "ring6": "hidden"
+      }
+    }
+  ],
+  "move": [
+    {
+      "id": "scout",
+      "to": "o-retic",
+      "at": "@retic",
+      "dur": 2.0,
+      "scale": 7.8,
+      "out": "@retic+1.9"
+    },
+    {
+      "id": "retic",
+      "to": "pt-retic-home",
+      "at": "@low",
+      "dur": 2.0,
+      "scale": 0.13,
+      "out": "@low+2.0"
+    },
+    {
+      "id": "ring1",
+      "to": "pt-col1",
+      "at": "@abs+0.0",
+      "dur": 1.4
+    },
+    {
+      "id": "ring1",
+      "to": "pt-out-ring1",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    },
+    {
+      "id": "ring2",
+      "to": "pt-col2",
+      "at": "@abs+0.1",
+      "dur": 1.4
+    },
+    {
+      "id": "ring2",
+      "to": "pt-out-ring2",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    },
+    {
+      "id": "ring3",
+      "to": "pt-col3",
+      "at": "@abs+0.2",
+      "dur": 1.4
+    },
+    {
+      "id": "ring3",
+      "to": "pt-out-ring3",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    },
+    {
+      "id": "ring4",
+      "to": "pt-col4",
+      "at": "@abs+0.3",
+      "dur": 1.4
+    },
+    {
+      "id": "ring4",
+      "to": "pt-out-ring4",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    },
+    {
+      "id": "ring5",
+      "to": "pt-col5",
+      "at": "@abs+0.4",
+      "dur": 1.4
+    },
+    {
+      "id": "ring5",
+      "to": "pt-out-ring5",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    },
+    {
+      "id": "ring6",
+      "to": "pt-col6",
+      "at": "@abs+0.5",
+      "dur": 1.4
+    },
+    {
+      "id": "ring6",
+      "to": "pt-out-ring6",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    },
+    {
+      "id": "counter",
+      "to": "pt-counter-out",
+      "at": "n5.end",
+      "dur": 2.2,
+      "scale": 0.4053
+    }
+  ],
+  "travel": [
+    {
+      "id": "drift",
+      "path": "p-drift",
+      "at": "n1+0.1",
+      "dur": 4.6,
+      "rotate": true,
+      "out": "@marrow"
+    },
+    {
+      "id": "scout",
+      "path": "p-low",
+      "at": "n1.end-0.3",
+      "dur": 2.2,
+      "rotate": true
+    },
+    {
+      "id": "low_cells",
+      "path": "p-low",
+      "at": "@low+1.6",
+      "dur": 3.0,
+      "rotate": true
+    },
+    {
+      "id": "high_cells",
+      "path": "p-high",
+      "at": "@high+1.0",
+      "dur": 3.0,
+      "rotate": true
+    }
+  ],
+  "draw": [
+    {
+      "id": "marrow",
+      "at": "@marrow-0.5",
+      "dur": 1.5
+    },
+    {
+      "id": "marrow_red",
+      "at": "@marrow+0.5",
+      "dur": 1.5
+    },
+    {
+      "id": "mesh",
+      "at": "@mesh",
+      "dur": 1.2
+    },
+    {
+      "id": "loss",
+      "at": "n4+5.0",
+      "dur": 1.5
+    },
+    {
+      "id": "counter",
+      "at": "@pct",
+      "dur": 1.4
+    },
+    {
+      "id": "counter_half",
+      "at": "@pct+0.2",
+      "dur": 1.2
+    }
+  ],
+  "grow": [
+    {
+      "id": "retic",
+      "origin": "o-retic",
+      "at": "@retic+1.4",
+      "dur": 0.8
+    },
+    {
+      "id": "flow_low",
+      "origin": "o-low",
+      "at": "@low+0.8",
+      "dur": 1.2
+    },
+    {
+      "id": "flow_high",
+      "origin": "o-high",
+      "at": "@high+0.3",
+      "dur": 1.2
+    }
+  ],
+  "loop": [
+    {
+      "id": "vessel_flow",
+      "kind": "flow",
+      "in": "start",
+      "out": "@retic",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "vessel_cells",
+      "kind": "float",
+      "in": "start",
+      "out": "@retic",
+      "amp": 4,
+      "period": 3
+    },
+    {
+      "id": "marrow_red",
+      "kind": "pulse",
+      "in": "@marrow+2.0",
+      "out": "@retic",
+      "amp": 0.02,
+      "period": 2.4
+    },
+    {
+      "id": "retic",
+      "kind": "pulse",
+      "in": "@retic+2.2",
+      "out": "@mesh",
+      "amp": 0.03,
+      "period": 2.4
+    },
+    {
+      "id": "fat",
+      "kind": "pulse",
+      "in": "n3+4.2",
+      "out": "n3+6.6",
+      "amp": 0.05,
+      "period": 2.4
+    },
+    {
+      "id": "vessel_flow",
+      "kind": "flow",
+      "in": "@low",
+      "out": "n5",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ring1",
+      "kind": "pulse",
+      "in": "@abs+1.6",
+      "out": "n5.end",
+      "amp": 0.05,
+      "period": 1.8
+    },
+    {
+      "id": "ring2",
+      "kind": "pulse",
+      "in": "@abs+1.6",
+      "out": "n5.end",
+      "amp": 0.05,
+      "period": 1.8
+    },
+    {
+      "id": "ring3",
+      "kind": "pulse",
+      "in": "@abs+1.6",
+      "out": "n5.end",
+      "amp": 0.05,
+      "period": 1.8
+    },
+    {
+      "id": "ring4",
+      "kind": "pulse",
+      "in": "@abs+1.6",
+      "out": "n5.end",
+      "amp": 0.05,
+      "period": 1.8
+    },
+    {
+      "id": "ring5",
+      "kind": "pulse",
+      "in": "@abs+1.6",
+      "out": "n5.end",
+      "amp": 0.05,
+      "period": 1.8
+    },
+    {
+      "id": "ring6",
+      "kind": "pulse",
+      "in": "@abs+1.6",
+      "out": "n5.end",
+      "amp": 0.05,
+      "period": 1.8
+    }
+  ],
+  "count": [],
+  "labels": [
+    {
+      "id": "tm2",
+      "text": "MCV 71",
+      "onArt": true,
+      "x": 1264,
+      "y": 34,
+      "align": "center",
+      "in": "start-1",
+      "out": "start+0.5"
+    },
+    {
+      "id": "lmarrow",
+      "text": "Кістковий мозок",
+      "anchor": "a-marrow",
+      "x": 420,
+      "y": 90,
+      "align": "right",
+      "in": "@marrow+0.6",
+      "out": "@retic",
+      "focus": "marrow"
+    },
+    {
+      "id": "lretic",
+      "text": "Ретикулоцит",
+      "anchor": "a-retic",
+      "x": 1400,
+      "y": 250,
+      "align": "left",
+      "in": "@retic+2.0",
+      "out": "@low",
+      "focus": "retic"
+    },
+    {
+      "id": "lmesh",
+      "text": "Залишки РНК",
+      "anchor": "a-mesh",
+      "x": 620,
+      "y": 620,
+      "align": "right",
+      "in": "@mesh+0.6",
+      "out": "n2+10.8",
+      "focus": "mesh"
+    },
+    {
+      "id": "llow",
+      "text": "Мало: мозок не відповідає",
+      "anchor": "a-low",
+      "x": 1000,
+      "y": 150,
+      "align": "center",
+      "in": "@low+1.8",
+      "out": "@high",
+      "focus": "flow_low"
+    },
+    {
+      "id": "lhigh",
+      "text": "Багато: втрата або руйнування",
+      "anchor": "a-high",
+      "x": 1080,
+      "y": 700,
+      "align": "center",
+      "in": "@high+1.2",
+      "out": "n5",
+      "focus": "flow_high"
+    }
+  ],
+  "texts": [
+    {
+      "id": "t1",
+      "kind": "thesis",
+      "html": "У крові дозріває за добу",
+      "in": "n2+10.8",
+      "out": "@low"
+    },
+    {
+      "id": "t2",
+      "kind": "thesis",
+      "html": "Відсоток завищений",
+      "in": "@pct+1.6",
+      "out": "@abs"
+    },
+    {
+      "id": "t3",
+      "kind": "thesis",
+      "html": "Рахуйте абсолютну кількість",
+      "in": "@abs+0.3",
+      "out": "n5.end"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s14",
+      "in": "@retic+2.0",
+      "out": "n5.end"
+    }
+  ]
 }

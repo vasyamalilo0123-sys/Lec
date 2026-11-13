@@ -555,7 +555,12 @@
     {
       "at": "@m71",
       "dur": 1.6,
-      "view": "v-p1"
+      "view": {
+        "x": 237,
+        "y": 560,
+        "w": 1536,
+        "h": 864
+      }
     },
     {
       "at": "n2.end+0.1",
@@ -565,7 +570,12 @@
     {
       "at": "@w112",
       "dur": 1.6,
-      "view": "v-p2"
+      "view": {
+        "x": 1427,
+        "y": 560,
+        "w": 1536,
+        "h": 864
+      }
     },
     {
       "at": "@path",
@@ -692,6 +702,20 @@
     }
   ],
   "move": [
+    {
+      "id": "drop_m",
+      "from": "pt-m-leaf",
+      "to": "pt-m-leaf",
+      "at": "start",
+      "dur": 0.01
+    },
+    {
+      "id": "drop_w",
+      "from": "pt-w-leaf",
+      "to": "pt-w-leaf",
+      "at": "start",
+      "dur": 0.01
+    },
     {
       "id": "shackle",
       "to": "pt-shackle-shut",
@@ -843,8 +867,8 @@
       "id": "lm",
       "text": "Чоловік: MCV 71, феритин 6",
       "anchor": "pt-m-leaf",
-      "x": 1130,
-      "y": 300,
+      "x": 935,
+      "y": 330,
       "align": "left",
       "in": "@m6+0.6",
       "out": "n2.end",
@@ -854,8 +878,8 @@
       "id": "lw",
       "text": "Жінка: MCV 112, B12 низький",
       "anchor": "pt-w-leaf",
-      "x": 790,
-      "y": 300,
+      "x": 985,
+      "y": 330,
       "align": "right",
       "in": "@wb12+0.6",
       "out": "n3.end",

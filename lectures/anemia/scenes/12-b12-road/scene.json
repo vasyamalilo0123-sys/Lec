@@ -1,5 +1,5 @@
 {
-  "parts": ["road", "drop_w", "drip", "slide", "smear", "ovl", "neu", "lobe1", "lobe2", "lobe3", "lobe4", "lobe5", "lobe6", "hers_ring", "stomach", "parietal", "if", "if_cup", "b12", "trail", "colon", "ile", "ile_end", "obs1", "obs2", "obs3", "obs4", "serum", "mma", "vials", "leg", "nerve", "non1", "non2", "non3", "non4", "non5", "drop_m"],
+  "parts": ["road", "drop_w", "drip", "slide", "smear", "ovl", "neu", "lobe1", "lobe2", "lobe3", "lobe4", "lobe5", "lobe6", "hers_ring", "stomach", "parietal", "if", "if_cup", "b12", "trail", "colon", "ile", "ile_end", "obs1", "obs2", "obs3", "obs4", "serum", "mma", "vials", "leg", "nerve", "non1", "non2", "non3", "non4", "non5", "drop_m", "root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "ic_torso", "ic_foot", "dw_num"],
   "narration": [
     {"id": "n1", "text": "Тепер [[wdrop]]жіноча крапля. Макроцита́рна дорога починається з [[smear]]мазка́: мегалобла́стний макроцито́з чи ні?"},
     {"id": "n2", "text": "[[ovl]]Великі овальні еритроци́ти й [[neu]]гіперсегменто́вані нейтрофі́ли — з п'ятьма й більше частками ядра́ — ознаки порушеного си́нтезу ДНК. Найчастіше це дефіци́т B12 або фола́ту. [[hers]]У мазку́ нашої пацієнтки — саме такі нейтрофі́ли.", "gap": 0.5},

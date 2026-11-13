@@ -180,9 +180,16 @@
   },
   {
    "at": "@bag",
-   "dur": 0.4,
+   "dur": 0.2,
    "set": {
     "drip": "color"
+   }
+  },
+  {
+   "at": "@bag+0.9",
+   "dur": 0.2,
+   "set": {
+    "drip": "hidden"
    }
   },
   {
@@ -190,7 +197,6 @@
    "dur": 0.6,
    "set": {
     "bag": "grey",
-    "drip": "grey",
     "level": "grey",
     "scale": "grey",
     "t70": "color",
@@ -237,8 +243,7 @@
    "at": "@tr",
    "dur": 0.6,
    "set": {
-    "bag": "color",
-    "drip": "color"
+    "bag": "color"
    }
   },
   {
@@ -287,7 +292,6 @@
    "dur": 0.6,
    "set": {
     "bag": "grey",
-    "drip": "grey",
     "one": "grey",
     "man": "color",
     "bag_x": "color"
@@ -314,7 +318,6 @@
    "dur": 0.6,
    "set": {
     "bag": "hidden",
-    "drip": "hidden",
     "bag_x": "hidden",
     "one": "hidden",
     "man": "hidden",
@@ -350,6 +353,21 @@
    "at": "start",
    "dur": 0.01,
    "view": "v-in"
+  },
+  {
+   "at": "n2",
+   "dur": 1.8,
+   "view": {
+    "x": 2070,
+    "y": 1080,
+    "w": 1920,
+    "h": 1080
+   }
+  },
+  {
+   "at": "n4",
+   "dur": 1.6,
+   "view": "v-main"
   },
   {
    "at": "n6.end+0.1",
@@ -591,7 +609,7 @@
    "id": "l70",
    "text": "70 г/л —<br>більшість стабільних",
    "anchor": "a_t70",
-   "x": 1450,
+   "x": 1330,
    "y": 700,
    "align": "left",
    "in": "@t70+0.8",
@@ -602,7 +620,7 @@
    "id": "l75",
    "text": "75 — кардіохірургія",
    "anchor": "a_t75",
-   "x": 1450,
+   "x": 1330,
    "y": 640,
    "align": "left",
    "in": "@t75+0.8",
@@ -613,7 +631,7 @@
    "id": "l80",
    "text": "80 — ортопедія,<br>серцево-судинні хвороби",
    "anchor": "a_t80",
-   "x": 1450,
+   "x": 1330,
    "y": 560,
    "align": "left",
    "in": "@t80+0.8",
@@ -624,8 +642,8 @@
    "id": "lacs",
    "text": "Інфаркт з анемією,<br>без кровотечі:<br>≈ 100 можна розглянути<br>(клас 2b)",
    "anchor": "a_acs",
-   "x": 1500,
-   "y": 400,
+   "x": 1330,
+   "y": 380,
    "align": "left",
    "in": "@acs+0.6",
    "out": "@one",

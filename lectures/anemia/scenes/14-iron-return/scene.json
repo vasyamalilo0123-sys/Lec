@@ -9,7 +9,7 @@
   "enter": "cut",
   "exit": "cut",
   "lead": 0.15,
-  "tail": 1.2,
+  "tail": 3.6,
   "kicker": false,
   "narration": [
     {
@@ -173,5 +173,891 @@
     "arm_f",
     "ampoule",
     "drop_f"
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "man": "grey",
+        "pill": "color",
+        "drop_m": "color",
+        "gut_mini": "hidden",
+        "fe_gut": "hidden",
+        "axis_h": "hidden",
+        "nums_h": "hidden",
+        "hep_curve": "hidden",
+        "hep_dot": "hidden",
+        "hep_brace": "hidden",
+        "pill_daily": "hidden",
+        "fe_bounce": "hidden",
+        "alt": "hidden",
+        "axis_w": "hidden",
+        "nums_w": "hidden",
+        "hb_curve": "hidden",
+        "check": "hidden",
+        "hb_flat": "hidden",
+        "cause_pill": "hidden",
+        "cause_dx": "hidden",
+        "cause_bleed": "hidden",
+        "cause_gut": "hidden",
+        "store_bar": "hidden",
+        "flask": "hidden",
+        "store_fill": "hidden",
+        "drip": "hidden",
+        "bag_l1": "hidden",
+        "bag_l2": "hidden",
+        "bag_l3": "hidden",
+        "drip_drop": "hidden",
+        "arm_m": "hidden",
+        "intol": "hidden",
+        "malab": "hidden",
+        "ibd": "hidden",
+        "ckd": "hidden",
+        "fast": "hidden",
+        "phos": "hidden",
+        "phos_arrow": "hidden",
+        "arm_f": "hidden",
+        "ampoule": "hidden",
+        "drop_f": "hidden"
+      }
+    },
+    {
+      "at": "@pill",
+      "dur": 0.6,
+      "set": {
+        "gut_mini": "color"
+      }
+    },
+    {
+      "at": "@pill+2.6",
+      "dur": 0.3,
+      "set": {
+        "fe_gut": "color"
+      }
+    },
+    {
+      "at": "@elem+1.1",
+      "dur": 0.8,
+      "set": {
+        "gut_mini": "grey",
+        "fe_gut": "grey",
+        "man": "grey",
+        "axis_h": "color"
+      }
+    },
+    {
+      "at": "@elem+2.3",
+      "dur": 0.5,
+      "set": {
+        "nums_h": "color",
+        "pill_daily": "color"
+      }
+    },
+    {
+      "at": "@hep",
+      "dur": 0.5,
+      "set": {
+        "axis_h": "grey",
+        "nums_h": "grey",
+        "pill_daily": "grey",
+        "hep_curve": "color",
+        "hep_dot": "color"
+      }
+    },
+    {
+      "at": "@hep+1.6",
+      "dur": 0.4,
+      "set": {
+        "hep_brace": "color"
+      }
+    },
+    {
+      "at": "@brake",
+      "dur": 0.4,
+      "set": {
+        "pill_daily": "color",
+        "fe_bounce": "color"
+      }
+    },
+    {
+      "at": "@side+2.4",
+      "dur": 0.6,
+      "set": {
+        "hep_brace": "grey"
+      }
+    },
+    {
+      "at": "@alt",
+      "dur": 0.5,
+      "set": {
+        "pill_daily": "grey",
+        "alt": "color"
+      }
+    },
+    {
+      "at": "@alt+2.2",
+      "dur": 0.6,
+      "set": {
+        "hep_curve": "grey"
+      }
+    },
+    {
+      "at": "n2.end+0.1",
+      "dur": 0.6,
+      "set": {
+        "hep_curve": "grey",
+        "alt": "grey",
+        "axis_h": "grey",
+        "nums_h": "grey",
+        "axis_w": "color",
+        "drop_m": "color"
+      }
+    },
+    {
+      "at": "@hb+1.3",
+      "dur": 0.5,
+      "set": {
+        "nums_w": "color",
+        "hb_curve": "color"
+      }
+    },
+    {
+      "at": "@w4",
+      "dur": 0.4,
+      "set": {
+        "check": "color"
+      }
+    },
+    {
+      "at": "@ni",
+      "dur": 0.5,
+      "set": {
+        "hb_curve": "grey",
+        "check": "grey",
+        "drop_m": "grey",
+        "hb_flat": "color"
+      }
+    },
+    {
+      "at": "@c1",
+      "dur": 0.3,
+      "set": {
+        "cause_pill": "color"
+      }
+    },
+    {
+      "at": "@c2",
+      "dur": 0.3,
+      "set": {
+        "cause_pill": "grey",
+        "cause_dx": "color"
+      }
+    },
+    {
+      "at": "@c3",
+      "dur": 0.3,
+      "set": {
+        "cause_dx": "grey",
+        "cause_bleed": "color"
+      }
+    },
+    {
+      "at": "@c4",
+      "dur": 0.3,
+      "set": {
+        "cause_bleed": "grey",
+        "cause_gut": "color"
+      }
+    },
+    {
+      "at": "@c4+1.6",
+      "dur": 0.5,
+      "set": {
+        "cause_gut": "grey",
+        "hb_flat": "grey"
+      }
+    },
+    {
+      "at": "@st",
+      "dur": 0.5,
+      "set": {
+        "store_bar": "color",
+        "flask": "color",
+        "hb_curve": "color",
+        "drop_m": "color",
+        "hb_flat": "hidden",
+        "cause_pill": "hidden",
+        "cause_dx": "hidden",
+        "cause_bleed": "hidden",
+        "cause_gut": "hidden"
+      }
+    },
+    {
+      "at": "@st+1.4",
+      "dur": 0.4,
+      "set": {
+        "store_fill": "color"
+      }
+    },
+    {
+      "at": "n4",
+      "dur": 0.8,
+      "set": {
+        "axis_w": "grey",
+        "nums_w": "grey",
+        "hb_curve": "grey",
+        "check": "grey",
+        "store_bar": "grey",
+        "flask": "grey",
+        "store_fill": "grey",
+        "drop_m": "grey"
+      }
+    },
+    {
+      "at": "@iv",
+      "dur": 0.4,
+      "set": {
+        "drip": "color",
+        "bag_l1": "color",
+        "drip_drop": "color",
+        "arm_m": "grey"
+      }
+    },
+    {
+      "at": "@i1",
+      "dur": 0.3,
+      "set": {
+        "intol": "color"
+      }
+    },
+    {
+      "at": "@i2",
+      "dur": 0.3,
+      "set": {
+        "intol": "grey",
+        "malab": "color"
+      }
+    },
+    {
+      "at": "@i3",
+      "dur": 0.3,
+      "set": {
+        "malab": "grey",
+        "ibd": "color"
+      }
+    },
+    {
+      "at": "@i4",
+      "dur": 0.3,
+      "set": {
+        "ibd": "grey",
+        "ckd": "color"
+      }
+    },
+    {
+      "at": "@i5",
+      "dur": 0.3,
+      "set": {
+        "ckd": "grey",
+        "fast": "color"
+      }
+    },
+    {
+      "at": "@dose2",
+      "dur": 0.5,
+      "set": {
+        "fast": "grey"
+      }
+    },
+    {
+      "at": "@dose2+0.8",
+      "dur": 0.8,
+      "set": {
+        "bag_l1": "hidden",
+        "bag_l2": "color"
+      }
+    },
+    {
+      "at": "@dep+0.6",
+      "dur": 0.8,
+      "set": {
+        "bag_l2": "hidden",
+        "bag_l3": "color"
+      }
+    },
+    {
+      "at": "@phos",
+      "dur": 0.3,
+      "set": {
+        "phos": "color"
+      }
+    },
+    {
+      "at": "@phos+0.8",
+      "dur": 0.3,
+      "set": {
+        "phos_arrow": "color"
+      }
+    },
+    {
+      "at": "n4.end+0.9",
+      "dur": 0.01,
+      "set": {
+        "drop_f": "color",
+        "ampoule": "color",
+        "arm_f": "grey"
+      }
+    }
+  ],
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "@pill",
+      "dur": 2.4,
+      "view": "v-gut"
+    },
+    {
+      "at": "@elem+1.1",
+      "dur": 1.8,
+      "view": "v-hep"
+    },
+    {
+      "at": "n2.end+0.1",
+      "dur": 2.0,
+      "view": "v-hb"
+    },
+    {
+      "at": "@iv-1.6",
+      "dur": 2.0,
+      "view": "v-iv"
+    },
+    {
+      "at": "n4.end-0.5",
+      "dur": 1.4,
+      "view": {
+        "x": 2930,
+        "y": 3320,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    {
+      "at": "n4.end+0.9",
+      "dur": 2.2,
+      "view": "v-out"
+    }
+  ],
+  "move": [
+    {
+      "id": "pill",
+      "to": "pt-pill-in",
+      "at": "start",
+      "dur": 0.01
+    },
+    {
+      "id": "pill_daily",
+      "from": "pt-pd-up",
+      "to": "pt-pd-c",
+      "at": "@elem+2.3",
+      "dur": 1.0
+    },
+    {
+      "id": "fe_bounce",
+      "to": "pt-fe-hit",
+      "at": "@brake",
+      "dur": 1.0
+    },
+    {
+      "id": "fe_bounce",
+      "to": "pt-fe-back",
+      "at": "@side",
+      "dur": 1.2,
+      "out": "@side+2.2"
+    },
+    {
+      "id": "drop_m",
+      "to": "pt-dm-hb",
+      "at": "n2.end+0.1",
+      "dur": 2.0,
+      "scale": 0.667
+    }
+  ],
+  "travel": [
+    {
+      "id": "pill",
+      "path": "p-pill",
+      "at": "@pill",
+      "dur": 2.6,
+      "out": "@pill+2.6"
+    },
+    {
+      "id": "fe_gut",
+      "path": "p-fe",
+      "at": "@pill+2.6",
+      "dur": 2.4
+    },
+    {
+      "id": "hep_dot",
+      "path": "p-hep",
+      "at": "@hep+0.2",
+      "dur": 2.8,
+      "out": "@hep+3.4"
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@iv+1.6",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@iv+3.4",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@i2+0.4",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@i3+0.8",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@i4",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@i5+0.6",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@dose2+0.3",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@dose2+2.2",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@dep",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@dep+1.8",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@phos+0.3",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-drop",
+      "at": "@carb+0.4",
+      "dur": 0.7
+    },
+    {
+      "id": "drip_drop",
+      "path": "p-flow",
+      "at": "n4.end-0.9",
+      "dur": 1.8
+    }
+  ],
+  "draw": [
+    {
+      "id": "axis_h",
+      "at": "@elem+1.5",
+      "dur": 1.2
+    },
+    {
+      "id": "hep_curve",
+      "at": "@hep",
+      "dur": 1.5
+    },
+    {
+      "id": "hep_brace",
+      "at": "@hep+1.6",
+      "dur": 1.0
+    },
+    {
+      "id": "alt",
+      "at": "@alt",
+      "dur": 1.6
+    },
+    {
+      "id": "axis_w",
+      "at": "@hb+0.4",
+      "dur": 1.2
+    },
+    {
+      "id": "hb_curve",
+      "at": "@hb+1.3",
+      "dur": 2.0
+    },
+    {
+      "id": "check",
+      "at": "@w4",
+      "dur": 1.0
+    },
+    {
+      "id": "hb_flat",
+      "at": "@ni",
+      "dur": 1.2
+    },
+    {
+      "id": "intol",
+      "at": "@i1",
+      "dur": 0.8
+    },
+    {
+      "id": "malab",
+      "at": "@i2",
+      "dur": 0.8
+    },
+    {
+      "id": "ibd",
+      "at": "@i3",
+      "dur": 0.8
+    },
+    {
+      "id": "ckd",
+      "at": "@i4",
+      "dur": 0.8
+    },
+    {
+      "id": "fast",
+      "at": "@i5",
+      "dur": 0.8
+    },
+    {
+      "id": "phos",
+      "at": "@phos",
+      "dur": 1.0
+    }
+  ],
+  "grow": [
+    {
+      "id": "store_bar",
+      "origin": "o-store",
+      "at": "@st",
+      "dur": 2.0
+    },
+    {
+      "id": "store_fill",
+      "origin": "o-store-fill",
+      "at": "@st+1.4",
+      "dur": 2.2
+    },
+    {
+      "id": "drip",
+      "origin": "o-drip",
+      "at": "@iv",
+      "dur": 1.6
+    },
+    {
+      "id": "bag_l1",
+      "origin": "o-drip",
+      "at": "@iv",
+      "dur": 1.6
+    },
+    {
+      "id": "phos_arrow",
+      "origin": "o-phos-arrow",
+      "at": "@phos+0.8",
+      "dur": 1.0
+    }
+  ],
+  "loop": [
+    {
+      "id": "drop_m",
+      "kind": "pulse",
+      "in": "start",
+      "out": "@pill+1",
+      "amp": 0.04,
+      "period": 2.4
+    },
+    {
+      "id": "pill_daily",
+      "kind": "pulse",
+      "in": "@side",
+      "out": "@alt",
+      "amp": 0.04,
+      "period": 2
+    },
+    {
+      "id": "alt",
+      "kind": "pulse",
+      "in": "@alt+1.6",
+      "out": "n2.end",
+      "amp": 0.03,
+      "period": 2.2
+    },
+    {
+      "id": "check",
+      "kind": "pulse",
+      "in": "@w4+1",
+      "out": "@ni",
+      "amp": 0.05,
+      "period": 1.6
+    },
+    {
+      "id": "store_fill",
+      "kind": "pulse",
+      "in": "@st+3.6",
+      "out": "n4",
+      "amp": 0.04,
+      "period": 2
+    },
+    {
+      "id": "phos",
+      "kind": "pulse",
+      "in": "@phos+1.2",
+      "out": "n4.end",
+      "amp": 0.04,
+      "period": 2
+    }
+  ],
+  "count": [
+    {
+      "id": "lhb",
+      "from": 96,
+      "to": 130,
+      "at": "@hb+1.3",
+      "dur": 2.0
+    }
+  ],
+  "labels": [
+    {
+      "id": "l71",
+      "text": "71",
+      "onArt": true,
+      "follow": "drop_m",
+      "x": 1275,
+      "y": 286,
+      "align": "center",
+      "in": "start",
+      "out": "@pill+0.6",
+      "focus": "drop_m"
+    },
+    {
+      "id": "ldose",
+      "text": "Сульфат заліза 200 мг ≈ 65 мг заліза",
+      "anchor": "a-vessel",
+      "x": 1500,
+      "y": 860,
+      "align": "center",
+      "in": "@dose",
+      "out": "@elem+1.1",
+      "focus": "fe_gut"
+    },
+    {
+      "id": "lhep",
+      "text": "Гепцидин тримається ≈ добу",
+      "anchor": "a-hep",
+      "x": 1000,
+      "y": 40,
+      "align": "center",
+      "in": "@hep+1.8",
+      "out": "@side+2.4",
+      "focus": "hep_brace"
+    },
+    {
+      "id": "lalt",
+      "text": "Через день",
+      "anchor": "a-alt",
+      "x": 60,
+      "y": 880,
+      "align": "left",
+      "in": "@alt+0.4",
+      "out": "n2.end+0.1",
+      "focus": "alt"
+    },
+    {
+      "id": "lhb",
+      "text": "{n}",
+      "onArt": true,
+      "follow": "drop_m",
+      "x": 263,
+      "y": 530,
+      "align": "center",
+      "in": "@hb+1.3",
+      "out": "@ni",
+      "focus": "drop_m"
+    },
+    {
+      "id": "lchk",
+      "text": "Контроль ≈ 4 тижні",
+      "anchor": "a-check",
+      "x": 500,
+      "y": 180,
+      "align": "center",
+      "in": "@w4+0.6",
+      "out": "@ni",
+      "focus": "check"
+    },
+    {
+      "id": "lst",
+      "text": "Ще ≈ 3 місяці",
+      "anchor": "a-store",
+      "x": 1120,
+      "y": 110,
+      "align": "center",
+      "in": "@st+0.8",
+      "out": "n4",
+      "focus": "store_bar"
+    },
+    {
+      "id": "li1",
+      "text": "Непереносимість, неефективність",
+      "anchor": "a-intol",
+      "x": 520,
+      "y": 420,
+      "align": "center",
+      "in": "@i1+0.3",
+      "out": "@i2",
+      "focus": "intol"
+    },
+    {
+      "id": "li2",
+      "text": "Порушене всмоктування",
+      "anchor": "a-malab",
+      "x": 740,
+      "y": 420,
+      "align": "center",
+      "in": "@i2+0.3",
+      "out": "@i3",
+      "focus": "malab"
+    },
+    {
+      "id": "li3",
+      "text": "Активне ЗЗК",
+      "anchor": "a-ibd",
+      "x": 600,
+      "y": 420,
+      "align": "center",
+      "in": "@i3+0.3",
+      "out": "@i4",
+      "focus": "ibd"
+    },
+    {
+      "id": "li4",
+      "text": "ХХН",
+      "anchor": "a-ckd",
+      "x": 1300,
+      "y": 420,
+      "align": "center",
+      "in": "@i4+0.3",
+      "out": "@i5",
+      "focus": "ckd"
+    },
+    {
+      "id": "li5",
+      "text": "Потрібно швидко",
+      "anchor": "a-fast",
+      "x": 1500,
+      "y": 420,
+      "align": "center",
+      "in": "@i5+0.3",
+      "out": "@dose2",
+      "focus": "fast"
+    },
+    {
+      "id": "lphos",
+      "text": "Фосфат ↓ — частіше після карбоксимальтозату",
+      "anchor": "a-phos",
+      "x": 1100,
+      "y": 60,
+      "align": "center",
+      "in": "@phos+0.8",
+      "out": "n4.end-0.5",
+      "focus": "phos"
+    }
+  ],
+  "texts": [
+    {
+      "id": "th1",
+      "kind": "thesis",
+      "html": "Одна таблетка на день",
+      "in": "n1.end-0.6",
+      "out": "@hep"
+    },
+    {
+      "id": "th2",
+      "kind": "thesis",
+      "html": "Повна доза за 1–2 інфузії — залежно від препарату",
+      "in": "@dose2+0.3",
+      "out": "@phos"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s3",
+      "in": "@dose",
+      "out": "@elem+1.1"
+    },
+    {
+      "ref": "s5",
+      "in": "@dose",
+      "out": "@elem+1.1"
+    },
+    {
+      "ref": "s3",
+      "in": "n1.end-0.6",
+      "out": "@hep"
+    },
+    {
+      "ref": "s29",
+      "in": "@hep+1.8",
+      "out": "@alt"
+    },
+    {
+      "ref": "s3",
+      "in": "@w4+0.6",
+      "out": "n3.end"
+    },
+    {
+      "ref": "s3",
+      "in": "@i1+0.3",
+      "out": "@dose2"
+    },
+    {
+      "ref": "s5",
+      "in": "@i1+0.3",
+      "out": "@dose2"
+    },
+    {
+      "ref": "s30",
+      "in": "@dose2+0.3",
+      "out": "@phos"
+    },
+    {
+      "ref": "s31",
+      "in": "@phos+0.8",
+      "out": "n4.end-0.5"
+    }
   ]
 }
