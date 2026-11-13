@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../kit/node_modules/@fontsource/geologica/200.css">
+<link rel="stylesheet" href="../../kit/node_modules/@fontsource/geologica/300.css">
+<link rel="stylesheet" href="../../kit/node_modules/@fontsource/geologica/400.css">
+<style>
+html,body{margin:0;background:transparent}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:'Geologica',sans-serif;color:#f2ece3}
+#stage>div,#stage>svg{position:absolute;opacity:0}
+#shade{left:0;top:0;width:1100px;height:1080px;background:linear-gradient(90deg,#000 0,#000 52%,rgba(0,0,0,0) 100%)}
+.k-meta{left:120px;top:76px;font:300 28px 'Geologica';color:rgba(242,236,227,.74)}
+.k-hook{left:120px;top:250px;font:300 72px/1.12 'Geologica';letter-spacing:-1.5px}
+.k-title{left:116px;top:330px;font:200 112px/1 'Geologica';letter-spacing:-3px}
+.k-title.k-low{top:520px;font-size:128px}
+.k-thesis{left:120px;top:400px;font:300 52px/1.18 'Geologica'}
+.k-note{left:120px;top:300px;font:300 28px 'Geologica';color:rgba(242,236,227,.74)}
+.k-quiz{left:120px;top:360px;font:300 64px/1.15 'Geologica'}
+.k-quiz.k-answer{font-size:72px;line-height:1.12}
+.k-source{left:120px;top:996px;font:300 20px/1.2 'Geologica';color:rgba(242,236,227,.62)}
+.lab{font:300 36px/1.14 'Geologica';white-space:nowrap}
+.lab small{display:block;font:300 26px/1.28 'Geologica';color:rgba(242,236,227,.8);margin-top:6px}
+.onart{font:400 36px/1.1 'Geologica';text-align:center;white-space:nowrap}
+.num{font:300 36px/1 'Geologica';white-space:nowrap}
+#credits{left:120px;top:250px}
+#credits h2{font:200 84px/1 'Geologica';letter-spacing:-2px;margin:0 0 48px}
+#credits p{font:300 30px/1.3 'Geologica';margin:0 0 18px;color:rgba(242,236,227,.9)}
+#credits p.n{font-size:22px;color:rgba(242,236,227,.62);margin-top:44px;max-width:1300px}
+svg{left:0;top:0}
+svg *{fill:none;stroke:#f2ece3;stroke-linecap:round}
+</style></head><body>
+<div id="stage"></div>
+<script>
+const W=1920,H=1080;
+let D=null,els={};
+const stage=document.getElementById('stage');
+function div(id,cls,html){const d=document.createElement('div');d.id=id;d.className=cls;d.innerHTML=html;stage.appendChild(d);els[id]=d;return d}
+function fade(t,a,b,d=0.4){if(t<a||t>b+d)return 0;return Math.min(1,(t-a)/d,(b+d-t)/d)}
+function P(cam,key,z){const p=D.proj[cam][key];const f=q=>[((q[0]-.5)*z+.5)*W,((q[1]-.5)*z+.5)*H];return Array.isArray(p[0])?p.map(f):f(p)}
+
+function init(data){
+  D=data;const s=D.s,e=D.e,m=D.m;
+  div('shade','','');
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('width',W);svg.setAttribute('height',H);svg.id='gfx';svg.style.opacity=1;stage.appendChild(svg);els.gfx=svg;
+  div('meta','k-meta t','Дихальна система');
+  div('hook1','k-hook t','Вдихнута горошина частіше<br>опиняється в правій легені.');
+  div('hook2','k-title k-low t','Чому саме<br>в правій?');
+  div('title','k-title t','Бронхіальне<br>дерево');
+  div('th1','k-thesis t','Трахея ділиться на два<br>головні бронхи');
+  div('th2','k-thesis t','Правий бронх майже<br>продовжує трахею');
+  div('th3','k-thesis t','У дорослих стороннє тіло<br>частіше потрапляє праворуч');
+  div('quizk','k-note t','Згадайте, не підглядаючи');
+  div('quizq','k-quiz t','Де шукатимете стороннє<br>тіло насамперед?');
+  div('quiza','k-quiz k-answer t','У правому<br>головному бронху');
+  D.sources.forEach(x=>div('src-'+x.id,'k-source t',x.text));
+  div('l-trachea','lab t','Трахея');
+  div('l-lung-r','onart t','Права<br>легеня');
+  div('l-lung-l','onart t','Ліва<br>легеня');
+  div('l-carina','lab t','Біфуркація трахеї<small>на рівні Th4–Th5</small>');
+  div('l-br-r','lab t','Правий головний бронх<small>коротший, ширший, крутіший</small>');
+  div('l-br-l','lab t','Лівий головний бронх<small>довший і вужчий</small>');
+  div('n-r','num t','≈ 25°');div('n-l','num t','≈ 45°');
+  div('credits','t','<h2>Джерела</h2>'+D.sources.map(x=>`<p>${x.text}</p>`).join('')+
+    '<p class="n">Прототип: модель трахеї, бронхів і легень побудовано процедурно; рендер — Blender Cycles.</p>');
+  // вікна показу [id, початок, кінець]
+  D.win=[
+    ['meta',s.n2,D.sceneEnd-0.6],
+    ['hook1',s.n1,e.n1],['hook2',m.q,e.n1],
+    ['title',s.n2+0.4,e.n2],
+    ['th1',m.bif,e.n3-0.3],['th2',s.n6+0.2,m.d],['th3',m.d+0.6,e.n7],
+    ['quizk',s.n8,e.n8],['quizq',s.n8+0.2,e.n8],['quiza',s.n9,D.sceneEnd-0.6],
+    ['src-s1',s.n3,e.n3-0.3],['src-s2',s.n4,m.a25-0.5],['src-s3',m.a25,e.n5],['src-s4',s.n7,e.n7],
+    ['l-trachea',m.tr,e.n2],['l-lung-r',m.lr,e.n2],['l-lung-l',m.ll,e.n2],
+    ['l-carina',s.n3+1.4,e.n3-0.3],
+    ['l-br-r',s.n4+0.5,e.n6],['n-r',m.a25+0.4,e.n6],
+    ['l-br-l',s.n5+0.5,e.n6],['n-l',m.a45+0.4,e.n6],
+    ['credits',D.sceneEnd+0.5,D.total-0.5],
+    ['shade',s.n4-0.3,D.sceneEnd-0.4],
+  ];
+}
+
+function place(el,x,y,align){el.style.left=x+'px';el.style.top=y+'px';el.style.transform=align==='right'?'translateX(-100%)':align==='center'?'translate(-50%,-50%)':'none'}
+
+function render(f){
+  const t=f/D.fps,z=D.zoom[f],cam=D.cam[f],op={};
+  for(const [id,a,b] of D.win){op[id]=fade(t,a,b);els[id].style.opacity=op[id].toFixed(3)}
+  let g='';
+  const line=(a,b,o,w=1.6,dash='')=>{if(o>0.01)g+=`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke-width="${w}" opacity="${o.toFixed(3)}" ${dash?`stroke-dasharray="${dash}"`:''}/>`};
+  const dot=(a,o)=>{if(o>0.01)g+=`<circle cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="4.5" style="fill:#f2ece3;stroke:none" opacity="${o.toFixed(3)}"/>`};
+  const leaders=[];
+  const leader=(id,from,to)=>{line(from,to,op[id]*0.9);dot(to,op[id]);if(op[id]>0.05)leaders.push({id,a:from,b:to})};
+  if(cam==='wide'){
+    const top=P('wide','top',z),tm=P('wide','trachea_mid',z),ca=P('wide','carina',z);
+    place(els['l-trachea'],1480,62);leader('l-trachea',[1468,86],[top[0]+4,top[1]+34*z]);
+    const lr=P('wide','lung_r',z),ll=P('wide','lung_l',z);
+    place(els['l-lung-r'],lr[0],lr[1],'center');place(els['l-lung-l'],ll[0],ll[1],'center');
+    place(els['l-carina'],1500,250);leader('l-carina',[1488,300],[ca[0]+6,ca[1]-4]);
+  }
+  if(cam==='close'){
+    const o=P('close','origin',z),up=P('close','ax_up',z),dn=P('close','ax_dn',z),rd=P('close','r_dn',z),ld=P('close','l_dn',z);
+    const rm=P('close','rmb_mid',z),lmm=P('close','lmb_mid',z);
+    place(els['l-br-r'],1085,168,'right');leader('l-br-r',[1097,222],[rm[0]-18,rm[1]-8]);
+    place(els['l-br-l'],1452,250);leader('l-br-l',[1470,350],[lmm[0]-4,lmm[1]-14]);
+    const oa=Math.max(op['n-r'],op['n-l']);
+    line(up,dn,oa*0.95,1.6,'3 9');
+    const arc=(k,oo)=>{if(oo<0.01)return;const pts=P('close',k,z);g+=`<polyline points="${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}" stroke-width="2" opacity="${oo.toFixed(3)}"/>`};
+    line(o,rd,op['n-r']*0.95,1.6);arc('arc_r',op['n-r']);
+    line(o,ld,op['n-l']*0.95,1.6);arc('arc_l',op['n-l']);
+    place(els['n-r'],dn[0]-74*z,dn[1]-52*z,'center');
+    const nl=P('close','num_l',z);place(els['n-l'],nl[0]+4,nl[1]+6,'center');
+  }
+  els.gfx.innerHTML=g;
+  // автоматична перевірка: текст на тексті, виноска на тексті, поля
+  const vis=[...stage.querySelectorAll('.t')].filter(d=>+d.style.opacity>0.05).map(d=>{const r=d.getBoundingClientRect();return{id:d.id,l:r.left,t:r.top,r:r.right,b:r.bottom}});
+  const bad=[];
+  for(let i=0;i<vis.length;i++){const a=vis[i];
+    if(a.l<56||a.t<40||a.r>W-56||a.b>H-40)bad.push('поле: '+a.id);
+    for(let j=i+1;j<vis.length;j++){const b=vis[j];if(a.l<b.r&&b.l<a.r&&a.t<b.b&&b.t<a.b)bad.push('текст на тексті: '+a.id+' × '+b.id)}}
+  for(const L of leaders)for(const a of vis){if(a.id===L.id)continue;
+    for(let k=0;k<=24;k++){const x=L.a[0]+(L.b[0]-L.a[0])*k/24,y=L.a[1]+(L.b[1]-L.a[1])*k/24;if(x>a.l-4&&x<a.r+4&&y>a.t-4&&y<a.b+4){bad.push('виноска на тексті: '+L.id+' × '+a.id);break}}}
+  const sig=D.win.map(w=>op[w[0]].toFixed(3)).join(',')+'|'+(g.length?z+cam:'');
+  return {bad,sig,any:vis.length>0||g.length>0||op.shade>0};
+}
+</script></body></html>

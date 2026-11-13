@@ -1,0 +1,9 @@
+{
+  "_comment": "Розміри в мм, зовнішні радіуси. Значення звірено з anatomy-facts.json. Довжини головних бронхів — від точки сходження осей (кіль трахеї лежить на ~8 мм нижче). Кути — класичні підручникові (Gray's), як у тексті диктора; КТ-морфометрія дає для правого ≈35°.",
+  "trachea": {"length": 110, "r": 10.4, "wall": 2.0, "rings": 18, "tilt_back_deg": 12},
+  "right_main": {"angle_deg": 25, "length": 30, "r": 7.5, "wall": 1.6},
+  "left_main": {"angle_deg": 45, "length": 55, "r": 6.4, "wall": 1.6},
+  "intermedius": {"length": 24},
+  "segmental": {"length": 28, "r0": 3.2, "r1": 2.6, "wall": 1.0},
+  "lungs": {"apex_z": 95, "horizontal_fissure_z": -48}
+}
