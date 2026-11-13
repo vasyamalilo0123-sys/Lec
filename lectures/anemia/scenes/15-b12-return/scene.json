@@ -1,5 +1,5 @@
 {
-  "parts": ["arm", "vein", "drop_w", "amp", "foot", "nerve", "nerve_dim", "hb_mini", "hb_mark", "ret", "ret_dot", "kal", "retic", "neu", "neu_mark", "ind", "mnt", "oral", "shackle", "lock", "fol", "ruler", "ruler_num", "bag"],
+  "parts": ["arm", "vein", "drop_w", "amp", "foot", "nerve", "nerve_dim", "hb_mini", "hb_mark", "ret", "ret_dot", "kal", "retic", "neu", "neu_mark", "ind", "mnt", "oral", "shackle", "lock", "fol", "ruler", "ruler_num", "bag", "level"],
   "narration": [
     {"id": "n1", "text": "Жіноча крапля повертається іншою дорогою — [[amp]]через ін'є́кції B12. У неї уражені не́рви, тому [[neu]]гідроксокобаламі́н, по одному мілігра́му, вводять внутрішньом'я́зово через день, доки триває покращення, а потім — кожні два місяці."},
     {"id": "n2", "text": "Без неврологічних уражень британська схема інша: [[ind]]один мілігра́м тричі на тиждень упродовж двох тижнів, [[mnt]]далі кожні три місяці; при перніціо́зній анемі́ї — довічно. [[oral]]Якщо ж всмо́ктування не порушене, як при харчовому дефіци́ті, можливі й таблетки B12.", "gap": 0.5},
