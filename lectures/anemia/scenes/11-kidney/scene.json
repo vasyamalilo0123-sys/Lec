@@ -1,5 +1,12 @@
 {
+  "art": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
+  },
   "parts": [
+    "seam10",
     "vessel",
     "vessel_flow",
     "road_normo",
@@ -39,16 +46,16 @@
     },
     {
       "id": "n2",
-      "text": "[[epo]]Еритропоети́н виробляють перитубуля́рні кліти́ни ни́рок, і він кличе кісткови́й мо́зок до роботи. Коли ни́рки слабшають, [[thin]]сигналу стає замало; додаються запа́лення, нестача залі́за, а при гемодіа́лізі — ще й утрати крові.",
+      "text": "[[epo]]Еритропоети́н виробляють перитубуля́рні кліти́ни ни́рок, і він кличе кісткови́й мо́зок до роботи. Коли ни́рки слабшають, [[thin]]сигналу стає замало; додаються [[infl]]запа́лення, [[fe]]нестача залі́за, а при гемодіа́лізі — ще й [[hd]]утрати крові.",
       "gap": 0.5
     },
     {
       "id": "n3",
-      "text": "Та анемі́я при хронічній хворобі ни́рок — [[excl]]діагноз виключення: спершу перевірте залі́зо, B12 і фола́т. І лікування починають із корекції дефіци́ту залі́за."
+      "text": "Та анемі́я при хронічній хворобі ни́рок — [[excl]]діагноз виключення: спершу перевірте [[chk]]залі́зо, B12 і фола́т. [[tx]]І лікування починають із корекції дефіци́ту залі́за."
     },
     {
       "id": "n4",
-      "text": "Препарати, що стимулюють еритропое́з, на діа́лізі розглядають при [[h100]]гемоглобі́ні близько дев'яноста — ста, без діа́лізу — індивідуально. І [[h115]]не прагнуть ста п'ятнадцяти й вище: повна нормалізація в дослі́дженнях підвищувала ризик інсу́льту й тромбо́зів.",
+      "text": "Препарати, що стимулюють еритропое́з, на діа́лізі розглядають при [[h100]]гемоглобі́ні близько дев'яноста — ста, [[nodial]]без діа́лізу — індивідуально. І [[h115]]не прагнуть ста п'ятнадцяти й вище: [[risk]]повна нормалізація в дослі́дженнях підвищувала ризик інсу́льту й тромбо́зів.",
       "gap": 0.5
     }
   ],
@@ -138,5 +145,777 @@
       }
     ],
     "texts": "Підписи: «Нирка», «Перитубулярні клітини», «Еритропоетин», «Сигналу замало», «Залізо, B12, фолат», «Діаліз: близько 90–100 г/л», «Без діалізу — індивідуально», «Не прагнути ≥ 115 г/л». Теза: «Діагноз виключення». Джерела: s8, s32."
-  }
+  },
+  "carry": true,
+  "lead": 0.15,
+  "tail": 4.2,
+  "enter": "cut",
+  "exit": "cut",
+  "kicker": false,
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "start+0.25",
+      "dur": 2.4,
+      "view": "v-main"
+    },
+    {
+      "at": "@kid-0.3",
+      "dur": 1.8,
+      "view": "v-kid"
+    },
+    {
+      "at": "n2+3.4",
+      "dur": 1.6,
+      "view": "v-main"
+    },
+    {
+      "at": "n4",
+      "dur": 1.8,
+      "view": "v-scale"
+    },
+    {
+      "at": "n4.end-0.3",
+      "dur": 2.0,
+      "view": "v-map"
+    },
+    {
+      "at": "n4.end+1.8",
+      "dur": 2.0,
+      "view": "v-out"
+    }
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "seam10": "color",
+        "vessel": "hidden",
+        "vessel_flow": "hidden",
+        "road_normo": "hidden",
+        "road_macro": "hidden",
+        "map_nodes": "hidden",
+        "drop_f": "hidden",
+        "frag": "hidden",
+        "marrow": "hidden",
+        "marrow_pale": "hidden",
+        "epo": "hidden",
+        "epo_thin": "hidden",
+        "epo_mol1": "hidden",
+        "epo_mol2": "hidden",
+        "epo_mol3": "hidden",
+        "kidney": "hidden",
+        "peri": "hidden",
+        "peri_cells": "hidden",
+        "flame": "hidden",
+        "iron": "hidden",
+        "blood": "hidden",
+        "b12": "hidden",
+        "folate": "hidden",
+        "chk_b12": "hidden",
+        "chk_fol": "hidden",
+        "chk_fe": "hidden",
+        "scale": "hidden",
+        "scale_nums": "hidden",
+        "h100": "hidden",
+        "hb_mark": "hidden",
+        "h115": "hidden",
+        "indiv": "hidden"
+      }
+    },
+    {
+      "at": "start+0.25",
+      "dur": 0.7,
+      "set": {
+        "seam10": "hidden"
+      }
+    },
+    {
+      "at": "start+0.55",
+      "dur": 0.6,
+      "set": {
+        "vessel": "color",
+        "vessel_flow": "color"
+      }
+    },
+    {
+      "at": "start+0.95",
+      "dur": 0.4,
+      "set": {
+        "kidney": "color"
+      }
+    },
+    {
+      "at": "n1+2.2",
+      "dur": 0.4,
+      "set": {
+        "frag": "color"
+      }
+    },
+    {
+      "at": "@epo",
+      "dur": 0.6,
+      "set": {
+        "kidney": "grey",
+        "vessel": "grey",
+        "vessel_flow": "grey",
+        "peri": "color"
+      }
+    },
+    {
+      "at": "@epo+1.3",
+      "dur": 0.5,
+      "set": {
+        "peri_cells": "color"
+      }
+    },
+    {
+      "at": "n2+4",
+      "dur": 0.6,
+      "set": {
+        "peri": "grey",
+        "peri_cells": "grey",
+        "epo": "color",
+        "marrow": "color"
+      }
+    },
+    {
+      "at": "@thin",
+      "dur": 0.8,
+      "set": {
+        "epo": "hidden",
+        "epo_thin": "color",
+        "marrow_pale": "color"
+      }
+    },
+    {
+      "at": "@infl",
+      "dur": 0.5,
+      "set": {
+        "epo_thin": "grey",
+        "marrow": "grey",
+        "marrow_pale": "grey",
+        "flame": "color"
+      }
+    },
+    {
+      "at": "@fe",
+      "dur": 0.5,
+      "set": {
+        "flame": "grey",
+        "iron": "color"
+      }
+    },
+    {
+      "at": "@hd",
+      "dur": 0.5,
+      "set": {
+        "iron": "grey",
+        "blood": "color"
+      }
+    },
+    {
+      "at": "n3",
+      "dur": 0.6,
+      "set": {
+        "flame": "hidden",
+        "blood": "hidden",
+        "peri": "hidden",
+        "peri_cells": "hidden",
+        "iron": "color"
+      }
+    },
+    {
+      "at": "@excl",
+      "dur": 0.5,
+      "set": {
+        "b12": "color",
+        "folate": "color"
+      }
+    },
+    {
+      "at": "@chk",
+      "dur": 0.4,
+      "set": {
+        "chk_fe": "color"
+      }
+    },
+    {
+      "at": "@chk+0.7",
+      "dur": 0.4,
+      "set": {
+        "chk_b12": "color"
+      }
+    },
+    {
+      "at": "@chk+1.4",
+      "dur": 0.4,
+      "set": {
+        "chk_fol": "color"
+      }
+    },
+    {
+      "at": "@tx",
+      "dur": 0.6,
+      "set": {
+        "b12": "grey",
+        "folate": "grey",
+        "chk_b12": "grey",
+        "chk_fol": "grey"
+      }
+    },
+    {
+      "at": "n4",
+      "dur": 0.6,
+      "set": {
+        "iron": "grey",
+        "chk_fe": "grey",
+        "epo_thin": "hidden",
+        "epo": "color"
+      }
+    },
+    {
+      "at": "n4+0.6",
+      "dur": 0.4,
+      "set": {
+        "scale": "color"
+      }
+    },
+    {
+      "at": "n4+1.4",
+      "dur": 0.6,
+      "set": {
+        "scale_nums": "color"
+      }
+    },
+    {
+      "at": "@h100",
+      "dur": 0.5,
+      "set": {
+        "epo": "grey",
+        "h100": "color"
+      }
+    },
+    {
+      "at": "@h100+0.5",
+      "dur": 0.4,
+      "set": {
+        "hb_mark": "color"
+      }
+    },
+    {
+      "at": "@nodial",
+      "dur": 0.6,
+      "set": {
+        "h100": "grey",
+        "indiv": "color"
+      }
+    },
+    {
+      "at": "@h115",
+      "dur": 0.6,
+      "set": {
+        "indiv": "grey",
+        "h115": "color"
+      }
+    },
+    {
+      "at": "n4.end-0.3",
+      "dur": 0.8,
+      "set": {
+        "kidney": "color",
+        "epo": "color",
+        "marrow": "color",
+        "iron": "color",
+        "h100": "color",
+        "indiv": "color",
+        "vessel": "color",
+        "road_normo": "color",
+        "map_nodes": "color"
+      }
+    },
+    {
+      "at": "n4.end+0.4",
+      "dur": 0.6,
+      "set": {
+        "road_macro": "color",
+        "drop_f": "color"
+      }
+    },
+    {
+      "at": "n4.end+1.6",
+      "dur": 0.8,
+      "set": {
+        "kidney": "grey",
+        "epo": "grey",
+        "marrow": "grey",
+        "iron": "grey",
+        "h100": "grey",
+        "indiv": "grey",
+        "h115": "grey",
+        "hb_mark": "grey",
+        "scale_nums": "grey",
+        "vessel": "grey",
+        "road_normo": "grey",
+        "map_nodes": "grey",
+        "b12": "grey",
+        "chk_fe": "grey"
+      }
+    },
+    {
+      "at": "n2+5.20",
+      "dur": 0.15,
+      "set": {
+        "epo_mol1": "color"
+      }
+    },
+    {
+      "at": "n2+5.20+1.3",
+      "dur": 0.2,
+      "set": {
+        "epo_mol1": "hidden"
+      }
+    },
+    {
+      "at": "n2+5.75",
+      "dur": 0.15,
+      "set": {
+        "epo_mol2": "color"
+      }
+    },
+    {
+      "at": "n2+5.75+1.3",
+      "dur": 0.2,
+      "set": {
+        "epo_mol2": "hidden"
+      }
+    },
+    {
+      "at": "n2+6.30",
+      "dur": 0.15,
+      "set": {
+        "epo_mol3": "color"
+      }
+    },
+    {
+      "at": "n2+6.30+1.3",
+      "dur": 0.2,
+      "set": {
+        "epo_mol3": "hidden"
+      }
+    },
+    {
+      "at": "@thin+0.6",
+      "dur": 0.15,
+      "set": {
+        "epo_mol1": "color"
+      }
+    },
+    {
+      "at": "@thin+0.6+2.2",
+      "dur": 0.2,
+      "set": {
+        "epo_mol1": "hidden"
+      }
+    },
+    {
+      "at": "@thin+0.6+3.0",
+      "dur": 0.15,
+      "set": {
+        "epo_mol1": "color"
+      }
+    },
+    {
+      "at": "@thin+0.6+5.2",
+      "dur": 0.2,
+      "set": {
+        "epo_mol1": "hidden"
+      }
+    }
+  ],
+  "draw": [
+    {
+      "id": "vessel",
+      "at": "start+0.55",
+      "dur": 1.2
+    },
+    {
+      "id": "kidney",
+      "at": "start+0.95",
+      "dur": 1.5
+    },
+    {
+      "id": "marrow",
+      "at": "n2+4.2",
+      "dur": 1.2
+    },
+    {
+      "id": "indiv",
+      "at": "@nodial",
+      "dur": 1.0
+    },
+    {
+      "id": "h115",
+      "at": "@h115",
+      "dur": 0.8
+    },
+    {
+      "id": "chk_fe",
+      "at": "@chk",
+      "dur": 0.5
+    },
+    {
+      "id": "chk_b12",
+      "at": "@chk+0.7",
+      "dur": 0.5
+    },
+    {
+      "id": "chk_fol",
+      "at": "@chk+1.4",
+      "dur": 0.5
+    },
+    {
+      "id": "road_normo",
+      "at": "n4.end-0.3",
+      "dur": 1.2
+    },
+    {
+      "id": "map_nodes",
+      "at": "n4.end-0.3",
+      "dur": 1.0
+    },
+    {
+      "id": "road_macro",
+      "at": "n4.end+0.4",
+      "dur": 1.4
+    },
+    {
+      "id": "drop_f",
+      "at": "n4.end+0.4",
+      "dur": 1.2
+    }
+  ],
+  "grow": [
+    {
+      "id": "peri",
+      "origin": "o-peri",
+      "at": "@epo",
+      "dur": 1.2
+    },
+    {
+      "id": "epo",
+      "origin": "o-epo",
+      "at": "n2+4",
+      "dur": 1.5
+    },
+    {
+      "id": "flame",
+      "origin": "o-flame",
+      "at": "@infl",
+      "dur": 0.8
+    },
+    {
+      "id": "iron",
+      "origin": "o-iron",
+      "at": "@fe",
+      "dur": 0.8
+    },
+    {
+      "id": "blood",
+      "origin": "o-blood",
+      "at": "@hd",
+      "dur": 0.8
+    },
+    {
+      "id": "scale",
+      "origin": "o-scale",
+      "at": "n4+0.6",
+      "dur": 1.4
+    },
+    {
+      "id": "h100",
+      "origin": "o-h100",
+      "at": "@h100",
+      "dur": 1.0
+    }
+  ],
+  "move": [
+    {
+      "id": "iron",
+      "to": "pt-row-3",
+      "at": "@excl",
+      "dur": 1.4
+    },
+    {
+      "id": "b12",
+      "from": "o-flame",
+      "to": "o-b12",
+      "at": "@excl",
+      "dur": 1.4
+    },
+    {
+      "id": "folate",
+      "from": "o-blood",
+      "to": "o-folate",
+      "at": "@excl",
+      "dur": 1.4
+    },
+    {
+      "id": "iron",
+      "to": "pt-row-0",
+      "at": "@tx",
+      "dur": 1.4,
+      "scale": 1.4
+    },
+    {
+      "id": "chk_fe",
+      "to": "pt-chk-fe-0",
+      "at": "@tx",
+      "dur": 1.4
+    },
+    {
+      "id": "hb_mark",
+      "to": "pt-mark-120",
+      "at": "@h115+0.9",
+      "dur": 1.4
+    },
+    {
+      "id": "hb_mark",
+      "to": "pt-mark-100",
+      "at": "@h115+2.5",
+      "dur": 1.2
+    },
+    {
+      "id": "hb_mark",
+      "to": "pt-mark-120",
+      "at": "@risk+0.6",
+      "dur": 1.2
+    },
+    {
+      "id": "hb_mark",
+      "to": "pt-mark-100",
+      "at": "@risk+2.0",
+      "dur": 1.2
+    }
+  ],
+  "travel": [
+    {
+      "id": "epo_mol1",
+      "path": "p-epo",
+      "at": "n2+5.20",
+      "dur": 1.5
+    },
+    {
+      "id": "epo_mol2",
+      "path": "p-epo",
+      "at": "n2+5.75",
+      "dur": 1.5
+    },
+    {
+      "id": "epo_mol3",
+      "path": "p-epo",
+      "at": "n2+6.30",
+      "dur": 1.5
+    },
+    {
+      "id": "epo_mol1",
+      "path": "p-epo",
+      "at": "@thin+0.6",
+      "dur": 2.4
+    },
+    {
+      "id": "epo_mol1",
+      "path": "p-epo",
+      "at": "@thin+0.6+3.0",
+      "dur": 2.4
+    },
+    {
+      "id": "frag",
+      "path": "p-frag",
+      "at": "n1+2.2",
+      "dur": 2.6,
+      "out": "@epo"
+    }
+  ],
+  "loop": [
+    {
+      "id": "vessel_axis",
+      "kind": "flow",
+      "in": "start+1.2",
+      "out": "@epo",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "kidney",
+      "kind": "pulse",
+      "in": "@kid",
+      "out": "@epo",
+      "amp": 0.02,
+      "period": 2.4
+    },
+    {
+      "id": "peri_cells",
+      "kind": "pulse",
+      "in": "@epo+1.6",
+      "out": "n2+4",
+      "amp": 0.04,
+      "period": 2.0
+    },
+    {
+      "id": "marrow_pale",
+      "kind": "pulse",
+      "in": "@thin+1",
+      "out": "@infl",
+      "amp": 0.02,
+      "period": 2.4
+    },
+    {
+      "id": "iron",
+      "kind": "pulse",
+      "in": "@tx+1.6",
+      "out": "n4",
+      "amp": 0.04,
+      "period": 2.2
+    },
+    {
+      "id": "h115",
+      "kind": "pulse",
+      "in": "@risk",
+      "out": "n4.end",
+      "amp": 0.03,
+      "period": 2.0
+    },
+    {
+      "id": "macro_axis",
+      "kind": "flow",
+      "in": "n4.end+1.2",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "drop_f-ring",
+      "kind": "pulse",
+      "in": "n4.end+2.0",
+      "amp": 0.04,
+      "period": 2.4
+    }
+  ],
+  "count": [],
+  "labels": [
+    {
+      "id": "lkid",
+      "text": "Нирка",
+      "anchor": "a-kidney",
+      "x": 620,
+      "y": 180,
+      "align": "right",
+      "in": "@kid+0.2",
+      "out": "@epo",
+      "focus": "kidney"
+    },
+    {
+      "id": "lperi",
+      "text": "Перитубулярні клітини",
+      "anchor": "a-peri",
+      "x": 150,
+      "y": 300,
+      "align": "left",
+      "in": "@epo+1.4",
+      "out": "n2+4",
+      "focus": "peri_cells"
+    },
+    {
+      "id": "lepo",
+      "text": "Еритропоетин",
+      "anchor": "a-epo",
+      "x": 1010,
+      "y": 470,
+      "align": "left",
+      "in": "n2+5",
+      "out": "@thin",
+      "focus": "epo"
+    },
+    {
+      "id": "lthin",
+      "text": "Сигналу замало",
+      "anchor": "a-epo",
+      "x": 1010,
+      "y": 470,
+      "align": "left",
+      "in": "@thin+0.4",
+      "out": "@infl",
+      "focus": "epo_thin"
+    },
+    {
+      "id": "lrow",
+      "text": "Залізо, B12, фолат",
+      "anchor": "a-iron",
+      "x": 300,
+      "y": 380,
+      "align": "left",
+      "in": "@chk",
+      "out": "@tx",
+      "focus": "b12"
+    },
+    {
+      "id": "lh100",
+      "text": "Діаліз: близько 90–100 г/л",
+      "anchor": "a-h100",
+      "x": 1060,
+      "y": 560,
+      "align": "left",
+      "in": "@h100+0.6",
+      "out": "@nodial",
+      "focus": "h100"
+    },
+    {
+      "id": "lind",
+      "text": "Без діалізу — індивідуально",
+      "anchor": "a-indiv",
+      "x": 1290,
+      "y": 400,
+      "align": "left",
+      "in": "@nodial+0.6",
+      "out": "@h115",
+      "focus": "indiv"
+    },
+    {
+      "id": "lh115",
+      "text": "Не прагнути ≥ 115 г/л",
+      "anchor": "a-h115",
+      "x": 1100,
+      "y": 290,
+      "align": "left",
+      "in": "@h115+0.5",
+      "out": "n4.end",
+      "focus": "h115"
+    }
+  ],
+  "texts": [
+    {
+      "id": "t1",
+      "kind": "thesis",
+      "html": "Діагноз виключення",
+      "in": "@excl+0.3",
+      "out": "@tx"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s8",
+      "in": "@epo+1.4",
+      "out": "n4.end"
+    },
+    {
+      "ref": "s32",
+      "in": "@risk",
+      "out": "n4.end"
+    }
+  ]
 }

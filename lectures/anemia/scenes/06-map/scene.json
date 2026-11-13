@@ -1,12 +1,64 @@
 {
-  "parts": ["root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "rt", "rt_cell", "ic_torso", "ic_foot", "drop_m", "drop_w", "path1", "path2"],
+  "art": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
+  },
+  "parts": [
+    "root",
+    "br_mic",
+    "br_nor",
+    "br_mac",
+    "leaf_ida",
+    "leaf_inf",
+    "leaf_thal",
+    "br_nlow",
+    "br_nhigh",
+    "lf_kid",
+    "lf_flame",
+    "lf_bone",
+    "lf_bleed",
+    "lf_hemol",
+    "leaf_meg",
+    "leaf_nonmeg",
+    "rt",
+    "rt_cell",
+    "ic_torso",
+    "ic_foot",
+    "drop_m",
+    "drop_w",
+    "path1",
+    "path2"
+  ],
   "narration": [
-    {"id": "n1", "text": "Підні́мемося вище — і розвилки складаються в [[map]]карту."},
-    {"id": "n2", "text": "[[mic]]На мікроцита́рній дорозі три зупинки: [[ida]]дефіци́т залі́за, [[inf]]залі́зо, замкнене запа́ленням, і [[thal]]таласемі́я — спадково порушений си́нтез глобі́ну.", "gap": 0.5},
-    {"id": "n3", "text": "[[nor]]На нормоцита́рній доро́гу вибирають ретикулоци́ти. [[nlow]]Мало — нирки, запа́лення, кісткови́й мо́зок. [[nhigh]]Багато — кровотеча або гемо́ліз."},
-    {"id": "n4", "text": "[[mac]]На макроцита́рній — [[meg]]мегалобла́стна анемі́я, від нестачі B12 чи фола́ту, і [[nonmeg]]немегалобла́стна: алкого́ль, хвороби печі́нки, гіпотирео́з, ліки, мієлодиспласти́чний синдро́м. [[rt]]Виразний ретикулоцито́з теж підвищує сере́дній об'є́м."},
-    {"id": "n5", "text": "Перевірте себе. [[qz]]Гемоглобі́н знижений, ретикулоци́ти високі. Які дві зупинки на карті?", "gap": 0.7},
-    {"id": "n6", "text": "Кровотеча або гемо́ліз.", "gap": 4}
+    {
+      "id": "n1",
+      "text": "Підні́мемося вище — і розвилки складаються в [[map]]карту."
+    },
+    {
+      "id": "n2",
+      "text": "[[mic]]На мікроцита́рній дорозі три зупинки: [[ida]]дефіци́т залі́за, [[inf]]залі́зо, замкнене запа́ленням, і [[thal]]таласемі́я — спадково порушений си́нтез глобі́ну.",
+      "gap": 0.5
+    },
+    {
+      "id": "n3",
+      "text": "[[nor]]На нормоцита́рній доро́гу вибирають ретикулоци́ти. [[nlow]]Мало — [[kid]]нирки, [[fl]]запа́лення, [[bone]]кісткови́й мо́зок. [[nhigh]]Багато — [[bleed]]кровотеча або [[hem]]гемо́ліз."
+    },
+    {
+      "id": "n4",
+      "text": "[[mac]]На макроцита́рній — [[meg]]мегалобла́стна анемі́я, від нестачі B12 чи фола́ту, і [[nonmeg]]немегалобла́стна: алкого́ль, хвороби печі́нки, [[thy]]гіпотирео́з, ліки, [[mds]]мієлодиспласти́чний синдро́м. [[rt]]Виразний ретикулоцито́з теж підвищує сере́дній об'є́м."
+    },
+    {
+      "id": "n5",
+      "text": "Перевірте себе. [[qz]]Гемоглобі́н знижений, [[qret]]ретикулоци́ти високі. [[qwhich]]Які дві зупинки на карті?",
+      "gap": 0.7
+    },
+    {
+      "id": "n6",
+      "text": "Кровотеча або гемо́ліз.",
+      "gap": 4
+    }
   ],
   "brief": {
     "in": "carry з 05: камера віддаляється від кістки й рамки лічби; вони зменшуються й лягають у плашку «Ретикулоцити» нормо-дороги; навколо проявляється вся карта.",
@@ -14,23 +66,826 @@
     "reuse": "06-tree/art.svg повністю (root, br_mic, leaf_mic, br_nor, br_nlow, br_nhigh, br_mac, leaf_mac; точки o-*). 18-summary: path1, path2 (смуги маршрутів) і p-path1, p-path2 — для руху крапель. Корінь «Анемія» малювати як джерело-краплю. Карту центрувати на весь кадр; дороги як у world.md.",
     "art": "Повний кадр: карта-дерево по центру, корінь угорі по центру. Частини: root, br_mic, leaf_mic, br_nor, br_nlow, br_nhigh, br_mac, leaf_mac, drop_m, drop_w (краплі з бирками на розвилці), path1, path2 (на кінець).",
     "flow": [
-      {"at": "start", "color": "br_nor, br_nlow", "move": "camera від'їжджає (2 с); дороги проявляються навколо (draw від o-root)", "text": "—"},
-      {"at": "@map", "color": "root, drop_m, drop_w", "move": "три дороги розходяться (grow від o-mic/o-nor/o-mac, 1,5 с); loop — біг штрихів по осьових лініях доріг; дві краплі стоять на розвилці", "text": "—"},
-      {"at": "@mic", "color": "br_mic", "move": "camera плавно зсуває центр на мікро-дорогу (1,5 с); інші дороги сірі", "text": "підпис «Мікроцитоз»"},
-      {"at": "@ida", "color": "leaf_mic (ЗДА)", "move": "листок ЗДА draw (порожнє кільце)", "text": "підпис «Дефіцит заліза»"},
-      {"at": "@inf", "color": "leaf_mic (полум'я)", "move": "листок-полум'я draw, ледь коливається (loop)", "text": "підпис «Запалення»"},
-      {"at": "@thal", "color": "leaf_mic (мішеневидна клітина)", "move": "листок draw; джерело s21", "text": "підпис «Таласемія»"},
-      {"at": "@nor", "color": "br_nor", "move": "camera на нормо-дорогу; мікро сіра", "text": "підпис «Нормоцитоз»"},
-      {"at": "@nlow", "color": "br_nlow", "move": "відгалуження grow від o-nlow; три листки (нирка, полум'я, кістка) draw по черзі в такт словам", "text": "підпис «Ретикулоцити ↓: нирки, запалення, мозок»"},
-      {"at": "@nhigh", "color": "br_nhigh", "move": "br_nlow сірий; відгалуження grow від o-nhigh; крапля й розірвана клітина draw", "text": "підпис «Ретикулоцити ↑: кровотеча, гемоліз»"},
-      {"at": "@mac", "color": "br_mac", "move": "camera на макро-дорогу; нормо сіра", "text": "підпис «Макроцитоз»"},
-      {"at": "@meg", "color": "leaf_mac (мегалобластна)", "move": "гіперсегментоване ядро draw частка за часткою", "text": "підпис «Мегалобластна: B12, фолат»; джерело s6"},
-      {"at": "@nonmeg", "color": "leaf_mac (немегалобластна)", "move": "великий макроцит grow", "text": "підпис «Немегалобластна»; джерело s23"},
-      {"at": "@rt", "color": "br_nhigh, leaf_mac", "move": "від плашки «ретикулоцити ↑» до макро-дороги draw тонкий пунктир (travel однієї клітини по ньому)", "text": "—"},
-      {"at": "@qz", "color": "drop_m, drop_w", "move": "camera від'їжджає на всю карту; уся карта сіра, лише краплі на розвилці в кольорі, loop — пульс кілець", "text": "note: «Згадайте, не підглядаючи»; quiz по центру внизу: «Hb ↓, ретикулоцити ↑. Які дві зупинки?»"},
-      {"at": "n6", "color": "br_nhigh", "move": "плашки «Кровотеча» і «Гемоліз» коротко пульсують", "text": "відповідь (k-answer): «Кровотеча або гемоліз»"},
-      {"at": "n6.end", "color": "br_mic, drop_m", "move": "drop_m travel по p-path1 до листка ЗДА; camera слідом наближається", "text": "відповідь гасне"}
+      {
+        "at": "start",
+        "color": "br_nor, br_nlow",
+        "move": "camera від'їжджає (2 с); дороги проявляються навколо (draw від o-root)",
+        "text": "—"
+      },
+      {
+        "at": "@map",
+        "color": "root, drop_m, drop_w",
+        "move": "три дороги розходяться (grow від o-mic/o-nor/o-mac, 1,5 с); loop — біг штрихів по осьових лініях доріг; дві краплі стоять на розвилці",
+        "text": "—"
+      },
+      {
+        "at": "@mic",
+        "color": "br_mic",
+        "move": "camera плавно зсуває центр на мікро-дорогу (1,5 с); інші дороги сірі",
+        "text": "підпис «Мікроцитоз»"
+      },
+      {
+        "at": "@ida",
+        "color": "leaf_mic (ЗДА)",
+        "move": "листок ЗДА draw (порожнє кільце)",
+        "text": "підпис «Дефіцит заліза»"
+      },
+      {
+        "at": "@inf",
+        "color": "leaf_mic (полум'я)",
+        "move": "листок-полум'я draw, ледь коливається (loop)",
+        "text": "підпис «Запалення»"
+      },
+      {
+        "at": "@thal",
+        "color": "leaf_mic (мішеневидна клітина)",
+        "move": "листок draw; джерело s21",
+        "text": "підпис «Таласемія»"
+      },
+      {
+        "at": "@nor",
+        "color": "br_nor",
+        "move": "camera на нормо-дорогу; мікро сіра",
+        "text": "підпис «Нормоцитоз»"
+      },
+      {
+        "at": "@nlow",
+        "color": "br_nlow",
+        "move": "відгалуження grow від o-nlow; три листки (нирка, полум'я, кістка) draw по черзі в такт словам",
+        "text": "підпис «Ретикулоцити ↓: нирки, запалення, мозок»"
+      },
+      {
+        "at": "@nhigh",
+        "color": "br_nhigh",
+        "move": "br_nlow сірий; відгалуження grow від o-nhigh; крапля й розірвана клітина draw",
+        "text": "підпис «Ретикулоцити ↑: кровотеча, гемоліз»"
+      },
+      {
+        "at": "@mac",
+        "color": "br_mac",
+        "move": "camera на макро-дорогу; нормо сіра",
+        "text": "підпис «Макроцитоз»"
+      },
+      {
+        "at": "@meg",
+        "color": "leaf_mac (мегалобластна)",
+        "move": "гіперсегментоване ядро draw частка за часткою",
+        "text": "підпис «Мегалобластна: B12, фолат»; джерело s6"
+      },
+      {
+        "at": "@nonmeg",
+        "color": "leaf_mac (немегалобластна)",
+        "move": "великий макроцит grow",
+        "text": "підпис «Немегалобластна»; джерело s23"
+      },
+      {
+        "at": "@rt",
+        "color": "br_nhigh, leaf_mac",
+        "move": "від плашки «ретикулоцити ↑» до макро-дороги draw тонкий пунктир (travel однієї клітини по ньому)",
+        "text": "—"
+      },
+      {
+        "at": "@qz",
+        "color": "drop_m, drop_w",
+        "move": "camera від'їжджає на всю карту; уся карта сіра, лише краплі на розвилці в кольорі, loop — пульс кілець",
+        "text": "note: «Згадайте, не підглядаючи»; quiz по центру внизу: «Hb ↓, ретикулоцити ↑. Які дві зупинки?»"
+      },
+      {
+        "at": "n6",
+        "color": "br_nhigh",
+        "move": "плашки «Кровотеча» і «Гемоліз» коротко пульсують",
+        "text": "відповідь (k-answer): «Кровотеча або гемоліз»"
+      },
+      {
+        "at": "n6.end",
+        "color": "br_mic, drop_m",
+        "move": "drop_m travel по p-path1 до листка ЗДА; camera слідом наближається",
+        "text": "відповідь гасне"
+      }
     ],
     "texts": "Підписи: «Мікроцитоз», «Дефіцит заліза», «Запалення», «Таласемія», «Нормоцитоз», «Ретикулоцити ↓: нирки, запалення, мозок», «Ретикулоцити ↑: кровотеча, гемоліз», «Макроцитоз», «Мегалобластна: B12, фолат», «Немегалобластна». note: «Згадайте, не підглядаючи»; quiz: «Hb ↓, ретикулоцити ↑. Які дві зупинки?»; відповідь: «Кровотеча або гемоліз». Джерела: s22, s21, s6, s23, s14."
-  }
+  },
+  "carry": true,
+  "lead": 0.15,
+  "tail": 3.7,
+  "enter": "cut",
+  "exit": "cut",
+  "kicker": false,
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "n1+0.1",
+      "dur": 2.8,
+      "view": "v-map"
+    },
+    {
+      "at": "@mic+0.05",
+      "dur": 1.5,
+      "view": "v-mic"
+    },
+    {
+      "at": "@nor+0.05",
+      "dur": 1.5,
+      "view": "v-nor"
+    },
+    {
+      "at": "@mac+0.05",
+      "dur": 1.5,
+      "view": "v-mac"
+    },
+    {
+      "at": "@thy",
+      "dur": 2.4,
+      "view": {
+        "x": 1760,
+        "y": 700,
+        "w": 1344,
+        "h": 756
+      }
+    },
+    {
+      "at": "@rt+0.05",
+      "dur": 1.6,
+      "view": "v-rt"
+    },
+    {
+      "at": "n5+0.1",
+      "dur": 1.8,
+      "view": "v-map"
+    },
+    {
+      "at": "n5.end+1.6",
+      "dur": 2.4,
+      "view": {
+        "x": 348,
+        "y": 130,
+        "w": 2504,
+        "h": 1408.5
+      }
+    },
+    {
+      "at": "n6.end+0.4",
+      "dur": 2.6,
+      "view": "v-out"
+    }
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "root": "hidden",
+        "br_mic": "hidden",
+        "br_nor": "color",
+        "br_mac": "hidden",
+        "leaf_ida": "hidden",
+        "leaf_inf": "hidden",
+        "leaf_thal": "hidden",
+        "br_nlow": "hidden",
+        "br_nhigh": "hidden",
+        "lf_kid": "hidden",
+        "lf_flame": "hidden",
+        "lf_bone": "hidden",
+        "lf_bleed": "hidden",
+        "lf_hemol": "hidden",
+        "leaf_meg": "hidden",
+        "leaf_nonmeg": "hidden",
+        "rt": "hidden",
+        "rt_cell": "hidden",
+        "ic_torso": "hidden",
+        "ic_foot": "hidden",
+        "drop_m": "hidden",
+        "drop_w": "hidden",
+        "path1": "hidden",
+        "path2": "hidden"
+      }
+    },
+    {
+      "at": "n1+0.4",
+      "dur": 0.6,
+      "set": {
+        "root": "color"
+      }
+    },
+    {
+      "at": "@map",
+      "dur": 0.6,
+      "set": {
+        "br_mic": "color",
+        "br_mac": "color"
+      }
+    },
+    {
+      "at": "@map+0.4",
+      "dur": 0.6,
+      "set": {
+        "drop_m": "color",
+        "drop_w": "color"
+      }
+    },
+    {
+      "at": "@mic",
+      "dur": 0.6,
+      "set": {
+        "root": "grey",
+        "br_nor": "grey",
+        "br_mac": "grey",
+        "drop_m": "grey",
+        "drop_w": "grey"
+      }
+    },
+    {
+      "at": "@ida",
+      "dur": 0.6,
+      "set": {
+        "leaf_ida": "color"
+      }
+    },
+    {
+      "at": "@inf",
+      "dur": 0.6,
+      "set": {
+        "leaf_ida": "grey",
+        "leaf_inf": "color"
+      }
+    },
+    {
+      "at": "@thal",
+      "dur": 0.6,
+      "set": {
+        "leaf_inf": "grey",
+        "leaf_thal": "color"
+      }
+    },
+    {
+      "at": "@thal+2.3",
+      "dur": 0.8,
+      "set": {
+        "leaf_ida": "color",
+        "leaf_inf": "color"
+      }
+    },
+    {
+      "at": "@nor",
+      "dur": 0.6,
+      "set": {
+        "br_mic": "grey",
+        "leaf_ida": "grey",
+        "leaf_inf": "grey",
+        "leaf_thal": "grey",
+        "br_nor": "color"
+      }
+    },
+    {
+      "at": "@nlow",
+      "dur": 0.6,
+      "set": {
+        "br_nlow": "color"
+      }
+    },
+    {
+      "at": "@kid",
+      "dur": 0.5,
+      "set": {
+        "lf_kid": "color"
+      }
+    },
+    {
+      "at": "@fl",
+      "dur": 0.5,
+      "set": {
+        "lf_flame": "color"
+      }
+    },
+    {
+      "at": "@bone",
+      "dur": 0.5,
+      "set": {
+        "lf_bone": "color"
+      }
+    },
+    {
+      "at": "@nhigh",
+      "dur": 0.6,
+      "set": {
+        "br_nlow": "grey",
+        "lf_kid": "grey",
+        "lf_flame": "grey",
+        "lf_bone": "grey",
+        "br_nhigh": "color"
+      }
+    },
+    {
+      "at": "@bleed",
+      "dur": 0.5,
+      "set": {
+        "lf_bleed": "color"
+      }
+    },
+    {
+      "at": "@hem",
+      "dur": 0.5,
+      "set": {
+        "lf_hemol": "color"
+      }
+    },
+    {
+      "at": "@mac",
+      "dur": 0.6,
+      "set": {
+        "br_nor": "grey",
+        "br_nhigh": "grey",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
+        "br_mac": "color"
+      }
+    },
+    {
+      "at": "@meg",
+      "dur": 0.6,
+      "set": {
+        "leaf_meg": "color"
+      }
+    },
+    {
+      "at": "@nonmeg",
+      "dur": 0.6,
+      "set": {
+        "leaf_meg": "grey",
+        "leaf_nonmeg": "color"
+      }
+    },
+    {
+      "at": "@rt",
+      "dur": 0.6,
+      "set": {
+        "br_nhigh": "color",
+        "leaf_meg": "color",
+        "rt": "color"
+      }
+    },
+    {
+      "at": "@rt+0.8",
+      "dur": 0.4,
+      "set": {
+        "rt_cell": "color"
+      }
+    },
+    {
+      "at": "n5",
+      "dur": 0.8,
+      "set": {
+        "br_mic": "grey",
+        "br_nor": "grey",
+        "br_mac": "grey",
+        "br_nlow": "grey",
+        "br_nhigh": "grey",
+        "root": "grey",
+        "leaf_ida": "grey",
+        "leaf_inf": "grey",
+        "leaf_thal": "grey",
+        "lf_kid": "grey",
+        "lf_flame": "grey",
+        "lf_bone": "grey",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
+        "leaf_meg": "grey",
+        "leaf_nonmeg": "grey",
+        "rt": "grey",
+        "rt_cell": "grey"
+      }
+    },
+    {
+      "at": "@qz",
+      "dur": 0.6,
+      "set": {
+        "drop_m": "color",
+        "drop_w": "color",
+        "root": "color"
+      }
+    },
+    {
+      "at": "@qret",
+      "dur": 0.6,
+      "set": {
+        "root": "grey",
+        "br_nor": "color"
+      }
+    },
+    {
+      "at": "@qwhich",
+      "dur": 0.6,
+      "set": {
+        "br_nor": "grey"
+      }
+    },
+    {
+      "at": "n6",
+      "dur": 0.5,
+      "set": {
+        "br_nhigh": "color",
+        "lf_bleed": "color",
+        "lf_hemol": "color",
+        "drop_m": "grey",
+        "drop_w": "grey"
+      }
+    },
+    {
+      "at": "n6.end",
+      "dur": 0.6,
+      "set": {
+        "br_nhigh": "grey",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
+        "rt": "hidden",
+        "rt_cell": "hidden",
+        "br_mic": "color",
+        "leaf_ida": "color",
+        "drop_m": "color"
+      }
+    }
+  ],
+  "draw": [
+    {
+      "id": "root",
+      "at": "n1+0.4",
+      "dur": 1.6
+    },
+    {
+      "id": "drop_m",
+      "at": "@map+0.4",
+      "dur": 1.0
+    },
+    {
+      "id": "drop_w",
+      "at": "@map+0.4",
+      "dur": 1.0
+    },
+    {
+      "id": "leaf_ida",
+      "at": "@ida",
+      "dur": 1.2
+    },
+    {
+      "id": "leaf_inf",
+      "at": "@inf",
+      "dur": 1.2
+    },
+    {
+      "id": "leaf_thal",
+      "at": "@thal",
+      "dur": 1.2
+    },
+    {
+      "id": "lf_kid",
+      "at": "@kid",
+      "dur": 0.9
+    },
+    {
+      "id": "lf_flame",
+      "at": "@fl",
+      "dur": 0.9
+    },
+    {
+      "id": "lf_bone",
+      "at": "@bone",
+      "dur": 0.9
+    },
+    {
+      "id": "lf_bleed",
+      "at": "@bleed",
+      "dur": 0.9
+    },
+    {
+      "id": "lf_hemol",
+      "at": "@hem",
+      "dur": 0.9
+    },
+    {
+      "id": "leaf_meg",
+      "at": "@meg",
+      "dur": 2.0
+    },
+    {
+      "id": "rt",
+      "at": "@rt",
+      "dur": 1.4
+    }
+  ],
+  "grow": [
+    {
+      "id": "br_mic",
+      "origin": "o-mic",
+      "at": "@map",
+      "dur": 1.5
+    },
+    {
+      "id": "br_mac",
+      "origin": "o-mac",
+      "at": "@map",
+      "dur": 1.5
+    },
+    {
+      "id": "br_nlow",
+      "origin": "o-nlow",
+      "at": "@nlow",
+      "dur": 1.2
+    },
+    {
+      "id": "br_nhigh",
+      "origin": "o-nhigh",
+      "at": "@nhigh",
+      "dur": 1.2
+    },
+    {
+      "id": "leaf_nonmeg",
+      "origin": "o-nonmeg",
+      "at": "@nonmeg",
+      "dur": 1.4
+    }
+  ],
+  "move": [],
+  "travel": [
+    {
+      "id": "rt_cell",
+      "path": "p-rt",
+      "at": "@rt+0.8",
+      "dur": 2.4
+    },
+    {
+      "id": "drop_m",
+      "path": "p-m-ida",
+      "at": "n6.end+0.1",
+      "dur": 2.6
+    }
+  ],
+  "loop": [
+    {
+      "id": "ax-trunk",
+      "kind": "flow",
+      "in": "@map+0.6",
+      "out": "@mic"
+    },
+    {
+      "id": "ax-mic",
+      "kind": "flow",
+      "in": "@map+0.6",
+      "out": "@nor"
+    },
+    {
+      "id": "ax-mac",
+      "kind": "flow",
+      "in": "@map+0.6",
+      "out": "@mic"
+    },
+    {
+      "id": "inf-flame",
+      "kind": "pulse",
+      "in": "@inf+0.8",
+      "out": "@thal",
+      "amp": 0.04,
+      "period": 1.6
+    },
+    {
+      "id": "ax-nor",
+      "kind": "flow",
+      "in": "@nor+0.2",
+      "out": "@nlow"
+    },
+    {
+      "id": "ax-nlow",
+      "kind": "flow",
+      "in": "@nlow+1.2",
+      "out": "@nhigh"
+    },
+    {
+      "id": "ax-nhigh",
+      "kind": "flow",
+      "in": "@nhigh+1.2",
+      "out": "@mac"
+    },
+    {
+      "id": "ax-mac",
+      "kind": "flow",
+      "in": "@mac+0.3",
+      "out": "@rt"
+    },
+    {
+      "id": "meg-nuc",
+      "kind": "pulse",
+      "in": "@meg+2",
+      "out": "@nonmeg",
+      "amp": 0.04
+    },
+    {
+      "id": "leaf_nonmeg",
+      "kind": "pulse",
+      "in": "@nonmeg+1.6",
+      "out": "@rt",
+      "amp": 0.03
+    },
+    {
+      "id": "drop_m",
+      "kind": "pulse",
+      "in": "@qz+0.3",
+      "out": "n6",
+      "amp": 0.04,
+      "period": 1.8
+    },
+    {
+      "id": "drop_w",
+      "kind": "pulse",
+      "in": "@qz+0.3",
+      "out": "n6",
+      "amp": 0.04,
+      "period": 1.8
+    },
+    {
+      "id": "lf_bleed",
+      "kind": "pulse",
+      "in": "n6+0.2",
+      "out": "n6.end",
+      "amp": 0.06,
+      "period": 1.2
+    },
+    {
+      "id": "lf_hemol",
+      "kind": "pulse",
+      "in": "n6+0.2",
+      "out": "n6.end",
+      "amp": 0.06,
+      "period": 1.2
+    }
+  ],
+  "count": [],
+  "labels": [
+    {
+      "id": "lmic",
+      "text": "Мікроцитоз",
+      "anchor": "a-micv",
+      "x": 800,
+      "y": 150,
+      "align": "right",
+      "focus": "br_mic",
+      "in": "@mic+1.0",
+      "out": "@nor"
+    },
+    {
+      "id": "lida",
+      "text": "Дефіцит заліза",
+      "anchor": "a-ida",
+      "x": 1080,
+      "y": 185,
+      "align": "left",
+      "focus": "leaf_ida",
+      "in": "@ida+0.5",
+      "out": "n2.end"
+    },
+    {
+      "id": "linf",
+      "text": "Запалення",
+      "anchor": "a-inf",
+      "x": 1080,
+      "y": 450,
+      "align": "left",
+      "focus": "leaf_inf",
+      "in": "@inf+0.5",
+      "out": "n2.end"
+    },
+    {
+      "id": "lthal",
+      "text": "Таласемія",
+      "anchor": "a-thal",
+      "x": 1080,
+      "y": 650,
+      "align": "left",
+      "focus": "leaf_thal",
+      "in": "@thal+0.5",
+      "out": "n2.end"
+    },
+    {
+      "id": "lnor",
+      "text": "Нормоцитоз",
+      "anchor": "a-nor",
+      "x": 1260,
+      "y": 130,
+      "align": "left",
+      "focus": "br_nor",
+      "in": "@nor+1.0",
+      "out": "@mac"
+    },
+    {
+      "id": "lnlow",
+      "text": "Ретикулоцити ↓",
+      "anchor": "a-nlow",
+      "x": 480,
+      "y": 300,
+      "align": "right",
+      "focus": "br_nlow",
+      "in": "@nlow+0.6",
+      "out": "@nhigh",
+      "sub": "нирки, запалення, мозок"
+    },
+    {
+      "id": "lnhigh",
+      "text": "Ретикулоцити ↑",
+      "anchor": "a-nhigh",
+      "x": 1440,
+      "y": 300,
+      "align": "left",
+      "focus": "br_nhigh",
+      "in": "@nhigh+0.6",
+      "out": "@mac",
+      "sub": "кровотеча, гемоліз"
+    },
+    {
+      "id": "lmac",
+      "text": "Макроцитоз",
+      "anchor": "a-macv",
+      "x": 1120,
+      "y": 150,
+      "align": "left",
+      "focus": "br_mac",
+      "in": "@mac+1.0",
+      "out": "@rt"
+    },
+    {
+      "id": "lmeg",
+      "text": "Мегалобластна",
+      "anchor": "a-meg",
+      "x": 820,
+      "y": 185,
+      "align": "right",
+      "focus": "leaf_meg",
+      "in": "@meg+0.6",
+      "out": "@nonmeg",
+      "sub": "B12, фолат"
+    },
+    {
+      "id": "lnon",
+      "text": "Немегалобластна",
+      "anchor": "a-nonmeg",
+      "x": 820,
+      "y": 430,
+      "align": "right",
+      "focus": "leaf_nonmeg",
+      "in": "@nonmeg+0.8",
+      "out": "@rt"
+    }
+  ],
+  "texts": [
+    {
+      "id": "qn",
+      "kind": "note",
+      "html": "Згадайте, не підглядаючи",
+      "in": "n5+0.3",
+      "out": "n6"
+    },
+    {
+      "id": "q1",
+      "kind": "quiz",
+      "html": "Hb ↓, ретикулоцити ↑. Які дві зупинки?",
+      "in": "@qz+0.3",
+      "out": "n6"
+    },
+    {
+      "id": "qa",
+      "kind": "quiz",
+      "class": "k-answer",
+      "html": "Кровотеча або гемоліз",
+      "in": "n6+0.1",
+      "out": "n6.end"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s22",
+      "in": "@mic+1.0",
+      "out": "n2.end"
+    },
+    {
+      "ref": "s21",
+      "in": "@thal+0.5",
+      "out": "n2.end"
+    },
+    {
+      "ref": "s14",
+      "in": "@nlow+0.6",
+      "out": "n3.end"
+    },
+    {
+      "ref": "s6",
+      "in": "@meg+0.6",
+      "out": "@nonmeg"
+    },
+    {
+      "ref": "s23",
+      "in": "@nonmeg+0.8",
+      "out": "n4.end"
+    }
+  ]
 }
