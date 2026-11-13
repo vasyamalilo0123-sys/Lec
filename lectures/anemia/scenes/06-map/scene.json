@@ -201,7 +201,7 @@
       "at": "@mac+0.05",
       "dur": 1.5,
       "view": {
-        "x": 1740,
+        "x": 1800,
         "y": 640,
         "w": 1280,
         "h": 720
@@ -211,10 +211,10 @@
       "at": "@thy",
       "dur": 2.4,
       "view": {
-        "x": 1760,
-        "y": 620,
-        "w": 1120,
-        "h": 630
+        "x": 1840,
+        "y": 640,
+        "w": 1200,
+        "h": 675
       }
     },
     {
@@ -816,9 +816,9 @@
       "id": "lmac",
       "text": "Макроцитоз",
       "anchor": "a-macv",
-      "x": 1150,
+      "x": 860,
       "y": 150,
-      "align": "left",
+      "align": "right",
       "focus": "br_mac",
       "in": "@mac+1.0",
       "out": "@rt"
@@ -826,10 +826,10 @@
     {
       "id": "lmeg",
       "text": "Мегалобластна",
-      "anchor": "a-meg",
-      "x": 890,
+      "anchor": "a-megr",
+      "x": 1110,
       "y": 205,
-      "align": "right",
+      "align": "left",
       "focus": "leaf_meg",
       "in": "@meg+0.6",
       "out": "@nonmeg",
@@ -838,10 +838,10 @@
     {
       "id": "lnon",
       "text": "Немегалобластна",
-      "anchor": "a-nonmeg",
-      "x": 890,
+      "anchor": "a-nonmegr",
+      "x": 1110,
       "y": 505,
-      "align": "right",
+      "align": "left",
       "focus": "leaf_nonmeg",
       "in": "@nonmeg+0.8",
       "out": "@rt"
