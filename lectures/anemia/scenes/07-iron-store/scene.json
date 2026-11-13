@@ -142,6 +142,16 @@
   {
    "at": "start+0.3",
    "dur": 2.4,
+   "view": {
+    "x": 15,
+    "y": 0,
+    "w": 1600,
+    "h": 900
+   }
+  },
+  {
+   "at": "@fer-0.2",
+   "dur": 2.0,
    "view": "v-main"
   },
   {
@@ -231,6 +241,7 @@
    "at": "@fer",
    "dur": 0.5,
    "set": {
+    "drop_m": "grey",
     "store": "color",
     "scale": "color",
     "scale_nums": "color"
@@ -242,7 +253,6 @@
    "set": {
     "store": "grey",
     "flask": "grey",
-    "drop_m": "grey",
     "z15": "color"
    }
   },
@@ -268,6 +278,13 @@
    "set": {
     "store": "grey",
     "z45": "color"
+   }
+  },
+  {
+   "at": "n3+1.5",
+   "dur": 0.8,
+   "set": {
+    "drop_m": "hidden"
    }
   },
   {
@@ -515,11 +532,11 @@
    "text": "MCV 71",
    "onArt": true,
    "anchor": "dm-num",
-   "x": 744,
-   "y": 180,
+   "x": 875,
+   "y": 203,
    "align": "center",
    "in": "start+2.7",
-   "out": "@f6",
+   "out": "@fer-0.2",
    "focus": "drop_m"
   },
   {
@@ -528,7 +545,7 @@
    "onArt": true,
    "anchor": "dm-num",
    "x": 744,
-   "y": 180,
+   "y": 169,
    "align": "center",
    "in": "@f6",
    "out": "n3+1.5",
@@ -571,7 +588,7 @@
    "id": "l30",
    "text": "ASH 2026: 30, з симптомами 50",
    "anchor": "a-m30",
-   "x": 1360,
+   "x": 1300,
    "y": 470,
    "align": "left",
    "in": "@f30+0.5",

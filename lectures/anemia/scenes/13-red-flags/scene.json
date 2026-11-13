@@ -1,11 +1,46 @@
 {
+  "art": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
+  },
+  "carry": true,
+  "enter": "cut",
+  "exit": "cut",
+  "lead": 0.15,
+  "tail": 4.8,
+  "kicker": false,
   "narration": [
-    {"id": "n1", "text": "Перш ніж вирушити назад, позначимо на карті [[flags]]три червоні прапорці."},
-    {"id": "n2", "text": "[[pan]]Перший — панцитопені́я: знижено еритроци́ти, лейкоци́ти й тромбоци́ти. Це запитання до кістково́го мо́зку — апласти́чна анемі́я, лейко́з, мієлодиспла́зія, інфільтра́ція, — хоча й тяжкий дефіци́т B12 здатен дати таку картину.", "gap": 0.5},
-    {"id": "n3", "text": "[[blast]]Другий — бла́сти в мазку́. Такого пацієнта обговорюють із гемато́логом без зволікань.", "gap": 0.5},
-    {"id": "n4", "text": "[[gi]]Третій — дефіци́т залі́за в чоловіка чи жінки після менопа́узи, джерела якого не знайдено. Залі́зо лікує анемі́ю, але не причину: джерело шукають одночасно, не відкладаючи.", "gap": 0.5},
-    {"id": "n5", "text": "Перевірте себе. [[qz]]Пряма́ про́ба Ку́мбса позитивна. На що це вказує?", "gap": 0.7},
-    {"id": "n6", "text": "На ймовірний аутоімунний гемо́ліз — оцінюють разом із клінікою.", "gap": 4}
+    {
+      "id": "n1",
+      "text": "Перш ніж вирушити назад, позначимо на карті [[flags]]три червоні прапорці."
+    },
+    {
+      "id": "n2",
+      "text": "[[pan]]Перший — панцитопені́я: [[cells]]знижено еритроци́ти, лейкоци́ти й тромбоци́ти. [[marrow]]Це запитання до кістково́го мо́зку — [[causes]]апласти́чна анемі́я, лейко́з, мієлодиспла́зія, інфільтра́ція, — [[b12]]хоча й тяжкий дефіци́т B12 здатен дати таку картину.",
+      "gap": 0.5
+    },
+    {
+      "id": "n3",
+      "text": "[[blast]]Другий — бла́сти в мазку́. [[hem]]Такого пацієнта обговорюють із гемато́логом без зволікань.",
+      "gap": 0.5
+    },
+    {
+      "id": "n4",
+      "text": "[[gi]]Третій — дефіци́т залі́за [[man]]в чоловіка чи жінки після менопа́узи, джерела якого не знайдено. [[iron]]Залі́зо лікує анемі́ю, але не причину: [[seek]]джерело шукають одночасно, не відкладаючи.",
+      "gap": 0.5
+    },
+    {
+      "id": "n5",
+      "text": "Перевірте себе. [[qz]]Пряма́ про́ба Ку́мбса позитивна. На що це вказує?",
+      "gap": 0.7
+    },
+    {
+      "id": "n6",
+      "text": "На ймовірний [[aih]]аутоімунний гемо́ліз — [[clin]]оцінюють разом із клінікою.",
+      "gap": 4
+    }
   ],
   "brief": {
     "in": "carry з 12: уся карта згори, три дороги й значки зупинок сірі; дві краплі в кольорі (бурштинова біля значка тулуба, блакитна біля значка стопи), loop — біг штрихів по дорогах.",
@@ -13,19 +48,849 @@
     "reuse": "06-tree/art.svg (карта, як у 06); 05-reticulocytes/marrow (зменшений — віньєтка прапорця 1); 12-macrocytic/smear (мазок як основа для віньєтки прапорця 2; бласт — нова клітина: велика, з великим ядром, тонким обідком цитоплазми); 09-bleeding-source/lower + drop (віньєтка прапорця 3). Новий об'єкт — прапорець (world.md).",
     "art": "Повний кадр: карта по центру; три червоні прапорці на дорогах; біля кожного — кругла віньєтка-збільшення (діаметр ~360 px), що по черзі розкривається в центрі кадру. Частини: map, flag1 (біля зупинки «кістковий мозок» нормо-дороги), flag2 (біля мазка на макро-дорозі), flag3 (біля значка тулуба мікро-дороги), vin1 (кістковий мозок + три ряди клітин), vin2 (мазок із бластом), vin3 (кишка з краплею крові), drop_m, drop_w.",
     "flow": [
-      {"at": "start", "color": "drop_m, drop_w", "move": "loop — біг штрихів по дорогах; краплі пульсують", "text": "—"},
-      {"at": "@flags", "color": "flag1, flag2, flag3", "move": "три прапорці падають згори й встромляються в карту (travel + коротке гойдання прапора, loop)", "text": "теза вгорі: «Три червоні прапорці»"},
-      {"at": "@pan", "color": "flag1, vin1", "move": "flag2, flag3 сірі; camera до flag1; віньєтка vin1 розкривається з прапорця (grow) у центр", "text": "—"},
-      {"at": "n2+3", "color": "vin1", "move": "три ряди клітин (еритроцити, лейкоцити, тромбоцити) рідшають одночасно (клітини зникають по одній)", "text": "підпис «Панцитопенія»; джерело s27"},
-      {"at": "n2+8", "color": "vin1 (мозок)", "move": "контур кісткового мозку у віньєтці промальовується повторно (draw, 1 с), camera трохи наближається", "text": "теза: «Запитання до кісткового мозку»"},
-      {"at": "@blast", "color": "flag2, vin2", "move": "vin1 згортається назад у flag1 (сірий); camera до flag2; vin2 розкривається; бласт grow у центрі мазка", "text": "підпис «Бласти — до гематолога без зволікань»; джерело s28"},
-      {"at": "@gi", "color": "flag3, vin3", "move": "vin2 згортається; camera до flag3; vin3 розкривається; крапля крові в кишці пульсує (loop)", "text": "—"},
-      {"at": "n4+5", "color": "vin3", "move": "поруч таблетка заліза; маркер Hb на мініатюрній лінійці піднімається (count), а крапля крові в кишці пульсує далі (loop) — причина лишається; до кишки тягнеться пунктир «шукати» (draw)", "text": "теза: «Залізо лікує анемію, але не причину»; джерела s3, s4"},
-      {"at": "@qz", "color": "flag1, flag2, flag3", "move": "vin3 згортається; camera на всю карту; прапорці гойдаються (loop)", "text": "note: «Згадайте, не підглядаючи»; quiz: «Проба Кумбса позитивна. На що вказує?»"},
-      {"at": "n6", "color": "map (зупинка «гемоліз»)", "move": "зупинка «Гемоліз» на нормо-дорозі коротко пульсує", "text": "відповідь: «Ймовірний аутоімунний гемоліз; з урахуванням клініки»"},
-      {"at": "n6.end", "color": "drop_m", "move": "camera пікірує до бурштинової краплі й значка тулуба", "text": "відповідь гасне"}
+      {
+        "at": "start",
+        "color": "drop_m, drop_w",
+        "move": "loop — біг штрихів по дорогах; краплі пульсують",
+        "text": "—"
+      },
+      {
+        "at": "@flags",
+        "color": "flag1, flag2, flag3",
+        "move": "три прапорці падають згори й встромляються в карту (travel + коротке гойдання прапора, loop)",
+        "text": "теза вгорі: «Три червоні прапорці»"
+      },
+      {
+        "at": "@pan",
+        "color": "flag1, vin1",
+        "move": "flag2, flag3 сірі; camera до flag1; віньєтка vin1 розкривається з прапорця (grow) у центр",
+        "text": "—"
+      },
+      {
+        "at": "n2+3",
+        "color": "vin1",
+        "move": "три ряди клітин (еритроцити, лейкоцити, тромбоцити) рідшають одночасно (клітини зникають по одній)",
+        "text": "підпис «Панцитопенія»; джерело s27"
+      },
+      {
+        "at": "n2+8",
+        "color": "vin1 (мозок)",
+        "move": "контур кісткового мозку у віньєтці промальовується повторно (draw, 1 с), camera трохи наближається",
+        "text": "теза: «Запитання до кісткового мозку»"
+      },
+      {
+        "at": "@blast",
+        "color": "flag2, vin2",
+        "move": "vin1 згортається назад у flag1 (сірий); camera до flag2; vin2 розкривається; бласт grow у центрі мазка",
+        "text": "підпис «Бласти — до гематолога без зволікань»; джерело s28"
+      },
+      {
+        "at": "@gi",
+        "color": "flag3, vin3",
+        "move": "vin2 згортається; camera до flag3; vin3 розкривається; крапля крові в кишці пульсує (loop)",
+        "text": "—"
+      },
+      {
+        "at": "n4+5",
+        "color": "vin3",
+        "move": "поруч таблетка заліза; маркер Hb на мініатюрній лінійці піднімається (count), а крапля крові в кишці пульсує далі (loop) — причина лишається; до кишки тягнеться пунктир «шукати» (draw)",
+        "text": "теза: «Залізо лікує анемію, але не причину»; джерела s3, s4"
+      },
+      {
+        "at": "@qz",
+        "color": "flag1, flag2, flag3",
+        "move": "vin3 згортається; camera на всю карту; прапорці гойдаються (loop)",
+        "text": "note: «Згадайте, не підглядаючи»; quiz: «Проба Кумбса позитивна. На що вказує?»"
+      },
+      {
+        "at": "n6",
+        "color": "map (зупинка «гемоліз»)",
+        "move": "зупинка «Гемоліз» на нормо-дорозі коротко пульсує",
+        "text": "відповідь: «Ймовірний аутоімунний гемоліз; з урахуванням клініки»"
+      },
+      {
+        "at": "n6.end",
+        "color": "drop_m",
+        "move": "camera пікірує до бурштинової краплі й значка тулуба",
+        "text": "відповідь гасне"
+      }
     ],
     "texts": "Тези: «Три червоні прапорці»; «Запитання до кісткового мозку»; «Залізо лікує анемію, але не причину». Підписи: «Панцитопенія», «Бласти — до гематолога без зволікань». note: «Згадайте, не підглядаючи»; quiz: «Проба Кумбса позитивна. На що вказує?»; відповідь: «Ймовірний аутоімунний гемоліз; з урахуванням клініки». Джерела: s27, s28, s3, s4, s11."
   },
-  "parts": ["root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "rt", "rt_cell", "ic_torso", "ic_foot", "drop_m", "drop_w", "path1", "path2", "vin1", "pan1", "pan2", "pan3", "pan4", "vin1_trace", "vin2", "blast", "vin3", "gut_bleed", "seek", "hb_mini", "hb_mark", "fe_pill", "flag1", "flag2", "flag3", "man", "pill"]
+  "parts": [
+    "root",
+    "br_mic",
+    "br_nor",
+    "br_mac",
+    "leaf_ida",
+    "leaf_inf",
+    "leaf_thal",
+    "br_nlow",
+    "br_nhigh",
+    "lf_kid",
+    "lf_flame",
+    "lf_bone",
+    "lf_bleed",
+    "lf_hemol",
+    "leaf_meg",
+    "leaf_nonmeg",
+    "rt",
+    "rt_cell",
+    "ic_torso",
+    "ic_foot",
+    "drop_m",
+    "drop_w",
+    "path1",
+    "path2",
+    "vin1",
+    "pan1",
+    "pan2",
+    "pan3",
+    "pan4",
+    "vin1_trace",
+    "vin2",
+    "blast",
+    "vin3",
+    "gut_bleed",
+    "seek",
+    "hb_mini",
+    "hb_mark",
+    "fe_pill",
+    "flag1",
+    "flag2",
+    "flag3",
+    "man",
+    "pill"
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "root": "grey",
+        "br_mic": "grey",
+        "br_nor": "grey",
+        "br_mac": "grey",
+        "leaf_ida": "grey",
+        "leaf_inf": "grey",
+        "leaf_thal": "grey",
+        "br_nlow": "grey",
+        "br_nhigh": "grey",
+        "lf_kid": "grey",
+        "lf_flame": "grey",
+        "lf_bone": "grey",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
+        "leaf_meg": "grey",
+        "leaf_nonmeg": "grey",
+        "ic_torso": "grey",
+        "ic_foot": "grey",
+        "drop_m": "color",
+        "drop_w": "color",
+        "rt": "hidden",
+        "rt_cell": "hidden",
+        "path1": "hidden",
+        "path2": "hidden",
+        "vin1": "hidden",
+        "pan1": "hidden",
+        "pan2": "hidden",
+        "pan3": "hidden",
+        "pan4": "hidden",
+        "vin1_trace": "hidden",
+        "vin2": "hidden",
+        "blast": "hidden",
+        "vin3": "hidden",
+        "gut_bleed": "hidden",
+        "seek": "hidden",
+        "hb_mini": "hidden",
+        "hb_mark": "hidden",
+        "fe_pill": "hidden",
+        "flag1": "hidden",
+        "flag2": "hidden",
+        "flag3": "hidden",
+        "man": "hidden",
+        "pill": "hidden"
+      }
+    },
+    {
+      "at": "@flags",
+      "dur": 0.4,
+      "set": {
+        "flag1": "color",
+        "flag2": "color",
+        "flag3": "color"
+      }
+    },
+    {
+      "at": "@flags+1.4",
+      "dur": 0.6,
+      "set": {
+        "drop_m": "grey",
+        "drop_w": "grey"
+      }
+    },
+    {
+      "at": "@pan",
+      "dur": 0.6,
+      "set": {
+        "flag2": "grey",
+        "flag3": "grey"
+      }
+    },
+    {
+      "at": "@pan+0.4",
+      "dur": 0.3,
+      "set": {
+        "vin1": "color",
+        "pan1": "color",
+        "pan2": "color",
+        "pan3": "color",
+        "pan4": "color"
+      }
+    },
+    {
+      "at": "@cells+0.3",
+      "dur": 0.4,
+      "set": {
+        "pan1": "hidden"
+      }
+    },
+    {
+      "at": "@cells+0.9",
+      "dur": 0.4,
+      "set": {
+        "pan2": "hidden"
+      }
+    },
+    {
+      "at": "@cells+1.5",
+      "dur": 0.4,
+      "set": {
+        "pan3": "hidden"
+      }
+    },
+    {
+      "at": "@cells+2.1",
+      "dur": 0.4,
+      "set": {
+        "pan4": "hidden"
+      }
+    },
+    {
+      "at": "@marrow",
+      "dur": 0.2,
+      "set": {
+        "vin1_trace": "color"
+      }
+    },
+    {
+      "at": "@blast",
+      "dur": 0.6,
+      "set": {
+        "flag1": "grey",
+        "flag2": "color"
+      }
+    },
+    {
+      "at": "@blast+0.5",
+      "dur": 0.4,
+      "set": {
+        "vin1": "hidden",
+        "vin1_trace": "hidden"
+      }
+    },
+    {
+      "at": "@blast+0.6",
+      "dur": 0.3,
+      "set": {
+        "vin2": "color"
+      }
+    },
+    {
+      "at": "@blast+1.8",
+      "dur": 0.3,
+      "set": {
+        "blast": "color"
+      }
+    },
+    {
+      "at": "@gi",
+      "dur": 0.6,
+      "set": {
+        "flag2": "grey",
+        "flag3": "color"
+      }
+    },
+    {
+      "at": "@gi+0.5",
+      "dur": 0.4,
+      "set": {
+        "vin2": "hidden",
+        "blast": "hidden"
+      }
+    },
+    {
+      "at": "@gi+0.6",
+      "dur": 0.3,
+      "set": {
+        "vin3": "color"
+      }
+    },
+    {
+      "at": "@gi+1.6",
+      "dur": 0.5,
+      "set": {
+        "gut_bleed": "color"
+      }
+    },
+    {
+      "at": "@man",
+      "dur": 0.6,
+      "set": {
+        "drop_m": "color"
+      }
+    },
+    {
+      "at": "@iron",
+      "dur": 0.6,
+      "set": {
+        "drop_m": "grey",
+        "fe_pill": "color",
+        "hb_mini": "color",
+        "hb_mark": "color"
+      }
+    },
+    {
+      "at": "@seek",
+      "dur": 0.3,
+      "set": {
+        "seek": "color"
+      }
+    },
+    {
+      "at": "n5",
+      "dur": 0.5,
+      "set": {
+        "flag1": "color",
+        "flag2": "color",
+        "flag3": "color"
+      }
+    },
+    {
+      "at": "n5+0.5",
+      "dur": 0.4,
+      "set": {
+        "vin3": "hidden",
+        "gut_bleed": "hidden",
+        "seek": "hidden",
+        "hb_mini": "hidden",
+        "hb_mark": "hidden",
+        "fe_pill": "hidden"
+      }
+    },
+    {
+      "at": "n6",
+      "dur": 0.6,
+      "set": {
+        "flag1": "grey",
+        "flag2": "grey",
+        "flag3": "grey",
+        "lf_hemol": "color"
+      }
+    },
+    {
+      "at": "n6.end",
+      "dur": 0.6,
+      "set": {
+        "lf_hemol": "grey",
+        "drop_m": "color"
+      }
+    },
+    {
+      "at": "n6.end+0.5",
+      "dur": 1.0,
+      "set": {
+        "root": "hidden",
+        "br_mic": "hidden",
+        "br_nor": "hidden",
+        "br_mac": "hidden",
+        "leaf_ida": "hidden",
+        "leaf_inf": "hidden",
+        "leaf_thal": "hidden",
+        "br_nlow": "hidden",
+        "br_nhigh": "hidden",
+        "lf_kid": "hidden",
+        "lf_flame": "hidden",
+        "lf_bone": "hidden",
+        "lf_bleed": "hidden",
+        "lf_hemol": "hidden",
+        "leaf_meg": "hidden",
+        "leaf_nonmeg": "hidden",
+        "ic_foot": "hidden",
+        "drop_w": "hidden",
+        "flag1": "hidden",
+        "flag2": "hidden",
+        "flag3": "hidden"
+      }
+    },
+    {
+      "at": "n6.end+1.7",
+      "dur": 0.5,
+      "set": {
+        "man": "color",
+        "ic_torso": "hidden"
+      }
+    },
+    {
+      "at": "n6.end+2.9",
+      "dur": 0.3,
+      "set": {
+        "pill": "color"
+      }
+    },
+    {
+      "at": "n6.end+3.4",
+      "dur": 0.6,
+      "set": {
+        "man": "grey"
+      }
+    }
+  ],
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "@pan+0.1",
+      "dur": 1.6,
+      "view": "v-f1"
+    },
+    {
+      "at": "@marrow",
+      "dur": 1.4,
+      "view": "v-f1z"
+    },
+    {
+      "at": "@blast+0.3",
+      "dur": 1.6,
+      "view": "v-f2"
+    },
+    {
+      "at": "@gi+0.3",
+      "dur": 1.6,
+      "view": "v-f3"
+    },
+    {
+      "at": "n5+0.1",
+      "dur": 1.8,
+      "view": "v-qz"
+    },
+    {
+      "at": "n5.end+1.4",
+      "dur": 2.6,
+      "view": {
+        "x": 348,
+        "y": 134,
+        "w": 2504,
+        "h": 1408.5
+      }
+    },
+    {
+      "at": "n6+0.2",
+      "dur": 2.0,
+      "view": {
+        "x": 420,
+        "y": 170,
+        "w": 2400,
+        "h": 1350
+      }
+    },
+    {
+      "at": "n6.end+0.1",
+      "dur": 2.0,
+      "view": "v-out"
+    }
+  ],
+  "move": [
+    {
+      "id": "vin1",
+      "to": "o-vin1",
+      "at": "@blast",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "pan1",
+      "to": "o-vin1",
+      "at": "@blast",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "pan2",
+      "to": "o-vin1",
+      "at": "@blast",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "pan3",
+      "to": "o-vin1",
+      "at": "@blast",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "pan4",
+      "to": "o-vin1",
+      "at": "@blast",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "vin1_trace",
+      "to": "o-vin1",
+      "at": "@blast",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "vin2",
+      "to": "o-vin2",
+      "at": "@gi",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "blast",
+      "to": "o-vin2",
+      "at": "@gi",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "vin3",
+      "to": "o-vin3",
+      "at": "n5+0.1",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "gut_bleed",
+      "to": "o-vin3",
+      "at": "n5+0.1",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "seek",
+      "to": "o-vin3",
+      "at": "n5+0.1",
+      "dur": 0.9,
+      "scale": 0.05
+    },
+    {
+      "id": "hb_mark",
+      "from": "pt-hb-96",
+      "to": "pt-hb-130",
+      "at": "@iron+1.0",
+      "dur": 2.2
+    }
+  ],
+  "travel": [
+    {
+      "id": "flag1",
+      "path": "p-flag1",
+      "at": "@flags",
+      "dur": 1.0
+    },
+    {
+      "id": "flag2",
+      "path": "p-flag2",
+      "at": "@flags+0.3",
+      "dur": 1.0
+    },
+    {
+      "id": "flag3",
+      "path": "p-flag3",
+      "at": "@flags+0.6",
+      "dur": 1.0
+    }
+  ],
+  "draw": [
+    {
+      "id": "vin1_trace",
+      "at": "@marrow",
+      "dur": 1.0
+    },
+    {
+      "id": "hb_mini",
+      "at": "@iron",
+      "dur": 1.0
+    },
+    {
+      "id": "seek",
+      "at": "@seek",
+      "dur": 1.5
+    },
+    {
+      "id": "pill",
+      "at": "n6.end+2.9",
+      "dur": 0.8
+    }
+  ],
+  "grow": [
+    {
+      "id": "vin1",
+      "origin": "o-vin1",
+      "at": "@pan+0.4",
+      "dur": 1.2
+    },
+    {
+      "id": "vin2",
+      "origin": "o-vin2",
+      "at": "@blast+0.6",
+      "dur": 1.2
+    },
+    {
+      "id": "blast",
+      "origin": "o-blast",
+      "at": "@blast+1.8",
+      "dur": 1.0
+    },
+    {
+      "id": "vin3",
+      "origin": "o-vin3",
+      "at": "@gi+0.6",
+      "dur": 1.2
+    },
+    {
+      "id": "man",
+      "origin": "o-man",
+      "at": "n6.end+1.7",
+      "dur": 1.2
+    }
+  ],
+  "loop": [
+    {
+      "id": "ax-trunk",
+      "kind": "flow",
+      "in": "start+0.2",
+      "out": "@pan"
+    },
+    {
+      "id": "ax-mic",
+      "kind": "flow",
+      "in": "start+0.2",
+      "out": "@pan"
+    },
+    {
+      "id": "ax-nor",
+      "kind": "flow",
+      "in": "start+0.2",
+      "out": "@pan"
+    },
+    {
+      "id": "ax-mac",
+      "kind": "flow",
+      "in": "start+0.2",
+      "out": "@pan"
+    },
+    {
+      "id": "drop_m",
+      "kind": "pulse",
+      "in": "start+0.2",
+      "out": "@flags+1.4",
+      "amp": 0.04,
+      "period": 1.8
+    },
+    {
+      "id": "drop_w",
+      "kind": "pulse",
+      "in": "start+0.2",
+      "out": "@flags+1.4",
+      "amp": 0.04,
+      "period": 1.8
+    },
+    {
+      "id": "flag1-pen",
+      "kind": "pulse",
+      "in": "@flags+1.0",
+      "out": "@pan",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "flag2-pen",
+      "kind": "pulse",
+      "in": "@flags+1.3",
+      "out": "@pan",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "flag3-pen",
+      "kind": "pulse",
+      "in": "@flags+1.6",
+      "out": "@pan",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "vin1",
+      "kind": "pulse",
+      "in": "@b12",
+      "out": "@blast",
+      "amp": 0.02,
+      "period": 2.4
+    },
+    {
+      "id": "blast",
+      "kind": "pulse",
+      "in": "@blast+2.8",
+      "out": "@gi",
+      "amp": 0.04,
+      "period": 2.0
+    },
+    {
+      "id": "gut_bleed",
+      "kind": "pulse",
+      "in": "@gi+1.8",
+      "out": "n5",
+      "amp": 0.06,
+      "period": 1.4
+    },
+    {
+      "id": "flag1-pen",
+      "kind": "pulse",
+      "in": "@qz",
+      "out": "n6",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "flag2-pen",
+      "kind": "pulse",
+      "in": "@qz+0.3",
+      "out": "n6",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "flag3-pen",
+      "kind": "pulse",
+      "in": "@qz+0.6",
+      "out": "n6",
+      "amp": 0.06,
+      "period": 1.6
+    },
+    {
+      "id": "lf_hemol",
+      "kind": "pulse",
+      "in": "n6+0.2",
+      "out": "n6.end",
+      "amp": 0.06,
+      "period": 1.2
+    }
+  ],
+  "count": [],
+  "labels": [
+    {
+      "id": "lpan",
+      "text": "Панцитопенія",
+      "anchor": "a-rows",
+      "x": 1300,
+      "y": 520,
+      "align": "left",
+      "focus": "vin1",
+      "in": "@cells+0.4",
+      "out": "@blast"
+    },
+    {
+      "id": "lbl",
+      "text": "Бласти — до гематолога без зволікань",
+      "anchor": "a-blast",
+      "x": 1040,
+      "y": 150,
+      "align": "center",
+      "focus": "blast",
+      "in": "@blast+2.2",
+      "out": "@gi"
+    }
+  ],
+  "texts": [
+    {
+      "id": "t1",
+      "kind": "thesis",
+      "html": "Три червоні прапорці",
+      "band": "top",
+      "in": "@flags+0.4",
+      "out": "@pan"
+    },
+    {
+      "id": "t2",
+      "kind": "thesis",
+      "html": "Запитання до кісткового мозку",
+      "in": "@marrow+0.3",
+      "out": "@blast"
+    },
+    {
+      "id": "t3",
+      "kind": "thesis",
+      "html": "Залізо лікує анемію, але не причину",
+      "in": "@iron+0.3",
+      "out": "n5"
+    },
+    {
+      "id": "qn",
+      "kind": "note",
+      "html": "Згадайте, не підглядаючи",
+      "in": "n5+0.3",
+      "out": "n6"
+    },
+    {
+      "id": "q1",
+      "kind": "quiz",
+      "html": "Проба Кумбса позитивна. На що вказує?",
+      "in": "@qz+0.3",
+      "out": "n6"
+    },
+    {
+      "id": "qa",
+      "kind": "quiz",
+      "class": "k-answer",
+      "html": "Ймовірний аутоімунний гемоліз; з урахуванням клініки",
+      "in": "n6+0.1",
+      "out": "n6.end"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s27",
+      "in": "@cells+0.4",
+      "out": "@blast"
+    },
+    {
+      "ref": "s28",
+      "in": "@blast+2.2",
+      "out": "@gi"
+    },
+    {
+      "ref": "s3",
+      "in": "@iron+0.3",
+      "out": "n5"
+    },
+    {
+      "ref": "s4",
+      "in": "@iron+0.3",
+      "out": "n5"
+    },
+    {
+      "ref": "s11",
+      "in": "n6+0.1",
+      "out": "n6.end"
+    }
+  ]
 }

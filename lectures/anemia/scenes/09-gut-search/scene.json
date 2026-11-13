@@ -457,7 +457,6 @@
       "set": {
         "mark_m": "hidden",
         "mark_n": "grey",
-        "kidney": "grey",
         "uri_dot": "hidden"
       }
     },
@@ -466,7 +465,8 @@
       "dur": 0.3,
       "set": {
         "uterus": "color",
-        "mens_flow": "color"
+        "mens_flow": "color",
+        "kidney": "grey"
       }
     },
     {
@@ -853,7 +853,7 @@
       "y": 680,
       "align": "left",
       "in": "@uri+0.8",
-      "out": "n4",
+      "out": "@mens",
       "focus": "kidney"
     },
     {
