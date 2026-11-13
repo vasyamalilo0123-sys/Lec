@@ -278,19 +278,19 @@ def pea_material():
     tc = nt.n("ShaderNodeTexCoord").outputs["Object"]
     n1 = nt.noise(3.0, 4, 0.55, tc)
     n2 = nt.noise(40, 3, 0.6, tc)
-    col = nt.ramp(n1, [(0.3, (0.30, 0.46, 0.06)), (0.7, (0.52, 0.66, 0.16))])
+    col = nt.ramp(n1, [(0.3, (0.17, 0.30, 0.03)), (0.7, (0.36, 0.50, 0.09))])
     bsdf = nt.n("ShaderNodeBsdfPrincipled")
     nt.link(col, bsdf.inputs["Base Color"])
-    bsdf.inputs["Subsurface Weight"].default_value = 1.0
+    bsdf.inputs["Subsurface Weight"].default_value = 0.45
     bsdf.inputs["Subsurface Radius"].default_value = (0.5, 1.0, 0.2)
     bsdf.inputs["Subsurface Scale"].default_value = 1.2 * SC
     bsdf.inputs["Roughness"].default_value = 0.38
     bsdf.inputs["Coat Weight"].default_value = 0.25
     bsdf.inputs["Coat Roughness"].default_value = 0.3
     bump = nt.n("ShaderNodeBump")
-    bump.inputs["Strength"].default_value = 0.25
-    bump.inputs["Distance"].default_value = 0.3 * SC
-    nt.link(nt.math("ADD", nt.math("MULTIPLY", n1, 1.0), nt.math("MULTIPLY", n2, 0.15)), bump.inputs["Height"])
+    bump.inputs["Strength"].default_value = 0.6
+    bump.inputs["Distance"].default_value = 0.5 * SC
+    nt.link(nt.math("ADD", nt.math("MULTIPLY", n1, 1.0), nt.math("MULTIPLY", n2, 0.04)), bump.inputs["Height"])
     nt.link(bump.outputs[0], bsdf.inputs["Normal"])
     out = nt.n("ShaderNodeOutputMaterial")
     nt.link(bsdf.outputs[0], out.inputs["Surface"])

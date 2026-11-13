@@ -93,15 +93,30 @@ if "pea" in what:
 
 if "hook" in what:
     os.makedirs(os.path.join(out, "hook"), exist_ok=True)
+    import bpy
+    for ob in [S.airway, S.cut, *S.lungs]:  # важкі сітки в цьому плані не потрібні
+        bpy.data.objects.remove(ob)
+    S.sc.view_settings.exposure = -1.6
     for f in range(TL.HOOK_FRAMES):
         p = os.path.join(out, "hook", f"{f:05d}.png")
         if os.path.exists(p):
             continue
+        if f >= int(os.environ.get("HOOK_MAX", 10 ** 6)):
+            break
         t = f / TL.FPS
         cam = dict(TL.CAMS["hook"])
         cam["dist"] = 165 - 3.2 * t
         cam["focus"] = cam["dist"] - 2.5
         S.set_camera(cam)
-        S.set_state({"airway": False, "lungs": False, "pea": [0, 0, 0.0], "pea_rot": (0.35 * t, 0.2, 0.22 * t)})
+        cx, cy = S.project([0, 0, 0])
+        rr = S.sc.render
+        rr.resolution_x, rr.resolution_y = TL.W, TL.H
+        cx, cy = S.project([0, 0, 0])
+        rr.use_border, rr.use_crop_to_border = True, False
+        hw, hh = 300 / TL.W, 300 / TL.H
+        rr.border_min_x, rr.border_max_x = max(cx - hw, 0), min(cx + hw, 1)
+        rr.border_min_y, rr.border_max_y = max(1 - cy - hh, 0), min(1 - cy + hh, 1)
+        S.pea.location = (0, 0, 0)
+        S.pea.rotation_euler = (0.35 * t, 0.2, 0.22 * t)
         S.render(p, (TL.W, TL.H), samples=64, threshold=0.03)
     print("hook", flush=True)
