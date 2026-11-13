@@ -26,5 +26,6 @@
       {"at": "n6.end", "color": "drop_m", "move": "camera пікірує до бурштинової краплі й значка тулуба", "text": "відповідь гасне"}
     ],
     "texts": "Тези: «Три червоні прапорці»; «Запитання до кісткового мозку»; «Залізо лікує анемію, але не причину». Підписи: «Панцитопенія», «Бласти — до гематолога без зволікань». note: «Згадайте, не підглядаючи»; quiz: «Проба Кумбса позитивна. На що вказує?»; відповідь: «Ймовірний аутоімунний гемоліз; з урахуванням клініки». Джерела: s27, s28, s3, s4, s11."
-  }
+  },
+  "parts": ["root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "rt", "rt_cell", "ic_torso", "ic_foot", "drop_m", "drop_w", "path1", "path2", "vin1", "pan1", "pan2", "pan3", "pan4", "vin1_trace", "vin2", "blast", "vin3", "gut_bleed", "seek", "hb_mini", "hb_mark", "fe_pill", "flag1", "flag2", "flag3", "man", "pill"]
 }
