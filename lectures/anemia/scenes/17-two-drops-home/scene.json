@@ -162,5 +162,767 @@
     "vein_w",
     "tube_m",
     "tube_w"
-  ]
+  ],
+  "states": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "set": {
+        "root": "grey",
+        "br_mic": "grey",
+        "br_nor": "grey",
+        "br_mac": "grey",
+        "leaf_ida": "grey",
+        "leaf_inf": "grey",
+        "leaf_thal": "grey",
+        "br_nlow": "grey",
+        "br_nhigh": "grey",
+        "lf_kid": "grey",
+        "lf_flame": "grey",
+        "lf_bone": "grey",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
+        "leaf_meg": "grey",
+        "leaf_nonmeg": "grey",
+        "ic_torso": "grey",
+        "ic_foot": "grey",
+        "rt": "hidden",
+        "rt_cell": "hidden",
+        "path1": "hidden",
+        "path2": "hidden",
+        "step_hb": "hidden",
+        "step_mcv": "hidden",
+        "step_ret": "hidden",
+        "step_test": "hidden",
+        "step_dx": "hidden",
+        "scope": "hidden",
+        "pill": "hidden",
+        "syr": "hidden",
+        "lock": "hidden",
+        "shackle": "hidden",
+        "fol": "hidden",
+        "flask": "hidden",
+        "num_m71": "hidden",
+        "num_m6": "hidden",
+        "num_w112": "hidden",
+        "num_wb12": "hidden",
+        "arm_m": "hidden",
+        "vein_m": "hidden",
+        "arm_w": "hidden",
+        "vein_w": "hidden",
+        "tube_m": "hidden",
+        "tube_w": "hidden",
+        "drop_m": "color",
+        "drop_w": "color",
+        "tag_m": "color",
+        "tag_w": "color",
+        "num_m96": "color",
+        "num_w96": "color"
+      }
+    },
+    {
+      "at": "@map",
+      "dur": 0.8,
+      "set": {
+        "root": "color",
+        "br_mic": "color",
+        "br_nor": "color",
+        "br_mac": "color",
+        "leaf_ida": "color",
+        "leaf_inf": "color",
+        "leaf_thal": "color",
+        "br_nlow": "color",
+        "br_nhigh": "color",
+        "lf_kid": "color",
+        "lf_flame": "color",
+        "lf_bone": "color",
+        "lf_bleed": "color",
+        "lf_hemol": "color",
+        "leaf_meg": "color",
+        "leaf_nonmeg": "color",
+        "ic_torso": "color",
+        "ic_foot": "color"
+      }
+    },
+    {
+      "at": "@hb",
+      "dur": 0.6,
+      "set": {
+        "root": "grey",
+        "br_mic": "grey",
+        "br_nor": "grey",
+        "br_mac": "grey",
+        "leaf_ida": "grey",
+        "leaf_inf": "grey",
+        "leaf_thal": "grey",
+        "br_nlow": "grey",
+        "br_nhigh": "grey",
+        "lf_kid": "grey",
+        "lf_flame": "grey",
+        "lf_bone": "grey",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
+        "leaf_meg": "grey",
+        "leaf_nonmeg": "grey",
+        "ic_torso": "grey",
+        "ic_foot": "grey"
+      }
+    },
+    {
+      "at": "@ways",
+      "dur": 0.6,
+      "set": {
+        "br_mic": "color",
+        "br_mac": "color",
+        "leaf_ida": "color",
+        "leaf_meg": "color"
+      }
+    },
+    {
+      "at": "@p1",
+      "dur": 0.6,
+      "set": {
+        "br_mac": "grey",
+        "leaf_meg": "grey",
+        "leaf_ida": "grey",
+        "drop_w": "grey",
+        "tag_w": "grey",
+        "num_w96": "grey",
+        "path1": "color"
+      }
+    },
+    {
+      "at": "@m71",
+      "dur": 0.4,
+      "set": {
+        "num_m96": "hidden",
+        "num_m71": "color"
+      }
+    },
+    {
+      "at": "@m6",
+      "dur": 0.4,
+      "set": {
+        "num_m71": "hidden",
+        "num_m6": "color"
+      }
+    },
+    {
+      "at": "@ida",
+      "dur": 0.6,
+      "set": {
+        "leaf_ida": "color"
+      }
+    },
+    {
+      "at": "@p1t",
+      "dur": 0.5,
+      "set": {
+        "pill": "color"
+      }
+    },
+    {
+      "at": "@gs",
+      "dur": 0.5,
+      "set": {
+        "scope": "color",
+        "ic_torso": "color"
+      }
+    },
+    {
+      "at": "@p2",
+      "dur": 0.6,
+      "set": {
+        "path1": "grey",
+        "drop_m": "grey",
+        "tag_m": "grey",
+        "num_m6": "grey",
+        "leaf_ida": "grey",
+        "br_mic": "grey",
+        "scope": "grey",
+        "pill": "grey",
+        "ic_torso": "grey",
+        "path2": "color",
+        "drop_w": "color",
+        "tag_w": "color",
+        "num_w96": "color"
+      }
+    },
+    {
+      "at": "@w112",
+      "dur": 0.4,
+      "set": {
+        "num_w96": "hidden",
+        "num_w112": "color"
+      }
+    },
+    {
+      "at": "@hyp",
+      "dur": 0.6,
+      "set": {
+        "leaf_meg": "color"
+      }
+    },
+    {
+      "at": "@wb12",
+      "dur": 0.4,
+      "set": {
+        "num_w112": "hidden",
+        "num_wb12": "color"
+      }
+    },
+    {
+      "at": "@meg",
+      "dur": 0.6,
+      "set": {
+        "br_mac": "color"
+      }
+    },
+    {
+      "at": "@nerv",
+      "dur": 0.6,
+      "set": {
+        "ic_foot": "color"
+      }
+    },
+    {
+      "at": "@p2t",
+      "dur": 0.5,
+      "set": {
+        "syr": "color"
+      }
+    },
+    {
+      "at": "@fol",
+      "dur": 0.5,
+      "set": {
+        "lock": "color",
+        "shackle": "color",
+        "fol": "color"
+      }
+    },
+    {
+      "at": "@path",
+      "dur": 0.7,
+      "set": {
+        "syr": "grey",
+        "lock": "grey",
+        "shackle": "grey",
+        "fol": "grey",
+        "ic_foot": "grey",
+        "br_mac": "grey",
+        "path1": "color",
+        "drop_m": "color",
+        "tag_m": "color",
+        "num_m6": "color",
+        "leaf_ida": "color"
+      }
+    },
+    {
+      "at": "@s1",
+      "dur": 0.4,
+      "set": {
+        "step_hb": "color"
+      }
+    },
+    {
+      "at": "@s2",
+      "dur": 0.4,
+      "set": {
+        "step_mcv": "color"
+      }
+    },
+    {
+      "at": "@s3",
+      "dur": 0.4,
+      "set": {
+        "step_ret": "color"
+      }
+    },
+    {
+      "at": "@s4",
+      "dur": 0.4,
+      "set": {
+        "step_test": "color"
+      }
+    },
+    {
+      "at": "@s5",
+      "dur": 0.4,
+      "set": {
+        "step_dx": "color"
+      }
+    },
+    {
+      "at": "@qz",
+      "dur": 0.7,
+      "set": {
+        "path2": "grey",
+        "drop_w": "grey",
+        "tag_w": "grey",
+        "num_wb12": "grey",
+        "leaf_meg": "grey",
+        "step_hb": "grey",
+        "step_mcv": "grey",
+        "step_ret": "grey",
+        "step_test": "grey",
+        "step_dx": "grey",
+        "num_m6": "hidden",
+        "num_m71": "color",
+        "br_mic": "color"
+      }
+    },
+    {
+      "at": "n6",
+      "dur": 0.4,
+      "set": {
+        "num_m71": "hidden",
+        "num_m6": "color",
+        "flask": "color"
+      }
+    },
+    {
+      "at": "n6.end",
+      "dur": 0.5,
+      "set": {
+        "tag_m": "hidden",
+        "tag_w": "hidden",
+        "num_m6": "hidden",
+        "num_wb12": "hidden",
+        "flask": "hidden"
+      }
+    },
+    {
+      "at": "n6.end+0.4",
+      "dur": 1.4,
+      "set": {
+        "root": "hidden",
+        "br_mic": "hidden",
+        "br_nor": "hidden",
+        "br_mac": "hidden",
+        "leaf_ida": "hidden",
+        "leaf_inf": "hidden",
+        "leaf_thal": "hidden",
+        "br_nlow": "hidden",
+        "br_nhigh": "hidden",
+        "lf_kid": "hidden",
+        "lf_flame": "hidden",
+        "lf_bone": "hidden",
+        "lf_bleed": "hidden",
+        "lf_hemol": "hidden",
+        "leaf_meg": "hidden",
+        "leaf_nonmeg": "hidden",
+        "ic_torso": "hidden",
+        "ic_foot": "hidden",
+        "path1": "hidden",
+        "path2": "hidden",
+        "step_hb": "hidden",
+        "step_mcv": "hidden",
+        "step_ret": "hidden",
+        "step_test": "hidden",
+        "step_dx": "hidden",
+        "scope": "hidden",
+        "pill": "hidden",
+        "syr": "hidden",
+        "lock": "hidden",
+        "shackle": "hidden",
+        "fol": "hidden",
+        "flask": "hidden"
+      }
+    },
+    {
+      "at": "n6.end+2.2",
+      "dur": 0.3,
+      "set": {
+        "arm_m": "color",
+        "vein_m": "color",
+        "arm_w": "color",
+        "vein_w": "color"
+      }
+    }
+  ],
+  "camera": [
+    {
+      "at": "start",
+      "dur": 0.01,
+      "view": "v-in"
+    },
+    {
+      "at": "start+0.1",
+      "dur": 1.5,
+      "view": "v-wide"
+    },
+    {
+      "at": "@m71",
+      "dur": 1.6,
+      "view": "v-p1"
+    },
+    {
+      "at": "n2.end+0.1",
+      "dur": 1.3,
+      "view": "v-wide"
+    },
+    {
+      "at": "@w112",
+      "dur": 1.6,
+      "view": "v-p2"
+    },
+    {
+      "at": "@path",
+      "dur": 1.6,
+      "view": "v-wide"
+    },
+    {
+      "at": "n5.end+0.3",
+      "dur": 2.6,
+      "view": {
+        "x": 200,
+        "y": 350,
+        "w": 1800,
+        "h": 1012.5
+      }
+    },
+    {
+      "at": "n6.end+0.1",
+      "dur": 2.6,
+      "view": "v-out"
+    }
+  ],
+  "grow": [
+    {
+      "id": "path1",
+      "origin": "o-path1",
+      "at": "@p1",
+      "dur": 2
+    },
+    {
+      "id": "pill",
+      "origin": "a-pill",
+      "at": "@p1t",
+      "dur": 0.8
+    },
+    {
+      "id": "path2",
+      "origin": "o-path2",
+      "at": "@p2",
+      "dur": 2
+    },
+    {
+      "id": "step_hb",
+      "origin": "st-hb",
+      "at": "@s1",
+      "dur": 0.6
+    },
+    {
+      "id": "step_mcv",
+      "origin": "st-mcv",
+      "at": "@s2",
+      "dur": 0.6
+    },
+    {
+      "id": "step_ret",
+      "origin": "st-ret",
+      "at": "@s3",
+      "dur": 0.6
+    },
+    {
+      "id": "step_test",
+      "origin": "st-test",
+      "at": "@s4",
+      "dur": 0.6
+    },
+    {
+      "id": "step_dx",
+      "origin": "st-dx",
+      "at": "@s5",
+      "dur": 0.6
+    },
+    {
+      "id": "flask",
+      "origin": "o-flask",
+      "at": "n6",
+      "dur": 1
+    }
+  ],
+  "draw": [
+    {
+      "id": "scope",
+      "at": "@gs",
+      "dur": 1.2
+    },
+    {
+      "id": "syr",
+      "at": "@p2t",
+      "dur": 1.2
+    },
+    {
+      "id": "lock",
+      "at": "@fol",
+      "dur": 1
+    },
+    {
+      "id": "fol",
+      "at": "@fol+0.3",
+      "dur": 1
+    },
+    {
+      "id": "shackle",
+      "at": "@fol",
+      "dur": 1
+    },
+    {
+      "id": "arm_m",
+      "at": "n6.end+2.2",
+      "dur": 1.2
+    },
+    {
+      "id": "arm_w",
+      "at": "n6.end+2.2",
+      "dur": 1.2
+    },
+    {
+      "id": "vein_m",
+      "at": "n6.end+2.6",
+      "dur": 1
+    },
+    {
+      "id": "vein_w",
+      "at": "n6.end+2.6",
+      "dur": 1
+    }
+  ],
+  "move": [
+    {
+      "id": "shackle",
+      "to": "pt-shackle-shut",
+      "at": "@after",
+      "dur": 0.3
+    }
+  ],
+  "travel": [
+    {
+      "id": "drop_m",
+      "path": "p-m-home",
+      "at": "n6.end+0.1",
+      "dur": 2.4,
+      "scale": 0.45,
+      "out": "n6.end+3"
+    },
+    {
+      "id": "drop_w",
+      "path": "p-w-home",
+      "at": "n6.end+0.1",
+      "dur": 2.4,
+      "scale": 0.45,
+      "out": "n6.end+3"
+    }
+  ],
+  "loop": [
+    {
+      "id": "drop_m",
+      "kind": "pulse",
+      "in": "start",
+      "out": "@p1",
+      "amp": 0.03,
+      "period": 2.4
+    },
+    {
+      "id": "drop_w",
+      "kind": "pulse",
+      "in": "start",
+      "out": "@p1",
+      "amp": 0.03,
+      "period": 2.4
+    },
+    {
+      "id": "ax-trunk",
+      "kind": "flow",
+      "in": "@map",
+      "out": "@hb+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-mic",
+      "kind": "flow",
+      "in": "@map",
+      "out": "@hb+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-nor",
+      "kind": "flow",
+      "in": "@map",
+      "out": "@hb+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-mac",
+      "kind": "flow",
+      "in": "@map",
+      "out": "@hb+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-nlow",
+      "kind": "flow",
+      "in": "@map",
+      "out": "@hb+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "ax-nhigh",
+      "kind": "flow",
+      "in": "@map",
+      "out": "@hb+0.6",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "tag_m",
+      "kind": "pulse",
+      "in": "@hb",
+      "out": "@ways+0.5",
+      "amp": 0.04,
+      "period": 1.6
+    },
+    {
+      "id": "tag_w",
+      "kind": "pulse",
+      "in": "@hb",
+      "out": "@ways+0.5",
+      "amp": 0.04,
+      "period": 1.6
+    },
+    {
+      "id": "meg-nuc",
+      "kind": "pulse",
+      "in": "@hyp",
+      "out": "@p2t",
+      "amp": 0.05,
+      "period": 1.8
+    },
+    {
+      "id": "path1",
+      "kind": "flow",
+      "in": "@qz",
+      "out": "n6.end",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "drop_m",
+      "kind": "float",
+      "in": "@qz",
+      "out": "n6.end",
+      "amp": 5,
+      "period": 3
+    },
+    {
+      "id": "flow_m",
+      "kind": "flow",
+      "in": "n6.end+3.4",
+      "amp": 14,
+      "period": 1.4
+    },
+    {
+      "id": "flow_w",
+      "kind": "flow",
+      "in": "n6.end+3.4",
+      "amp": 14,
+      "period": 1.4
+    }
+  ],
+  "count": [],
+  "labels": [
+    {
+      "id": "lm",
+      "text": "Чоловік: MCV 71, феритин 6",
+      "anchor": "pt-m-leaf",
+      "x": 1130,
+      "y": 300,
+      "align": "left",
+      "in": "@m6+0.6",
+      "out": "n2.end",
+      "focus": "drop_m"
+    },
+    {
+      "id": "lw",
+      "text": "Жінка: MCV 112, B12 низький",
+      "anchor": "pt-w-leaf",
+      "x": 790,
+      "y": 300,
+      "align": "right",
+      "in": "@wb12+0.6",
+      "out": "n3.end",
+      "focus": "drop_w"
+    }
+  ],
+  "texts": [
+    {
+      "id": "th",
+      "kind": "thesis",
+      "html": "Hb → MCV → ретикулоцити → тести → діагноз",
+      "in": "@path+0.8",
+      "out": "n4.end+0.3"
+    },
+    {
+      "id": "nt",
+      "kind": "note",
+      "html": "Згадайте, не підглядаючи",
+      "in": "n5",
+      "out": "n6"
+    },
+    {
+      "id": "qz",
+      "kind": "quiz",
+      "html": "Перший тест при мікроцитозі?",
+      "in": "@qz",
+      "out": "n6"
+    },
+    {
+      "id": "ans",
+      "kind": "quiz",
+      "class": "k-answer",
+      "html": "Феритин",
+      "in": "n6",
+      "out": "n6.end+0.3"
+    }
+  ],
+  "sources": [
+    {
+      "ref": "s1",
+      "in": "n1+1",
+      "out": "n1.end"
+    },
+    {
+      "ref": "s2",
+      "in": "@m6",
+      "out": "n2.end"
+    },
+    {
+      "ref": "s3",
+      "in": "@gs",
+      "out": "n2.end"
+    },
+    {
+      "ref": "s6",
+      "in": "@p2t",
+      "out": "n3.end"
+    },
+    {
+      "ref": "s2",
+      "in": "n6",
+      "out": "n6.end"
+    }
+  ],
+  "carry": false,
+  "enter": "cut",
+  "exit": "fade",
+  "kicker": false,
+  "tail": 5.0
 }

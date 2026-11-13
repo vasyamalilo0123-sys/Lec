@@ -159,13 +159,28 @@
       "view": "v-main"
     },
     {
+      "at": "@ind",
+      "dur": 1.6,
+      "view": {
+        "x": 2030,
+        "y": 1880,
+        "w": 1100,
+        "h": 618.75
+      }
+    },
+    {
+      "at": "@mnt",
+      "dur": 1.8,
+      "view": "v-main"
+    },
+    {
       "at": "@oral+0.2",
       "dur": 2.0,
       "view": {
-        "x": 2140,
-        "y": 1900,
-        "w": 1720,
-        "h": 967.5
+        "x": 2104,
+        "y": 2006,
+        "w": 1400,
+        "h": 787.5
       }
     },
     {
@@ -259,17 +274,17 @@
       "at": "n2",
       "dur": 0.8,
       "set": {
-        "neu": "grey",
-        "neu_mark": "grey",
         "foot": "grey",
-        "nerve": "grey"
+        "nerve": "grey",
+        "neu_mark": "grey"
       }
     },
     {
       "at": "@ind",
       "dur": 0.5,
       "set": {
-        "ind": "color"
+        "ind": "color",
+        "neu": "grey"
       }
     },
     {
@@ -531,9 +546,9 @@
       "id": "lneu",
       "text": "Через день, доки є покращення",
       "anchor": "a-neu",
-      "x": 420,
-      "y": 450,
-      "align": "left",
+      "x": 611,
+      "y": 470,
+      "align": "center",
       "in": "@neu+1.8",
       "out": "n2",
       "focus": "neu"
@@ -610,7 +625,7 @@
       "text": "Фолієва кислота 5 мг, ≈ 4 місяці",
       "anchor": "a-fol",
       "x": 1440,
-      "y": 340,
+      "y": 610,
       "align": "center",
       "in": "@fol+1.2",
       "out": "n4+7",
