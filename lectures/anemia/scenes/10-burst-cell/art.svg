@@ -84,9 +84,9 @@
 <circle id="o-ab7" cx="444.3" cy="1044.8" r="0"/>
 <circle id="o-ab8" cx="535.2" cy="1135.7" r="0"/>
 <circle id="a-dat" cx="380" cy="1375" r="0"/>
-<circle id="t-flap1" cx="965.9" cy="275.4" r="0"/>
-<circle id="t-flap2" cx="1065" cy="435.9" r="0"/>
-<circle id="t-flap3" cx="968.6" cy="602.2" r="0"/>
+<circle id="t-flap1" cx="903.6" cy="249.5" r="0"/>
+<circle id="t-flap2" cx="1010" cy="435.7" r="0"/>
+<circle id="t-flap3" cx="907.9" cy="628.5" r="0"/>
 <circle id="o-cell" cx="904" cy="444" r="0"/>
 <circle id="a-hem" cx="719.6" cy="328.5" r="0"/>
 <circle id="o-ldh_arr" cx="1450" cy="270" r="0"/>
@@ -106,5 +106,5 @@
 <path id="p-ldh" d="M905,410C980,330 1070,215 1230,205" fill="none" stroke="none"/>
 <path id="p-bil" d="M915,440C1000,425 1120,455 1230,440" fill="none" stroke="none"/>
 <path id="p-hp" d="M915,470C1010,600 1150,705 1329,691" fill="none" stroke="none"/>
-<path id="p_vessel" d="M1863.2,1398.8C1903.2,1408.8 1800,1300 1870,1300C2300,1310 2700,1170 3335,1250L3330,1250" fill="none" stroke="none"/>
+<path id="p_vessel" d="M1863.2,1398.8C1903.2,1408.8 1800,1300 1870,1300C2300,1310 2700,1170 3335,1250L3390,1250" fill="none" stroke="none"/>
 </svg>

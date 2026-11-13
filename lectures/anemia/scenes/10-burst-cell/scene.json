@@ -1,4 +1,5 @@
 {
+  "parts": ["map_low", "map_mac", "map", "map_leaf", "vessel", "vessel_cells", "dat", "smear", "smear_cells", "sph_norm", "sph1", "sph2", "sph3", "sph4", "sph5", "sch1a", "sch1b", "sch2a", "sch2b", "sch3a", "sch3b", "kidney", "plt1", "plt2", "plt3", "neg_cell", "dat_cell", "ab1", "ab2", "ab3", "ab4", "ab5", "ab6", "ab7", "ab8", "c3d1", "c3d2", "c3d3", "cell", "flap1", "flap2", "flap3", "tear", "hb", "hb_hp", "ldh", "ldh_arr", "bil", "bil_arr", "hp", "hp_arr"],
   "narration": [
     {"id": "n1", "text": "Поки чоловік чекає на ендоскопі́ю, заглянемо на нормоцита́рну дорогу. Ретикулоци́тів багато, а кровотечі немає, — тоді підозрюють [[hem]]гемо́ліз."},
     {"id": "n2", "text": "Зруйнований еритроци́т лишає три сліди. [[ldh]]ЛДГ виходить із кліти́ни, і її рівень росте. З гемоглобі́ну утворюється [[bil]]непрями́й білірубі́н. А [[hp]]гаптоглобі́н зв'язує вільний гемоглобі́н і витрачається — його стає мало.", "gap": 0.5},
