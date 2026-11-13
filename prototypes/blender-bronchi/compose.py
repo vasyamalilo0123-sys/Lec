@@ -49,6 +49,8 @@ def layer(name, f, t):
         x0, y0, x1, y1 = b["box"]
         top = 240 - (y1 - y0) if y0 == 0 else 0  # обрізана верхнім краєм кадру ділянка
         m = mask.crop((0, top, x1 - x0, top + (y1 - y0))).point(lambda v: int(v * max(a, 0)))
+        if m.size != patch.size:  # Blender округлює межі ділянки по-своєму
+            m = m.resize(patch.size)
         img = img.copy()
         img.paste(patch, tuple(b["box"][:2]), m)
     cam = TL.CAM_OF.get(name, "close")
@@ -104,5 +106,6 @@ if __name__ == "__main__":
         if f % 250 == 0:
             print("кадр", f, flush=True)
     p.stdin.close()
-    p.wait()
+    if p.wait() != 0:
+        sys.exit("ffmpeg завершився з помилкою")
     print("готово:", OUT)
