@@ -254,7 +254,7 @@
       }
     },
     {
-      "at": "start+0.6",
+      "at": "start+0.75",
       "dur": 0.4,
       "set": {
         "kidney": "color"
@@ -333,6 +333,8 @@
       "at": "n3",
       "dur": 0.6,
       "set": {
+        "vessel": "hidden",
+        "vessel_flow": "hidden",
         "flame": "hidden",
         "blood": "hidden",
         "peri": "hidden",
@@ -383,8 +385,12 @@
       "at": "n4",
       "dur": 0.6,
       "set": {
-        "iron": "grey",
-        "chk_fe": "grey",
+        "iron": "hidden",
+        "b12": "hidden",
+        "folate": "hidden",
+        "chk_fe": "hidden",
+        "chk_b12": "hidden",
+        "chk_fol": "hidden",
         "epo_thin": "hidden",
         "epo": "color"
       }
@@ -442,9 +448,12 @@
         "epo": "color",
         "marrow": "color",
         "iron": "color",
+        "b12": "color",
+        "folate": "color",
         "h100": "color",
         "indiv": "color",
         "vessel": "color",
+        "vessel_flow": "color",
         "road_normo": "color",
         "map_nodes": "color"
       }
@@ -471,10 +480,11 @@
         "hb_mark": "grey",
         "scale_nums": "grey",
         "vessel": "grey",
+        "vessel_flow": "grey",
         "road_normo": "grey",
         "map_nodes": "grey",
         "b12": "grey",
-        "chk_fe": "grey"
+        "folate": "grey"
       }
     },
     {
@@ -556,7 +566,7 @@
     },
     {
       "id": "kidney",
-      "at": "start+0.6",
+      "at": "start+0.75",
       "dur": 1.4
     },
     {

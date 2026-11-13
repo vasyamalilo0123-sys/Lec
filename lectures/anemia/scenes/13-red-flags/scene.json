@@ -856,7 +856,6 @@
       "id": "t1",
       "kind": "thesis",
       "html": "Три червоні прапорці",
-      "band": "top",
       "in": "@flags+0.4",
       "out": "@pan"
     },

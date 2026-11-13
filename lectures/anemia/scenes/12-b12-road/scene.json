@@ -1,36 +1,1177 @@
 {
-  "parts": ["road", "drop_w", "drip", "slide", "smear", "ovl", "neu", "lobe1", "lobe2", "lobe3", "lobe4", "lobe5", "lobe6", "hers_ring", "stomach", "parietal", "if", "if_cup", "b12", "trail", "colon", "ile", "ile_end", "obs1", "obs2", "obs3", "obs4", "serum", "mma", "vials", "leg", "nerve", "non1", "non2", "non3", "non4", "non5", "drop_m", "root", "br_mic", "br_nor", "br_mac", "leaf_ida", "leaf_inf", "leaf_thal", "br_nlow", "br_nhigh", "lf_kid", "lf_flame", "lf_bone", "lf_bleed", "lf_hemol", "leaf_meg", "leaf_nonmeg", "ic_torso", "ic_foot", "dw_num"],
-  "narration": [
-    {"id": "n1", "text": "Тепер [[wdrop]]жіноча крапля. Макроцита́рна дорога починається з [[smear]]мазка́: мегалобла́стний макроцито́з чи ні?"},
-    {"id": "n2", "text": "[[ovl]]Великі овальні еритроци́ти й [[neu]]гіперсегменто́вані нейтрофі́ли — з п'ятьма й більше частками ядра́ — ознаки порушеного си́нтезу ДНК. Найчастіше це дефіци́т B12 або фола́ту. [[hers]]У мазку́ нашої пацієнтки — саме такі нейтрофі́ли.", "gap": 0.5},
-    {"id": "n3", "text": "Вітамі́н B12 всмо́ктується переважно разом із [[if]]вну́трішнім чи́нником шлу́нка і в [[ile]]клу́бовій ки́шці. Звідси причини дефіци́ту: перніціо́зна анемі́я, операції на шлу́нку чи клу́бовій ки́шці, тривалий прийом метформіну або інгібі́торів прото́нної по́мпи, суворе веганське харчування.", "gap": 0.5},
-    {"id": "n4", "text": "Рівень B12 у сиро́ватці — не ідеальний тест. Якщо він пограничний, а клініка підозріла, допоможуть [[mma]]метилмалонова кислота́ або голотранскобаламі́н. [[low]]У пацієнтки B12 низький."},
-    {"id": "n5", "text": "А онімі́ння в стопах теж може мати цю причину: дефіци́т B12 може [[nrv]]уража́ти не́рви навіть без анемі́ї.", "gap": 0.6},
-    {"id": "n6", "text": "Якщо ж ознак мегалобласто́зу немає, шукайте [[non]]алкого́ль, хвороби печі́нки, гіпотирео́з, ліки на кшталт метотрексату чи гідроксикарбаміду або мієлодиспласти́чний синдро́м.", "gap": 0.5}
-  ],
-  "brief": {
-    "in": "carry з 11: камера на карті, на макро-дорозі стоїть блакитна крапля з биркою «MCV 112». Крапля падає (travel) на скельце; розтікається колом — це мазок у центрі кадру.",
-    "out": "Камера від'їжджає від стопи вгору (camera, 2 с) на всю карту; на ній уже видно всі три дороги, дві краплі (бурштинова біля значка тулуба, блакитна біля значка стопи). Кадр «карта згори» — carry для 13.",
-    "reuse": "12-macrocytic/art.svg повністю: smear (з pt_smear), ovl, neu, stomach, if, ile, mma, nerve (з n_nerve, p_nerve), траєкторія p_b12. Перекомпонувати як «маршрут» через увесь кадр: мазок у центрі → камера переїжджає до шлунка (центр) → по p_b12 до клубової кишки (центр) → пробірка mma (центр) → гомілка й стопа (центр). 01: силует жінки зі стопою — для n5.",
-    "art": "Широкий малюнок-маршрут, кожна станція по черзі в центрі: мазок; шлунок із внутрішнім чинником; клубова кишка; пробірка сироватки; гомілка зі стопою й жовтим нервом. Частини: smear, ovl, neu, stomach, if, ile, mma, nerve, drop_w, b12 (нова: малиновий шестикутник для travel), non (нова: ряд із п'яти простих значків — келих, печінка, щитоподібна залоза, таблетка, кістка).",
-    "flow": [
-      {"at": "start", "color": "drop_w", "move": "крапля падає й розтікається колом (grow), smear draw", "text": "—"},
-      {"at": "@wdrop", "color": "drop_w", "move": "блакитне кільце-мітка пульсує (loop)", "text": "бирка «MCV 112»"},
-      {"at": "@smear", "color": "smear", "move": "camera наближається до мазка; клітини мазка проявляються (draw)", "text": "теза вгорі: «Мегалобластний чи ні?»"},
-      {"at": "@ovl", "color": "ovl", "move": "smear сірий; п'ять клітин розтягуються в овали (move, масштаб)", "text": "підпис «Макроовалоцити»; джерело s6"},
-      {"at": "@neu", "color": "neu", "move": "ovl сірі; нейтрофіл grow; частки ядра промальовуються по одній (draw, 6 кроків)", "text": "підпис «Гіперсегментований нейтрофіл»"},
-      {"at": "@hers", "color": "neu, drop_w", "move": "навколо нейтрофіла draw блакитне кільце пацієнтки", "text": "—"},
-      {"at": "n3", "color": "stomach", "move": "camera переїжджає (2 с) до шлунка; stomach draw", "text": "—"},
-      {"at": "@if", "color": "if, stomach", "move": "обкладкові клітини спалахують; серпики внутрішнього чинника виходять у просвіт; b12 зустрічає «чашу» й сідає в неї (move)", "text": "підпис «Внутрішній чинник»; джерело s7"},
-      {"at": "@ile", "color": "ile", "move": "пара travel по p_b12 до кишки; camera за нею; термінальний відділ спалахує", "text": "підпис «Клубова кишка»"},
-      {"at": "n3+10", "color": "stomach, ile", "move": "по черзі на маршруті p_b12 з'являються (grow) малі сірі «перепони» — шлунок, кишка, таблетка, листок — у такт переліку причин", "text": "—"},
-      {"at": "n4", "color": "mma", "move": "camera до пробірки; mma draw; сироватка наливається (grow)", "text": "—"},
-      {"at": "@mma", "color": "mma", "move": "поруч із пробіркою grow два малі флакони — «другий тест»", "text": "підпис «Метилмалонова кислота, голотранскобаламін»"},
-      {"at": "@low", "color": "mma, drop_w", "move": "бирка жінки count: «B12» і стрілка вниз", "text": "бирка «B12 ↓»"},
-      {"at": "@nrv", "color": "nerve", "move": "camera до гомілки; силует draw; жовтий нерв росте згори вниз (draw по p_nerve, 1,5 с), далі loop — переривчастий пунктир", "text": "теза: «Нерви — навіть без анемії»"},
-      {"at": "@non", "color": "non", "move": "nerve сірий; у центрі кадру ряд із п'яти значків draw по одному в такт переліку", "text": "підпис «Немегалобластний: алкоголь, печінка, щитоподібна, ліки, МДС»; джерело s23"},
-      {"at": "n6.end", "color": "drop_w", "move": "camera від'їжджає до карти", "text": "—"}
-    ],
-    "texts": "Теза: «Мегалобластний чи ні?»; «Нерви — навіть без анемії». Підписи: «Макроовалоцити», «Гіперсегментований нейтрофіл», «Внутрішній чинник», «Клубова кишка», «Метилмалонова кислота, голотранскобаламін», «Немегалобластний: алкоголь, печінка, щитоподібна, ліки, МДС». Бирка: «B12 ↓». Джерела: s6, s7, s23."
+ "art": {
+  "x": 0,
+  "y": 0,
+  "w": 1920,
+  "h": 1080
+ },
+ "parts": [
+  "road",
+  "drop_w",
+  "drip",
+  "slide",
+  "smear",
+  "ovl",
+  "neu",
+  "lobe1",
+  "lobe2",
+  "lobe3",
+  "lobe4",
+  "lobe5",
+  "lobe6",
+  "hers_ring",
+  "stomach",
+  "parietal",
+  "if",
+  "if_cup",
+  "b12",
+  "trail",
+  "colon",
+  "ile",
+  "ile_end",
+  "obs1",
+  "obs2",
+  "obs3",
+  "obs4",
+  "serum",
+  "mma",
+  "vials",
+  "leg",
+  "nerve",
+  "non1",
+  "non2",
+  "non3",
+  "non4",
+  "non5",
+  "drop_m",
+  "root",
+  "br_mic",
+  "br_nor",
+  "br_mac",
+  "leaf_ida",
+  "leaf_inf",
+  "leaf_thal",
+  "br_nlow",
+  "br_nhigh",
+  "lf_kid",
+  "lf_flame",
+  "lf_bone",
+  "lf_bleed",
+  "lf_hemol",
+  "leaf_meg",
+  "leaf_nonmeg",
+  "ic_torso",
+  "ic_foot",
+  "dw_num"
+ ],
+ "narration": [
+  {
+   "id": "n1",
+   "text": "Тепер [[wdrop]]жіноча крапля. Макроцита́рна дорога починається з [[smear]]мазка́: мегалобла́стний макроцито́з чи ні?"
+  },
+  {
+   "id": "n2",
+   "text": "[[ovl]]Великі овальні еритроци́ти й [[neu]]гіперсегменто́вані нейтрофі́ли — з [[lobes]]п'ятьма й більше частками ядра́ — [[dna]]ознаки порушеного си́нтезу ДНК. [[def]]Найчастіше це дефіци́т B12 або фола́ту. [[hers]]У мазку́ нашої пацієнтки — саме такі нейтрофі́ли.",
+   "gap": 0.5
+  },
+  {
+   "id": "n3",
+   "text": "Вітамі́н B12 всмо́ктується переважно разом із [[if]]вну́трішнім чи́нником шлу́нка і в [[ile]]клу́бовій ки́шці. [[why]]Звідси причини дефіци́ту: [[c1]]перніціо́зна анемі́я, [[c2]]операції на шлу́нку чи клу́бовій ки́шці, тривалий прийом [[c3]]метформіну або інгібі́торів прото́нної по́мпи, [[c4]]суворе веганське харчування.",
+   "gap": 0.5
+  },
+  {
+   "id": "n4",
+   "text": "Рівень B12 у сиро́ватці — [[nid]]не ідеальний тест. Якщо він [[bord]]пограничний, а клініка підозріла, допоможуть [[mma]]метилмалонова кислота́ або голотранскобаламі́н. [[low]]У пацієнтки B12 низький."
+  },
+  {
+   "id": "n5",
+   "text": "А [[numb]]онімі́ння в стопах теж може мати цю причину: дефіци́т B12 може [[nrv]]уража́ти не́рви навіть без анемі́ї.",
+   "gap": 0.6
+  },
+  {
+   "id": "n6",
+   "text": "Якщо ж ознак мегалобласто́зу немає, шукайте [[non]]алкого́ль, [[liv]]хвороби печі́нки, [[thy]]гіпотирео́з, [[drug]]ліки на кшталт метотрексату чи гідроксикарбаміду або [[mds]]мієлодиспласти́чний синдро́м.",
+   "gap": 0.5
   }
+ ],
+ "brief": {
+  "in": "carry з 11: камера на карті, на макро-дорозі стоїть блакитна крапля з биркою «MCV 112». Крапля падає (travel) на скельце; розтікається колом — це мазок у центрі кадру.",
+  "out": "Камера від'їжджає від стопи вгору (camera, 2 с) на всю карту; на ній уже видно всі три дороги, дві краплі (бурштинова біля значка тулуба, блакитна біля значка стопи). Кадр «карта згори» — carry для 13.",
+  "reuse": "12-macrocytic/art.svg повністю: smear (з pt_smear), ovl, neu, stomach, if, ile, mma, nerve (з n_nerve, p_nerve), траєкторія p_b12. Перекомпонувати як «маршрут» через увесь кадр: мазок у центрі → камера переїжджає до шлунка (центр) → по p_b12 до клубової кишки (центр) → пробірка mma (центр) → гомілка й стопа (центр). 01: силует жінки зі стопою — для n5.",
+  "art": "Широкий малюнок-маршрут, кожна станція по черзі в центрі: мазок; шлунок із внутрішнім чинником; клубова кишка; пробірка сироватки; гомілка зі стопою й жовтим нервом. Частини: smear, ovl, neu, stomach, if, ile, mma, nerve, drop_w, b12 (нова: малиновий шестикутник для travel), non (нова: ряд із п'яти простих значків — келих, печінка, щитоподібна залоза, таблетка, кістка).",
+  "flow": [
+   {
+    "at": "start",
+    "color": "drop_w",
+    "move": "крапля падає й розтікається колом (grow), smear draw",
+    "text": "—"
+   },
+   {
+    "at": "@wdrop",
+    "color": "drop_w",
+    "move": "блакитне кільце-мітка пульсує (loop)",
+    "text": "бирка «MCV 112»"
+   },
+   {
+    "at": "@smear",
+    "color": "smear",
+    "move": "camera наближається до мазка; клітини мазка проявляються (draw)",
+    "text": "теза вгорі: «Мегалобластний чи ні?»"
+   },
+   {
+    "at": "@ovl",
+    "color": "ovl",
+    "move": "smear сірий; п'ять клітин розтягуються в овали (move, масштаб)",
+    "text": "підпис «Макроовалоцити»; джерело s6"
+   },
+   {
+    "at": "@neu",
+    "color": "neu",
+    "move": "ovl сірі; нейтрофіл grow; частки ядра промальовуються по одній (draw, 6 кроків)",
+    "text": "підпис «Гіперсегментований нейтрофіл»"
+   },
+   {
+    "at": "@hers",
+    "color": "neu, drop_w",
+    "move": "навколо нейтрофіла draw блакитне кільце пацієнтки",
+    "text": "—"
+   },
+   {
+    "at": "n3",
+    "color": "stomach",
+    "move": "camera переїжджає (2 с) до шлунка; stomach draw",
+    "text": "—"
+   },
+   {
+    "at": "@if",
+    "color": "if, stomach",
+    "move": "обкладкові клітини спалахують; серпики внутрішнього чинника виходять у просвіт; b12 зустрічає «чашу» й сідає в неї (move)",
+    "text": "підпис «Внутрішній чинник»; джерело s7"
+   },
+   {
+    "at": "@ile",
+    "color": "ile",
+    "move": "пара travel по p_b12 до кишки; camera за нею; термінальний відділ спалахує",
+    "text": "підпис «Клубова кишка»"
+   },
+   {
+    "at": "n3+10",
+    "color": "stomach, ile",
+    "move": "по черзі на маршруті p_b12 з'являються (grow) малі сірі «перепони» — шлунок, кишка, таблетка, листок — у такт переліку причин",
+    "text": "—"
+   },
+   {
+    "at": "n4",
+    "color": "mma",
+    "move": "camera до пробірки; mma draw; сироватка наливається (grow)",
+    "text": "—"
+   },
+   {
+    "at": "@mma",
+    "color": "mma",
+    "move": "поруч із пробіркою grow два малі флакони — «другий тест»",
+    "text": "підпис «Метилмалонова кислота, голотранскобаламін»"
+   },
+   {
+    "at": "@low",
+    "color": "mma, drop_w",
+    "move": "бирка жінки count: «B12» і стрілка вниз",
+    "text": "бирка «B12 ↓»"
+   },
+   {
+    "at": "@nrv",
+    "color": "nerve",
+    "move": "camera до гомілки; силует draw; жовтий нерв росте згори вниз (draw по p_nerve, 1,5 с), далі loop — переривчастий пунктир",
+    "text": "теза: «Нерви — навіть без анемії»"
+   },
+   {
+    "at": "@non",
+    "color": "non",
+    "move": "nerve сірий; у центрі кадру ряд із п'яти значків draw по одному в такт переліку",
+    "text": "підпис «Немегалобластний: алкоголь, печінка, щитоподібна, ліки, МДС»; джерело s23"
+   },
+   {
+    "at": "n6.end",
+    "color": "drop_w",
+    "move": "camera від'їжджає до карти",
+    "text": "—"
+   }
+  ],
+  "texts": "Теза: «Мегалобластний чи ні?»; «Нерви — навіть без анемії». Підписи: «Макроовалоцити», «Гіперсегментований нейтрофіл», «Внутрішній чинник», «Клубова кишка», «Метилмалонова кислота, голотранскобаламін», «Немегалобластний: алкоголь, печінка, щитоподібна, ліки, МДС». Бирка: «B12 ↓». Джерела: s6, s7, s23."
+ },
+ "states": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "set": {
+    "road": "color",
+    "drop_w": "color",
+    "drip": "hidden",
+    "slide": "hidden",
+    "smear": "hidden",
+    "ovl": "hidden",
+    "neu": "hidden",
+    "lobe1": "hidden",
+    "lobe2": "hidden",
+    "lobe3": "hidden",
+    "lobe4": "hidden",
+    "lobe5": "hidden",
+    "lobe6": "hidden",
+    "hers_ring": "hidden",
+    "stomach": "hidden",
+    "parietal": "hidden",
+    "if": "hidden",
+    "if_cup": "hidden",
+    "b12": "hidden",
+    "trail": "hidden",
+    "colon": "hidden",
+    "ile": "hidden",
+    "ile_end": "hidden",
+    "obs1": "hidden",
+    "obs2": "hidden",
+    "obs3": "hidden",
+    "obs4": "hidden",
+    "serum": "hidden",
+    "mma": "hidden",
+    "vials": "hidden",
+    "leg": "hidden",
+    "nerve": "hidden",
+    "non1": "hidden",
+    "non2": "hidden",
+    "non3": "hidden",
+    "non4": "hidden",
+    "non5": "hidden",
+    "drop_m": "hidden",
+    "root": "hidden",
+    "br_mic": "hidden",
+    "br_nor": "hidden",
+    "br_mac": "hidden",
+    "leaf_ida": "hidden",
+    "leaf_inf": "hidden",
+    "leaf_thal": "hidden",
+    "br_nlow": "hidden",
+    "br_nhigh": "hidden",
+    "lf_kid": "hidden",
+    "lf_flame": "hidden",
+    "lf_bone": "hidden",
+    "lf_bleed": "hidden",
+    "lf_hemol": "hidden",
+    "leaf_meg": "hidden",
+    "leaf_nonmeg": "hidden",
+    "ic_torso": "hidden",
+    "ic_foot": "hidden",
+    "dw_num": "hidden"
+   }
+  },
+  {
+   "at": "@wdrop+0.2",
+   "dur": 0.3,
+   "set": {
+    "drip": "color"
+   }
+  },
+  {
+   "at": "@wdrop+0.3",
+   "dur": 0.4,
+   "set": {
+    "slide": "color"
+   }
+  },
+  {
+   "at": "@wdrop+2.0",
+   "dur": 0.5,
+   "set": {
+    "smear": "color"
+   }
+  },
+  {
+   "at": "@smear",
+   "dur": 0.6,
+   "set": {
+    "drop_w": "grey",
+    "road": "grey",
+    "slide": "grey"
+   }
+  },
+  {
+   "at": "@ovl",
+   "dur": 0.5,
+   "set": {
+    "smear": "grey",
+    "ovl": "color"
+   }
+  },
+  {
+   "at": "@neu",
+   "dur": 0.5,
+   "set": {
+    "ovl": "grey",
+    "neu": "color"
+   }
+  },
+  {
+   "at": "@lobes-0.30",
+   "dur": 0.2,
+   "set": {
+    "lobe1": "color"
+   }
+  },
+  {
+   "at": "@lobes+0.12",
+   "dur": 0.2,
+   "set": {
+    "lobe2": "color"
+   }
+  },
+  {
+   "at": "@lobes+0.54",
+   "dur": 0.2,
+   "set": {
+    "lobe3": "color"
+   }
+  },
+  {
+   "at": "@lobes+0.96",
+   "dur": 0.2,
+   "set": {
+    "lobe4": "color"
+   }
+  },
+  {
+   "at": "@lobes+1.38",
+   "dur": 0.2,
+   "set": {
+    "lobe5": "color"
+   }
+  },
+  {
+   "at": "@lobes+1.80",
+   "dur": 0.2,
+   "set": {
+    "lobe6": "color"
+   }
+  },
+  {
+   "at": "@dna",
+   "dur": 0.5,
+   "set": {
+    "ovl": "color"
+   }
+  },
+  {
+   "at": "@hers-0.6",
+   "dur": 0.5,
+   "set": {
+    "ovl": "grey"
+   }
+  },
+  {
+   "at": "@hers",
+   "dur": 0.4,
+   "set": {
+    "hers_ring": "color",
+    "drop_w": "color"
+   }
+  },
+  {
+   "at": "n3",
+   "dur": 0.6,
+   "set": {
+    "neu": "grey",
+    "hers_ring": "grey",
+    "drop_w": "grey",
+    "lobe1": "grey",
+    "lobe2": "grey",
+    "lobe3": "grey",
+    "lobe4": "grey",
+    "lobe5": "grey",
+    "lobe6": "grey"
+   }
+  },
+  {
+   "at": "n3+0.4",
+   "dur": 0.4,
+   "set": {
+    "stomach": "color",
+    "trail": "grey",
+    "colon": "grey"
+   }
+  },
+  {
+   "at": "n3+1.6",
+   "dur": 0.4,
+   "set": {
+    "b12": "color"
+   }
+  },
+  {
+   "at": "@if",
+   "dur": 0.4,
+   "set": {
+    "parietal": "color"
+   }
+  },
+  {
+   "at": "@if+0.4",
+   "dur": 0.4,
+   "set": {
+    "if": "color",
+    "if_cup": "color"
+   }
+  },
+  {
+   "at": "@ile",
+   "dur": 0.6,
+   "set": {
+    "stomach": "grey",
+    "parietal": "grey",
+    "if": "grey"
+   }
+  },
+  {
+   "at": "@ile+0.6",
+   "dur": 0.5,
+   "set": {
+    "ile": "color",
+    "ile_end": "color"
+   }
+  },
+  {
+   "at": "@c1",
+   "dur": 0.6,
+   "set": {
+    "stomach": "color"
+   }
+  },
+  {
+   "at": "@c1",
+   "dur": 0.3,
+   "set": {
+    "obs1": "grey"
+   }
+  },
+  {
+   "at": "@c2",
+   "dur": 0.3,
+   "set": {
+    "obs2": "grey"
+   }
+  },
+  {
+   "at": "@c3",
+   "dur": 0.3,
+   "set": {
+    "obs3": "grey"
+   }
+  },
+  {
+   "at": "@c4",
+   "dur": 0.3,
+   "set": {
+    "obs4": "grey"
+   }
+  },
+  {
+   "at": "n4",
+   "dur": 0.6,
+   "set": {
+    "stomach": "grey",
+    "ile": "grey",
+    "ile_end": "grey",
+    "b12": "grey",
+    "if_cup": "grey"
+   }
+  },
+  {
+   "at": "n4+0.3",
+   "dur": 0.4,
+   "set": {
+    "mma": "color",
+    "serum": "color"
+   }
+  },
+  {
+   "at": "n4+0.5",
+   "dur": 0.4,
+   "set": {
+    "drop_w": "color"
+   }
+  },
+  {
+   "at": "@mma",
+   "dur": 0.4,
+   "set": {
+    "vials": "color"
+   }
+  },
+  {
+   "at": "@low",
+   "dur": 0.5,
+   "set": {
+    "vials": "grey"
+   }
+  },
+  {
+   "at": "n5",
+   "dur": 0.6,
+   "set": {
+    "mma": "grey",
+    "serum": "grey",
+    "drop_w": "grey"
+   }
+  },
+  {
+   "at": "@numb",
+   "dur": 0.4,
+   "set": {
+    "leg": "color"
+   }
+  },
+  {
+   "at": "@nrv",
+   "dur": 0.5,
+   "set": {
+    "leg": "grey",
+    "nerve": "color"
+   }
+  },
+  {
+   "at": "n6",
+   "dur": 0.6,
+   "set": {
+    "nerve": "grey"
+   }
+  },
+  {
+   "at": "@non",
+   "dur": 0.3,
+   "set": {
+    "non1": "color"
+   }
+  },
+  {
+   "at": "@liv",
+   "dur": 0.3,
+   "set": {
+    "non1": "grey",
+    "non2": "color"
+   }
+  },
+  {
+   "at": "@thy",
+   "dur": 0.3,
+   "set": {
+    "non2": "grey",
+    "non3": "color"
+   }
+  },
+  {
+   "at": "@drug",
+   "dur": 0.3,
+   "set": {
+    "non3": "grey",
+    "non4": "color"
+   }
+  },
+  {
+   "at": "@mds",
+   "dur": 0.3,
+   "set": {
+    "non4": "grey",
+    "non5": "color"
+   }
+  },
+  {
+   "at": "n6.end-0.4",
+   "dur": 0.6,
+   "set": {
+    "non1": "color",
+    "non2": "color",
+    "non3": "color",
+    "non4": "color"
+   }
+  },
+  {
+   "at": "n6.end+0.3",
+   "dur": 0.9,
+   "set": {
+    "root": "grey",
+    "br_mic": "grey",
+    "br_nor": "grey",
+    "br_mac": "grey",
+    "leaf_ida": "grey",
+    "leaf_inf": "grey",
+    "leaf_thal": "grey",
+    "br_nlow": "grey",
+    "br_nhigh": "grey",
+    "lf_kid": "grey",
+    "lf_flame": "grey",
+    "lf_bone": "grey",
+    "lf_bleed": "grey",
+    "lf_hemol": "grey",
+    "leaf_meg": "grey",
+    "leaf_nonmeg": "grey",
+    "ic_torso": "grey",
+    "ic_foot": "grey"
+   }
+  },
+  {
+   "at": "n6.end+0.8",
+   "dur": 0.6,
+   "set": {
+    "drop_m": "color",
+    "drop_w": "color",
+    "non1": "grey",
+    "non2": "grey",
+    "non3": "grey",
+    "non4": "grey",
+    "non5": "grey"
+   }
+  },
+  {
+   "at": "n6.end+2.2",
+   "dur": 0.4,
+   "set": {
+    "dw_num": "color"
+   }
+  }
+ ],
+ "camera": [
+  {
+   "at": "start",
+   "dur": 0.01,
+   "view": "v-in"
+  },
+  {
+   "at": "@wdrop+0.1",
+   "dur": 2.6,
+   "view": "v-smear"
+  },
+  {
+   "at": "@smear",
+   "dur": 1.6,
+   "view": {
+    "x": 672.0,
+    "y": 610.0,
+    "w": 1600,
+    "h": 900.0
+   }
+  },
+  {
+   "at": "@neu+0.1",
+   "dur": 1.6,
+   "view": {
+    "x": 982.0,
+    "y": 820.6,
+    "w": 1100,
+    "h": 618.75
+   }
+  },
+  {
+   "at": "@dna",
+   "dur": 1.6,
+   "view": {
+    "x": 672.0,
+    "y": 610.0,
+    "w": 1600,
+    "h": 900.0
+   }
+  },
+  {
+   "at": "@def",
+   "dur": 3.0,
+   "view": {
+    "x": 907.0,
+    "y": 758.4,
+    "w": 1250,
+    "h": 703.12
+   }
+  },
+  {
+   "at": "n3",
+   "dur": 2.4,
+   "view": "v-stomach"
+  },
+  {
+   "at": "@ile+0.1",
+   "dur": 2.8,
+   "view": "v-ile"
+  },
+  {
+   "at": "@c1-0.2",
+   "dur": 2.0,
+   "view": {
+    "x": 3200.0,
+    "y": 268.8,
+    "w": 2600,
+    "h": 1462.5
+   }
+  },
+  {
+   "at": "n4",
+   "dur": 2.4,
+   "view": "v-mma"
+  },
+  {
+   "at": "@nid",
+   "dur": 2.2,
+   "view": {
+    "x": 4500.0,
+    "y": 1908.1,
+    "w": 1500,
+    "h": 843.75
+   }
+  },
+  {
+   "at": "@mma-0.3",
+   "dur": 1.6,
+   "view": "v-mma"
+  },
+  {
+   "at": "n5",
+   "dur": 2.4,
+   "view": "v-nerve"
+  },
+  {
+   "at": "n6",
+   "dur": 2.4,
+   "view": "v-non"
+  },
+  {
+   "at": "n6.end+0.05",
+   "dur": 2.4,
+   "view": "v-out"
+  }
+ ],
+ "move": [
+  {
+   "id": "b12",
+   "to": "pt-b12-cup",
+   "at": "@if+0.5",
+   "dur": 1.4
+  },
+  {
+   "id": "drop_w",
+   "to": "pt-dw-park",
+   "at": "n3+3",
+   "dur": 0.04
+  },
+  {
+   "id": "drop_w",
+   "to": "pt-dw-mma",
+   "at": "n4+0.5",
+   "dur": 1.9
+  },
+  {
+   "id": "drop_w",
+   "to": "pt-dw-out",
+   "at": "n6.end+0.4",
+   "dur": 2.0,
+   "scale": 0.7588
+  }
+ ],
+ "travel": [
+  {
+   "id": "drip",
+   "path": "p_drip",
+   "at": "@wdrop+0.2",
+   "dur": 1.8,
+   "out": "@wdrop+2.1"
+  },
+  {
+   "id": "b12",
+   "path": "p_b12",
+   "at": "@ile",
+   "dur": 3.4
+  },
+  {
+   "id": "if_cup",
+   "path": "p_cup",
+   "at": "@ile",
+   "dur": 3.4
+  }
+ ],
+ "draw": [
+  {
+   "id": "slide",
+   "at": "@wdrop+0.3",
+   "dur": 1.6
+  },
+  {
+   "id": "smear",
+   "at": "@wdrop+2.0",
+   "dur": 1.4
+  },
+  {
+   "id": "ovl",
+   "at": "@ovl",
+   "dur": 1.0
+  },
+  {
+   "id": "lobe1",
+   "at": "@lobes-0.30",
+   "dur": 0.4
+  },
+  {
+   "id": "lobe2",
+   "at": "@lobes+0.12",
+   "dur": 0.4
+  },
+  {
+   "id": "lobe3",
+   "at": "@lobes+0.54",
+   "dur": 0.4
+  },
+  {
+   "id": "lobe4",
+   "at": "@lobes+0.96",
+   "dur": 0.4
+  },
+  {
+   "id": "lobe5",
+   "at": "@lobes+1.38",
+   "dur": 0.4
+  },
+  {
+   "id": "lobe6",
+   "at": "@lobes+1.80",
+   "dur": 0.4
+  },
+  {
+   "id": "hers_ring",
+   "at": "@hers",
+   "dur": 1.0
+  },
+  {
+   "id": "stomach",
+   "at": "n3+0.4",
+   "dur": 1.8
+  },
+  {
+   "id": "if",
+   "at": "@if+0.4",
+   "dur": 0.8
+  },
+  {
+   "id": "mma",
+   "at": "n4+0.3",
+   "dur": 1.4
+  },
+  {
+   "id": "leg",
+   "at": "@numb",
+   "dur": 1.6
+  },
+  {
+   "id": "nerve",
+   "at": "@nrv",
+   "dur": 1.5
+  },
+  {
+   "id": "non1",
+   "at": "@non",
+   "dur": 0.6
+  },
+  {
+   "id": "non2",
+   "at": "@liv",
+   "dur": 0.6
+  },
+  {
+   "id": "non3",
+   "at": "@thy",
+   "dur": 0.6
+  },
+  {
+   "id": "non4",
+   "at": "@drug",
+   "dur": 0.6
+  },
+  {
+   "id": "non5",
+   "at": "@mds",
+   "dur": 0.6
+  }
+ ],
+ "grow": [
+  {
+   "id": "smear",
+   "origin": "o-smear",
+   "at": "@wdrop+2.0",
+   "dur": 1.2
+  },
+  {
+   "id": "neu",
+   "origin": "o-neu",
+   "at": "@neu",
+   "dur": 0.9
+  },
+  {
+   "id": "serum",
+   "origin": "o-serum",
+   "at": "n4+1.0",
+   "dur": 1.8
+  },
+  {
+   "id": "vials",
+   "origin": "o-vials",
+   "at": "@mma",
+   "dur": 1.0
+  },
+  {
+   "id": "obs1",
+   "origin": "o-obs1",
+   "at": "@c1",
+   "dur": 0.7
+  },
+  {
+   "id": "obs2",
+   "origin": "o-obs2",
+   "at": "@c2",
+   "dur": 0.7
+  },
+  {
+   "id": "obs3",
+   "origin": "o-obs3",
+   "at": "@c3",
+   "dur": 0.7
+  },
+  {
+   "id": "obs4",
+   "origin": "o-obs4",
+   "at": "@c4",
+   "dur": 0.7
+  }
+ ],
+ "loop": [
+  {
+   "id": "road_dash",
+   "kind": "flow",
+   "in": "start",
+   "out": "@smear+1",
+   "amp": 14,
+   "period": 1.4
+  },
+  {
+   "id": "dw-ring",
+   "kind": "pulse",
+   "in": "start",
+   "out": "@smear",
+   "amp": 0.04,
+   "period": 2.4
+  },
+  {
+   "id": "neu",
+   "kind": "pulse",
+   "in": "@lobes+2.4",
+   "out": "@dna",
+   "amp": 0.03,
+   "period": 2.2
+  },
+  {
+   "id": "hers_ring",
+   "kind": "pulse",
+   "in": "@hers+1.0",
+   "out": "n3",
+   "amp": 0.04,
+   "period": 2.2
+  },
+  {
+   "id": "parietal",
+   "kind": "pulse",
+   "in": "@if",
+   "out": "@ile",
+   "amp": 0.04,
+   "period": 1.6
+  },
+  {
+   "id": "trail",
+   "kind": "flow",
+   "in": "@ile",
+   "out": "n4",
+   "amp": 14,
+   "period": 1.4
+  },
+  {
+   "id": "ile_end",
+   "kind": "pulse",
+   "in": "@ile+3.0",
+   "out": "@c1",
+   "amp": 0.03,
+   "period": 2.2
+  },
+  {
+   "id": "serum",
+   "kind": "pulse",
+   "in": "@bord",
+   "out": "@mma",
+   "amp": 0.02,
+   "period": 2.2
+  },
+  {
+   "id": "dw-ring",
+   "kind": "pulse",
+   "in": "@low",
+   "out": "n5",
+   "amp": 0.04,
+   "period": 2.4
+  },
+  {
+   "id": "nerve",
+   "kind": "flow",
+   "in": "@nrv+1.5",
+   "out": "n6",
+   "amp": 14,
+   "period": 1.4
+  },
+  {
+   "id": "dw-ring",
+   "kind": "pulse",
+   "in": "n6.end+2.0",
+   "amp": 0.04,
+   "period": 2.4
+  }
+ ],
+ "count": [],
+ "labels": [
+  {
+   "id": "tw0",
+   "text": "MCV 112",
+   "onArt": true,
+   "follow": "drop_w",
+   "x": 1144,
+   "y": 315,
+   "align": "center",
+   "in": "start",
+   "out": "@smear"
+  },
+  {
+   "id": "lovl",
+   "text": "Макроовалоцити",
+   "anchor": "a_ovl",
+   "x": 1330,
+   "y": 200,
+   "align": "left",
+   "in": "@ovl+0.4",
+   "out": "@neu",
+   "focus": "ovl"
+  },
+  {
+   "id": "lneu",
+   "text": "Гіперсегментований нейтрофіл",
+   "anchor": "a_neu",
+   "x": 1250,
+   "y": 300,
+   "align": "left",
+   "in": "@neu+1.6",
+   "out": "@dna",
+   "focus": "neu"
+  },
+  {
+   "id": "lif",
+   "text": "Внутрішній чинник",
+   "anchor": "a_if",
+   "x": 560,
+   "y": 260,
+   "align": "right",
+   "in": "@if+0.6",
+   "out": "@ile",
+   "focus": "if"
+  },
+  {
+   "id": "lile",
+   "text": "Клубова кишка",
+   "anchor": "a_ile",
+   "x": 1420,
+   "y": 300,
+   "align": "left",
+   "in": "@ile+2.4",
+   "out": "@c2",
+   "focus": "ile"
+  },
+  {
+   "id": "lmma",
+   "text": "Метилмалонова кислота,<br>голотранскобаламін",
+   "anchor": "a_vials",
+   "x": 1450,
+   "y": 250,
+   "align": "left",
+   "in": "@mma+0.6",
+   "out": "@low",
+   "focus": "vials"
+  },
+  {
+   "id": "tw1",
+   "text": "B12 ↓",
+   "onArt": true,
+   "follow": "drop_w",
+   "x": 1144,
+   "y": 315,
+   "align": "center",
+   "in": "@low+0.2",
+   "out": "n5",
+   "focus": "drop_w"
+  },
+  {
+   "id": "lnon",
+   "text": "Немегалобластний: алкоголь, печінка, щитоподібна, ліки, МДС",
+   "anchor": "a_non",
+   "x": 960,
+   "y": 720,
+   "align": "center",
+   "in": "@non+0.4",
+   "out": "n6.end",
+   "focus": "non1"
+  }
+ ],
+ "texts": [
+  {
+   "id": "t1",
+   "kind": "thesis",
+   "band": "top",
+   "html": "Мегалобластний чи ні?",
+   "in": "@smear+0.4",
+   "out": "@ovl"
+  },
+  {
+   "id": "t2",
+   "kind": "thesis",
+   "html": "Нерви — навіть без анемії",
+   "in": "@nrv+0.6",
+   "out": "n6"
+  }
+ ],
+ "sources": [
+  {
+   "ref": "s6",
+   "in": "@ovl+0.4",
+   "out": "n2.end"
+  },
+  {
+   "ref": "s7",
+   "in": "@if+0.6",
+   "out": "n3.end"
+  },
+  {
+   "ref": "s6",
+   "in": "@mma+0.6",
+   "out": "n4.end"
+  },
+  {
+   "ref": "s6",
+   "in": "@nrv+0.6",
+   "out": "n5.end"
+  },
+  {
+   "ref": "s23",
+   "in": "@non+0.4",
+   "out": "n6.end"
+  }
+ ],
+ "carry": true,
+ "enter": "cut",
+ "exit": "cut",
+ "kicker": false,
+ "lead": 0.15,
+ "tail": 3.0
 }

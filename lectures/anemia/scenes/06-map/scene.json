@@ -202,7 +202,7 @@
       "dur": 1.5,
       "view": {
         "x": 1800,
-        "y": 640,
+        "y": 665,
         "w": 1280,
         "h": 720
       }
@@ -212,7 +212,7 @@
       "dur": 2.4,
       "view": {
         "x": 1840,
-        "y": 640,
+        "y": 665,
         "w": 1200,
         "h": 675
       }
@@ -408,9 +408,9 @@
       "dur": 0.6,
       "set": {
         "br_nor": "grey",
-        "br_nhigh": "grey",
-        "lf_bleed": "grey",
-        "lf_hemol": "grey",
+        "br_nhigh": "hidden",
+        "lf_bleed": "hidden",
+        "lf_hemol": "hidden",
         "br_mac": "color"
       }
     },
@@ -434,6 +434,8 @@
       "dur": 0.6,
       "set": {
         "br_nhigh": "color",
+        "lf_bleed": "grey",
+        "lf_hemol": "grey",
         "leaf_meg": "color",
         "rt": "color"
       }
@@ -828,7 +830,7 @@
       "text": "Мегалобластна",
       "anchor": "a-megr",
       "x": 1110,
-      "y": 205,
+      "y": 170,
       "align": "left",
       "focus": "leaf_meg",
       "in": "@meg+0.6",
@@ -840,7 +842,7 @@
       "text": "Немегалобластна",
       "anchor": "a-nonmegr",
       "x": 1110,
-      "y": 505,
+      "y": 470,
       "align": "left",
       "focus": "leaf_nonmeg",
       "in": "@nonmeg+0.8",

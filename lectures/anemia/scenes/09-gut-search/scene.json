@@ -343,14 +343,14 @@
       "set": {
         "drop": "grey",
         "drop_trail": "grey",
-        "lower": "grey"
+        "upper": "color"
       }
     },
     {
       "at": "@up-0.2",
       "dur": 0.4,
       "set": {
-        "upper": "color",
+        "lower": "grey",
         "gastro_line": "color",
         "scope_up": "color"
       }
