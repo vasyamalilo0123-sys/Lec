@@ -159,7 +159,7 @@
       "view": "v-in"
     },
     {
-      "at": "start+0.25",
+      "at": "start+0.1",
       "dur": 2.4,
       "view": "v-main"
     },
@@ -172,6 +172,16 @@
       "at": "n2+3.4",
       "dur": 1.6,
       "view": "v-main"
+    },
+    {
+      "at": "@excl-0.3",
+      "dur": 1.6,
+      "view": {
+        "x": 60,
+        "y": 900,
+        "w": 1920,
+        "h": 1080
+      }
     },
     {
       "at": "n4",
@@ -229,14 +239,14 @@
       }
     },
     {
-      "at": "start+0.25",
-      "dur": 0.7,
+      "at": "start+0.1",
+      "dur": 0.6,
       "set": {
         "seam10": "hidden"
       }
     },
     {
-      "at": "start+0.55",
+      "at": "start+0.35",
       "dur": 0.6,
       "set": {
         "vessel": "color",
@@ -244,7 +254,7 @@
       }
     },
     {
-      "at": "start+0.95",
+      "at": "start+0.6",
       "dur": 0.4,
       "set": {
         "kidney": "color"
@@ -541,13 +551,13 @@
   "draw": [
     {
       "id": "vessel",
-      "at": "start+0.55",
+      "at": "start+0.35",
       "dur": 1.2
     },
     {
       "id": "kidney",
-      "at": "start+0.95",
-      "dur": 1.5
+      "at": "start+0.6",
+      "dur": 1.4
     },
     {
       "id": "marrow",
@@ -856,9 +866,9 @@
       "id": "lrow",
       "text": "Залізо, B12, фолат",
       "anchor": "a-iron",
-      "x": 300,
+      "x": 740,
       "y": 380,
-      "align": "left",
+      "align": "center",
       "in": "@chk",
       "out": "@tx",
       "focus": "b12"
