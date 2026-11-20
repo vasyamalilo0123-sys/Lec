@@ -91,13 +91,13 @@ def strap(name, pts, u, m_muscle, m_tendon, seg=20):
         nrm = (nrm - tan * nrm.dot(tan)).normalized(); w = tan.cross(nrm).normalized()
         belly = math.sin(math.pi * min(1.0, max(0.0, (t - 0.1) / 0.9)) ** 0.8)
         a = 0.20 + 0.10 * belly - 0.12 * max(0, t - 0.75) / 0.25
-        b = 0.018 + 0.11 * belly
+        b = 0.008 + 0.012 * min(1.0, t * 12) + 0.11 * belly
         rings.append([bm.verts.new(p + nrm * (b * 0.6) + w * (a * math.cos(2 * math.pi * k / seg)) + nrm * (b * math.sin(2 * math.pi * k / seg))) for k in range(seg)])
     for i, (r0, r1) in enumerate(zip(rings[:-1], rings[1:])):
         for k in range(seg):
             f = bm.faces.new((r0[k], r0[(k + 1) % seg], r1[(k + 1) % seg], r1[k])); f.smooth = True
             f.material_index = 1 if i < 2 else 0
-    bm.faces.new(rings[0][::-1]); bm.faces.new(rings[-1])
+    bm.faces.new(rings[-1])
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
     me.materials.append(m_muscle); me.materials.append(m_tendon)
     o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o)
@@ -159,7 +159,7 @@ def build(C):
     nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 2.0; nt.links.new(tcn.outputs['Object'], mp.inputs[0]); nt.links.new(mp.outputs[0], nz.inputs['Vector'])
     bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.5; nt.links.new(nz.outputs['Fac'], bp.inputs['Height'])
     nt.links.new(bp.outputs[0], nt.nodes['P'].inputs['Normal'])
-    m_te = C.mat('tendon', (0.85, 0.80, 0.72), rough=0.3, sss=0.5, coat=0.6)
+    m_te = C.mat('tendon', (0.80, 0.66, 0.58), rough=0.3, sss=0.6, coat=0.6)
     apex = Vector((0.35, 3.6, -0.1)); muscle_pt = {}
     for name, ang in (('sup', 90), ('inf', 270), ('lat', 180), ('med', 0)):
         u = Vector((math.cos(math.radians(ang)), 0, math.sin(math.radians(ang))))
@@ -173,7 +173,7 @@ def build(C):
                 p0 = (u * math.cos(th) + Vector((0, 1, 0)) * math.sin(th)) * (R + 0.05)
                 p = p0.lerp(apex, s) + u * 0.25 * math.sin(math.pi * s)
             pts.append(p)
-        strap('m_' + name, pts, u, m_mu, m_te)
+        strap('m_' + name, pts[:8] if name == 'med' else pts, u, m_mu, m_te)      # ближній до камери м'яз відсічено, щоб відкрити зоровий нерв
         muscle_pt[name] = pts[8]
 
     # --- зоровий нерв ---
@@ -189,11 +189,11 @@ def build(C):
     return {
         'kicker': 'Орган зору', 'title': 'Око', 'sub': 'Світло проходить рогівку,\nзіницю — і далі до сітківки', 'scrim': 'left', 'title_at': [96, 96],
         'labels': [
-            {'text': 'рогівка', 'p': (0.3, CY - RC * 0.93, 0.25), 'at': [96, 520], 'align': 'right'},
-            {'text': 'зіниця', 'p': (0, LY, 0), 'at': [96, 640], 'align': 'right'},
-            {'text': 'райдужка', 'p': (0.05, LY + 0.03, -0.42), 'at': [96, 760], 'align': 'right'},
-            {'text': 'склера', 'p': (0.75, -0.45, -0.82), 'at': [700, 950], 'align': 'left'},
-            {'text': "прямий м'яз", 'p': muscle_pt['sup'] + Vector((0, 0, 0.12)), 'at': [1200, 120], 'align': 'left'},
-            {'text': 'зоровий нерв', 'p': on[2] + Vector((0.15, 0, -0.12)), 'at': [1500, 900], 'align': 'left'},
+            {'text': 'рогівка', 'p': (-0.42, CY - RC * 0.80, 0.22), 'at': [600, 500], 'align': 'right'},
+            {'text': 'зіниця', 'p': (0, LY, 0), 'at': [600, 612], 'align': 'right'},
+            {'text': 'райдужка', 'p': (0.05, LY + 0.03, -0.42), 'at': [600, 775], 'align': 'right'},
+            {'text': 'склера', 'p': (0.75, -0.45, -0.82), 'at': [800, 948], 'align': 'right'},
+            {'text': "прямий м'яз", 'p': muscle_pt['sup'] + Vector((0, 0, 0.12)), 'at': [1100, 150], 'align': 'right'},
+            {'text': 'зоровий нерв', 'p': on[2] + Vector((0.15, 0, -0.12)), 'at': [1600, 150], 'align': 'left'},
         ],
     }

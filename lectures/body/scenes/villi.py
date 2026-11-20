@@ -76,9 +76,9 @@ def resample(prof, step):
 def build(C):
     rnd = random.Random(5)
     C.set_world((0.012, 0.004, 0.004))
-    m_vil = velvet(C, 'villus', (0.86, 0.42, 0.40), (0.74, 0.30, 0.30))
+    m_vil = velvet(C, 'villus', (0.80, 0.33, 0.33), (0.66, 0.22, 0.24))
     m_base = velvet(C, 'mucosa', (0.66, 0.26, 0.27), (0.52, 0.18, 0.20), cell_scale=22.0)
-    m_inner = C.mat('lamina', (0.93, 0.66, 0.60), rough=0.6, sss=0.6, sss_radius=(1.0, 0.4, 0.3), sss_scale=0.1)
+    m_inner = C.mat('lamina', (0.80, 0.50, 0.46), rough=0.6, sss=0.6, sss_radius=(1.0, 0.4, 0.3), sss_scale=0.1)
     m_cell = [C.mat('ep_a', (0.90, 0.50, 0.50), rough=0.35, sss=0.6, coat=0.5), C.mat('ep_b', (0.80, 0.40, 0.44), rough=0.35, sss=0.6, coat=0.5)]
     m_nuc = C.mat('nucleus', (0.20, 0.10, 0.42), rough=0.3, coat=0.5)
     m_art = C.mat('artery', (0.78, 0.03, 0.03), rough=0.28, sss=0.3, coat=0.7)
@@ -88,7 +88,7 @@ def build(C):
     m_pit = C.mat('pit', (0.10, 0.02, 0.025), rough=0.7)
 
     # основа слизової
-    base = C.prim('cube', 'base', m_base, loc=(0, 8, -0.5), scale=(40, 30, 0.5))
+    base = C.prim('cyl', 'base', m_base, loc=(0, 8, -0.5), segs=64, r1=48, r2=48, depth=1.0)
 
     # --- ворсинка в розрізі ---
     H, R, HX, HY = 4.0, 0.62, 0.9, 0.0
@@ -102,7 +102,7 @@ def build(C):
     cells = resample(prof, 0.118)
     for side in (-1, 1):
         for j, (r, h, ang) in enumerate(cells):
-            if r < 0.09:
+            if r < 0.035:
                 continue
             nx, nz = math.sin(ang), -math.cos(ang)       # нормаль назовні в площині зрізу
             cx, cz = r - nx * T / 2, h - nz * T / 2
@@ -113,8 +113,9 @@ def build(C):
             if side == -1 and ep_label is None and h > 2.0:
                 ep_label = (HX - cx, HY - 0.06, cz)
     # центральна лімфатична судина: сліпо закінчується під верхівкою
-    lac = [(HX + 0.03 * math.sin(h * 2.0), HY + 0.16, h) for h in [-0.4 + i * 0.25 for i in range(15)]]
-    C.tube('lacteal', lac, 0.115, m_lymph, radii=[1.0] * 12 + [1.08, 1.12, 0.95], res=10)
+    lac = [(HX + 0.03 * math.sin(h * 2.0), HY + 0.20, h) for h in [-0.4 + i * 0.25 for i in range(15)]]
+    C.tube('lacteal', lac, 0.115, m_lymph, radii=[1.0] * 12 + [1.08, 1.12, 1.05], res=10)
+    C.prim('sphere', 'lacteal_tip', m_lymph, loc=lac[-1], scale=(0.121, 0.121, 0.121), u=24, v=12)
     # артеріола піднімається, венула спускається; між ними під епітелієм — капілярна сітка
     rin = lambda h: max(0.05, R * (1 - 0.12 * h / H) + 0.30 * math.exp(-h / 0.28) - T - 0.09)
     hs = [-0.4 + i * 0.2 for i in range(20)]
@@ -136,11 +137,20 @@ def build(C):
             y = 0.10 + (rr - 0.02) * math.sin(a) * 0.95
             z = h0 + 0.07 * math.sin(a * 3 + k * 1.7) + 0.10 * math.sin(a) * (1 if k % 2 else -1)
             arc.append((HX + x, HY + y, z))
-        C.tube(f'capA{k}', arc[:10], 0.022, m_art, res=5)
-        C.tube(f'capM{k}', arc[9:16], 0.022, m_mid, res=5)
-        C.tube(f'capV{k}', arc[15:], 0.022, m_ven, res=5)
+        C.tube(f'capA{k}', arc[:10], 0.032, m_art, res=5)
+        C.tube(f'capM{k}', arc[9:16], 0.032, m_mid, res=5)
+        C.tube(f'capV{k}', arc[15:], 0.032, m_ven, res=5)
         if k == 8:
             cap_label = arc[5]
+    # перемички сітки в площині зрізу: перед лімфатичною судиною, від артеріоли до венули
+    for k in range(9):
+        h0 = 0.75 + k * 0.31
+        xa = 0.62 * rin(h0)
+        lad = [(HX - xa + 2 * xa * i / 16, HY + 0.02 - 0.05 * math.sin(math.pi * i / 16),
+                h0 + 0.10 * math.sin(math.pi * i / 16 * 2 + k) + 0.05 * (i / 16 - 0.5) * (1 if k % 2 else -1)) for i in range(17)]
+        C.tube(f'ladA{k}', lad[:7], 0.021, m_art, res=5); C.tube(f'ladM{k}', lad[6:11], 0.021, m_mid, res=5); C.tube(f'ladV{k}', lad[10:], 0.021, m_ven, res=5)
+        if k == 6:
+            cap_label = lad[4]
     # дуга над верхівкою лімфатичної судини
     top = [(HX + 0.62 * rin(3.4) * math.cos(math.pi * (1 - i / 12)), HY + 0.10, 3.4 + 0.22 * math.sin(math.pi * i / 12)) for i in range(13)]
     C.tube('topA', top[:7], 0.035, m_art, res=6); C.tube('topV', top[6:], 0.035, m_ven, res=6)
@@ -167,7 +177,7 @@ def build(C):
             s = rnd.uniform(0.9, 1.08); o.scale = (s, s, s * rnd.uniform(0.92, 1.08))
             spots.append((x, y))
             if whole_label is None and 2.6 < x - HX < 3.6 and 0.9 < y < 2.6:
-                whole_label = (x, y - 0.5, h * s * 0.72)
+                whole_label = (x, y - 0.5, h * s * 0.42)
     # устя крипт між основами ворсинок
     crypt_label = None
     for iy in range(-4, 20):
@@ -176,14 +186,15 @@ def build(C):
             y = iy * sy + sy * 0.5 + rnd.uniform(-0.15, 0.15)
             if math.hypot(x - HX, y - HY) < 1.1 or any(math.hypot(x - a, y - b) < 0.95 for a, b in spots):
                 continue
-            ring = [(x + 0.19 * math.cos(2 * math.pi * i / 16), y + 0.19 * math.sin(2 * math.pi * i / 16), 0.0) for i in range(16)]
+            ring = [(x + 0.25 * math.cos(2 * math.pi * i / 16), y + 0.25 * math.sin(2 * math.pi * i / 16), 0.0) for i in range(16)]
             C.tube('crypt', ring, 0.065, m_base, cyclic=True, res=5)
-            C.prim('cyl', 'pit', m_pit, loc=(x, y, 0.004), segs=20, r1=0.17, r2=0.17, depth=0.02)
-            if crypt_label is None and -1.9 < x - HX < -0.9 and -1.9 < y < -0.6:
-                crypt_label = (x, y, 0.02)
+            C.prim('cyl', 'pit', m_pit, loc=(x, y, 0.004), segs=20, r1=0.23, r2=0.23, depth=0.02)
+            d = math.hypot(x - (HX - 1.9), y - (-0.9))
+            if crypt_label is None or d < crypt_label[3]:
+                crypt_label = (x - 0.25, y, 0.05, d)
 
-    C.cam(55, (0.2, -10.2, 3.5), (0.75, 0, 2.05), fstop=0.3, focus=10.3)
-    C.area('key', (-5, -7, 9), (0.9, 0, 2), 7, 2600, (1.0, 0.94, 0.9))
+    C.cam(46, (-0.3, -12.3, 3.9), (0.1, 0, 1.95), fstop=0.32, focus=12.5)
+    C.area('key', (-5, -7, 9), (0.9, 0, 2), 6, 1700, (1.0, 0.94, 0.9))
     C.area('rim', (6, 10, 7), (0.9, 0, 2.5), 9, 9000, (1.0, 0.6, 0.45))
     C.area('rim2', (-9, 9, 4), (0, 2, 2), 8, 3500, (1.0, 0.5, 0.5))
     C.area('fill', (4, -9, 1.5), (0.9, 0, 2), 5, 500, (0.75, 0.82, 1.0))
@@ -192,10 +203,10 @@ def build(C):
         'kicker': 'Тканини · епітеліальна', 'title': 'Ворсинки\nтонкої кишки', 'title_size': 84,
         'sub': 'Один шар клітин між їжею і кров\'ю', 'scrim': 'left', 'title_at': [96, 96],
         'labels': [
-            {'text': 'епітелій', 'sub': 'один шар клітин', 'p': ep_label, 'at': [520, 560], 'align': 'right'},
-            {'text': 'лімфатична судина', 'p': lac[9], 'at': [1420, 250], 'align': 'left'},
-            {'text': 'капіляри', 'p': cap_label, 'at': [520, 420], 'align': 'right'},
-            {'text': 'ворсинка', 'p': whole_label or (HX + 3, 1.5, 2.8), 'at': [1560, 520], 'align': 'left'},
-            {'text': 'крипта', 'p': crypt_label or (HX - 1.4, -1.2, 0), 'at': [520, 900], 'align': 'right'},
+            {'text': 'епітелій', 'sub': 'один шар клітин', 'p': ep_label, 'at': [700, 610], 'align': 'right'},
+            {'text': 'лімфатична судина', 'p': lac[9], 'at': [1440, 250], 'align': 'left'},
+            {'text': 'капіляри', 'p': cap_label, 'at': [700, 460], 'align': 'right'},
+            {'text': 'ворсинка', 'p': whole_label or (HX + 3, 1.5, 2.8), 'at': [1670, 760], 'align': 'left'},
+            {'text': 'крипта', 'p': crypt_label[:3], 'at': [640, 950], 'align': 'right'},
         ],
     }

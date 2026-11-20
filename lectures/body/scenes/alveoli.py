@@ -83,7 +83,7 @@ def build(C):
         return tuple(a[i] + (b[i] - a[i]) * t for i in range(3))
     STEPS = 6
     glass = [C.mat(f'cap{i}', lerp3((0.55, 0.60, 1.0), (1.0, 0.60, 0.55), i / (STEPS - 1)), rough=0.08, transmission=1.0, ior=1.12, coat=0.3,
-                   emission=lerp3((0.25, 0.30, 1.0), (1.0, 0.25, 0.2), i / (STEPS - 1)), emission_strength=0.12)
+                   emission=lerp3((0.25, 0.30, 1.0), (1.0, 0.25, 0.2), i / (STEPS - 1)), emission_strength=0.05)
              for i in range(STEPS)]
     blood = [C.mat(f'rbc{i}', lerp3((0.13, 0.03, 0.34), (0.90, 0.04, 0.02), i / (STEPS - 1)), rough=0.32, sss=1.0,
                    sss_radius=(1.0, 0.25, 0.12), sss_scale=0.03, coat=0.35,
