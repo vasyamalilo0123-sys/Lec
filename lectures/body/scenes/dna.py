@@ -30,5 +30,5 @@ def build(C):
     return {
         'kicker': 'Клітина · ядро', 'title': 'ДНК', 'sub': 'Дві нитки, чотири літери:\nA — T, G — C', 'scrim': 'left', 'title_at': [96, 96],
         'labels': [{'text': 'цукрово-фосфатний остов', 'p': s1[26], 'at': [1290, 900], 'align': 'left'},
-                   {'text': 'пара основ', 'sub': 'A — T або G — C', 'p': [(a + b) / 2 for a, b in zip(s1[16], s2[16])], 'at': [300, 820], 'align': 'left'}],
+                   {'text': 'пара основ', 'sub': 'A — T або G — C', 'p': [(a + b) / 2 for a, b in zip(s1[16], s2[16])], 'at': [830, 930], 'align': 'left'}],
     }
