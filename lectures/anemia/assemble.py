@@ -28,6 +28,6 @@ ov = (['-framerate', str(fps), '-i', os.path.join(R, 'overlay', '%04d.png')] if 
       else ['-c:v', 'libvpx-vp9', '-i', os.path.join(P, 'overlay.webm')])
 mix = os.path.join(R, 'mix.wav') if os.path.exists(os.path.join(R, 'mix.wav')) else os.path.join(P, 'mix.flac')
 cmd = ['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst] + ov + ['-i', mix, '-filter_complex', fc, '-map', '[v]', '-map', '[a2]', '-t', f'{T:.3f}',
-       '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', out]
+       '-c:v', 'libx264', '-preset', os.environ.get('X264_PRESET', 'slow'), '-crf', '17', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', out]
 subprocess.check_call(cmd)
 print('готово:', out, '| кадрів без власного рендеру:', missing, 'із', TL['total_frames'])
