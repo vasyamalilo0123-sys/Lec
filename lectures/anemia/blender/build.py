@@ -9,6 +9,30 @@ WALL_GLOW = 1.0
 
 
 # ---------- основа ----------
+def pick_device():
+    """Відеокарта, якщо є (Metal на Mac, OptiX/CUDA на NVIDIA, HIP, oneAPI), інакше процесор. ANEMIA_DEVICE=CPU вимикає пошук."""
+    import os
+    if os.environ.get('ANEMIA_DEVICE', '').upper() == 'CPU':
+        return 'CPU'
+    try:
+        prefs = bpy.context.preferences.addons['cycles'].preferences
+        for kind in ('METAL', 'OPTIX', 'CUDA', 'HIP', 'ONEAPI'):
+            try:
+                prefs.compute_device_type = kind
+            except Exception:
+                continue
+            prefs.get_devices_for_type(kind)
+            gpus = [d for d in prefs.devices if d.type == kind]
+            if gpus:
+                for d in prefs.devices:
+                    d.use = d.type == kind
+                print('Cycles:', kind, [d.name for d in gpus])
+                return 'GPU'
+    except Exception as e:
+        print('Cycles: відеокарту не знайдено,', e)
+    return 'CPU'
+
+
 def reset(nframes):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
@@ -16,7 +40,7 @@ def reset(nframes):
     sc.render.fps = FPS
     sc.render.engine = 'CYCLES'
     c = sc.cycles
-    c.device = 'CPU'
+    c.device = pick_device()
     c.use_adaptive_sampling = True
     c.adaptive_threshold = 0.1
     c.use_denoising = True

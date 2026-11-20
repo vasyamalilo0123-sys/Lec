@@ -22,8 +22,12 @@ GRADE = ("scale=1920:1080:flags=lanczos,format=gbrp,split[a][b];"
 fc = ("[0:v]fps=%d," + GRADE + ",noise=alls=7:allf=t+u[g];"
       "[g][1:v]overlay=format=auto,fade=t=in:st=0:d=0.8,fade=t=out:st=%.3f:d=0.7,format=yuv420p[v];"
       "[2:a]loudnorm=I=-14:TP=-1.5:LRA=11[a2]") % (fps, T - 0.7)
-cmd = ['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-framerate', str(fps), '-i', os.path.join(R, 'overlay', '%04d.png'),
-       '-i', os.path.join(R, 'mix.wav'), '-filter_complex', fc, '-map', '[v]', '-map', '[a2]', '-t', f'{T:.3f}',
+# титри й звук: свіжі з render/, а якщо їх не перебудовували — готові з prebuilt/
+P = os.path.join(here, 'prebuilt')
+ov = (['-framerate', str(fps), '-i', os.path.join(R, 'overlay', '%04d.png')] if os.path.exists(os.path.join(R, 'overlay', '0000.png'))
+      else ['-c:v', 'libvpx-vp9', '-i', os.path.join(P, 'overlay.webm')])
+mix = os.path.join(R, 'mix.wav') if os.path.exists(os.path.join(R, 'mix.wav')) else os.path.join(P, 'mix.flac')
+cmd = ['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst] + ov + ['-i', mix, '-filter_complex', fc, '-map', '[v]', '-map', '[a2]', '-t', f'{T:.3f}',
        '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', out]
 subprocess.check_call(cmd)
 print('готово:', out, '| кадрів без власного рендеру:', missing, 'із', TL['total_frames'])

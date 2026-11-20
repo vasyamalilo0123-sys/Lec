@@ -1,6 +1,7 @@
 # Рендер планів. Відновлюваний: готові кадри пропускає.
 #   python render.py still <план> <кадр> [ширина] [семпли]     — пробний кадр у render/stills/
 #   python render.py shot <план> [ширина] [семпли] [крок]      — усі кадри плану в render/<план>/
+#   Те саме через встановлений Blender: blender -b -P blender/render.py -- shot flow 1920 32
 #   python render.py track <план>                              — екранні координати клітин (для підписів) у overlay/track_<план>.json
 import bpy, sys, os, json, time
 here = os.path.dirname(os.path.abspath(__file__))
@@ -23,6 +24,9 @@ def setup(shot, width, samples):
 
 
 def main():
+    # під Blender («blender -b -P render.py -- shot flow …») аргументи йдуть після «--»
+    if '--' in sys.argv:
+        sys.argv = sys.argv[:1] + sys.argv[sys.argv.index('--') + 1:]
     mode, shot = sys.argv[1], sys.argv[2]
     if mode == 'still':
         frame = int(sys.argv[3]); width = int(sys.argv[4]) if len(sys.argv) > 4 else 960
