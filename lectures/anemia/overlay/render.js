@@ -76,7 +76,7 @@ html,body{width:1920px;height:1080px;background:transparent;overflow:hidden;font
 <div class="a big" id="num3" style="left:90px;top:300px">30,7 %</div>
 <div class="a sub" id="s3" style="left:96px;top:490px;width:640px">жінок 15–49 років<br>мають анемію</div>
 <div class="a sub" id="fe" style="left:96px;top:672px;width:640px;border-top:1px solid rgba(255,255,255,.28);padding-top:22px"><span style="color:rgba(255,255,255,.72)">Найчастіша причина —</span><br><span style="font-weight:500">дефіцит заліза</span></div>
-<div class="a src" id="src3">${src('s3')} (дані за 2023 р.) · ${src('s2')}</div>
+<div class="a src" id="src3" style="max-width:520px">${src('s3')} (дані за 2023 р.) · ${src('s2')}</div>
 
 <div class="a kicker" id="k4" style="left:96px;top:84px">Перша підказка — розмір клітини · MCV, середній об'єм еритроцита</div>
 <div class="a lab" id="l0"><div class="n">мікроцитарна</div><div class="v">MCV &lt; 80 фл</div><div class="c" id="l0c">шукайте дефіцит заліза</div></div>

@@ -16,9 +16,10 @@ for s in TL['shots']:
         lines.append(f"file '{last}'\nduration {1 / fps:.6f}")
 lst = os.path.join(R, 'frames.txt'); open(lst, 'w').write('\n'.join(lines) + '\n')
 T = TL['total_frames'] / fps
-fc = ("[0:v]fps=%d,scale=1920:1080:flags=lanczos,format=gbrp,split[a][b];"
-      "[b]gblur=sigma=26,eq=brightness=-0.06:contrast=1.3[bl];[a][bl]blend=all_mode=screen:all_opacity=0.30,"
-      "eq=contrast=1.14:saturation=1.06:gamma=0.94,vignette=PI/4.6,noise=alls=7:allf=t+u,format=yuv444p[g];"
+GRADE = ("scale=1920:1080:flags=lanczos,format=gbrp,split[a][b];"
+         "[b]gblur=sigma=24,curves=all='0/0 0.35/0.08 1/1'[bl];[a][bl]blend=all_mode=screen:all_opacity=0.22,"
+         "curves=all='0/0 0.25/0.19 0.75/0.8 1/1',format=yuv444p,eq=saturation=1.08,vignette=PI/4.6")
+fc = ("[0:v]fps=%d," + GRADE + ",noise=alls=7:allf=t+u[g];"
       "[g][1:v]overlay=format=auto,fade=t=in:st=0:d=0.8,fade=t=out:st=%.3f:d=0.7,format=yuv420p[v];"
       "[2:a]loudnorm=I=-14:TP=-1.5:LRA=11[a2]") % (fps, T - 0.7)
 cmd = ['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-framerate', str(fps), '-i', os.path.join(R, 'overlay', '%04d.png'),
