@@ -74,7 +74,8 @@ def front_point(obj, cam=None, bias=(0, 0, 0)):
     d = (c - eye).normalized(); r = max((hi - lo).length * 0.06, 0.02)
     mw = obj.matrix_world; best = None
     step = max(1, len(obj.data.vertices) // 60000)
-    for v in obj.data.vertices[::step]:
+    for i in range(0, len(obj.data.vertices), step):
+        v = obj.data.vertices[i]
         w = mw @ v.co; t = (w - eye).dot(d); off = ((w - eye) - d * t).length
         if off < r and (best is None or t < best[0]): best = (t, w)
     return tuple(best[1]) if best else tuple(c)
