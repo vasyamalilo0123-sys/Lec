@@ -21,12 +21,14 @@ def build(C):
         C.prim('sphere', f's{i}a', back, loc=p1, scale=(0.19,) * 3, u=24, v=12)
         C.prim('sphere', f's{i}b', back, loc=p2, scale=(0.19,) * 3, u=24, v=12)
     C.tube('strand1', s1, 0.12, back); C.tube('strand2', s2, 0.12, back)
-    C.cam(60, (2.6, -5.2, 1.5), (0.3, 0, 0), fstop=0.9)
-    C.area('key', (-2, -5, 5), (0, 0, 0), 5, 900, (1.0, 0.95, 0.9))
-    C.area('rim', (5, 5, 2), (0, 0, 0), 4, 2500, (0.4, 0.6, 1.0))
-    C.area('fill', (-6, 2, -3), (0, 0, 0), 6, 300, (1.0, 0.5, 0.4))
+    from mathutils import Quaternion
+    c = C.cam(50, (1.2, -11.0, 2.6), (0.2, 0, -0.1), fstop=0.35)
+    c.rotation_euler = (c.rotation_euler.to_quaternion() @ Quaternion((0, 0, 1), math.radians(-22))).to_euler()   # спіраль іде діагоналлю кадру
+    C.area('key', (-3, -7, 6), (0, 0, 0), 6, 1500, (1.0, 0.95, 0.9))
+    C.area('rim', (6, 6, 3), (0, 0, 0), 5, 4000, (0.4, 0.6, 1.0))
+    C.area('fill', (-7, 2, -4), (0, 0, 0), 6, 500, (1.0, 0.5, 0.4))
     return {
         'kicker': 'Клітина · ядро', 'title': 'ДНК', 'sub': 'Дві нитки, чотири літери:\nA — T, G — C', 'scrim': 'left', 'title_at': [96, 96],
-        'labels': [{'text': 'цукрово-фосфатний остов', 'p': s1[22], 'at': [1300, 150], 'align': 'left'},
-                   {'text': 'пара основ', 'sub': 'A — T або G — C', 'p': [(a + b) / 2 for a, b in zip(s1[19], s2[19])], 'at': [1340, 880], 'align': 'left'}],
+        'labels': [{'text': 'цукрово-фосфатний остов', 'p': s1[26], 'at': [1290, 900], 'align': 'left'},
+                   {'text': 'пара основ', 'sub': 'A — T або G — C', 'p': [(a + b) / 2 for a, b in zip(s1[16], s2[16])], 'at': [300, 820], 'align': 'left'}],
     }
