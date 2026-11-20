@@ -1,0 +1,22 @@
+{
+  "title": "Анемія за одну хвилину",
+  "fps": 24,
+  "voice": {"voiceId": "lBvcwD2nQgxr2mkKA71z", "model": "eleven_v4", "languageCode": "uk"},
+  "shots": [
+    {"id": "n1", "shot": "flow",
+     "text": "Щосекунди ваш кістковий мозок випускає в кров близько двох мільйонів еритроцитів. Кожен несе гемоглобін — білок, що доставляє тканинам кисень."},
+    {"id": "n2", "shot": "flow",
+     "text": "Анемія — це коли гемоглобіну замало. За критеріями ВООЗ — менше ста тридцяти грамів на літр у чоловіків, менше ста двадцяти у жінок і менше ста десяти у вагітних."},
+    {"id": "n3", "shot": "third",
+     "text": "У світі анемію має майже кожна третя жінка репродуктивного віку. Найчастіша причина — дефіцит заліза."},
+    {"id": "n4", "shot": "sizes",
+     "text": "Першу підказку дає розмір еритроцита. Дрібні й бліді клітини — шукайте дефіцит заліза. Великі — нестачу вітаміну бе-дванадцять або фолатів."},
+    {"id": "n5", "shot": "outro",
+     "text": "Втома, блідість, задишка — це ще не діагноз. Анемія — завжди наслідок. Завдання лікаря — знайти причину."}
+  ],
+  "sources": [
+    {"id": "s1", "text": "WHO. Guideline on haemoglobin cutoffs to define anaemia in individuals and populations. 2024", "url": "https://www.who.int/publications/i/item/9789240088542"},
+    {"id": "s2", "text": "WHO. Anaemia: fact sheet. 10.02.2025", "url": "https://www.who.int/news-room/fact-sheets/detail/anaemia"},
+    {"id": "s3", "text": "WHO Global Health Observatory. Anaemia in women and children. 2025", "url": "https://www.who.int/data/gho/data/themes/topics/anaemia_in_women_and_children"}
+  ]
+}
